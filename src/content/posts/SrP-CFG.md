@@ -354,6 +354,10 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 
 这是本人所使用的一套`CFG`预设文件，包含了多个场景的`CFG`使用需求，且长期维护更新，保证有效可用。
 
+::github{repo="RolinShmily/SrP-CFG_ForCS2"}
+
+![仓库活动](https://repobeats.axiom.co/api/embed/55700fe0f86a32b2418b023fa87c8ec214153ef0.svg "Repobeats analytics image")
+
 ## 启动项
 
 ```ini
