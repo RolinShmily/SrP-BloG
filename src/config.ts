@@ -32,7 +32,7 @@ export const siteConfig: SiteConfig = {
 	favicon: [
 		// Leave this array empty to use the default favicon
 		{
-			src: "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/hexo/20251025205948783.ico", // Path of the favicon, relative to the /public directory
+			src: "/favicon/favicon.ico", // Path of the favicon, relative to the /public directory
 			//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
 			//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
 		},
@@ -54,7 +54,7 @@ export const navBarConfig: NavBarConfig = {
 
 export const profileConfig: ProfileConfig = {
 	avatar:
-		"https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/hexo/20251025210815374.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+		"assets/images/mzm.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
 	name: "RoL1n",
 	bio: "私はバンド楽しいっておもったこと、一度もない",
 	links: [
