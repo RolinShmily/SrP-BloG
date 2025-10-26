@@ -30,6 +30,16 @@
 
 后续会将托管域名重定向一个统一域名。
 
+## 图片来源
+
+本网站使用的部分图片来自：
+
+**Pixiv**
+- [若葉睦](https://www.pixiv.net/artworks/131799508) uploaded by [DarkAccel](https://www.pixiv.net/users/3439532)
+
+**Wallhaven**
+- [r2ykww](https://wallhaven.cc/w/r2ykww) uploaded by [MrJimmyJam](https://wallhaven.cc/user/MrJimmyJam)
+
 ## Cookie 和本地存储
 
 我们的网站可能使用以下技术：
