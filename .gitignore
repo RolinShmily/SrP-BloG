@@ -26,6 +26,8 @@ package-lock.json
 bun.lockb
 yarn.lock
 
+.vscode
+
 # ide
 .idea
 *.iml
