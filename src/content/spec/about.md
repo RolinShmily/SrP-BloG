@@ -42,6 +42,9 @@
 **Wallhaven**
 - [r2ykww](https://wallhaven.cc/w/r2ykww) uploaded by [MrJimmyJam](https://wallhaven.cc/user/MrJimmyJam)
 
+**Steam创意工坊**
+- [CS2 PRO'S SIGNATURE 2024dark](https://steamcommunity.com/sharedfiles/filedetails/?id=3247661253) uploaded by [易烊菜坤_NORMAL](https://steamcommunity.com/id/haza1040)
+
 ## Cookie 和本地存储
 
 我们的网站可能使用以下技术：
