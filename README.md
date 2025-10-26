@@ -6,6 +6,7 @@
 
 <img src="https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/hexo/20251025205948783.ico" alt="图标">
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ad6055c9-6f93-4173-963b-b0910a02127e/deploy-status)](https://app.netlify.com/projects/srp-blog/deploys)
 [![stars](https://img.shields.io/github/stars/RolinShmily/SrP-BloG.svg?style=flat&color=green)](https://github.com/RolinShmily/SrP-BloG)
 [![fork](https://img.shields.io/github/forks/RolinShmily/SrP-BloG.svg?style=flat&color=critical)](https://github.com/RolinShmily/SrP-BloG)
 ![license](https://img.shields.io/badge/license-GPL%203-orange.svg?style=flat)
