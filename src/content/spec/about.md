@@ -8,6 +8,8 @@
 
 ::github{repo="RolinShmily/SrP-BloG"}
 
+![Alt](https://repobeats.axiom.co/api/embed/1f000384d6face53ef69c9ee9c0e59a7010d1465.svg "Repobeats analytics image")
+
 ## 网站性质
 
 本网站是一个静态网站，这意味着：
