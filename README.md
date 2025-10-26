@@ -4,6 +4,8 @@
 
 <div align="center">
 
+<img src="https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/hexo/20251025205948783.ico" alt="图标">
+
 [![stars](https://img.shields.io/github/stars/RolinShmily/SrP-BloG.svg?style=flat&color=green)](https://github.com/RolinShmily/SrP-BloG)
 [![fork](https://img.shields.io/github/forks/RolinShmily/SrP-BloG.svg?style=flat&color=critical)](https://github.com/RolinShmily/SrP-BloG)
 ![license](https://img.shields.io/badge/license-GPL%203-orange.svg?style=flat)
