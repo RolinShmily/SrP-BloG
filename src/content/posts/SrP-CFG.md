@@ -372,6 +372,7 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 下载地址：
 
 - [SrP-CFG 项目 Release](https://github.com/RolinShmily/SrP-CFG_ForCS2/releases) | 需要自行解决 GitHub 连接问题
+- [Gitee 镜像仓库 Release](https://gitee.com/srprolin/SrP-CFG_ForCS2/releases/tag/latest) | 国内的代码托管平台，访问无忧
 - [百度网盘永久链接](https://pan.baidu.com/s/1XT_9V8JiPBruEBeHwz4jSw)(提取码:`SCFG`) | 文件较小，限速不影响
 
 具体的功能、按键绑定查看：
