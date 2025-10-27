@@ -1,12 +1,12 @@
 ---
 title: SrP-CFG 游戏设置预设文件 | CS2
 published: 2025-04-12
-description: '有关游戏CS2的全面配置文件解读，分享自用的CFG预设文件组，提升游戏体验与统一度'
-image: '../assets/images/CS2_PRO_signature.jpg'
-tags: [CS2,CSGO,CFG,Vavle,Steam]
-category: ''
+description: "有关游戏CS2的全面配置文件解读，分享自用的CFG预设文件组，提升游戏体验与统一度"
+image: "../assets/images/CS2_PRO_signature.jpg"
+tags: [CS2, CSGO, CFG, Vavle, Steam]
+category: ""
 draft: false
-lang: ''
+lang: ""
 ---
 
 # 简介
@@ -342,23 +342,7 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 -noreflex //取消游戏内的reflex功能，可以在NVIDIA控制面板中开启
 ```
 
-启动项设置位置已在前文提出，下面是位置图例：
-
-![qidong](../assets/images/PixPin_2025-04-13_00-11-22.webp)
-
-# SrP-CFG_ForCS2
-
-> 本人的`CFG`预设文件已经在`GitHub仓库`[SrP-CFG_ForCS2](https://github.com/RolinShmily/SrP-CFG_ForCS2)中发布
-> 你也可以来到我的个人网盘[SrP-BloG](https://cloud.srprolin.top)中下载最新版本的`CFG`文件
-> 如果你连接`GitHub`并不顺畅，可以来到[Gitee 的镜像仓库](https://gitee.com/srprolin/SrP-CFG_ForCS2)来读取使用文档
-
-这是本人所使用的一套`CFG`预设文件，包含了多个场景的`CFG`使用需求，且长期维护更新，保证有效可用。
-
-::github{repo="RolinShmily/SrP-CFG_ForCS2"}
-
-![仓库活动](https://repobeats.axiom.co/api/embed/55700fe0f86a32b2418b023fa87c8ec214153ef0.svg "Repobeats analytics image")
-
-## 启动项
+下面是本人的启动项：
 
 ```ini
 -allow_third_party_software -high -noreflex -noborder -worldwide
@@ -366,27 +350,42 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 
 我所采用的游戏优化方案是`锁帧`，因此我在启动项中添加`-noreflex`禁用了游戏内的`NVIDIA低延迟策略`，并在`NVIDIA控制面板`中也禁用了`程序CS2`的`Reflex`功能。
 
+启动项设置位置已在前文提出，下面是位置图例：
+
+![qidong](../assets/images/PixPin_2025-04-13_00-11-22.webp)
+
+# SrP-CFG_ForCS2
+
+> 本人的`CFG`预设文件已经在`GitHub仓库`[SrP-CFG_ForCS2](https://github.com/RolinShmily/SrP-CFG_ForCS2)中发布
+
+这是本人所使用的一套`CFG`预设文件，包含了多个场景的`CFG`使用需求，且长期维护更新，保证有效可用。
+
+::github{repo="RolinShmily/SrP-CFG_ForCS2"}
+
+![仓库活动](https://repobeats.axiom.co/api/embed/55700fe0f86a32b2418b023fa87c8ec214153ef0.svg "Repobeats analytics image")
+
 ## CFG 预设的使用说明
 
-可以在[仓库 Release](https://github.com/RolinShmily/SrP-CFG_ForCS2/releases)中下载该套预设
+> 该套预设的`Wiki`已经在`GitHub`仓库的`README`文件中写明，请[前往阅读](https://github.com/RolinShmily/SrP-CFG_ForCS2)
+> 如果你连接`GitHub`并不顺畅，可以来到[Gitee 的镜像仓库](https://gitee.com/srprolin/SrP-CFG_ForCS2)来读取使用文档
 
-- 国内用户或下载速度不佳的可到[SrP-Cloud](https://openlist.srprolin.top)中下载该套预设
+下载地址：
 
-该套预设的`Wiki`已经在`GitHub`仓库的`README`文件中写明，请[前往阅读](https://github.com/RolinShmily/SrP-CFG_ForCS2)
+- [SrP-CFG 项目 Release](https://github.com/RolinShmily/SrP-CFG_ForCS2/releases) | 需要自行解决 GitHub 连接问题
+- [百度网盘永久链接](https://pan.baidu.com/s/1XT_9V8JiPBruEBeHwz4jSw)(提取码:`SCFG`) | 文件较小，限速不影响
 
-- 国内用户请到[Gitee 镜像仓库](https://gitee.com/srprolin/SrP-CFG_ForCS2)阅读
+具体的功能、按键绑定查看：
 
-下面是一组图文教程，如何下载(以 SrP-Cloud 下载为例)并使用该套`CFG`预设：
+- [SrP-CFG 项目 README](https://github.com/RolinShmily/SrP-CFG_ForCS2) | 需要自行解决 GitHub 连接问题
+- [Gitee 镜像仓库 README](https://gitee.com/srprolin/SrP-CFG_ForCS2) | 国内的代码托管平台，访问无忧
 
-1. 前往[SrP-Cloud](https://openlist.srprolin.top),找到目标文件夹。
+下面是一组图文教程，如何下载(以 [百度网盘永久链接](https://pan.baidu.com/s/1XT_9V8JiPBruEBeHwz4jSw) 下载为例)并使用该套`CFG`预设：
 
-![目标文件夹](../assets/images/20251014201023603.png)
-
-2. 打包下载目标文件夹。
+1. 打包下载目标文件夹。
 
 ![打包下载](../assets/images/20251014201509174.png)
 
-3. 进入`游戏全局CFG`文件夹，将压缩包解压。
+2. 进入`游戏全局CFG`文件夹，将压缩包解压。
 
 ![解压](../assets/images/20251014202224977.png)
 

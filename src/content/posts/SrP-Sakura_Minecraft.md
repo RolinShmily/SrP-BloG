@@ -1,12 +1,12 @@
 ---
 title: SrP-Sakura_Wiki For Minecraft | 草稿
 published: 2025-10-13
-description: '本文将介绍自建的插件服务器功能，发布适用于原版生存的辅助性整合包，并为其所添加的mod、资源进行介绍说明'
-image: '../assets/images/PixPin_2025-08-04_15-10-35.png'
-tags: [Minecraft,Server,Wiki,Client,整合包,服务器]
-category: ''
+description: "本文将介绍自建的插件服务器功能，发布适用于原版生存的辅助性整合包，并为其所添加的mod、资源进行介绍说明"
+image: "../assets/images/PixPin_2025-08-04_15-10-35.png"
+tags: [Minecraft, Server, Wiki, Client, 整合包, 服务器]
+category: ""
 draft: false
-lang: ''
+lang: ""
 ---
 
 # SrP-Sakura 服务端
@@ -142,9 +142,18 @@ lang: ''
 
 # SrP-Sakura 客户端
 
-> 客户端已在[SrP-Cloud](https://cloud.srprolin.top/)中发布
-> `SrP-Sakura_Client.zip`为 `CurseForge` 标准包，而`SrP-Sakura_Client.mrpack`为 `Modrinth` 标准包。
-> 选择任意一个包，选择任意启动器，在启动器整合包选项中选择导入，或者直接拖入文件，等待启动器识别下载完成后即可游玩。
+> 客户端整合包已在下列链接中发布:
+> 选择任意一个标准的整合包，选择任意启动器，在启动器整合包选项中选择导入，或者直接拖入文件，等待启动器识别下载完成后即可游玩。
+
+`Cloudflare R2`：
+
+- [CurseForge 标准整合包](https://r2.srprolin.top/SrP-Sakura_MC/%5BCurseForge%5DSrP-Sakura_Client%201.0.0.zip)
+- [Modrinth 标准整合包](https://r2.srprolin.top/SrP-Sakura_MC/%5BModrinth%5DSrP-Sakura_Client%201.0.0.mrpack)
+- [MultiMC 标准整合包](https://r2.srprolin.top/SrP-Sakura_MC/%5BMultiMC%5DSrP-Sakura_Client%201.0.0.zip)
+
+`百度网盘链接`：
+
+- [SrP-Sakura 客户端整合包](https://pan.baidu.com/s/1AIs61KvlTK6Fi_w9TGZpSg)；提取码:`SSMC`
 
 ## 启动器推荐
 
