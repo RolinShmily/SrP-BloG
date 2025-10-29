@@ -34,9 +34,9 @@
 - 用途：提供 CDN 服务、网站托管、安全防护、性能优化
 - 域名：`srp-blog.netlify.app`
 
-**阿里云 ECS**
+**阿里云 CDN**
 
-- 使用`Nginx`作为 Web 服务器和反向代理
+- 自动化刷新 CDN 缓存
 - 主域名:`blog.srprolin.top`,
 
 ## 图片来源
