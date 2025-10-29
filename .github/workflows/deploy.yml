@@ -36,12 +36,12 @@ jobs:
 
       - name: Deploy with rsync
         run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" \
+          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }}" \
             ./dist/ \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:${{ secrets.SERVER_STATIC_DIR }}/
 
       - name: Reload Nginx
         run: |
-          ssh -o StrictHostKeyChecking=no \
+          ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} \
             ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
             'sudo systemctl reload nginx'
