@@ -22,21 +22,22 @@
 
 网站内容本身是静态的，但会使用一些第三方服务，部分服务可能会收集处理您的信息：
 
-### CDN 和托管服务
+### 托管服务
 
 本网站由以下服务提供商托管：
 
 **Netlify**
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/ad6055c9-6f93-4173-963b-b0910a02127e/deploy-status)](https://app.netlify.com/projects/srp-blog/deploys)
-
 - 可能收集的信息：IP 地址、访问时间、请求的页面、浏览器信息
 - 用途：提供 CDN 服务、网站托管、安全防护、性能优化
 - 域名：`srp-blog.netlify.app`
 
+### CDN
+
 **阿里云 CDN**
 
-- 自动化刷新 CDN 缓存
+- 可能收集的信息：IP 地址、访问时间、请求的页面、浏览器信息
+- 用途：提供 CDN 服务、安全防护、性能优化
 - 主域名:`blog.srprolin.top`,
 
 ## 图片来源
