@@ -75,8 +75,6 @@ jobs:
           ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
         run: |
           python ${{ github.workspace }}/.github/scripts/cdn_refresh.py \
-            -i "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" \
-            -k "${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}" \
             -r "${{ github.workspace }}/.github/scripts/urllist.txt" \
             -t "clear" \
             -o "Directory"
@@ -87,8 +85,6 @@ jobs:
           ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
         run: |
           python ${{ github.workspace }}/.github/scripts/cdn_refresh.py \
-            -i "${{ secrets.ALIYUN_ACCESS_KEY_ID }}" \
-            -k "${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}" \
             -r "${{ github.workspace }}/.github/scripts/urllist.txt" \
             -t "push" \
             -o "Directory"
