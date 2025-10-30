@@ -55,36 +55,39 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.9"
-
-      - name: Install dependencies
+      - name: Setup Aliyun CLI
         run: |
-          python -m pip install --upgrade pip
-          pip install aliyun-python-sdk-cdn aliyun-python-sdk-core
-          pip install alibabacloud_cdn20180510
+          wget -q https://aliyuncli.alicdn.com/aliyun-cli-linux-latest-amd64.tgz
+          tar xzf aliyun-cli-linux-latest-amd64.tgz
+          sudo mv aliyun /usr/local/bin/
+          aliyun configure set --profile default --mode AK \
+            --region cn-hangzhou \
+            --access-key-id ${{ secrets.ALIYUN_ACCESS_KEY_ID }} \
+            --access-key-secret ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
 
       - name: Wait for deployment to propagate
         run: sleep 5
 
       - name: Refresh CDN Cache (Clear)
-        env:
-          ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
         run: |
-          python ${{ github.workspace }}/.github/scripts/cdn_refresh.py \
-            -r "${{ github.workspace }}/.github/scripts/urllist.txt" \
-            -t "clear" \
-            -o "Directory"
+          echo "=== Starting CDN Cache Refresh ==="
+          while IFS= read -r url; do
+            if [[ -n "$url" ]]; then
+              echo "Refreshing: $url"
+              aliyun cdn RefreshObjectCaches \
+                --ObjectPath "$url" \
+                --ObjectType "Directory"
+            fi
+          done < .github/urllist.txt
 
       - name: Pre-warm CDN Cache (Push)
-        env:
-          ALIBABA_CLOUD_ACCESS_KEY_ID: ${{ secrets.ALIYUN_ACCESS_KEY_ID }}
-          ALIBABA_CLOUD_ACCESS_KEY_SECRET: ${{ secrets.ALIYUN_ACCESS_KEY_SECRET }}
         run: |
-          python ${{ github.workspace }}/.github/scripts/cdn_refresh.py \
-            -r "${{ github.workspace }}/.github/scripts/urllist.txt" \
-            -t "push" \
-            -o "Directory"
+          echo "=== Starting CDN Cache Preload ==="
+          while IFS= read -r url; do
+            if [[ -n "$url" ]]; then
+              echo "Preloading: $url"
+              aliyun cdn PushObjectCache \
+                --ObjectPath "$url" \
+                --Area "domestic"
+            fi
+          done < .github/urllist.txt
