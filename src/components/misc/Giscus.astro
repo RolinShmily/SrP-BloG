@@ -1,0 +1,91 @@
+---
+interface Props {
+  repo: string;
+  repoId: string;
+  category: string;
+  categoryId: string;
+  mapping?: string;
+  reactionsEnabled?: boolean;
+  emitMetadata?: boolean;
+  inputPosition?: 'top' | 'bottom';
+  lang?: string;
+}
+
+const {
+  repo,
+  repoId,
+  category,
+  categoryId,
+  mapping = 'pathname',
+  reactionsEnabled = true,
+  emitMetadata = false,
+  inputPosition = 'bottom',
+  lang = 'zh-CN'
+} = Astro.props;
+---
+
+<div id="giscus-container"></div>
+
+<script define:vars={{ repo, repoId, category, categoryId, mapping, reactionsEnabled, emitMetadata, inputPosition, lang }}>
+  function loadGiscus() {
+    const container = document.getElementById('giscus-container');
+    if (!container) return;
+
+    const isDark = document.documentElement.classList.contains('dark');
+    const theme = isDark ? 'dark' : 'light';
+
+    const script = document.createElement('script');
+    script.src = 'https://giscus.app/client.js';
+    script.setAttribute('data-repo', repo);
+    script.setAttribute('data-repo-id', repoId);
+    script.setAttribute('data-category', category);
+    script.setAttribute('data-category-id', categoryId);
+    script.setAttribute('data-mapping', mapping);
+    script.setAttribute('data-strict', '0');
+    script.setAttribute('data-reactions-enabled', reactionsEnabled ? '1' : '0');
+    script.setAttribute('data-emit-metadata', emitMetadata ? '1' : '0');
+    script.setAttribute('data-input-position', inputPosition);
+    script.setAttribute('data-theme', theme);
+    script.setAttribute('data-lang', lang);
+    script.setAttribute('data-loading', 'lazy');
+    script.crossOrigin = 'anonymous';
+    script.async = true;
+
+    container.appendChild(script);
+  }
+
+  function updateGiscusTheme() {
+    const giscusFrame = document.querySelector('iframe[src*="giscus"]');
+    if (giscusFrame) {
+      const isDark = document.documentElement.classList.contains('dark');
+      const theme = isDark ? 'dark' : 'light';
+
+      giscusFrame.contentWindow.postMessage({
+        giscus: {
+          setConfig: {
+            theme: theme
+          }
+        }
+      }, 'https://giscus.app');
+    }
+  }
+
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        updateGiscusTheme();
+      }
+    });
+  });
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadGiscus);
+  } else {
+    loadGiscus();
+  }
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>
