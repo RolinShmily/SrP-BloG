@@ -43,6 +43,19 @@
 - (网络)请求重定向区域：海外
 - 域名：`srp-blog.vercel.app`
 
+### 评论区服务
+
+由[giscus](https://giscus.app/)提供：
+
+- 无跟踪，无广告，永久免费。📡 🚫
+- 无需数据库，所有数据均储存在 GitHub Discussions 中。
+- 自动从 GitHub 拉取新评论与编辑。🔃
+
+请注意，若进行评论：
+
+- 必须按照 [GitHub OAuth](https://docs.github.com/zh/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps) 流程授权 [giscus](https://github.com/giscus) app 代表它发布
+- 或者可以直接在项目 [GitHub Discussion](https://github.com/RolinShmily/SrP-BloG/discussions) 里评论。
+
 ## 图片来源
 
 本网站使用的部分图片来自：
