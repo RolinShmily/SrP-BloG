@@ -36,6 +36,8 @@
 
 **Vercel**
 
+![Vercel](https://vercelbadge.vercel.app/api/RolinShmily/SrP-BloG)
+
 - 可能收集的信息：IP 地址、访问时间、请求的页面、浏览器信息
 - 用途：提供 CDN 服务、网站托管、安全防护、性能优化
 - (网络)请求重定向区域：海外
