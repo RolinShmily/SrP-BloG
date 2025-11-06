@@ -1,5 +1,5 @@
 ---
-title: SrP-Sakura_Wiki For Minecraft | 草稿
+title: SrP-Sakura For Minecraft | 草稿
 published: 2025-10-13
 description: "本文将介绍自建的插件服务器功能，发布适用于原版生存的辅助性整合包，并为其所添加的mod、资源进行介绍说明"
 image: "../assets/images/PixPin_2025-08-04_15-10-35.png"
@@ -8,6 +8,12 @@ category: ""
 draft: false
 lang: ""
 ---
+
+# Wiki
+
+该文章列写了`SrP-Sakura`的客户端和服务端所用的各种资源，详细的命令、按键功能、插件管理说明请到`Wiki`文档中查看:
+
+- [The Wiki For SrP-Sakura](https://doc.srprolin.top/posts/SrP-Sakura_MC/ssmc-1.md) | (一个用`vitepress`搭建的文档页)
 
 # SrP-Sakura 服务端
 
@@ -48,112 +54,59 @@ lang: ""
 - [Modrith](https://modrinth.com/)
 - [Github](https://github.com/)
 
-### EssentialsX
+插件列表：
 
-[EssentialsX](https://essentialsx.net/wiki/Home.html)可以说是一个童年插件了，像有名的`/back`、`/home`、`/tpa`指令基本都来自这个插件。可见它是一个基础性的聚合大插件，我们将以此为基础构建插件生态。
+- [EssentialsX](https://essentialsx.net/wiki/Home.html)可以说是一个童年插件了，像有名的`/back`、`/home`、`/tpa`指令基本都来自这个插件。可见它是一个基础性的聚合大插件，我们将以此为基础构建插件生态。
 
-### LuckPerms
+- [LuckPerms](https://luckperms.net/wiki/Home)是一个权限组管理插件，它也是在`EssentialsX`文档中被提名的姐妹花，用它管理权限的优势是可以在`Web网页端`可视化操作。
 
-[LuckPerms](https://luckperms.net/wiki/Home)是一个权限组管理插件，它也是在`EssentialsX`文档中被提名的姐妹花，用它管理权限的优势是可以在`Web网页端`可视化操作。
+- [Multiverse](https://mvplugins.org/)又名**多元宇宙**旨在实现一台服务器，无限可能。它是大型服务器必不可少的一款插件，它能在原版服务器地图的基础上创建新的地图，并为新世界创建规则；同时其中的门户组件，又能为世界中构建出类似**地狱门**的传送门，而不必需要命令行来实现多世界传送。
 
-### Multiverse
+- [WorldEdit](https://worldedit.enginehub.org/en/latest/quickstart/)又名创世神，是专为快速建造的模组，同时它也可以作为插件供服务器安装，能够支持`WorldEdit`的各种快速建造指令。
 
-[Multiverse](https://mvplugins.org/)又名**多元宇宙**旨在实现一台服务器，无限可能。它是大型服务器必不可少的一款插件，它能在原版服务器地图的基础上创建新的地图，并为新世界创建规则；同时其中的门户组件，又能为世界中构建出类似**地狱门**的传送门，而不必需要命令行来实现多世界传送。
+- [WorldGuard](https://worldguard.enginehub.org/en/latest/)是一个老牌的世界保护插件，它能够直接在文件中写明对某一世界的规则更改，例如苦力怕的爆炸是否会破坏方块；同时，它也支持对多元宇宙所创建世界的规则更改；结合多元宇宙，和`WorldGuard`的区域规则定义，就可以成功建造一个有模有样的**主城**了。
 
-### WorldEdit
+- [Chunky](https://github.com/pop4959/Chunky/wiki/Commands)是一个避免服务器卡顿的预渲染插件，它可以通过终端命令，自行预加载一定范围内的地图资源，这样避免了玩家在跑图时，由于服务器性能不足而导致的卡顿。
 
-[WorldEdit](https://worldedit.enginehub.org/en/latest/quickstart/)又名创世神，是专为快速建造的模组，同时它也可以作为插件供服务器安装，能够支持`WorldEdit`的各种快速建造指令。
+- [MiniMOTD](https://github.com/jpenilla/MiniMOTD/wiki)能够更改服务器在`多人游戏`选项页面的显示效果。
 
-### WorldGuard
+- [TAB](https://www.spigotmc.org/resources/tab-1-7-x-1-21-10.57806/)是对原版的`TAB`面板进行了优化，并显示更多信息，同时又能够在画面上常显示计分板，用来展示一些必要信息十分好用。
 
-[WorldGuard](https://worldguard.enginehub.org/en/latest/)是一个老牌的世界保护插件，它能够直接在文件中写明对某一世界的规则更改，例如苦力怕的爆炸是否会破坏方块；同时，它也支持对多元宇宙所创建世界的规则更改；结合多元宇宙，和`WorldGuard`的区域规则定义，就可以成功建造一个有模有样的**主城**了。
+- [DecentHolograms](https://wiki.decentholograms.eu/)是一款功能非常多样的全息图插件，提供多种功能和自定义选项，可以轻松创建独特的个性化全息图。通过用户友好的命令界面，您可以轻松创建和自定义全息图，而无需编辑任何配置文件。
 
-### Chunky
+- [Simple Voice Chat](https://modrepo.de/minecraft/voicechat/overview)是一款语音聊天模组，也可以作为服务器插件使用，可以支持在游戏中组队麦克风通信。
 
-[Chunky](https://github.com/pop4959/Chunky/wiki/Commands)是一个避免服务器卡顿的预渲染插件，它可以通过终端命令，自行预加载一定范围内的地图资源，这样避免了玩家在跑图时，由于服务器性能不足而导致的卡顿。
+- [SkinsRestorer](https://skinsrestorer.net/docs)是一款用于恢复离线模式服务器和网络皮肤的插件，让玩家只需输入一条命令即可更换皮肤。此外，`SkinsRestorer` 还支持在大型网络中缓存皮肤。
 
-### MiniMOTD
+- [Infinite Villager Trading](https://modrinth.com/plugin/infinite-villager-trading?version=1.21.4&loader=spigot)插件旨在增强您的 Minecraft 服务器，提供村民交易的即时补货功能。使用此插件，您可以轻松配置各种交易机制，以适应您的游戏风格。
 
-[MiniMOTD](https://github.com/jpenilla/MiniMOTD/wiki)能够更改服务器在`多人游戏`选项页面的显示效果。
+- [MobsToEggs](https://gitlab.com/sugarfyi-team/public/mobstoeggs-public/-/wikis/home)是一个趣味插件，可以用鸡蛋将生物进行捕捉，并转化为该生物蛋，请注意该行为是有概率的。
 
-### TAB
+- [Graves](https://github.com/AvarionMC/graves)是一个全功能轻量级死亡宝箱插件/玩家墓穴插件！它囊括了您所需的一切功能，甚至更多！同时兼具轻量级和高效性。
 
-[TAB](https://www.spigotmc.org/resources/tab-1-7-x-1-21-10.57806/)是对原版的`TAB`面板进行了优化，并显示更多信息，同时又能够在画面上常显示计分板，用来展示一些必要信息十分好用。
+- [GSit](https://www.spigotmc.org/resources/gsit-modern-sit-seat-and-chair-lay-and-crawl-plugin-1-16-1-21-9.62325/)可以让你坐在楼梯/椅子上，在地面上躺下、扑腾、旋转和爬行。
 
-### DecentHolograms
+- [ImageFrame](https://modrinth.com/plugin/imageframe)将图像加载到地图和物品展示框上;从 URL 加载图像;支持 PNG、JPEG、WEBP 和 GIF;以地图形式或直接在物品展示框中获取它们！（使用智能选择工具选择您的物品展示框！）;自动图像调整意味着您的图像不会被拉伸！
 
-[DecentHolograms](https://wiki.decentholograms.eu/)是一款功能非常多样的全息图插件，提供多种功能和自定义选项，可以轻松创建独特的个性化全息图。通过用户友好的命令界面，您可以轻松创建和自定义全息图，而无需编辑任何配置文件。
+- [ItemframeSnipper](https://modrinth.com/plugin/itemframe)是`ImageFrame`的一个拓展，它将**剪刀**的功能拓展为，剪切掉物品展示框的突出显示。
 
-### Simple Voice Chat
+- [InteractiveChat](https://modrinth.com/plugin/interactivechat)有了这个插件，你就可以和朋友们展示你手中的物品、物品栏内容和末影箱内容了！
 
-[Simple Voice Chat](https://modrepo.de/minecraft/voicechat/overview)是一款语音聊天模组，也可以作为服务器插件使用，可以支持在游戏中组队麦克风通信。
+- [InteractionVisualizer](https://modrinth.com/plugin/interactionvisualizer)有了这个插件，你就可以！在 GUI 中实时查看玩家放入工作台的物品！
 
-### SkinsRestorer
+插件依赖：
 
-[SkinsRestorer](https://skinsrestorer.net/docs)是一款用于恢复离线模式服务器和网络皮肤的插件，让玩家只需输入一条命令即可更换皮肤。此外，`SkinsRestorer` 还支持在大型网络中缓存皮肤。
+- [Vault](https://github.com/milkbowl/Vault)是一个免费的开源 API 库，并且不需要额外代码；这个插件与之前的插件是具有强关联性的，只有安装了它才能完善它们的功能，例如基于`EssentialsX`的经济系统，`LuckPerms`的权限组显示等。
 
-### Infinite Villager Trading
+- [PlaceholderAPI](https://wiki.placeholderapi.com/)顾名思义是一个占位符插件，也是`TAB`插件正常显示的基础，例如`%player_name%`的显示。
 
-[Infinite Villager Trading](https://modrinth.com/plugin/infinite-villager-trading?version=1.21.4&loader=spigot)插件旨在增强您的 Minecraft 服务器，提供村民交易的即时补货功能。使用此插件，您可以轻松配置各种交易机制，以适应您的游戏风格。
+- [ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) 是一个允许对 Minecraft 协议进行读写访问的库，它的作用只是让其他插件能够正常运行。
 
-### MobsToEggs
-
-[MobsToEggs](https://gitlab.com/sugarfyi-team/public/mobstoeggs-public/-/wikis/home)是一个趣味插件，可以用鸡蛋将生物进行捕捉，并转化为该生物蛋，请注意该行为是有概率的。
-
-### Graves
-
-[Graves](https://github.com/AvarionMC/graves)是一个全功能轻量级死亡宝箱插件/玩家墓穴插件！它囊括了您所需的一切功能，甚至更多！同时兼具轻量级和高效性。
-
-### GSit
-
-[GSit](https://www.spigotmc.org/resources/gsit-modern-sit-seat-and-chair-lay-and-crawl-plugin-1-16-1-21-9.62325/)可以让你坐在楼梯/椅子上，在地面上躺下、扑腾、旋转和爬行。
-
-### ImageFrame
-
-[ImageFrame](https://modrinth.com/plugin/imageframe)将图像加载到地图和物品展示框上;从 URL 加载图像;支持 PNG、JPEG、WEBP 和 GIF;以地图形式或直接在物品展示框中获取它们！（使用智能选择工具选择您的物品展示框！）;自动图像调整意味着您的图像不会被拉伸！
-
-### ItemframeSnipper
-
-[ItemframeSnipper](https://modrinth.com/plugin/itemframe)是`ImageFrame`的一个拓展，它将**剪刀**的功能拓展为，剪切掉物品展示框的突出显示。
-
-### InteractiveChat
-
-[InteractiveChat](https://modrinth.com/plugin/interactivechat)有了这个插件，你就可以和朋友们展示你手中的物品、物品栏内容和末影箱内容了！
-
-### InteractionVisualizer
-
-[InteractionVisualizer](https://modrinth.com/plugin/interactionvisualizer)有了这个插件，你就可以！在 GUI 中实时查看玩家放入工作台的物品！
-
-### Vault
-
-[Vault](https://github.com/milkbowl/Vault)是一个免费的开源 API 库，并且不需要额外代码；这个插件与之前的插件是具有强关联性的，只有安装了它才能完善它们的功能，例如基于`EssentialsX`的经济系统，`LuckPerms`的权限组显示等。
-
-### PlaceholderAPI
-
-[PlaceholderAPI](https://wiki.placeholderapi.com/)顾名思义是一个占位符插件，也是`TAB`插件正常显示的基础，例如`%player_name%`的显示。
-
-### ProtocolLib
-
-[ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/) 是一个允许对 Minecraft 协议进行读写访问的库，它的作用只是让其他插件能够正常运行。
-
-### Adventure
-
-[Adventure](https://docs.papermc.io/adventure/getting-started/)旨在提供与聊天组件交互所需的核心库。
+- [Adventure](https://docs.papermc.io/adventure/getting-started/)旨在提供与聊天组件交互所需的核心库。
 
 # SrP-Sakura 客户端
 
-> 客户端整合包已在下列链接中发布:
-> 选择任意一个标准的整合包，选择任意启动器，在启动器整合包选项中选择导入，或者直接拖入文件，等待启动器识别下载完成后即可游玩。
-
-`Cloudflare R2`：
-
-- [CurseForge 标准整合包](https://r2.srprolin.top/SrP-Sakura_MC/%5BCurseForge%5DSrP-Sakura_Client%201.0.0.zip)
-- [Modrinth 标准整合包](https://r2.srprolin.top/SrP-Sakura_MC/%5BModrinth%5DSrP-Sakura_Client%201.0.0.mrpack)
-- [MultiMC 标准整合包](https://r2.srprolin.top/SrP-Sakura_MC/%5BMultiMC%5DSrP-Sakura_Client%201.0.0.zip)
-
-`百度网盘链接`：
-
-- [SrP-Sakura 客户端整合包](https://pan.baidu.com/s/1AIs61KvlTK6Fi_w9TGZpSg)；提取码:`SSMC`
+该**纯净生存辅助整合包**下载地址在[Wiki的附属整合包页](https://doc.srprolin.top/posts/SrP-Sakura_MC/ssmc-2.md)中提供。
 
 ## 启动器推荐
 

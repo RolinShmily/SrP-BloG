@@ -364,23 +364,14 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 
 ![仓库活动](https://repobeats.axiom.co/api/embed/55700fe0f86a32b2418b023fa87c8ec214153ef0.svg "Repobeats analytics image")
 
-## CFG 预设的使用说明
+你会需要的链接：
 
-> 该套预设的`Wiki`已经在`GitHub`仓库的`README`文件中写明，请[前往阅读](https://github.com/RolinShmily/SrP-CFG_ForCS2)
-> 如果你连接`GitHub`并不顺畅，可以来到[Gitee 的镜像仓库](https://gitee.com/srprolin/SrP-CFG_ForCS2)来读取使用文档
+- [项目说明书](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-1.html) | 本项目的一些废话
+- [下载地址](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-2.html) | 顾名思义
+- [使用指南]((https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-3.html)) | 按键、控制台命令功能表
+- [更新日志]((https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-4.html)) | 查看最新更新
 
-下载地址：
-
-- [SrP-CFG 项目 Release](https://github.com/RolinShmily/SrP-CFG_ForCS2/releases) | 需要自行解决 GitHub 连接问题
-- [Gitee 镜像仓库 Release](https://gitee.com/srprolin/SrP-CFG_ForCS2/releases/tag/latest) | 国内的代码托管平台，访问无忧
-- [百度网盘永久链接](https://pan.baidu.com/s/1XT_9V8JiPBruEBeHwz4jSw)(提取码:`SCFG`) | 文件较小，限速不影响
-
-具体的功能、按键绑定查看：
-
-- [SrP-CFG 项目 README](https://github.com/RolinShmily/SrP-CFG_ForCS2) | 需要自行解决 GitHub 连接问题
-- [Gitee 镜像仓库 README](https://gitee.com/srprolin/SrP-CFG_ForCS2) | 国内的代码托管平台，访问无忧
-
-下面是一组图文教程，如何下载(以 [百度网盘永久链接](https://pan.baidu.com/s/1XT_9V8JiPBruEBeHwz4jSw) 下载为例)并使用该套`CFG`预设：
+下面是一组图文教程，如何下载并使用该套`CFG`预设：
 
 1. 打包下载目标文件夹。
 
@@ -389,15 +380,3 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 2. 进入`游戏全局CFG`文件夹，将压缩包解压。
 
 ![解压](../assets/images/20251014202224977.png)
-
-## 其余文件的说明
-
-> 你可以联系作者本人，将你的设置添加入仓库，进行存储和维护更新
-> 或者你可以修改本套`CFG`并向本人仓库提交`pr`，以一个新的分支来维护你的`CFG`
-
-`yszh\`和`echo\`文件夹中均为经过个性化修改后的`CFG`集
-
-已经在使用本套`CFG`并在仓库中得到更新和维护的用户：
-
-- `yszh`
-- `echo`
