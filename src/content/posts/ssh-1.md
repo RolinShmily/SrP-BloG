@@ -63,7 +63,7 @@ SSH 的基本结构和使用场景：
 
 - `sudo usermod -aG sudo <username>` | 其中`-aG`参数表示追加到指定组
 
-1. 编辑`sudo`配置文件(这里用 nano 编辑器)：
+2. 编辑`sudo`配置文件(这里用 nano 编辑器)：
 
 - `sudo nano /etc/sudoers`
 - - 找到(使用方向键)`root ALL=(ALL:ALL) ALL`这一行，在其下一行添加`<username> ALL=(ALL:ALL) ALL`，随后`Ctrl+X`退出编辑器，在提示框中键入`y`保存修改，最后`Enter`确认。
