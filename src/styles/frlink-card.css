@@ -1,0 +1,42 @@
+.frlink-card {
+  @apply flex flex-col gap-1 p-4 rounded-lg bg-[var(--card-bg)] hover:bg-black/5 dark:hover:bg-white/5;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+.frlink-card:active {
+  scale: 0.98;
+  background-color: var(--btn-regular-bg-active);
+}
+
+.frlink-card:hover {
+  background-color: var(--btn-regular-bg-hover);
+}
+
+.frlink-card:hover .font-bold {
+  color: var(--btn-content);
+}
+
+.frlink-card:hover .text-sm {
+  @apply text-gray-700 dark:text-white;
+}
+
+.frlink-card .font-bold,
+.frlink-card .text-sm {
+  transition-property: color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+
+@media (max-width: 640px) {
+.p-9 {
+    @apply p-6;
+}
+.text-2xl {
+    @apply text-xl;
+}
+.text-xl {
+    @apply text-lg;
+}
+}

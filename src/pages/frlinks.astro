@@ -1,0 +1,43 @@
+---
+import { getEntry, render } from "astro:content";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import { Icon } from "astro-icon/components";
+
+import type { FrlinksData } from "@/types/data";
+import frlinksjson from "@/data/frlinks.json";
+
+const frlinksMd = await getEntry("spec", "frlinks");
+if (!frlinksMd) throw new Error("友链说明文件未找到");
+
+const { Content } = await render(frlinksMd);
+const { frlinks } = frlinksjson as FrlinksData;
+---
+<MainGridLayout title="友链" description="友情链接 - 与优秀的创作者们相连，共享知识与成长">
+  <div class="w-full rounded-[var(--radius-large)] overflow-hidden relative">
+    <div class="card-base p-6 md:p-8">
+        <div class="flex items-center gap-2 mb-6">
+            <div class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white dark:text-black/70">
+                <Icon name="material-symbols:diversity-3" class="text-[1.5rem]">
+            </div>
+            <h1 class="text-2xl font-bold text-black dark:text-white">友链</h1>
+        </div>
+        <link rel="stylesheet" href="/src/styles/frlink-card.css" />
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {frlinks.map((frlink) => (
+                <a href={frlink.url} target="_blank" class="frlink-card">
+                    <div class="flex items-center gap-2">
+                        <img src={frlink.avatar} loading="lazy" class="w-5 h-5 rounded" alt={`${frlink.name}的头像`}>
+                        <div class="font-bold text-black dark:text-white">{frlink.name}</div>
+                    </div>
+                    <div class="text-sm text-black/50 dark:text-white/50">{frlink.description}</div>
+                </a>
+            ))}
+        </div>
+        <Markdown class="mb-10">
+            <Content />
+        </Markdown>
+    </div>
+  </div>
+</MainGridLayout>
+
