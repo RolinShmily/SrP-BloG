@@ -44,6 +44,14 @@ export type Favicon = {
 	sizes?: string;
 };
 
+// Umami 访问量统计配置类型
+export type UmamiConfig = {
+  enable: boolean;
+  baseUrl: string;
+  shareId: string;
+  timezone: string;
+};
+
 export enum LinkPreset {
 	Home = 0,
 	Archive = 1,

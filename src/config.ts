@@ -4,8 +4,17 @@ import type {
 	NavBarConfig,
 	ProfileConfig,
 	SiteConfig,
+    UmamiConfig,  // Umami 访问量配置
 } from "./types/config";
 import { LinkPreset } from "./types/config";
+
+// umami 访问量统计配置
+export const umamiConfig: UmamiConfig = {
+  enable: true,
+  baseUrl: "https://blog.srprolin.top",
+  shareId: "tdooqvF6eFrEwx1N",
+  timezone: "Asia/Shanghai",
+};
 
 export const siteConfig: SiteConfig = {
 	title: "SrP-BloG",
