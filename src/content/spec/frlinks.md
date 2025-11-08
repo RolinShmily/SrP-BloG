@@ -4,8 +4,9 @@
 
 ### 申请友链
 
-- 前往 GitHub 仓库[修改 JSON 文件]((https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/frlinks.json))，并提交 PR。
-- 按照[下方模板](https://blog.srprolin.top/frlinks/#My_Information)中的格式[发送邮件](mailto:mail@srprolin.top)至`mail@srprolin.top`
+- 前往 GitHub 仓库[修改 JSON 文件](https://github.com/RolinShmily/SrP-BloG/edit/main/src/data/frlinks.json)，并提交 PR。
+- 按照[下方模板](https://blog.srprolin.top/frlinks/#My_Information)中的格式，[发送邮件](mailto:mail@srprolin.top)至`mail@srprolin.top`
+- 按照[下方模板](https://blog.srprolin.top/frlinks/#My_Information)中的格式，在评论区留下你的信息
 
 ### My_Information
 

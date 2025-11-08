@@ -4,6 +4,9 @@ import MainGridLayout from "@layouts/MainGridLayout.astro";
 import Markdown from "@components/misc/Markdown.astro";
 import { Icon } from "astro-icon/components";
 
+// giscus评论区文章页集成
+import Giscus from "../components/misc/Giscus.astro";
+
 import type { FrlinksData } from "@/types/data";
 import frlinksjson from "@/data/frlinks.json";
 
@@ -37,6 +40,16 @@ const { frlinks } = frlinksjson as FrlinksData;
         <Markdown class="mb-10">
             <Content />
         </Markdown>
+
+        <!-- giscus评论区文章页集成 -->
+        <Giscus
+            repo="RolinShmily/SrP-BloG"
+            repoId="R_kgDOQI8WBA"
+            category="Announcements"
+            categoryId="DIC_kwDOQI8WBM4Cxde8"
+            lang="zh-CN"
+        />
+
     </div>
   </div>
 </MainGridLayout>

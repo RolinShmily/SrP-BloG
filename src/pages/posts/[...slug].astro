@@ -2,7 +2,10 @@
 import path from "node:path";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
+
+// giscus评论区文章页集成
 import Giscus from "../../components/misc/Giscus.astro";
+
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -108,6 +111,8 @@ const jsonLd = {
             </Markdown>
 
             {licenseConfig.enable && <License title={entry.data.title} slug={entry.slug} pubDate={entry.data.published} class="mb-6 rounded-xl license-container onload-animation"></License>}
+
+            <!-- giscus评论区文章页集成 -->
             <Giscus
                repo="RolinShmily/SrP-BloG"
                repoId="R_kgDOQI8WBA"
@@ -116,6 +121,7 @@ const jsonLd = {
                lang="zh-CN"
             />
             <br>
+
         </div>
     </div>
 
