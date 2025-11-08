@@ -62,7 +62,12 @@ export const navBarConfig: NavBarConfig = {
       name: "名片",
       url: "https://wwww.srprolin.top", // Internal links should not include the base path, as it is automatically added
       external: true, // Show an external link icon and will open in a new tab
-    }
+    },
+    {
+      name: "统计",
+      url: "https://srp-umami.vercel.app/share/qZ5qlJV3HavfnPEn", // Internal links should not include the base path, as it is automatically added
+      external: true, // Show an external link icon and will open in a new tab
+    },
   ],
 };
 
