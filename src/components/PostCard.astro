@@ -8,6 +8,9 @@ import { getDir } from "../utils/url-utils";
 import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
 
+// 引入umami逆向定义格式
+import { umamiConfig, statsConfig } from "../config";
+
 interface Props {
 	class?: string;
 	entry: CollectionEntry<"posts">;
@@ -73,6 +76,13 @@ const { remarkPluginFrontmatter } = await entry.render();
             <div>
                 {remarkPluginFrontmatter.minutes} {" " + i18n(remarkPluginFrontmatter.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)}
             </div>
+
+            <!-- umami逆向工程浏览量显示 -->
+            <div>|</div>
+            <div>
+                <span class="text-50 text-sm font-medium" id={`page-views-${entry.slug}`}>{statsConfig.loadingText}</span>
+            </div>
+
         </div>
 
     </div>
@@ -105,6 +115,74 @@ const { remarkPluginFrontmatter } = await entry.render();
     }
 </div>
 <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 md:hidden"></div>
+
+<!-- Umami逆向统计量展示 -->
+<script define:vars={{ entry, umamiConfig, unavailableText: statsConfig.unavailableText, viewsText: statsConfig.viewsText, visitsText: statsConfig.visitsText }}>
+    // 客户端统计文案生成函数
+    function generateStatsText(pageViews, visits) {
+        return `${viewsText} ${pageViews} · ${visitsText} ${visits}`;
+    }
+
+    // 获取文章浏览量统计
+    async function fetchPostCardViews(slug) {
+        if (!umamiConfig.enable) {
+            return;
+        }
+
+        try {
+            // 调用全局工具获取 Umami 分享数据
+            const { websiteId, token } = await getUmamiShareData(umamiConfig.baseUrl, umamiConfig.shareId);
+
+            // 第二步：获取统计数据
+            const currentTimestamp = Date.now();
+            const statsUrl = `${umamiConfig.baseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${currentTimestamp}&unit=hour&timezone=${encodeURIComponent(umamiConfig.timezone)}&path=eq.%2Fposts%2F${slug}%2F&compare=false`;
+
+            const statsResponse = await fetch(statsUrl, {
+                headers: {
+                    'x-umami-share-token': token
+                }
+            });
+
+            if (statsResponse.status === 401) {
+                clearUmamiShareCache();
+                return await fetchPostCardViews(slug);
+            }
+
+            if (!statsResponse.ok) {
+                throw new Error('获取统计数据失败');
+            }
+
+            const statsData = await statsResponse.json();
+            const pageViews = statsData.pageviews || 0;
+            const visits = statsData.visitors || 0;
+
+            const displayElement = document.getElementById(`page-views-${slug}`);
+             if (displayElement) {
+                 displayElement.textContent = generateStatsText(pageViews, visits);
+             }
+        } catch (error) {
+            console.error('Error fetching page views for', slug, ':', error);
+            const displayElement = document.getElementById(`page-views-${slug}`);
+            if (displayElement) {
+                displayElement.textContent = unavailableText;
+            }
+        }
+    }
+
+    // 页面加载完成后获取统计数据
+    function initPostCardStats() {
+        const slug = entry.slug;
+        if (slug) {
+            fetchPostCardViews(slug);
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initPostCardStats);
+    } else {
+        initPostCardStats();
+    }
+</script>
 
 <style define:vars={{coverWidth}}>
 </style>

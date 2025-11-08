@@ -1,19 +1,30 @@
 import type {
-	ExpressiveCodeConfig,
-	LicenseConfig,
-	NavBarConfig,
-	ProfileConfig,
-	SiteConfig,
-    UmamiConfig,  // Umami 访问量配置
+  ExpressiveCodeConfig,
+  LicenseConfig,
+  NavBarConfig,
+  ProfileConfig,
+  SiteConfig,
+  UmamiConfig, // Umami 访问量配置
 } from "./types/config";
 import { LinkPreset } from "./types/config";
 
 // umami 访问量统计配置
 export const umamiConfig: UmamiConfig = {
   enable: true,
-  baseUrl: "https://blog.srprolin.top",
-  shareId: "tdooqvF6eFrEwx1N",
+  baseUrl: "https://srp-umami.vercel.app",
+  shareId: "qZ5qlJV3HavfnPEn",
   timezone: "Asia/Shanghai",
+};
+
+// umami逆向工程状态
+export const statsConfig = {
+  viewsText: "浏览",
+  visitsText: "访客",
+  loadingText: "统计加载中...",
+  unavailableText:
+    "统计不可用。请检查是否屏蔽了Umami域名，如AdGuard和AdBlock等插件",
+  getStatsText: (pageViews: number, visits: number) =>
+    `${statsConfig.viewsText} ${pageViews} · ${statsConfig.visitsText} ${visits}`,
 };
 
 export const siteConfig: SiteConfig = {

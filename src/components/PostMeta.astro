@@ -5,6 +5,9 @@ import { i18n } from "../i18n/translation";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
 import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
 
+// 引入umami逆向定义格式
+import { umamiConfig, statsConfig } from "../config";
+
 interface Props {
 	class: string;
 	published: Date;
@@ -21,6 +24,7 @@ const {
 	category,
 	hideTagsForMobile = false,
 	hideUpdateDate = false,
+    slug, // umami逆向工程所需的slug
 } = Astro.props;
 const className = Astro.props.class;
 ---
@@ -62,7 +66,7 @@ const className = Astro.props.class;
         </div>
     </div>
 -->
-    
+
     <!-- tags -->
     <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
         <div class="meta-icon"
@@ -81,4 +85,77 @@ const className = Astro.props.class;
             {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
         </div>
     </div>
+
+
+    <!-- umami 逆向工程 -->
+    {slug && (
+        <div class="flex items-center">
+            <div class="meta-icon">
+                <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
+            </div>
+            <span class="text-50 text-sm font-medium" id="page-views-display">{statsConfig.loadingText}</span>
+        </div>
+    )}
+
 </div>
+
+{slug && (
+    <script define:vars={{ slug, umamiConfig, unavailableText: statsConfig.unavailableText, viewsText: statsConfig.viewsText, visitsText: statsConfig.visitsText }}>
+        // 客户端统计文案生成函数
+        function generateStatsText(pageViews, visits) {
+            return `${viewsText} ${pageViews} · ${visitsText} ${visits}`;
+        }
+
+        // 获取访问量统计
+        async function fetchPageViews(isRetry = false) {
+            if (!umamiConfig.enable) {
+                return;
+            }
+
+            try {
+                // 调用全局工具获取 Umami 分享数据
+                const { websiteId, token } = await getUmamiShareData(umamiConfig.baseUrl, umamiConfig.shareId);
+
+                // 第二步：获取统计数据
+                const currentTimestamp = Date.now();
+                const statsUrl = `${umamiConfig.baseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${currentTimestamp}&unit=hour&timezone=${encodeURIComponent(umamiConfig.timezone)}&path=eq.%2Fposts%2F${slug}%2F&compare=false`;
+
+                const statsResponse = await fetch(statsUrl, {
+                    headers: {
+                        'x-umami-share-token': token
+                    }
+                });
+
+                if (!statsResponse.ok) {
+                    if (statsResponse.status === 401 && !isRetry) {
+                        clearUmamiShareCache();
+                        return fetchPageViews(true);
+                    }
+                    throw new Error('获取统计数据失败');
+                }
+
+                const statsData = await statsResponse.json();
+            const pageViews = statsData.pageviews || 0;
+            const visits = statsData.visitors || 0;
+
+                const displayElement = document.getElementById('page-views-display');
+                if (displayElement) {
+                    displayElement.textContent = generateStatsText(pageViews, visits);
+                }
+            } catch (error) {
+                console.error('Error fetching page views:', error);
+                const displayElement = document.getElementById('page-views-display');
+                if (displayElement) {
+                    displayElement.textContent = unavailableText;
+                }
+            }
+        }
+
+        // 页面加载完成后获取统计数据
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', fetchPageViews);
+        } else {
+            fetchPageViews();
+        }
+    </script>
+)}
