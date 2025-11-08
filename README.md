@@ -10,7 +10,7 @@
 
 [![stars](https://img.shields.io/github/stars/RolinShmily/SrP-BloG.svg?style=flat&color=green)](https://github.com/RolinShmily/SrP-BloG)
 [![fork](https://img.shields.io/github/forks/RolinShmily/SrP-BloG.svg?style=flat&color=critical)](https://github.com/RolinShmily/SrP-BloG)
-![license]https://img.shields.io/github/license/RolinShmily/SrP-BloG)
+![license](https://img.shields.io/github/license/RolinShmily/SrP-BloG)
 
 </div>
 
