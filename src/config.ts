@@ -11,8 +11,8 @@ import { LinkPreset } from "./types/config";
 // umami 访问量统计配置
 export const umamiConfig: UmamiConfig = {
   enable: true,
-  baseUrl: "https://srp-umami.vercel.app",
-  shareId: "qZ5qlJV3HavfnPEn",
+  baseUrl: "https://umami.srprolin.top",
+  shareId: "UiFLP8hXMRLuRR5T",
   timezone: "Asia/Shanghai",
 };
 
@@ -81,7 +81,7 @@ export const navBarConfig: NavBarConfig = {
     },
     {
       name: "统计",
-      url: "https://srp-umami.vercel.app/share/qZ5qlJV3HavfnPEn", // Internal links should not include the base path, as it is automatically added
+      url: "https://umami.srprolin.top/share/UiFLP8hXMRLuRR5T", // Internal links should not include the base path, as it is automatically added
       external: true, // Show an external link icon and will open in a new tab
     },
   ],
