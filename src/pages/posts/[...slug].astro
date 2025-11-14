@@ -83,6 +83,13 @@ const jsonLd = {
                     md:before:w-1 before:h-5 before:rounded-md before:bg-[var(--primary)]
                     before:absolute before:top-[0.75rem] before:left-[-1.125rem]
                 ">
+                    <!-- 置顶标识 -->
+                    {entry.data.pinned && (
+                        <span class="inline-flex items-center mr-3 px-2.5 py-1 text-sm font-medium bg-[oklch(95%_0.2_var(--hue))] dark:bg-[oklch(25%_0.2_var(--hue))] text-[oklch(55%_0.2_var(--hue))] dark:text-[oklch(85%_0.2_var(--hue))] rounded">
+                            <Icon name="material-symbols:push-pin" class="mr-1.5 text-base" /> 置顶
+                        </span>
+                    )}
+
                     {entry.data.title}
                 </div>
             </div>
