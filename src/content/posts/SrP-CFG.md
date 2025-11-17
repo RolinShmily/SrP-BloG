@@ -12,6 +12,8 @@ lang: ""
 
 # 简介
 
+Bilibili视频链接：[BV1n7C2BzE11](https://www.bilibili.com/video/BV1n7C2BzE11/)
+
 在这篇文章中将一步步地帮助你完成：
 
 - 找到 CFG 存储位置，定制个性化功能，编写 CFG 文件，并成功应用；
