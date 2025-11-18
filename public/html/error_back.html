@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>【Error】 SrP-BloG - 官方服务提示页</title>
+    <meta name="author" content="SrP-BloG" />
+    <meta
+      name="description"
+      content="SrP-BloG官方服务临时提示页，提供备份站点访问"
+    />
+    <style>
+      .icp-info {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+      }
+      .icp-info a {
+        color: #999;
+        text-decoration: none;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Microsoft YaHei", "Arial", sans-serif;
+      }
+      body {
+        background: #f5f7fa;
+        padding: 50px 20px;
+      }
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        background: #fff;
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
+      .lang-switch {
+        text-align: right;
+        margin-bottom: 20px;
+      }
+      .lang-btn {
+        padding: 6px 12px;
+        border: 1px solid #e5e7eb;
+        background: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
+        color: #333;
+      }
+      .lang-btn.active {
+        background: #1890ff;
+        color: #fff;
+        border-color: #1890ff;
+      }
+      .error-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+      }
+      .error-icon {
+        width: 60px;
+        height: 60px;
+        background: #ff4d4f;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 20px;
+        flex-shrink: 0;
+      }
+      .error-icon i {
+        color: #fff;
+        font-size: 32px;
+      }
+      .error-info h1 {
+        font-size: 28px;
+        color: #333;
+        margin-bottom: 8px;
+      }
+      .error-info p {
+        font-size: 16px;
+        color: #666;
+      }
+      .safe-tip {
+        background: #fef7fb;
+        border-left: 4px solid #faad14;
+        padding: 15px;
+        margin: 25px 0;
+        border-radius: 4px;
+      }
+      .safe-tip p {
+        color: #777;
+        font-size: 14px;
+        line-height: 1.8;
+        margin-bottom: 8px;
+      }
+      .safe-tip p:last-child {
+        margin-bottom: 0;
+      }
+      .backup-title {
+        font-size: 18px;
+        color: #333;
+        margin: 30px 0 15px;
+      }
+      .backup-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .backup-link {
+        display: inline-flex;
+        align-items: center;
+        padding: 12px 24px;
+        background: #1890ff;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 4px;
+        font-size: 16px;
+        transition: background 0.3s;
+      }
+      .backup-link i {
+        margin-right: 8px;
+      }
+      .backup-link:hover {
+        background: #096dd9;
+      }
+      .footer {
+        margin-top: 40px;
+        text-align: center;
+        color: #999;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+      .zh-content {
+        display: block;
+      }
+      .en-content {
+        display: none;
+      }
+    </style>
+    <link
+      rel="stylesheet"
+      href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- 语言切换按钮 -->
+      <div class="lang-switch">
+        <button class="lang-btn active" data-lang="zh">中文 / Chinese</button>
+        <button class="lang-btn" data-lang="en">English / 英文</button>
+      </div>
+
+      <!-- 错误信息（中文） -->
+      <div class="zh-content error-header">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="error-info">
+          <!-- 标题添加网站名称 -->
+          <h1>SrP-BloG - 服务暂时波动</h1>
+          <p>当前主站上游服务器暂时不可用，我们正在紧急处理</p>
+        </div>
+      </div>
+
+      <!-- 错误信息（英文） -->
+      <div class="en-content error-header">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <div class="error-info">
+          <h1>SrP-BloG - Service Temporarily Unavailable</h1>
+          <p>
+            The main site's upstream server is temporarily unavailable. We are
+            handling it urgently.
+          </p>
+        </div>
+      </div>
+
+      <!-- 安全提示（中文） -->
+      <div class="zh-content safe-tip">
+        <!-- 强化官方标识 -->
+        <p>
+          🔒
+          官方验证：本页面为【SrP-BloG】官方服务提示页，备份站点均为官方认证镜像
+        </p>
+        <p>
+          📌 错误说明：
+          错误通常是主站服务器响应超时/异常导致，不影响备份站点的访问
+        </p>
+      </div>
+
+      <!-- 安全提示（英文） -->
+      <div class="en-content safe-tip">
+        <p>
+          🔒 Official Verification: This is the official service page of
+          【SrP-BloG】, backup sites are officially certified mirrors.
+        </p>
+        <p>
+          📌 Error Explanation: Error is usually caused by the main server's
+          timeout/exception, and will not affect the backup sites.
+        </p>
+      </div>
+
+      <!-- 备份站点标题（中文） -->
+      <h3 class="zh-content backup-title">请选择访问官方备份站点：</h3>
+      <!-- 备份站点标题（英文） -->
+      <h3 class="en-content backup-title">
+        Please select an official backup site to visit：
+      </h3>
+
+      <!-- 备份链接（双语） -->
+      <div class="backup-links">
+        <a href="https://srp-blog.netlify.app" class="backup-link">
+          <i class="fas fa-cloud"></i> Netlify 备份站 / Backup
+        </a>
+        <a href="https://srp-blog.vercel.app" class="backup-link">
+          <i class="fas fa-server"></i> Vercel 备份站 / Backup
+        </a>
+      </div>
+
+      <!-- 页脚（中文） -->
+      <div class="zh-content footer">
+        <p>官方邮箱：mail@srprolin.top | Official Support: mail@srprolin.top</p>
+        <p>主站恢复后将自动跳转，感谢你的耐心等待~</p>
+      </div>
+
+      <!-- 页脚（英文） -->
+      <div class="en-content footer">
+        <p>Official Support: mail@srprolin.top | 官方邮箱：mail@srprolin.top</p>
+        <p>
+          Will automatically redirect to the main site when restored. Thank you
+          for your patience!
+        </p>
+      </div>
+
+      <!-- 备案信息（强制添加，中英双语） -->
+      <div class="icp-info">
+        <span class="zh-content">© SrP-BloG </span>
+        <span class="en-content">© SrP-BloG </span>
+      </div>
+    </div>
+
+    <!-- 语言切换脚本 -->
+    <script>
+      const langBtns = document.querySelectorAll(".lang-btn");
+      const zhContents = document.querySelectorAll(".zh-content");
+      const enContents = document.querySelectorAll(".en-content");
+
+      langBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          langBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const lang = btn.getAttribute("data-lang");
+          if (lang === "zh") {
+            zhContents.forEach((el) => (el.style.display = "block"));
+            enContents.forEach((el) => (el.style.display = "none"));
+            document.documentElement.lang = "zh-CN";
+          } else {
+            zhContents.forEach((el) => (el.style.display = "none"));
+            enContents.forEach((el) => (el.style.display = "block"));
+            document.documentElement.lang = "en";
+          }
+        });
+      });
+
+      // 自动跳转（可选）
+      setTimeout(() => {
+        window.location.href = "https://blog.srprolin.top";
+      }, 30000);
+    </script>
+  </body>
+</html>
