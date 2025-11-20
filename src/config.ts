@@ -35,6 +35,16 @@ export const siteConfig: SiteConfig = {
 		hue: 345, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
 		fixed: false, // Hide the theme color picker for visitors
 	},
+
+    // anime动漫墙(bangumi)
+    bangumi: {
+		userId: "990710", // 在此处设置你的Bangumi用户ID，可以设置为 "sai" 测试
+	},
+	anime: {
+		mode: "bangumi", // 番剧页面模式："bangumi" 使用Bangumi API，"local" 使用本地配置
+	},
+
+
 	banner: {
 		enable: true,
 		src: "assets/images/wallhaven-1p6d79.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
@@ -64,6 +74,11 @@ export const navBarConfig: NavBarConfig = {
     LinkPreset.Home,
     LinkPreset.Archive,
     LinkPreset.About,
+    {
+      name: "追番",
+      url: "/anime/", // Internal links should not include the base path, as it is automatically added
+      external: false, // Show an external link icon and will open in a new tab
+    },
     {
       name: "友链",
       url: "/frlinks/", // Internal links should not include the base path, as it is automatically added

@@ -20,6 +20,16 @@ export type SiteConfig = {
 		hue: number;
 		fixed: boolean;
 	};
+
+    // 添加bangumi配置
+	bangumi?: {
+		userId?: string; // Bangumi用户ID
+	};
+	// 添加anime番剧页面配置
+	anime?: {
+		mode?: "bangumi" | "local"; // 番剧页面模式
+	};
+
 	banner: {
 		enable: boolean;
 		src: string;
