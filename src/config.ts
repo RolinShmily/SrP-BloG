@@ -28,45 +28,56 @@ export const statsConfig = {
 };
 
 export const siteConfig: SiteConfig = {
-	title: "SrP-BloG",
-	subtitle: "欢迎🎉",
-	lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
-	themeColor: {
-		hue: 345, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
-		fixed: false, // Hide the theme color picker for visitors
-	},
+  title: "SrP-BloG",
+  subtitle: "欢迎🎉",
+  lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
+  themeColor: {
+    hue: 345, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
+    fixed: false, // Hide the theme color picker for visitors
+  },
 
-    // anime动漫墙(bangumi)
-    bangumi: {
-		userId: "990710", // 在此处设置你的Bangumi用户ID，可以设置为 "sai" 测试
-	},
-	anime: {
-		mode: "bangumi", // 番剧页面模式："bangumi" 使用Bangumi API，"local" 使用本地配置
-	},
+  // anime动漫墙(bangumi)
+  bangumi: {
+    userId: "990710", // 在此处设置你的Bangumi用户ID，可以设置为 "sai" 测试
+  },
+  anime: {
+    mode: "bangumi", // 番剧页面模式："bangumi" 使用Bangumi API，"local" 使用本地配置
+  },
 
+  banner: {
+    enable: false,
+    src: "assets/images/wallhaven-1p6d79.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+    position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
+    credit: {
+      enable: true, // Display the credit text of the banner image
+      text: "CopperHopper", // Credit text to be displayed
+      url: "https://wallhaven.cc/w/1p6d79", // (Optional) URL link to the original artwork or artist's page
+    },
+  },
 
-	banner: {
-		enable: true,
-		src: "assets/images/wallhaven-1p6d79.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-		position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
-		credit: {
-			enable: true, // Display the credit text of the banner image
-			text: "CopperHopper", // Credit text to be displayed
-			url: "https://wallhaven.cc/w/1p6d79", // (Optional) URL link to the original artwork or artist's page
-		},
-	},
-	toc: {
-		enable: true, // Display the table of contents on the right side of the post
-		depth: 3, // Maximum heading depth to show in the table, from 1 to 3
-	},
-	favicon: [
-		// Leave this array empty to use the default favicon
-		{
-			src: "/favicon/favicon.ico", // Path of the favicon, relative to the /public directory
-			//   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
-			//   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
-		},
-	],
+  // background image configuration
+  background: {
+    enable: true, // Enable background image
+    src: "https://random-api.czl.net/pic/ecy", // Background image URL (supports HTTPS)
+    position: "center", // Background position: 'top', 'center', 'bottom'
+    size: "cover", // Background size: 'cover', 'contain', 'auto'
+    repeat: "no-repeat", // Background repeat: 'no-repeat', 'repeat', 'repeat-x', 'repeat-y'
+    attachment: "fixed", // Background attachment: 'fixed', 'scroll', 'local'
+    opacity: 0.5, // Background opacity (0-1)
+  },
+
+  toc: {
+    enable: true, // Display the table of contents on the right side of the post
+    depth: 3, // Maximum heading depth to show in the table, from 1 to 3
+  },
+  favicon: [
+    // Leave this array empty to use the default favicon
+    {
+      src: "/favicon/favicon.ico", // Path of the favicon, relative to the /public directory
+      //   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
+      //   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
+    },
+  ],
 };
 
 export const navBarConfig: NavBarConfig = {
