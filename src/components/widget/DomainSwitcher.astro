@@ -27,11 +27,18 @@ const officialSites = siteConfig.officialSites || [];
             return (
                 <a
                     href={urlStr}
+                    data-url={urlStr}
                     class="domain-link btn-regular !justify-between px-3 py-2 rounded-lg text-sm group"
                     data-domain={hostname}
                 >
                     <span class="truncate">{displayName}</span>
-                    <span class="status-indicator w-2 h-2 rounded-full bg-[var(--btn-content)]/30 dark:bg-white/30"></span>
+
+                    <!-- 延迟检测 -->
+                    <div class="flex items-center gap-2">
+                        <span class="latency-text text-xs font-bold opacity-0 transition-opacity"></span>
+                        <span class="status-indicator w-2 h-2 rounded-full bg-[var(--btn-content)]/30 dark:bg-white/30"></span>
+                    </div>
+
                 </a>
             );
         })}
@@ -88,6 +95,84 @@ const officialSites = siteConfig.officialSites || [];
         });
     }
 
+    // 延迟检测
+    async function testLatency() {
+        const links = document.querySelectorAll('.domain-link');
+        for (const link of links) {
+            const url = link.getAttribute('data-url');
+            const latencyText = link.querySelector('.latency-text');
+            const indicator = link.querySelector('.status-indicator');
+
+            if (!url || !latencyText) continue;
+
+            // Loading state
+            latencyText.textContent = '...';
+            latencyText.classList.remove('opacity-0', 'text-green-500', 'text-yellow-500', 'text-red-500');
+            latencyText.classList.add('opacity-50');
+
+            const start = performance.now();
+            let latency = -1;
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+                await fetch(url, {
+                    mode: 'no-cors',
+                    cache: 'no-store',
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+                const end = performance.now();
+                latency = Math.round(end - start);
+            } catch (e) {
+                // Error or timeout
+            }
+
+            latencyText.classList.remove('opacity-50');
+
+            const isActive = link.classList.contains('bg-[var(--primary)]');
+
+            if (latency >= 0) {
+                latencyText.textContent = `${latency}ms`;
+                if (latency < 200) {
+                    if (!isActive) {
+                        latencyText.classList.add('text-green-600', 'dark:text-green-400');
+                        if (indicator) {
+                            indicator.classList.remove('bg-[var(--btn-content)]/30', 'dark:bg-white/30');
+                            indicator.classList.add('bg-green-500');
+                        }
+                    }
+                } else if (latency < 500) {
+                    if (!isActive) {
+                        latencyText.classList.add('text-yellow-600', 'dark:text-yellow-400');
+                        if (indicator) {
+                            indicator.classList.remove('bg-[var(--btn-content)]/30', 'dark:bg-white/30');
+                            indicator.classList.add('bg-yellow-500');
+                        }
+                    }
+                } else {
+                    latencyText.classList.add('text-red-600', 'dark:text-red-400');
+                    if (indicator && !isActive) {
+                        indicator.classList.remove('bg-[var(--btn-content)]/30', 'dark:bg-white/30');
+                        indicator.classList.add('bg-red-500');
+                    }
+                }
+            } else {
+                latencyText.textContent = '-';
+                latencyText.classList.add('text-red-600', 'dark:text-red-400');
+            }
+        }
+    }
+
     initDomainSwitcher();
-    document.addEventListener('astro:page-load', initDomainSwitcher);
+
+    //延迟检测
+    testLatency();
+    document.addEventListener('astro:page-load', () => {
+        initDomainSwitcher();
+        testLatency();
+    });
+
 </script>
