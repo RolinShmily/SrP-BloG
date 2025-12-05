@@ -67,6 +67,11 @@ export const siteConfig: SiteConfig = {
       //   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
     },
   ],
+  officialSites: [
+    { url: "https://blog.srprolin.top", alias: "大陆首选CDN" },
+    { url: "https://srp-blog.netlify.app", alias: "全球可达Netlify" },
+    { url: "https://srp-blog.vercel.app", alias: "非大陆Vercel" },
+  ],
 };
 
 export const navBarConfig: NavBarConfig = {

@@ -1,0 +1,93 @@
+---
+// 域名切换器组件
+import WidgetLayout from "./WidgetLayout.astro";
+import { siteConfig } from "@/config";
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+const className = Astro.props.class;
+const style = Astro.props.style;
+
+const officialSites = siteConfig.officialSites || [];
+---
+<WidgetLayout name="线路切换" id="domain-switcher" class={className} style={style}>
+    <div class="flex flex-col gap-2">
+        {officialSites.map((site) => {
+            const urlStr = typeof site === 'string' ? site : site.url;
+            const alias = typeof site === 'object' ? site.alias : null;
+            let hostname = urlStr;
+            try {
+                hostname = new URL(urlStr).hostname;
+            } catch (e) {
+                // fallback to original string if not a valid URL
+            }
+            const displayName = alias || hostname;
+            return (
+                <a
+                    href={urlStr}
+                    class="domain-link btn-regular !justify-between px-3 py-2 rounded-lg text-sm group"
+                    data-domain={hostname}
+                >
+                    <span class="truncate">{displayName}</span>
+                    <span class="status-indicator w-2 h-2 rounded-full bg-[var(--btn-content)]/30 dark:bg-white/30"></span>
+                </a>
+            );
+        })}
+    </div>
+</WidgetLayout>
+
+<script>
+    function initDomainSwitcher() {
+        const currentDomain = window.location.hostname;
+        const links = document.querySelectorAll('.domain-link');
+
+        links.forEach(link => {
+            const domain = link.getAttribute('data-domain');
+            const href = link.getAttribute('href');
+
+            // Reset classes first
+            link.className = 'domain-link btn-regular !justify-between px-3 py-2 rounded-lg text-sm group';
+
+            const indicator = link.querySelector('.status-indicator');
+            if (indicator) {
+                indicator.className = 'status-indicator w-2 h-2 rounded-full bg-[var(--btn-content)]/30 dark:bg-white/30';
+            }
+
+            // Highlight current domain
+            if (domain === currentDomain) {
+                // Remove btn-regular to avoid style conflicts and apply active styles
+                link.classList.remove('btn-regular');
+                link.classList.add(
+                    'flex', 'items-center', 'justify-between', // Restore layout styles from btn-regular/base
+                    'bg-[var(--primary)]',
+                    'text-white',
+                    'dark:text-black/70',
+                    'cursor-default'
+                );
+
+                if (indicator) {
+                    indicator.classList.remove('bg-[var(--btn-content)]/30', 'dark:bg-white/30');
+                    indicator.classList.add('bg-white', 'dark:bg-black/70');
+                }
+
+                link.removeAttribute('href');
+            } else if (href) {
+                // Update link to preserve current path
+                try {
+                    const url = new URL(href);
+                    url.pathname = window.location.pathname;
+                    url.search = window.location.search;
+                    url.hash = window.location.hash;
+                    link.setAttribute('href', url.toString());
+                } catch (e) {
+                    console.error('Invalid URL:', href);
+                }
+            }
+        });
+    }
+
+    initDomainSwitcher();
+    document.addEventListener('astro:page-load', initDomainSwitcher);
+</script>
