@@ -88,6 +88,12 @@
 
 - [CS2 PRO'S SIGNATURE 2024dark](https://steamcommunity.com/sharedfiles/filedetails/?id=3247661253) uploaded by [易烊菜坤\_NORMAL](https://steamcommunity.com/id/haza1040)
 
+### 随机背景图API
+
+托管至[EdgeOne](https://edgeone.ai/zh/products/function)，通过识别用户UA来返回 横/竖 屏背景图。
+
+::github{repo="RolinShmily/EdgeOne_Function_PicAPI"}
+
 ## Cookie 和本地存储
 
 我们的网站可能使用以下技术：
