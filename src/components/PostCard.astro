@@ -9,7 +9,7 @@ import ImageWrapper from "./misc/ImageWrapper.astro";
 import PostMetadata from "./PostMeta.astro";
 
 // 引入umami逆向定义格式
-import { umamiConfig, statsConfig } from "../config";
+import { umamiConfig } from "../config";
 
 interface Props {
 	class?: string;
@@ -91,8 +91,15 @@ const { remarkPluginFrontmatter } = await entry.render();
 
             <!-- umami逆向工程浏览量显示 -->
             <div>|</div>
-            <div>
-                <span class="text-50 text-sm font-medium" id={`page-views-${entry.slug}`}>{statsConfig.loadingText}</span>
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1">
+                    <Icon name="material-symbols:visibility-outline" class="text-base" />
+                    <span class="text-50 text-sm font-medium" id={`page-views-${entry.slug}`}>-</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <Icon name="material-symbols:person" class="text-base" />
+                    <span class="text-50 text-sm font-medium" id={`page-visitors-${entry.slug}`}>-</span>
+                </div>
             </div>
 
         </div>
@@ -129,11 +136,7 @@ const { remarkPluginFrontmatter } = await entry.render();
 <div class="transition border-t-[1px] border-dashed mx-6 border-black/10 dark:border-white/[0.15] last:border-t-0 md:hidden"></div>
 
 <!-- Umami逆向统计量展示 -->
-<script define:vars={{ entry, umamiConfig, unavailableText: statsConfig.unavailableText, viewsText: statsConfig.viewsText, visitsText: statsConfig.visitsText }}>
-    // 客户端统计文案生成函数
-    function generateStatsText(pageViews, visits) {
-        return `${viewsText} ${pageViews} · ${visitsText} ${visits}`;
-    }
+<script define:vars={{ entry, umamiConfig}}>
 
     // 获取文章浏览量统计
     async function fetchPostCardViews(slug) {
@@ -168,15 +171,23 @@ const { remarkPluginFrontmatter } = await entry.render();
             const pageViews = statsData.pageviews || 0;
             const visits = statsData.visitors || 0;
 
-            const displayElement = document.getElementById(`page-views-${slug}`);
-             if (displayElement) {
-                 displayElement.textContent = generateStatsText(pageViews, visits);
+            const viewsElement = document.getElementById(`page-views-${slug}`);
+            const visitorsElement = document.getElementById(`page-visitors-${slug}`);
+             if (viewsElement) {
+                 viewsElement.textContent = pageViews;
+             }
+             if (visitorsElement) {
+                 visitorsElement.textContent = visits;
              }
         } catch (error) {
             console.error('Error fetching page views for', slug, ':', error);
-            const displayElement = document.getElementById(`page-views-${slug}`);
-            if (displayElement) {
-                displayElement.textContent = unavailableText;
+            const viewsElement = document.getElementById(`page-views-${slug}`);
+            const visitorsElement = document.getElementById(`page-visitors-${slug}`);
+            if (viewsElement) {
+                viewsElement.textContent = '-';
+            }
+            if (visitorsElement) {
+                visitorsElement.textContent = '-';
             }
         }
     }

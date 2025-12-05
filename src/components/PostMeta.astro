@@ -6,7 +6,7 @@ import { formatDateToYYYYMMDD } from "../utils/date-utils";
 import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
 
 // 引入umami逆向定义格式
-import { umamiConfig, statsConfig } from "../config";
+import { umamiConfig } from "../config";
 
 interface Props {
 	class: string;
@@ -89,22 +89,26 @@ const className = Astro.props.class;
 
     <!-- umami 逆向工程 -->
     {slug && (
-        <div class="flex items-center">
-            <div class="meta-icon">
-                <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
+        <>
+            <div class="flex items-center">
+                <div class="meta-icon">
+                    <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
+                </div>
+                <span class="text-50 text-sm font-medium" id="page-views-display">-</span>
             </div>
-            <span class="text-50 text-sm font-medium" id="page-views-display">{statsConfig.loadingText}</span>
-        </div>
+            <div class="flex items-center">
+                <div class="meta-icon">
+                    <Icon name="material-symbols:person" class="text-xl"></Icon>
+                </div>
+                <span class="text-50 text-sm font-medium" id="page-visitors-display">-</span>
+            </div>
+        </>
     )}
 
 </div>
 
 {slug && (
-    <script define:vars={{ slug, umamiConfig, unavailableText: statsConfig.unavailableText, viewsText: statsConfig.viewsText, visitsText: statsConfig.visitsText }}>
-        // 客户端统计文案生成函数
-        function generateStatsText(pageViews, visits) {
-            return `${viewsText} ${pageViews} · ${visitsText} ${visits}`;
-        }
+    <script define:vars={{ slug, umamiConfig }}>
 
         // 获取访问量统计
         async function fetchPageViews(isRetry = false) {
@@ -135,18 +139,26 @@ const className = Astro.props.class;
                 }
 
                 const statsData = await statsResponse.json();
-            const pageViews = statsData.pageviews || 0;
-            const visits = statsData.visitors || 0;
+                const pageViews = statsData.pageviews || 0;
+                const visits = statsData.visitors || 0;
 
-                const displayElement = document.getElementById('page-views-display');
-                if (displayElement) {
-                    displayElement.textContent = generateStatsText(pageViews, visits);
+                const viewsElement = document.getElementById('page-views-display');
+                const visitorsElement = document.getElementById('page-visitors-display');
+                if (viewsElement) {
+                    viewsElement.textContent = pageViews;
+                }
+                if (visitorsElement) {
+                    visitorsElement.textContent = visits;
                 }
             } catch (error) {
                 console.error('Error fetching page views:', error);
-                const displayElement = document.getElementById('page-views-display');
-                if (displayElement) {
-                    displayElement.textContent = unavailableText;
+                const viewsElement = document.getElementById('page-views-display');
+                const visitorsElement = document.getElementById('page-visitors-display');
+                if (viewsElement) {
+                    viewsElement.textContent = '-';
+                }
+                if (visitorsElement) {
+                    visitorsElement.textContent = '-';
                 }
             }
         }

@@ -16,17 +16,6 @@ export const umamiConfig: UmamiConfig = {
   timezone: "Asia/Shanghai",
 };
 
-// umami逆向工程状态
-export const statsConfig = {
-  viewsText: "浏览",
-  visitsText: "访客",
-  loadingText: "统计加载中...",
-  unavailableText:
-    "统计不可用。请检查是否屏蔽了Umami域名，如AdGuard和AdBlock等插件",
-  getStatsText: (pageViews: number, visits: number) =>
-    `${statsConfig.viewsText} ${pageViews} · ${statsConfig.visitsText} ${visits}`,
-};
-
 export const siteConfig: SiteConfig = {
   title: "SrP-BloG",
   subtitle: "欢迎🎉",

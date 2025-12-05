@@ -5,7 +5,7 @@ import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
 
 // umami逆向工程
-import { profileConfig, umamiConfig, statsConfig } from "../../config";
+import { profileConfig, umamiConfig} from "../../config";
 
 const config = profileConfig;
 ---
@@ -39,22 +39,28 @@ const config = profileConfig;
         </div>
 
         <!-- umami逆向工程 | 全站访问量统计 -->
-        <div class="text-center text-sm text-neutral-500 dark:text-neutral-400 mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-700">
-            <div class="flex items-center justify-center gap-1">
-                <Icon name="material-symbols:visibility-outline" class="text-base"></Icon>
-                <span id="site-stats">{statsConfig.loadingText}</span>
+        <div class="grid grid-cols-2 mt-3 pt-3 border-t border-neutral-200 dark:border-neutral-700">
+            <div class="text-center">
+                <div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
+                    <Icon name="material-symbols:visibility-outline" class="text-base"></Icon>
+                    <span class="text-xs">访问量</span>
+                </div>
+                <div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">-</div>
+            </div>
+            <div class="text-center border-l border-neutral-200 dark:border-neutral-700">
+                <div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
+                    <Icon name="material-symbols:person" class="text-base"></Icon>
+                    <span class="text-xs">访客数</span>
+                </div>
+                <div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">-</div>
             </div>
         </div>
 
     </div>
 </div>
 
-<script define:vars={{ umamiConfig, unavailableText: statsConfig.unavailableText, viewsText: statsConfig.viewsText, visitsText: statsConfig.visitsText }}>
+<script define:vars={{ umamiConfig}}>
     // 获取全站访问量统计
-    // 客户端统计文案生成函数
-    function generateStatsText(pageViews, visits) {
-        return `${viewsText} ${pageViews} · ${visitsText} ${visits}`;
-    }
 
     async function loadSiteStats() {
         if (!umamiConfig.enable) {
@@ -89,16 +95,16 @@ const config = profileConfig;
             const pageviews = statsData.pageviews || 0;
             const visitors = statsData.visitors || 0;
 
-            const statsElement = document.getElementById('site-stats');
-            if (statsElement) {
-                statsElement.textContent = generateStatsText(pageviews, visitors);
+            const viewsElement = document.getElementById('site-views');
+            const visitorsElement = document.getElementById('site-visitors');
+            if (viewsElement) {
+                viewsElement.textContent = pageviews;
+            }
+            if (visitorsElement) {
+                visitorsElement.textContent = visitors;
             }
         } catch (error) {
             console.error('获取全站统计失败:', error);
-            const statsElement = document.getElementById('site-stats');
-            if (statsElement) {
-                statsElement.textContent = unavailableText;
-            }
         }
     }
 
