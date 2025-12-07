@@ -2,7 +2,7 @@
 title: 使用MacMini搭建Minecraft服务器
 published: 2025-12-07
 description: "依靠M4芯片极高的性能功耗比，作为搭建吃单核的Minecraft_Java版服务器再合适不过。本篇将完全使用SSH终端，保姆级搭建起MCSManager面板，依靠它来搭建游戏服务器；并使用樱花映射的客户端frpc，将服务器穿透至互联网，搭建起完整的可公网访问服务器。"
-image: ""
+image: "../assets/images/2025-12-07_16-59-33.png"
 tags: [mac, minecraft, frp, mcsmanager, launchd, java, node]
 category: ""
 draft: false
@@ -33,7 +33,7 @@ MCSManager 所需的运行环境，用于构建 web 服务器，便于我们从�
 
 这里是[node 官方的下载页面](https://nodejs.org/en/download)，下面将先安装`Homebrew`：
 
-```
+```zsh
 # 这里默认你的macOS没有任何命令行操作历史，因此先安装Homebrew工具
 curl -o- https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | bash
 
@@ -52,7 +52,7 @@ brew --version
 
 下面是安装 node(包含 npm 包管理器)：
 
-```
+```zsh
 # 通过homebrew安装
 brew install node@24
 
@@ -69,7 +69,7 @@ tips：这里已经确保`homebrew`添加进了 PATH 环境变量，由于安装
 
 既然是搭建 Java 的 Minecraft 服务器，那当然需要 Java 了，在官方文档中也提出了某些 Java 版本对应的 Minecraft 版本，这里我只安装 Java17 和 Java21：
 
-```
+```zsh
 # 通过brew安装openjdk17
 brew install openjdk@17
 
@@ -103,7 +103,7 @@ lrwxr-xr-x  1 remote  admin  36 Dec  7 17:25 /opt/homebrew/bin/java -> ../Cellar
 
 依照官方教程，获取安装包并执行安装脚本：
 
-```
+```zsh
 # 前往用户家目录
 cd ~
 
@@ -122,7 +122,7 @@ sh ./install.sh
 
 接下来，就需要安装 macOS_M4 所需要的依赖[PTY](https://github.com/MCSManager/PTY)和[Zip-tools](https://github.com/MCSManager/Zip-Tools)：
 
-```
+```zsh
 # 前往目标目录
 cd ~/mcsmanager/daemon/lib/
 
@@ -146,7 +146,7 @@ curl -O https://github.com/MCSManager/Zip-Tools/releases/download/latest/file_zi
 
 我们需要先创建一个日志目录，用来存储脚本的运行消息：
 
-```
+```zsh
 # 创建日志目录
 mkdir -p ~/mcsmanager/logs
 
@@ -156,7 +156,7 @@ sudo nano /Library/LaunchDaemons/com.mcsmanager.daemon.plist
 
 `com.mcsmanager.daemon.plist`文件内容大致如下：
 
-```
+```plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -206,14 +206,14 @@ sudo nano /Library/LaunchDaemons/com.mcsmanager.daemon.plist
 
 创建 web 界面脚本的 plist 服务文件：
 
-```
+```zsh
 # 使用nano编辑器编辑文件
 sudo nano /Library/LaunchDaemons/com.mcsmanager.web.plist
 ```
 
 `com.mcsmanager.web.plist`文件内容大致如下，依据上文举例的以`test`用户名为例，请按需调整：
 
-```
+```plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -255,7 +255,7 @@ sudo nano /Library/LaunchDaemons/com.mcsmanager.web.plist
 
 最后，确保服务文件属于 root，并加载配置，启动服务：
 
-```
+```zsh
 # 文件所属
 sudo chown root:wheel /Library/LaunchDaemons/com.mcsmanager.daemon.plist
 sudo chown root:wheel /Library/LaunchDaemons/com.mcsmanager.web.plist
@@ -278,7 +278,7 @@ tail -f ~/mcsmanager/logs/web.log
 
 如果需要停止该服务，请按下列执行：
 
-```
+```zsh
 # 先终止服务
 sudo launchctl stop com.mcsmanager.daemon
 sudo launchctl stop com.mcsmanager.web
@@ -327,7 +327,7 @@ Minecraft_Java 版服务器，是通过 TCP 协议通信的，比较特殊，端
 
 这里我们是 Mac_mini_M4 硬件，因此选择左侧`macOS Apple Silicon (arm64)`，复制下载链接。
 
-```
+```zsh
 # 进入用户家目录，创建SakuraFrp文件夹并进入
 cd ~
 mkdir sakura_frp
@@ -351,7 +351,7 @@ sfrp -v
 至此，已经可以使用官方提到的类似格式`frpc -f <访问密钥>:<隧道ID 1>[,隧道ID 2[,隧道ID 3...]]`来启动隧道。
 而具体到我们现在的环境，举例密钥为`wdnmdtoken6666666`，隧道 ID1 为`114514`，隧道 ID2 为`114516`，则命令为：
 
-```
+```zsh
 # 启用两个隧道
 sfrp -f wdnmdtoken6666666:114514,114516
 ```
@@ -360,7 +360,7 @@ sfrp -f wdnmdtoken6666666:114514,114516
 
 ## 樱花穿透 launchd 服务
 
-```
+```zsh
 # 进入目标路径
 cd ~/sakura_frp/
 
@@ -370,7 +370,7 @@ nano start_sfrp.sh
 
 `start_sfrp.sh`脚本内容大致如下(注意替换`test`用户名)：
 
-```
+```sh
 #!/bin/bash
 
 FRPC_PATH="/Users/test/sakura_frp/frpc_darwin_arm64"
@@ -386,7 +386,7 @@ exec $FRPC_PATH -f $ACCESS_KEY:$TUNNEL_IDS
 - `<key>`:替换为你的访问密钥，在[官方后台首页](https://www.natfrp.com/user/)可获得。
 - `<tunnel_id>`：替换为你的隧道 ID，访问[官方隧道列表](https://www.natfrp.com/tunnel/)，无需复制，已经展示出来了，例如`114514`和`1114516`；如果你是单隧道，只填写数字即可，如果是多隧道，以英文`,`隔开，例如`TUNNEL_IDS="114514,114516"`。
 
-```
+```zsh
 # 添加执行权限
 chmod +x start_sfrp.sh
 
@@ -399,7 +399,7 @@ sudo nano /Library/LaunchDaemons/com.frp.sfrp.plist
 
 `com.frp.sfrp.plist`文件内容大致如下(将`test`替换为你的用户名)：
 
-```
+```plist
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
@@ -427,7 +427,7 @@ sudo nano /Library/LaunchDaemons/com.frp.sfrp.plist
 </plist>
 ```
 
-```
+```zsh
 # 设置权限
 sudo chown root:wheel /Library/LaunchDaemons/com.frp.sfrp.plist
 
@@ -444,7 +444,7 @@ tail -f ~/sakura_frp/log/sfrp_stderr.log
 
 如果你的脚本内容发生更改，请重载 launchd 服务：
 
-```
+```zsh
 sudo launchctl stop com.frp.sfrp
 sudo launchctl unload /Library/LaunchDaemons/com.frp.sfrp.plist
 sudo launchctl load /Library/LaunchDaemons/com.frp.sfrp.plist

@@ -2,7 +2,7 @@
 title: SrP-CFG_Installer_v1.1.1命令行程序 | CS2 | CFG
 published: 2025-11-25
 description: '一个方便安装SrP-CFG的命令行程序'
-image: ''
+image: '../assets/images/2025-11-22_17-20-56.79Y4syWK.png'
 tags: [cfg,cs2,steam]
 category: ''
 draft: false
