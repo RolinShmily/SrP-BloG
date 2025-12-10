@@ -94,13 +94,13 @@ const className = Astro.props.class;
                 <div class="meta-icon">
                     <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
                 </div>
-                <span class="text-50 text-sm font-medium" id="page-views-display">-</span>
+                <span class="text-50 text-sm font-medium" id={`page-views-${slug}`}>-</span>
             </div>
             <div class="flex items-center">
                 <div class="meta-icon">
                     <Icon name="material-symbols:person" class="text-xl"></Icon>
                 </div>
-                <span class="text-50 text-sm font-medium" id="page-visitors-display">-</span>
+                <span class="text-50 text-sm font-medium" id={`page-visitors-${slug}`}>-</span>
             </div>
         </>
     )}
@@ -142,8 +142,8 @@ const className = Astro.props.class;
                 const pageViews = statsData.pageviews || 0;
                 const visits = statsData.visitors || 0;
 
-                const viewsElement = document.getElementById('page-views-display');
-                const visitorsElement = document.getElementById('page-visitors-display');
+                const viewsElement = document.getElementById(`page-views-${slug}`);
+                const visitorsElement = document.getElementById(`page-visitors-${slug}`);
                 if (viewsElement) {
                     viewsElement.textContent = pageViews;
                 }
@@ -152,8 +152,8 @@ const className = Astro.props.class;
                 }
             } catch (error) {
                 console.error('Error fetching page views:', error);
-                const viewsElement = document.getElementById('page-views-display');
-                const visitorsElement = document.getElementById('page-visitors-display');
+                const viewsElement = document.getElementById(`page-views-${slug}`);
+                const visitorsElement = document.getElementById(`page-visitors-${slug}`);
                 if (viewsElement) {
                     viewsElement.textContent = '-';
                 }

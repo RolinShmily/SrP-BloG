@@ -3,7 +3,7 @@ title: 略知OBS | 开源视频录制与直播推流
 published: 2025-07-25
 description: '本文将介绍OBS的视频录制、直播推流设置，以及虚拟摄像头、即时回放、插件的用法'
 image: '../assets/images/2025-07-25-0.jpg'
-tags: [OBS,FFmpeg,NVIDIA,H.264,H.265,mov,mp4,aac,flac]
+tags: [OBS,FFmpeg,NVIDIA]
 category: ''
 draft: false
 lang: ''

@@ -3,7 +3,7 @@ title: C&C++在VScode中的配置
 published: 2024-07-14
 description: "本文针对学习C语言的新人，选择VSCode编辑器，为其配置IDE环境，从而能够编写、编译、运行C(++)代码"
 image: "../assets/images/2024-07-14-0.jpg"
-tags: [C, C++, MinGW, VSCode]
+tags: [C, C++, VSCode]
 category: ""
 draft: false
 lang: ""

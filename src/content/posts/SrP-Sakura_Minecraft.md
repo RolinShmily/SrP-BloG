@@ -3,7 +3,7 @@ title: SrP-Sakura For Minecraft | 草稿
 published: 2025-10-13
 description: "本文将介绍自建的插件服务器功能，发布适用于原版生存的辅助性整合包，并为其所添加的mod、资源进行介绍说明"
 image: "../assets/images/PixPin_2025-08-04_15-10-35.png"
-tags: [Minecraft, Server, Wiki, Client, 整合包, 服务器]
+tags: [Minecraft,整合包, 服务器]
 category: ""
 draft: false
 lang: ""

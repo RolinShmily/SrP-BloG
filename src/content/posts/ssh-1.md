@@ -3,7 +3,7 @@ title: 如何安全地使用SSH、SFTP？
 published: 2025-11-07
 description: "本文将详细介绍如何使用密钥验证SSH连接，如何修改SSH默认端口，如何禁用root、密码登录，以及解决一些SFTP安全传输文件的权限问题。"
 image: "../assets/images/2025-12-07_19-34-50.png"
-tags: [SSH, SFTP, root, 权限, 云服务器, 密钥]
+tags: [SSH, SFTP, 云服务器]
 category: ""
 draft: false
 lang: ""

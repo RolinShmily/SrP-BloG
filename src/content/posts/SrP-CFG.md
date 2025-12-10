@@ -4,7 +4,7 @@ published: 2025-04-12
 pinned: true
 description: "有关游戏CS2的全面配置文件解读，分享自用的CFG预设文件组，提升游戏体验与统一度"
 image: "../assets/images/CS2_PRO_signature.jpg"
-tags: [CS2, CSGO, CFG, Vavle, Steam]
+tags: [CS2,CFG,Steam]
 category: ""
 draft: false
 lang: ""

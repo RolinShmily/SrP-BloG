@@ -3,7 +3,7 @@ title: 如何投屏和串流？
 published: 2024-07-25
 description: '本篇文章介绍了有关串流的流行应用——Sunshine和Moonlight组合的用法；并推荐开源项目scrcpy的投屏功能。'
 image: '../assets/images/Timeline 1_01_00_01_00.jpg'
-tags: [Sunshine,Moonlight,scrcpy,串流]
+tags: [Sunshine,Moonlight,scrcpy]
 category: ''
 draft: false
 lang: ''

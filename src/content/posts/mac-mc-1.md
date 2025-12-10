@@ -3,7 +3,7 @@ title: 使用MacMini搭建Minecraft服务器
 published: 2025-12-07
 description: "依靠M4芯片极高的性能功耗比，作为搭建吃单核的Minecraft_Java版服务器再合适不过。本篇将完全使用SSH终端，保姆级搭建起MCSManager面板，依靠它来搭建游戏服务器；并使用樱花映射的客户端frpc，将服务器穿透至互联网，搭建起完整的可公网访问服务器。"
 image: "../assets/images/2025-12-07_16-59-33.png"
-tags: [mac, minecraft, frp, mcsmanager, launchd, java, node]
+tags: [mac, minecraft, frp]
 category: ""
 draft: false
 lang: ""

@@ -3,7 +3,7 @@ title: 略知Zerotier | 搭建虚拟局域网
 published: 2025-07-18
 description: "简要介绍网络知识，拆解zerotier工作逻辑，为自建中转节点服务器、节点控制器提供教程"
 image: "../assets/images/2025-07-18-0.jpg"
-tags: [Zerotier, P2P, network, moon, 虚拟局域网]
+tags: [Zerotier, P2P, 虚拟局域网]
 category: ""
 draft: false
 lang: ""
