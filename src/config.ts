@@ -68,9 +68,9 @@ export const siteConfig: SiteConfig = {
     },
   ],
   officialSites: [
-    { url: "https://blog.srprolin.top", alias: "大陆首选CDN" },
-    { url: "https://srp-blog.netlify.app", alias: "全球可达Netlify" },
-    { url: "https://srp-blog.vercel.app", alias: "非大陆Vercel" },
+    { url: "https://blog.srprolin.top", alias: "阿里云ESA" },
+    { url: "https://srp-blog.netlify.app", alias: "Netlify" },
+    { url: "https://srp-blog.vercel.app", alias: "Vercel" },
   ],
 };
 
@@ -108,36 +108,36 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-	avatar: "assets/images/mzm-cyan.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
-	name: "RoL1n",
-	bio: "私はバンド楽しいっておもったこと、一度もない",
-	links: [
-		{
-			name: "Bilibli",
-			icon: "fa6-brands:bilibili",
-			url: "https://space.bilibili.com/422744280",
-		},
-		{
-			name: "Steam",
-			icon: "fa6-brands:steam",
-			url: "https://steamcommunity.com/profiles/76561199516828933/",
-		},
-		{
-			name: "GitHub",
-			icon: "fa6-brands:github",
-			url: "https://github.com/RolinShmily",
-		},
-	],
+  avatar: "assets/images/mzm-cyan.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+  name: "RoL1n",
+  bio: "私はバンド楽しいっておもったこと、一度もない",
+  links: [
+    {
+      name: "Bilibli",
+      icon: "fa6-brands:bilibili",
+      url: "https://space.bilibili.com/422744280",
+    },
+    {
+      name: "Steam",
+      icon: "fa6-brands:steam",
+      url: "https://steamcommunity.com/profiles/76561199516828933/",
+    },
+    {
+      name: "GitHub",
+      icon: "fa6-brands:github",
+      url: "https://github.com/RolinShmily",
+    },
+  ],
 };
 
 export const licenseConfig: LicenseConfig = {
-	enable: true,
-	name: "CC BY-NC-SA 4.0",
-	url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+  enable: true,
+  name: "CC BY-NC-SA 4.0",
+  url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
 };
 
 export const expressiveCodeConfig: ExpressiveCodeConfig = {
-	// Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
-	// Please select a dark theme, as this blog theme currently only supports dark background color
-	theme: "github-dark",
+  // Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
+  // Please select a dark theme, as this blog theme currently only supports dark background color
+  theme: "github-dark",
 };
