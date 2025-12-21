@@ -1,5 +1,5 @@
 ---
-title: SrP-Sakura For Minecraft | 草稿
+title: SrP-Sakura For Minecraft | 自用插件服务器
 published: 2025-10-13
 description: "本文将介绍自建的插件服务器功能，发布适用于原版生存的辅助性整合包，并为其所添加的mod、资源进行介绍说明"
 image: "../assets/images/PixPin_2025-08-04_15-10-35.png"
@@ -13,7 +13,7 @@ lang: ""
 
 该文章列写了`SrP-Sakura`的客户端和服务端所用的各种资源，详细的命令、按键功能、插件管理说明请到`Wiki`文档中查看:
 
-- [The Wiki For SrP-Sakura](https://doc.srprolin.top/posts/SrP-Sakura_MC/ssmc-1.md) | (一个用`vitepress`搭建的文档页)
+- [The Wiki For SrP-Sakura](https://doc.srprolin.top/posts/SrP-Sakura_MC/ssmc-1.html) | (一个用`vitepress`搭建的文档页)
 
 # SrP-Sakura 服务端
 
@@ -106,7 +106,7 @@ lang: ""
 
 # SrP-Sakura 客户端
 
-该**纯净生存辅助整合包**下载地址在[Wiki的附属整合包页](https://doc.srprolin.top/posts/SrP-Sakura_MC/ssmc-2.md)中提供。
+该**纯净生存辅助整合包**下载地址在[Wiki的附属整合包页](https://doc.srprolin.top/posts/SrP-Sakura_MC/ssmc-2.html)中提供。
 
 ## 启动器推荐
 
