@@ -352,7 +352,10 @@ import {
     setTheme,
     // 背景模糊
     getBgBlur,
-    setBgBlur
+    setBgBlur,
+    // 背景启用否
+    getHideBg,
+    setHideBg
 } from "../utils/setting-utils";
 import {pathsEqual, url} from "../utils/url-utils";
 import {
@@ -437,9 +440,10 @@ function loadHue() {
 	setHue(getHue())
 }
 
-// 背景模糊
+// 背景模糊 (+背景启用否)
 function loadBgBlur() {
 	setBgBlur(getBgBlur())
+    setHideBg(getHideBg())
 }
 
 function initCustomScrollbar() {

@@ -9,12 +9,18 @@ import {
     // 背景模糊
     getBgBlur,
     setBgBlur,
+    // 背景启用否
+    getHideBg,
+    setHideBg,
 } from "@utils/setting-utils";
 
 let hue = getHue();
 
 // 背景模糊
 let bgBlur = getBgBlur();
+
+// 背景启用否
+let hideBg = getHideBg();
 
 const defaultHue = getDefaultHue();
 
@@ -29,6 +35,13 @@ $: if (hue || hue === 0) {
 $: {
     setBgBlur(bgBlur);
 }
+
+// 背景启用否
+function toggleHideBg() {
+	hideBg = !hideBg;
+	setHideBg(hideBg);
+}
+
 </script>
 
 <div id="display-setting" class="float-panel float-panel-closed absolute transition-all w-80 right-4 px-4 py-4">
@@ -75,6 +88,19 @@ $: {
     <div class="w-full h-6 px-1 bg-[var(--btn-regular-bg)] rounded select-none">
         <input aria-label="背景模糊" type="range" min="0" max="20" bind:value={bgBlur}
                class="slider" step="1" style="width: 100%">
+    </div>
+
+    <br>
+
+    <!--背景启用否-->
+    <div class="flex flex-row gap-2 mb-3 items-center justify-between">
+        <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
+            before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
+            before:absolute before:-left-3 before:top-[0.33rem]"
+        >
+            禁用背景
+        </div>
+        <input type="checkbox" class="toggle-switch" checked={hideBg} on:change={toggleHideBg} />
     </div>
 </div>
 
@@ -124,5 +150,30 @@ $: {
             background rgba(255, 255, 255, 0.8)
           &:active
             background rgba(255, 255, 255, 0.6)
+
+      .toggle-switch
+        appearance none
+        width 3rem
+        height 1.5rem
+        background var(--btn-regular-bg)
+        border-radius 999px
+        position relative
+        cursor pointer
+        transition background 0.3s
+        &::after
+            content ''
+            position absolute
+            top 0.25rem
+            left 0.25rem
+            width 1rem
+            height 1rem
+            background var(--btn-content)
+            border-radius 50%
+            transition transform 0.3s
+        &:checked
+            background var(--primary)
+            &::after
+                transform translateX(1.5rem)
+                background white
 
 </style>

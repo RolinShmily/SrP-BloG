@@ -41,6 +41,20 @@ export function setBgBlur(blur: number): void {
   }
 }
 
+// 背景启用否
+export function getHideBg(): boolean {
+  const stored = localStorage.getItem("hide-bg");
+  return stored === "true";
+}
+
+export function setHideBg(hide: boolean): void {
+  localStorage.setItem("hide-bg", String(hide));
+  const bgBox = document.getElementById("bg-box");
+  if (bgBox) {
+    bgBox.style.setProperty("display", hide ? "none" : "");
+  }
+}
+
 export function applyThemeToDocument(theme: LIGHT_DARK_MODE) {
 	switch (theme) {
 		case LIGHT_MODE:
