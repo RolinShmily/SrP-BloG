@@ -2,7 +2,7 @@
 title: 一些Markdown语法展示
 published: 2025-07-26
 description: "主要演示了一些Markdown语法的使用，每一条均有代码块进行源码展示"
-image: "../assets/images/Timeline 1_01_00_02_42.jpg"
+image: "../assets/images/Timeline_1_01_00_02_42.jpg"
 tags: [Markdown, Obsidian, HTML]
 category: ""
 draft: false
