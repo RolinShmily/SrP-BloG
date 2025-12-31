@@ -68,9 +68,8 @@ export const siteConfig: SiteConfig = {
     },
   ],
   officialSites: [
-    { url: "https://blog.srprolin.top", alias: "阿里云ESA" },
-    { url: "https://srp-blog.netlify.app", alias: "Netlify" },
-    { url: "https://srp-blog.vercel.app", alias: "Vercel" },
+    { url: "https://blog.srprolin.top", alias: "ESA" },
+    { url: "https://cf-blog.srprolin.top", alias: "Cloudflare" }
   ],
 };
 
