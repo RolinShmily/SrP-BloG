@@ -47,7 +47,7 @@ export const siteConfig: SiteConfig = {
   // background image configuration
   background: {
     enable: true, // Enable background image
-    src: "https://pic.srprolin.top/pic?img=ua", // Background image URL (supports HTTPS)
+    src: "", // Background image URL (supports HTTPS)
     position: "center", // Background position: 'top', 'center', 'bottom'
     size: "cover", // Background size: 'cover', 'contain', 'auto'
     repeat: "no-repeat", // Background repeat: 'no-repeat', 'repeat', 'repeat-x', 'repeat-y'
