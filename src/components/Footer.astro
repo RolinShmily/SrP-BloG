@@ -7,7 +7,7 @@ const currentYear = new Date().getFullYear();
 ---
 
 <!--<div class="border-t border-[var(&#45;&#45;primary)] mx-16 border-dashed py-8 max-w-[var(&#45;&#45;page-width)] flex flex-col items-center justify-center px-6">-->
-<div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-32"></div>
+<div class="transition border-t border-black/10 dark:border-white/15 my-10 border-dashed mx-4 md:mx-32"></div>
 
 <!--<div class="transition bg-[oklch(92%_0.01_var(&#45;&#45;hue))] dark:bg-black rounded-2xl py-8 mt-4 mb-8 flex flex-col items-center justify-center px-6">-->
 <!--
@@ -31,5 +31,72 @@ const currentYear = new Date().getFullYear();
         <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://icp.gov.moe/?keyword=20259601" target="_blank"><img alt="" src="/favicon/foot-meng.ico" class="h-4 mr-1">萌ICP备20259601号</a>
         <br>
         <a class="transition link text-[var(--primary)] font-medium inline-flex items-center" href="https://www.travellings.cn/train.html" target="_blank" rel="noopener" title="开往-友链接力"><img src="/favicon/travellinglogo.gif" alt="开往-友链接力" width="100"></a>
+        <br>
+        <div class="server-info-wrapper flex items-center justify-center">
+            <span class="server-info text-black/30 dark:text-white/30 text-xs"></span>
+            <img class="server-icon h-5 ml-1 hidden bg-white rounded p-0.5" alt="Server Icon">
+        </div>
     </div>
 </div>
+
+<script>
+    function updateServerInfo(server) {
+        const wrappers = document.querySelectorAll('.server-info-wrapper');
+        wrappers.forEach(wrapper => {
+            const serverInfo = wrapper.querySelector('.server-info');
+            const serverIcon = wrapper.querySelector('.server-icon');
+            if (serverInfo) {
+                if (server) {
+                    serverInfo.innerText = `访问节点：${server}`;
+                    if (serverIcon) {
+                        const serverLower = server.toLowerCase();
+                        if (serverLower === 'edgeone-pages') {
+                            serverIcon.src = '/cdn/eo.png';
+                            serverIcon.classList.remove('hidden');
+                            serverInfo.classList.add('hidden');
+                        } else if (serverLower === 'cloudflare') {
+                            serverIcon.src = '/cdn/cf.svg';
+                            serverIcon.classList.remove('hidden');
+                            serverInfo.classList.add('hidden');
+                        } else if (serverLower === 'esa') {
+                            serverIcon.src = '/cdn/esa.svg';
+                            serverIcon.classList.remove('hidden');
+                            serverInfo.classList.add('hidden');
+                        } else {
+                            serverIcon.classList.add('hidden');
+                            serverInfo.classList.remove('hidden');
+                        }
+                    }
+                } else {
+                    serverInfo.innerText = "访问节点：未知";
+                    serverInfo.classList.remove('hidden');
+                    if (serverIcon) serverIcon.classList.add('hidden');
+                }
+            }
+        });
+    }
+
+    function initServerInfo() {
+        const isDevMode = localStorage.getItem("dev-mode") === "true";
+        if (isDevMode) {
+            const devServer = localStorage.getItem("dev-server");
+            updateServerInfo(devServer);
+        } else {
+            const url = window.location.href;
+            fetch(url, { method: "HEAD" })
+                .then(response => {
+                    const server = response.headers.get('server');
+                    updateServerInfo(server);
+                })
+                .catch(error => {
+                    console.error("Failed to fetch server info:", error);
+                    updateServerInfo(null);
+                });
+        }
+    }
+
+    initServerInfo();
+    document.addEventListener('astro:after-swap', initServerInfo); // Support View Transitions if enabled
+    // Support Swup if enabled (listen to content replacement)
+    document.addEventListener('content:replace', initServerInfo);
+</script>
