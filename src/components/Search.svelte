@@ -192,6 +192,9 @@ top-20 left-4 md:left-[unset] right-4 shadow-2xl rounded-2xl p-2">
     outline: 0;
   }
   .search-panel {
+    /*添加不透明搜索背景*/
+    background-color: var(--float-panel-bg-opaque);
+
     max-height: calc(100vh - 100px);
     overflow-y: auto;
   }
