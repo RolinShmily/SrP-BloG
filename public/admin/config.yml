@@ -1,0 +1,49 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+# This line should *not* be indented
+media_folder: "src/content/assets/uploads" # Media files will be stored in the repo under images/uploads
+
+collections:
+  - name: "posts" # Used in routes, e.g., /admin/collections/blog
+    label: "Posts" # Used in the UI
+    folder: "src/content/posts" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields for each document, usually in front matter
+      - { label: "标题", name: "title", widget: "string" }
+      - {
+          label: "发布日期",
+          name: "published",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+        }
+      - {
+          label: "置顶",
+          name: "pinned",
+          widget: "boolean",
+          default: false,
+          required: false,
+        }
+      - {
+          label: "摘要",
+          name: "description",
+          widget: "string",
+          required: false,
+        }
+      - { label: "封面", name: "image", widget: "image", required: false }
+      - { label: "标签", name: "tags", widget: "list", required: false }
+      - { label: "分类", name: "categories", widget: "list", required: false }
+      - {
+          label: "草稿",
+          name: "draft",
+          widget: "boolean",
+          default: false,
+          required: false,
+        }
+      - { label: "语言", name: "lang", widget: "string", default: "" }
+
+  - name: "pages"
+    label: "Pages"
+    folder: "src/content/spec"
+    create: true # Allow users to create new documents in this collection
