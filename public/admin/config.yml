@@ -46,4 +46,4 @@ collections:
           required: false,
         }
       - { label: "语言", name: "lang", widget: "string", default: "" }
-
+      - { label: "正文", name: "body", widget: "markdown" }
