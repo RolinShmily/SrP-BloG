@@ -32,6 +32,7 @@ import decapCmsOauth from "astro-decap-cms-oauth";
 export default defineConfig({
   site: "https://blog.srprolin.top/",
   base: "/",
+  output: 'server',
   trailingSlash: "always",
   integrations: [
     tailwind({

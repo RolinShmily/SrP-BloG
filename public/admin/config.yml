@@ -3,7 +3,7 @@ backend:
   branch: main
   repo: RolinShmily/SrP-BloG
   site_domain: blog.srprolin.top
-  base_url: https://cf-blog.srprolin.top
+  base_url: https://blog.srprolin.top
   auth_endpoint: oauth
 
 # This line should *not* be indented
