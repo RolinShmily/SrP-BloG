@@ -26,8 +26,6 @@ import { pluginCustomCopyButton } from "./src/plugins/expressive-code/custom-cop
 
 import cloudflare from "@astrojs/cloudflare";
 
-import decapCmsOauth from "astro-decap-cms-oauth";
-
 // https://astro.build/config
 export default defineConfig({
   site: "https://blog.srprolin.top/",
@@ -107,10 +105,6 @@ export default defineConfig({
     }),
     svelte(),
     sitemap(),
-    decapCmsOauth({
-      adminDisabled: false,
-      oauthDisabled: false,
-    }),
   ],
 
   markdown: {
