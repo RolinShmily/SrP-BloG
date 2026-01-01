@@ -106,9 +106,10 @@ export default defineConfig({
     }),
     svelte(),
     sitemap(),
-      decapCmsOauth(
-        adminDisabled: false,
-        oauthDisabled: false,),
+      decapCmsOauth({
+          adminDisabled: false,
+          oauthDisabled: false,
+      }),
   ],
 
   markdown: {
