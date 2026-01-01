@@ -34,9 +34,13 @@ export default defineConfig({
   base: "/",
   trailingSlash: "always",
 
-  integrations: [tailwind({
+  adapter: cloudflare({}),
+
+  integrations: [
+    tailwind({
       nesting: true,
-  }), swup({
+    }),
+    swup({
       theme: false,
       animationClass: "transition-swup-", // see https://swup.js.org/options/#animationselector
       // the default value `transition-` cause transition delay
@@ -49,126 +53,133 @@ export default defineConfig({
       updateHead: true,
       updateBodyClass: false,
       globalInstance: true,
-  }), icon({
+    }),
+    icon({
       include: {
-          "preprocess: vitePreprocess(),": ["*"],
-          "fa6-brands": ["*"],
-          "fa6-regular": ["*"],
-          "fa6-solid": ["*"],
+        "preprocess: vitePreprocess(),": ["*"],
+        "fa6-brands": ["*"],
+        "fa6-regular": ["*"],
+        "fa6-solid": ["*"],
       },
-  }), expressiveCode({
+    }),
+    expressiveCode({
       themes: [expressiveCodeConfig.theme, expressiveCodeConfig.theme],
       plugins: [
-          pluginCollapsibleSections(),
-          pluginLineNumbers(),
-          pluginLanguageBadge(),
-          pluginCustomCopyButton()
+        pluginCollapsibleSections(),
+        pluginLineNumbers(),
+        pluginLanguageBadge(),
+        pluginCustomCopyButton(),
       ],
       defaultProps: {
-          wrap: true,
-          overridesByLang: {
-              'shellsession': {
-                  showLineNumbers: false,
-              },
+        wrap: true,
+        overridesByLang: {
+          shellsession: {
+            showLineNumbers: false,
           },
+        },
       },
       styleOverrides: {
-          codeBackground: "var(--codeblock-bg)",
-          borderRadius: "0.75rem",
-          borderColor: "none",
-          codeFontSize: "0.875rem",
-          codeFontFamily: "'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-          codeLineHeight: "1.5rem",
-          frames: {
-              editorBackground: "var(--codeblock-bg)",
-              terminalBackground: "var(--codeblock-bg)",
-              terminalTitlebarBackground: "var(--codeblock-topbar-bg)",
-              editorTabBarBackground: "var(--codeblock-topbar-bg)",
-              editorActiveTabBackground: "none",
-              editorActiveTabIndicatorBottomColor: "var(--primary)",
-              editorActiveTabIndicatorTopColor: "none",
-              editorTabBarBorderBottomColor: "var(--codeblock-topbar-bg)",
-              terminalTitlebarBorderBottomColor: "none"
-          },
-          textMarkers: {
-              delHue: 0,
-              insHue: 180,
-              markHue: 250
-          }
+        codeBackground: "var(--codeblock-bg)",
+        borderRadius: "0.75rem",
+        borderColor: "none",
+        codeFontSize: "0.875rem",
+        codeFontFamily:
+          "'JetBrains Mono Variable', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+        codeLineHeight: "1.5rem",
+        frames: {
+          editorBackground: "var(--codeblock-bg)",
+          terminalBackground: "var(--codeblock-bg)",
+          terminalTitlebarBackground: "var(--codeblock-topbar-bg)",
+          editorTabBarBackground: "var(--codeblock-topbar-bg)",
+          editorActiveTabBackground: "none",
+          editorActiveTabIndicatorBottomColor: "var(--primary)",
+          editorActiveTabIndicatorTopColor: "none",
+          editorTabBarBorderBottomColor: "var(--codeblock-topbar-bg)",
+          terminalTitlebarBorderBottomColor: "none",
+        },
+        textMarkers: {
+          delHue: 0,
+          insHue: 180,
+          markHue: 250,
+        },
       },
       frames: {
-          showCopyToClipboardButton: false,
-      }
-  }), svelte(), sitemap(), decapCmsOauth()],
+        showCopyToClipboardButton: false,
+      },
+    }),
+    svelte(),
+    sitemap(),
+    decapCmsOauth(),
+  ],
 
   markdown: {
-      remarkPlugins: [
-          remarkMath,
-          remarkReadingTime,
-          remarkExcerpt,
-          remarkGithubAdmonitionsToDirectives,
-          remarkDirective,
-          remarkSectionize,
-          parseDirectiveNode,
+    remarkPlugins: [
+      remarkMath,
+      remarkReadingTime,
+      remarkExcerpt,
+      remarkGithubAdmonitionsToDirectives,
+      remarkDirective,
+      remarkSectionize,
+      parseDirectiveNode,
+    ],
+    rehypePlugins: [
+      rehypeKatex,
+      rehypeSlug,
+      [
+        rehypeComponents,
+        {
+          components: {
+            github: GithubCardComponent,
+            note: (x, y) => AdmonitionComponent(x, y, "note"),
+            tip: (x, y) => AdmonitionComponent(x, y, "tip"),
+            important: (x, y) => AdmonitionComponent(x, y, "important"),
+            caution: (x, y) => AdmonitionComponent(x, y, "caution"),
+            warning: (x, y) => AdmonitionComponent(x, y, "warning"),
+          },
+        },
       ],
-      rehypePlugins: [
-          rehypeKatex,
-          rehypeSlug,
-          [
-              rehypeComponents,
+      [
+        rehypeAutolinkHeadings,
+        {
+          behavior: "append",
+          properties: {
+            className: ["anchor"],
+          },
+          content: {
+            type: "element",
+            tagName: "span",
+            properties: {
+              className: ["anchor-icon"],
+              "data-pagefind-ignore": true,
+            },
+            children: [
               {
-                  components: {
-                      github: GithubCardComponent,
-                      note: (x, y) => AdmonitionComponent(x, y, "note"),
-                      tip: (x, y) => AdmonitionComponent(x, y, "tip"),
-                      important: (x, y) => AdmonitionComponent(x, y, "important"),
-                      caution: (x, y) => AdmonitionComponent(x, y, "caution"),
-                      warning: (x, y) => AdmonitionComponent(x, y, "warning"),
-                  },
+                type: "text",
+                value: "#",
               },
-          ],
-          [
-              rehypeAutolinkHeadings,
-              {
-                  behavior: "append",
-                  properties: {
-                      className: ["anchor"],
-                  },
-                  content: {
-                      type: "element",
-                      tagName: "span",
-                      properties: {
-                          className: ["anchor-icon"],
-                          "data-pagefind-ignore": true,
-                      },
-                      children: [
-                          {
-                              type: "text",
-                              value: "#",
-                          },
-                      ],
-                  },
-              },
-          ],
+            ],
+          },
+        },
       ],
-    },
+    ],
+  },
 
   vite: {
-      build: {
-          rollupOptions: {
-              onwarn(warning, warn) {
-                  // temporarily suppress this warning
-                  if (
-                      warning.message.includes("is dynamically imported by") &&
-                      warning.message.includes("but also statically imported by")
-                  ) {
-                      return;
-                  }
-                  warn(warning);
-              },
-          },
+    build: {
+      rollupOptions: {
+        onwarn(warning, warn) {
+          // temporarily suppress this warning
+          if (
+            warning.message.includes("is dynamically imported by") &&
+            warning.message.includes("but also statically imported by")
+          ) {
+            return;
+          }
+          warn(warning);
+        },
       },
     },
+  },
 
   adapter: cloudflare(),
 });
