@@ -14,6 +14,7 @@ collections:
     label: "Posts" # Used in the UI
     folder: "src/content/posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{uuid}}" # Filename template
     fields: # The fields for each document, usually in front matter
       - { label: "标题", name: "title", widget: "string" }
       - {
@@ -36,7 +37,13 @@ collections:
           required: false,
         }
       - { label: "封面", name: "image", widget: "image", required: false }
-      - { label: "标签", name: "tags", widget: "list", required: false }
+      - {
+          label: "标签",
+          name: "tags",
+          widget: "list",
+          minimize_collapsed: true,
+          required: false,
+        }
       - { label: "分类", name: "categories", widget: "list", required: false }
       - {
           label: "草稿",
@@ -45,5 +52,30 @@ collections:
           default: false,
           required: false,
         }
-      - { label: "语言", name: "lang", widget: "string", default: "" }
-      - { label: "正文", name: "body", widget: "markdown" }
+      - {
+          label: "语言",
+          name: "lang",
+          widget: "string",
+          default: "",
+          required: false,
+        }
+      - { label: "正文", name: "body", widget: "markdown", required: false }
+
+  - name: "pages"
+    label: "Pages"
+    files:
+      - file: "src/content/spec/about.md"
+        name: "about"
+        label: "关于"
+        fields:
+          - { label: "内容", name: "body", widget: "markdown", required: false }
+      - file: "src/content/spec/frlinks.md"
+        name: "frlinks"
+        label: "友链"
+        fields:
+          - { label: "内容", name: "body", widget: "markdown", required: false }
+      - file: "src/content/spec/anime.md"
+        name: "anime"
+        label: "番剧"
+        fields:
+          - { label: "内容", name: "body", widget: "markdown", required: false }
