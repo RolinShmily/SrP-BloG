@@ -1,5 +1,6 @@
 {
   "name": "srp-blog",
+  "compatibility_flags": ["nodejs_compat"],
   "compatibility_date": "2025-12-31",
   "assets": {
     "directory": "./dist",

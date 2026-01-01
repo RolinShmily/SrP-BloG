@@ -182,8 +182,10 @@ export default defineConfig({
     },
   },
 
-  adapter: cloudflare({
-    nodeCompatibility: true,
-    platformProxy: { enabled: true },
-  }),
+  adapter: cloudflare({}),
+  vite: {
+    ssr: {
+      external: ["node:buffer"],
+    },
+  },
 });
