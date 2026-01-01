@@ -6,6 +6,14 @@ backend:
   base_url: https://gh-oauth.srprolin.top
   auth_endpoint: auth
 
+  commit_messages:
+    create: "CMS:Create {{collection}} “{{slug}}”"
+    update: "CMS:Update {{collection}} “{{slug}}”"
+    delete: "CMS:Delete {{collection}} “{{slug}}”"
+    uploadMedia: "CMS:Upload “{{path}}”"
+    deleteMedia: "CMS:Delete “{{path}}”"
+    openAuthoring: "CMS:{{message}}"
+
 # This line should *not* be indented
 media_folder: "src/content/assets/uploads" # Media files will be stored in the repo under images/uploads
 
@@ -14,7 +22,7 @@ collections:
     label: "Posts" # Used in the UI
     folder: "src/content/posts" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
-    slug: "{{year}}-{{month}}-{{day}}-{{uuid}}" # Filename template
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # Filename template
     fields: # The fields for each document, usually in front matter
       - { label: "标题", name: "title", widget: "string" }
       - {
