@@ -14,7 +14,7 @@ backend:
     deleteMedia: "CMS:Delete “{{path}}”"
     openAuthoring: "CMS:{{message}}"
 
-logo_url: public/favicon/favicon.ico
+logo_url: /public/favicon/favicon.ico
 
 # This line should *not* be indented
 media_folder: "src/content/assets/uploads" # Media files will be stored in the repo under images/uploads
