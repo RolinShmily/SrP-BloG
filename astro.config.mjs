@@ -33,9 +33,6 @@ export default defineConfig({
   site: "https://blog.srprolin.top/",
   base: "/",
   trailingSlash: "always",
-
-  adapter: cloudflare({}),
-
   integrations: [
     tailwind({
       nesting: true,
@@ -109,7 +106,9 @@ export default defineConfig({
     }),
     svelte(),
     sitemap(),
-    decapCmsOauth(),
+      decapCmsOauth(
+        adminDisabled: false,
+        oauthDisabled: false,),
   ],
 
   markdown: {
