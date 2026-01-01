@@ -4,7 +4,7 @@ backend:
   repo: RolinShmily/SrP-BloG
   site_domain: blog.srprolin.top
   base_url: https://gh-oauth.srprolin.top
-  auth_endpoint: oauth
+  auth_endpoint: auth
 
 # This line should *not* be indented
 media_folder: "src/content/assets/uploads" # Media files will be stored in the repo under images/uploads
