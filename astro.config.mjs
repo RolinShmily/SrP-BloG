@@ -32,7 +32,7 @@ import decapCmsOauth from "astro-decap-cms-oauth";
 export default defineConfig({
   site: "https://blog.srprolin.top/",
   base: "/",
-  output: 'server',
+  output: "server",
   trailingSlash: "always",
   integrations: [
     tailwind({
@@ -107,10 +107,10 @@ export default defineConfig({
     }),
     svelte(),
     sitemap(),
-      decapCmsOauth({
-          adminDisabled: false,
-          oauthDisabled: false,
-      }),
+    decapCmsOauth({
+      adminDisabled: false,
+      oauthDisabled: false,
+    }),
   ],
 
   markdown: {
@@ -182,5 +182,8 @@ export default defineConfig({
     },
   },
 
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    nodeCompatibility: true,
+    platformProxy: { enabled: true },
+  }),
 });
