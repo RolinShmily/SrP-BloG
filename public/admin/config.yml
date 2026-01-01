@@ -43,7 +43,3 @@ collections:
         }
       - { label: "语言", name: "lang", widget: "string", default: "" }
 
-  - name: "pages"
-    label: "Pages"
-    folder: "src/content/spec"
-    create: true # Allow users to create new documents in this collection
