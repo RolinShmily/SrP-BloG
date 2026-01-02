@@ -3,7 +3,7 @@
  */
 (function () {
   // 1. 修改配置：直接定义你的重定向 API 基础地址
-  var apiUrlBase = "https://img.srprolin.top/pic";
+  var apiUrlBase = "https://eo-img.srprolin.top/pic";
 
   // State management: 依然保留 session 锁定逻辑，防止 Swup 跳转时背景图乱跳
   var sessionRandomH = null;
