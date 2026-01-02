@@ -1,7 +1,5 @@
 # 关于&隐私政策
 
-最后更新日期：2025 年 12 月
-
 ## 概述
 
 本网站是一个静态网站，采用[Astro](https://github.com/withastro/astro)框架，基于[Fuwari](https://github.com/saicaca/fuwari)模板构建，并使用[GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html)协议开源于 GitHub。
@@ -85,7 +83,7 @@
 
 托管至[EdgeOne](https://edgeone.ai/zh/products/function)，通过识别用户UA来返回 横/竖 屏背景图。
 
-::github{repo="RolinShmily/EdgeOne_Function_PicAPI"}
+::github{repo="RolinShmily/SrP-IMG"}
 
 ## Cookie 和本地存储
 
