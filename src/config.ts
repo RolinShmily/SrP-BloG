@@ -47,6 +47,7 @@ export const siteConfig: SiteConfig = {
   // background image configuration
   background: {
     enable: true, // Enable background image
+    // 注：此处src已无效，在public/js/redirect-random.js处配置URL
     src: "", // Background image URL (supports HTTPS)
     position: "center", // Background position: 'top', 'center', 'bottom'
     size: "cover", // Background size: 'cover', 'contain', 'auto'
