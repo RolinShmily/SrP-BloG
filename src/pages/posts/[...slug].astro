@@ -230,59 +230,7 @@ const jsonLd = {
     document.addEventListener('swup:contentReplaced', setupImageLoading);
 </script>
 
-<script define:vars={{ umamiConfig, postUrl: getPostUrlBySlug(entry.slug) }}>
-    // 数字动画函数
-    function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = Math.floor(progress * (end - start) + start);
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                obj.innerHTML = end;
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
 
-    async function loadPageViews() {
-        if (!umamiConfig.enable) return;
-        try {
-            const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
-                url: postUrl,
-                timezone: umamiConfig.timezone
-            });
-
-            const pageviews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
-            const element = document.getElementById('post-pageviews');
-
-            if (element) {
-                // 如果数据来自缓存，直接显示结果，跳过动画
-                if (statsData._fromCache) {
-                    element.innerHTML = pageviews;
-                    return;
-                }
-
-                const startVal = parseInt(element.textContent) || 0;
-
-                if (startVal !== pageviews) {
-                    if (startVal === 0) {
-                        animateValue(element, startVal, pageviews, 1000);
-                    } else {
-                        element.innerHTML = pageviews;
-                    }
-                }
-            }
-        } catch (error) {
-            console.error('获取页面访问量失败:', error);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadPageViews);
-    document.addEventListener('swup:contentReplaced', loadPageViews);
-</script>
 
 <style is:global>
     @keyframes loading-progress {

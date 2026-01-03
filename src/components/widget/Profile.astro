@@ -68,30 +68,10 @@ const config = profileConfig;
         }
 
         try {
-            // 调用全局工具获取 Umami 分享数据
-            const { websiteId, token } = await getUmamiShareData(umamiConfig.baseUrl, umamiConfig.shareId);
+            const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
+                timezone: umamiConfig.timezone
+            });
 
-            // 第二步：获取全站统计数据（不指定url参数获取全站数据）
-            const currentTimestamp = Date.now();
-            const statsUrl = `${umamiConfig.baseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${currentTimestamp}&unit=hour&timezone=${encodeURIComponent(umamiConfig.timezone)}&compare=false`;
-
-            const statsResponse = await fetch(statsUrl, {
-                 headers: {
-                     'x-umami-share-token': token
-                 }
-             });
-
-            if (statsResponse.status === 401) {
-                // token 失效，清理缓存后重新获取一次
-                clearUmamiShareCache();
-                return await loadSiteStats();
-            }
-
-            if (!statsResponse.ok) {
-                throw new Error('获取统计数据失败');
-            }
-
-            const statsData = await statsResponse.json();
             const pageviews = statsData.pageviews || 0;
             const visitors = statsData.visitors || 0;
 

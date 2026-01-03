@@ -111,34 +111,15 @@ const className = Astro.props.class;
     <script define:vars={{ slug, umamiConfig }}>
 
         // 获取访问量统计
-        async function fetchPageViews(isRetry = false) {
-            if (!umamiConfig.enable) {
-                return;
-            }
+        async function fetchPageViews() {
+            if (!umamiConfig.enable) return;
 
             try {
-                // 调用全局工具获取 Umami 分享数据
-                const { websiteId, token } = await getUmamiShareData(umamiConfig.baseUrl, umamiConfig.shareId);
-
-                // 第二步：获取统计数据
-                const currentTimestamp = Date.now();
-                const statsUrl = `${umamiConfig.baseUrl}/api/websites/${websiteId}/stats?startAt=0&endAt=${currentTimestamp}&unit=hour&timezone=${encodeURIComponent(umamiConfig.timezone)}&path=eq.%2Fposts%2F${slug}%2F&compare=false`;
-
-                const statsResponse = await fetch(statsUrl, {
-                    headers: {
-                        'x-umami-share-token': token
-                    }
+                const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
+                    timezone: umamiConfig.timezone,
+                    path: `eq./posts/${slug}/`
                 });
 
-                if (!statsResponse.ok) {
-                    if (statsResponse.status === 401 && !isRetry) {
-                        clearUmamiShareCache();
-                        return fetchPageViews(true);
-                    }
-                    throw new Error('获取统计数据失败');
-                }
-
-                const statsData = await statsResponse.json();
                 const pageViews = statsData.pageviews || 0;
                 const visits = statsData.visitors || 0;
 
