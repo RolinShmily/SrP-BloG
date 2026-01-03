@@ -49,4 +49,50 @@
     localStorage.removeItem(cacheKey);
     delete global.__umamiSharePromise;
   };
+
+  /**
+   * 获取 Umami 统计数据
+   * 自动处理 token 获取和过期重试
+   * @param {string} baseUrl
+   * @param {string} shareId
+   * @param {object} queryParams
+   * @returns {Promise<any>}
+   */
+  global.fetchUmamiStats = async function (baseUrl, shareId, queryParams) {
+    async function doFetch(isRetry = false) {
+      const { websiteId, token } = await global.getUmamiShareData(
+        baseUrl,
+        shareId
+      );
+      const currentTimestamp = Date.now();
+      const params = new URLSearchParams({
+        startAt: 0,
+        endAt: currentTimestamp,
+        unit: "hour",
+        timezone: queryParams.timezone || "Asia/Shanghai",
+        compare: false,
+        ...queryParams,
+      });
+
+      const statsUrl = `${baseUrl}/api/websites/${websiteId}/stats?${params.toString()}`;
+
+      const res = await fetch(statsUrl, {
+        headers: {
+          "x-umami-share-token": token,
+        },
+      });
+
+      if (!res.ok) {
+        if (res.status === 401 && !isRetry) {
+          global.clearUmamiShareCache();
+          return doFetch(true);
+        }
+        throw new Error("获取统计数据失败");
+      }
+
+      return await res.json();
+    }
+
+    return doFetch();
+  };
 })(window);
