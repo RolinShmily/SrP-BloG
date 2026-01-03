@@ -34,6 +34,12 @@ export default defineConfig({
   base: "/",
   output: "static",
   trailingSlash: "always",
+  image: {
+    service: {
+      entrypoint: "astro/assets/services/sharp",
+      config: { imageService: "compile" },
+    },
+  },
   adapter: cloudflare({
     imageService: "compile",
   }),
@@ -66,6 +72,7 @@ export default defineConfig({
     expressiveCode({
       themes: [expressiveCodeConfig.theme, expressiveCodeConfig.theme],
       shikiConfig: {
+        langs: ["ini", "xml", "vbs", "json"],
         langAlias: {
           cfg: "ini",
           conf: "ini",
@@ -181,10 +188,12 @@ export default defineConfig({
   },
 
   vite: {
+    ssr: {
+      external: ["node:buffer", "node:path", "node:stream", "node:util"],
+    },
     build: {
       rollupOptions: {
         onwarn(warning, warn) {
-          // temporarily suppress this warning
           if (
             warning.message.includes("is dynamically imported by") &&
             warning.message.includes("but also statically imported by")
@@ -194,13 +203,6 @@ export default defineConfig({
           warn(warning);
         },
       },
-    },
-  },
-
-  adapter: cloudflare({}),
-  vite: {
-    ssr: {
-      external: ["node:buffer"],
     },
   },
 });
