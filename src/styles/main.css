@@ -3,9 +3,10 @@
 @layer components {
     .card-base {
         @apply rounded-[var(--radius-large)] overflow-hidden bg-[var(--card-bg)] transition;
-        /* 背景模糊 */
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
+        @apply border border-black/5 dark:border-white/10;
+    }
+    .card-hover {
+        @apply hover:scale-[1.01] hover:shadow-xl hover:border-black/10 dark:hover:border-white/20 hover:z-10;
     }
     h1, h2, h3, h4, h5, h6, p, a, span, li, ul, ol, blockquote, code, pre, table, th, td, strong {
         @apply transition;

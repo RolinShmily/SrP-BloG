@@ -30,7 +30,7 @@ export function setHue(hue: number): void {
 // 背景模糊
 export function getBgBlur(): number {
   const stored = localStorage.getItem("bg-blur");
-  return stored ? Number.parseInt(stored) : 0; // Default blur is 0
+  return stored ? Number.parseInt(stored) : 4; // Default blur is 4
 }
 
 export function setBgBlur(blur: number): void {
@@ -51,7 +51,7 @@ export function setHideBg(hide: boolean): void {
   localStorage.setItem("hide-bg", String(hide));
   const bgBox = document.getElementById("bg-box");
   if (bgBox) {
-    bgBox.style.setProperty("display", hide ? "none" : "");
+    bgBox.style.setProperty("opacity", hide ? "0" : "");
   }
 }
 
