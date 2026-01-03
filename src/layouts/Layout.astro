@@ -4,7 +4,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import ConfigCarrier from "@components/ConfigCarrier.astro";
-import { profileConfig, siteConfig } from "@/config";
+import { profileConfig, siteConfig} from "@/config";
 import {
 	AUTO_MODE,
 	BANNER_HEIGHT,
@@ -113,8 +113,81 @@ const bannerOffset =
         <script defer src="https://umami.srprolin.top/script.js" data-website-id="782f967d-d06d-42b7-88ed-85defd1ddef1" data-swup-ignore-script></script>
         <!-- umami逆向工程js -->
 		<script src="/js/umami-share.js" defer></script>
-        <!-- 随机图API注入bg-box背景div盒的方式 -->
-        <script data-swup-ignore-script is:inline src="/js/redirect-random.js"></script>
+        <!-- 随机图API注入bg-box背景图CSS -->
+        <script data-swup-ignore-script is:inline define:vars={{ apiUrlBase: siteConfig.background.src }}>
+            (function () {
+                function setRandomBackground() {
+                    const bgBox = document.getElementById("bg-box");
+                    if (!bgBox || bgBox.classList.contains("loaded")) return;
+
+                    const img = new Image();
+                    img.onload = function () {
+                    bgBox.style.backgroundImage = `url('${apiUrlBase}')`;
+
+                    requestAnimationFrame(() => {
+                        bgBox.classList.add("loaded");
+                        document.documentElement.style.setProperty(
+                        "--card-bg",
+                        "var(--card-bg-transparent)"
+                        );
+                        document.documentElement.style.setProperty(
+                        "--float-panel-bg",
+                        "var(--float-panel-bg-transparent)"
+                        );
+                    });
+                    };
+                    img.src = apiUrlBase;
+                }
+
+                function initImgTags() {
+                    var imgTags = document.getElementsByTagName("img");
+                    for (var i = 0; i < imgTags.length; i++) {
+                    var img = imgTags[i];
+                    if (
+                        img.getAttribute("alt") &&
+                        img.getAttribute("alt").indexOf("random") !== -1
+                    ) {
+                        img.src = apiUrlBase;
+                    }
+                    }
+                }
+
+                function initGenericBackgrounds() {
+                    document.querySelectorAll("[data-random-bg]").forEach(function (el) {
+                    if (el.id === "bg-box") return;
+                    var img = new Image();
+                    img.onload = function () {
+                        el.style.backgroundImage = 'url("' + apiUrlBase + '")';
+                        el.classList.add("loaded");
+                    };
+                    img.src = apiUrlBase;
+                    });
+                }
+
+                function init() {
+                    setRandomBackground();
+                    initImgTags();
+                    initGenericBackgrounds();
+                }
+
+                if (document.readyState === "loading") {
+                    document.addEventListener("DOMContentLoaded", init);
+                } else {
+                    init();
+                }
+
+                function setupSwup() {
+                    if (window.swup && window.swup.hooks) {
+                    window.swup.hooks.on("content:replace", init);
+                    }
+                }
+
+                if (window.swup) setupSwup();
+                else document.addEventListener("swup:enable", setupSwup);
+
+                document.addEventListener("swup:contentReplaced", init);
+            })();
+        </script>
 
 		<!-- Set the theme before the page is rendered to avoid a flash -->
 		<script is:inline define:vars={{DEFAULT_THEME, LIGHT_MODE, DARK_MODE, AUTO_MODE, BANNER_HEIGHT_EXTEND, PAGE_WIDTH, configHue}}>
