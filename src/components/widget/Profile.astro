@@ -5,7 +5,7 @@ import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
 
 // umami逆向工程
-import { profileConfig, umamiConfig} from "../../config";
+import {umamiConfig} from "../../config";
 
 const config = profileConfig;
 ---
@@ -45,21 +45,56 @@ const config = profileConfig;
                     <Icon name="material-symbols:visibility-outline" class="text-base"></Icon>
                     <span class="text-xs">访问量</span>
                 </div>
-                <div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">-</div>
+                 <div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
             </div>
             <div class="text-center border-l border-neutral-200 dark:border-neutral-700">
                 <div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
                     <Icon name="material-symbols:person" class="text-base"></Icon>
                     <span class="text-xs">访客数</span>
                 </div>
-                <div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">-</div>
+                <div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
             </div>
         </div>
 
     </div>
 </div>
 
+<style>
+    .loading-bar {
+        transition: opacity 0.5s ease-out;
+    }
+
+    @keyframes loading-progress {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(400%);
+        }
+    }
+
+    .animate-loading-progress {
+        animation: loading-progress 1.5s ease-in-out infinite;
+    }
+</style>
+
 <script define:vars={{ umamiConfig}}>
+    // 数字动画函数
+    function animateValue(obj, start, end, duration) {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            obj.innerHTML = Math.floor(progress * (end - start) + start);
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                obj.innerHTML = end;
+            }
+        };
+        window.requestAnimationFrame(step);
+    }
+
     // 获取全站访问量统计
 
     async function loadSiteStats() {
@@ -78,10 +113,19 @@ const config = profileConfig;
             const viewsElement = document.getElementById('site-views');
             const visitorsElement = document.getElementById('site-visitors');
             if (viewsElement) {
-                viewsElement.textContent = pageviews;
+                const startVal = parseInt(viewsElement.textContent) || 0;
+                // 如果当前值已经是目标值，就不执行动画
+                if (startVal !== pageviews) {
+                    animateValue(viewsElement, startVal, pageviews, 1000);
+                }
             }
+
             if (visitorsElement) {
-                visitorsElement.textContent = visitors;
+                const startVal = parseInt(visitorsElement.textContent) || 0;
+                // 如果当前值已经是目标值，就不执行动画
+                if (startVal !== visitors) {
+                    animateValue(visitorsElement, startVal, visitors, 1000);
+                }
             }
         } catch (error) {
             console.error('获取全站统计失败:', error);
@@ -90,4 +134,7 @@ const config = profileConfig;
 
     // 页面加载完成后获取统计数据
     document.addEventListener('DOMContentLoaded', loadSiteStats);
+
+    // 监听 Swup 内容替换事件，确保页面切换后重新获取数据
+    document.addEventListener('content:replace', loadSiteStats);
 </script>
