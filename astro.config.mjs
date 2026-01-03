@@ -34,6 +34,9 @@ export default defineConfig({
   base: "/",
   output: "static",
   trailingSlash: "always",
+  adapter: cloudflare({
+    imageService: "compile",
+  }),
   integrations: [
     tailwind({
       nesting: true,
@@ -62,6 +65,15 @@ export default defineConfig({
     }),
     expressiveCode({
       themes: [expressiveCodeConfig.theme, expressiveCodeConfig.theme],
+      shikiConfig: {
+        langAlias: {
+          cfg: "ini",
+          conf: "ini",
+          plist: "xml",
+          vbs: "vb",
+          "moon.json": "json",
+        },
+      },
       plugins: [
         pluginCollapsibleSections(),
         pluginLineNumbers(),
