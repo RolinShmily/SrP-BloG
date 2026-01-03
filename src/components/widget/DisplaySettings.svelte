@@ -85,9 +85,9 @@ function toggleHideBg() {
             </div>
         </div>
     </div>
-    <div class="w-full h-6 px-1 bg-[var(--btn-regular-bg)] rounded select-none">
+    <div class="w-full h-6 bg-[var(--btn-regular-bg)] rounded select-none overflow-hidden">
         <input aria-label="背景模糊" type="range" min="0" max="20" bind:value={bgBlur}
-               class="slider" step="1" style="width: 100%">
+               class="slider" step="1" style="width: 100%; --value-percent: {bgBlur / 20 * 100}%">
     </div>
 
     <br>
@@ -110,10 +110,44 @@ function toggleHideBg() {
       input[type="range"]
         -webkit-appearance none
         height 1.5rem
-        background-image var(--color-selection-bar)
+        background-color transparent
         transition background-image 0.15s ease-in-out
 
+        &:not(#colorSlider)
+            background-image linear-gradient(to right, var(--primary) 0%, var(--primary) var(--value-percent), transparent var(--value-percent), transparent 100%)
+
+      #colorSlider
+        background-image var(--color-selection-bar)
+
+      input[type="range"]
         /* Input Thumb */
+        &::-webkit-slider-thumb
+          -webkit-appearance none
+          height 0
+          width 0
+          background transparent
+          box-shadow none
+          border none
+
+        &::-moz-range-thumb
+          -webkit-appearance none
+          height 0
+          width 0
+          background transparent
+          box-shadow none
+          border none
+
+        &::-ms-thumb
+          -webkit-appearance none
+          height 0
+          width 0
+          background transparent
+          box-shadow none
+          border none
+
+      #colorSlider
+        background-image var(--color-selection-bar)
+
         &::-webkit-slider-thumb
           -webkit-appearance none
           height 1rem
@@ -121,6 +155,9 @@ function toggleHideBg() {
           border-radius 0.125rem
           background rgba(255, 255, 255, 0.7)
           box-shadow none
+          margin-top 0
+          transform none
+          transition background 0.15s
           &:hover
             background rgba(255, 255, 255, 0.8)
           &:active
@@ -134,6 +171,8 @@ function toggleHideBg() {
           border-width 0
           background rgba(255, 255, 255, 0.7)
           box-shadow none
+          transform none
+          transition background 0.15s
           &:hover
             background rgba(255, 255, 255, 0.8)
           &:active
@@ -146,6 +185,8 @@ function toggleHideBg() {
           border-radius 0.125rem
           background rgba(255, 255, 255, 0.7)
           box-shadow none
+          transform none
+          transition background 0.15s
           &:hover
             background rgba(255, 255, 255, 0.8)
           &:active
