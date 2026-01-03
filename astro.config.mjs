@@ -9,6 +9,7 @@ import icon from "astro-icon";
 import { defineConfig } from "astro/config";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeComponents from "rehype-components";/* Render the custom directive content */
+import rehypeExternalLinks from "rehype-external-links";
 import rehypeKatex from "rehype-katex";
 import rehypeSlug from "rehype-slug";
 import remarkDirective from "remark-directive";/* Handle directives */
@@ -133,6 +134,12 @@ export default defineConfig({
             caution: (x, y) => AdmonitionComponent(x, y, "caution"),
             warning: (x, y) => AdmonitionComponent(x, y, "warning"),
           },
+        },
+      ],
+      [
+        rehypeExternalLinks,
+        {
+          target: "_blank",
         },
       ],
       [
