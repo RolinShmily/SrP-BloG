@@ -243,3 +243,127 @@ a.card-github.fetch-error
   transition-property: all
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1)
   transition-duration: 0.15s
+
+a.card-url
+  display: block
+  background: var(--license-block-bg)
+  position: relative
+  margin: 0.5rem 0
+  padding: 1rem
+  color: var(--tw-prose-body)
+  border-radius: var(--radius-large)
+  text-decoration-thickness: 0px
+  text-decoration-line: none
+  overflow: hidden
+  transition: background-color 0.15s ease-in-out, transform 0.15s ease-in-out
+
+  &:hover
+    background-color: var(--btn-regular-bg-hover)
+    .uc-title-text
+      color: var(--primary)
+
+  &:active
+    scale: .98
+    background-color: var(--btn-regular-bg-active)
+
+  .uc-container
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    gap: 1rem
+
+    &.no-image
+       .uc-image
+          display: none
+
+  .uc-content
+    display: flex
+    flex-direction: column
+    flex: 1
+    min-width: 0
+    justify-content: center
+
+  .uc-image
+    width: 6rem
+    height: 6rem
+    flex-shrink: 0
+    background-size: cover
+    background-position: center
+    border-radius: 0.5rem
+    background-color: var(--card-bg)
+    display: block
+
+    @media (max-width: 640px)
+        width: 4rem
+        height: 4rem
+
+  .uc-titlebar
+    display: flex
+    align-items: center
+    margin-bottom: 0.25rem
+    font-size: 0.75rem
+    color: var(--tw-prose-body)
+    opacity: 0.8
+
+    .uc-titlebar-left
+      display: flex
+      align-items: center
+      gap: 0.5rem
+
+    .uc-favicon
+        width: 1rem
+        height: 1rem
+        background-size: cover
+        background-color: var(--tw-prose-body)
+        border-radius: 2px
+        opacity: 0.5
+
+    .uc-domain
+        font-weight: 500
+
+  .uc-title-text
+    font-size: 1rem
+    font-weight: bold
+    margin-bottom: 0.25rem
+    line-height: 1.4
+    color: var(--tw-prose-headings)
+    transition: color 0.15s
+    display: -webkit-box
+    -webkit-line-clamp: 1
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+  .uc-description
+    font-size: 0.875rem
+    color: var(--tw-prose-body)
+    opacity: 0.8
+    line-height: 1.4
+    display: -webkit-box
+    -webkit-line-clamp: 2
+    -webkit-box-orient: vertical
+    overflow: hidden
+
+
+a.card-url.fetch-waiting
+  pointer-events: none
+  opacity: 0.7
+
+  .uc-title-text, .uc-description, .uc-domain
+     background-color: var(--tw-prose-body)
+     color: transparent
+     opacity: 0.5
+     animation: pulsate 2s infinite linear
+     user-select: none
+     border-radius: 0.25rem
+     width: fit-content
+
+  .uc-image
+     opacity: 0.5
+     animation: pulsate 2s infinite linear
+     background-color: var(--tw-prose-body)
+
+a.card-url.fetch-error
+  pointer-events: all
+  opacity: 1
+  .uc-image
+     display: none
