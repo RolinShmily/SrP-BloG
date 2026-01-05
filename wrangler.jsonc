@@ -3,7 +3,7 @@
   "compatibility_flags": ["nodejs_compat"],
   "compatibility_date": "2025-12-31",
   "assets": {
-    "directory": "/dist",
+    "directory": "./dist",
     "not_found_handling": "404-page"
   }
 }
