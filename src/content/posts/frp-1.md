@@ -1,12 +1,15 @@
 ---
 title: 内网穿透Frp搭建
 published: 2025-12-05
-description: "IPv4的告尽，突破多层NAT实现内网穿透的需求增大，Frp借由公网IP服务器实现内网端口流量转发，突破内网访达限制。"
-image: "../assets/images/2025-12-05_16-23-31.png"
-tags: [frp, 内网穿透, systemd]
-category: ""
+description: IPv4的告尽，突破多层NAT实现内网穿透的需求增大，Frp借由公网IP服务器实现内网端口流量转发，突破内网访达限制。
+image: ../assets/images/2026-01-05-16-34.png
+tags:
+  - frp
+  - 内网穿透
+  - systemd
 draft: false
 lang: ""
+category: ""
 ---
 
 # 简介与摘要
