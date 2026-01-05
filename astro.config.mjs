@@ -72,7 +72,7 @@ export default defineConfig({
     expressiveCode({
       themes: [expressiveCodeConfig.theme, expressiveCodeConfig.theme],
       shikiConfig: {
-        langs: ["ini", "xml", "vbs", "json"],
+        langs: ["ini", "xml", "vbs", "json", "plist", "yaml"],
         langAlias: {
           cfg: "ini",
           conf: "ini",
