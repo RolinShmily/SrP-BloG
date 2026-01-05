@@ -1,12 +1,15 @@
 ---
 title: BetterMCv54整合包实装MacMiniM4服务端
 published: 2025-12-20
-description: '本篇结合之前的MacMini搭建mc服务器，实装一下整合包BetterMCv54服务端，将使用非面板管理，引入rcon技术向服务器发送指令'
-image: '../assets/images/2025-12-19_22.47.33.jpg'
-tags: [mac,minecraft,rcon]
-category: ''
+description: 本篇结合之前的MacMini搭建mc服务器，实装一下整合包BetterMCv54服务端，将使用非面板管理，引入rcon技术向服务器发送指令
+image: /src/content/assets/images/2026-01-05-14꞉19.png
+tags:
+  - mac
+  - minecraft
+  - rcon
 draft: false
-lang: ''
+lang: ""
+category: ""
 ---
 # 前言
 之前发布过一篇在MacMini上借助mcsmanager管理Minecraft服务器的文章: [使用MacMini搭建Minecraft服务器](https://blog.srprolin.top/posts/mac-mc-1/) ，但是对于betterMC这样的大型forge整合包，通过JVM运行通常已经很吃内存了。
