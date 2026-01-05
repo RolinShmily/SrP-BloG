@@ -20,7 +20,7 @@ site_url: https://blog.srprolin.top
 display_url: https://blog.srprolin.top
 
 # This line should *not* be indented
-media_folder: "src/content/assets/uploads" # Media files will be stored in the repo under images/uploads
+media_folder: "src/content/assets/images" # Media files will be stored in the repo under images/uploads
 
 collections:
   - name: "posts" # Used in routes, e.g., /admin/collections/blog
