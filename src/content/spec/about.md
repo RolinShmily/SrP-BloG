@@ -24,7 +24,7 @@
 
 本网站由以下服务提供商托管：
 
-**阿里云ESA(优)**
+**腾讯云EdgeOne(优)**
 
 - 可能收集的信息：IP 地址、访问时间、请求的页面、浏览器信息
 - 用途：提供 CDN 服务、安全防护、性能优化
@@ -63,23 +63,7 @@
 - 必须按照 [GitHub OAuth](https://docs.github.com/zh/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps) 流程授权 [giscus](https://github.com/giscus) app 代表它发布
 - 或者可以直接在项目 [GitHub Discussion](https://github.com/RolinShmily/SrP-BloG/discussions) 里评论。
 
-## 图片来源
-
-本网站使用的部分图片来自：
-
-**Pixiv**
-
-- [若葉睦](https://www.pixiv.net/artworks/131799508) uploaded by [DarkAccel](https://www.pixiv.net/users/3439532)
-
-**Wallhaven**
-
-- [r2ykww](https://wallhaven.cc/w/r2ykww) uploaded by [MrJimmyJam](https://wallhaven.cc/user/MrJimmyJam)
-
-**Steam 创意工坊**
-
-- [CS2 PRO'S SIGNATURE 2024dark](https://steamcommunity.com/sharedfiles/filedetails/?id=3247661253) uploaded by [易烊菜坤\_NORMAL](https://steamcommunity.com/id/haza1040)
-
-### 随机背景图API
+## 随机背景图API
 
 托管至[EdgeOne](https://edgeone.ai/zh/products/function)，通过识别用户UA来返回 横/竖 屏背景图。
 

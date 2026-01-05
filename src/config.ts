@@ -68,7 +68,7 @@ export const siteConfig: SiteConfig = {
     },
   ],
   officialSites: [
-    { url: "https://blog.srprolin.top", alias: "ESA" },
+    { url: "https://blog.srprolin.top", alias: "EdgeOne" },
     { url: "https://cf-blog.srprolin.top", alias: "Cloudflare" }
   ],
 };
