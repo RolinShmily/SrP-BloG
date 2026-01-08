@@ -5,22 +5,17 @@ import { url } from "../../utils/url-utils";
 import ImageWrapper from "../misc/ImageWrapper.astro";
 
 // umami逆向工程
-import {umamiConfig} from "../../config";
+import {umamiConfig, siteConfig} from "../../config";
 
 const config = profileConfig;
 ---
-<div class="card-base p-3">
-    <a aria-label="Go to About Page" href={url('/about/')}
-       class="group block relative mx-auto mt-1 lg:mx-0 lg:mt-0 mb-3
-       max-w-[12rem] lg:max-w-none overflow-hidden rounded-xl active:scale-95">
-        <div class="absolute transition pointer-events-none group-hover:bg-black/30 group-active:bg-black/50
-        w-full h-full z-50 flex items-center justify-center">
-            <Icon name="fa6-regular:address-card"
-                  class="transition opacity-0 scale-90 group-hover:scale-100 group-hover:opacity-100 text-white text-5xl">
-            </Icon>
+<div class="card-base p-3 border border-black/10 dark:border-white/10">
+    <div class="relative mx-auto mt-1 lg:mx-0 lg:mt-0 mb-3 max-w-[12rem] lg:max-w-none rounded-xl overflow-hidden" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
+        <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden">
+            <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full"></div>
         </div>
-        <ImageWrapper src={config.avatar || ""} alt="Profile Image of the Author" class="mx-auto lg:w-full h-full lg:mt-0 "></ImageWrapper>
-    </a>
+        <img src={config.avatar} alt="Profile Image of the Author" class="w-full h-full object-cover opacity-0 transition-opacity duration-500" onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';"/>
+    </div>
     <div class="px-2">
         <div class="font-bold text-xl text-center mb-1 dark:text-neutral-50 transition">{config.name}</div>
         <div class="h-1 w-5 bg-[var(--primary)] mx-auto rounded-full mb-2 transition"></div>

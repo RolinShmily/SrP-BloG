@@ -35,7 +35,7 @@ export const siteConfig: SiteConfig = {
 
   banner: {
     enable: false,
-    src: "assets/images/wallhaven-1p6d79.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+    src: "/src/assets/images/wallhaven-1p6d79.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
     position: "center", // Equivalent to object-position, only supports 'top', 'center', 'bottom'. 'center' by default
     credit: {
       enable: true, // Display the credit text of the banner image
@@ -107,7 +107,7 @@ export const navBarConfig: NavBarConfig = {
 };
 
 export const profileConfig: ProfileConfig = {
-  avatar: "assets/images/mzm-cyan.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
+  avatar: "/src/assets/images/mzm-cyan.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: "RoL1n",
   bio: "私はバンド楽しいっておもったこと、一度もない",
   links: [
