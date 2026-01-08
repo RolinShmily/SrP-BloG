@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import { siteConfig } from "../../config";
 import { url } from "../../utils/url-utils";
+import TOCList from "./TOCList.astro";
 
 interface Props {
 	class?: string;
@@ -27,34 +28,37 @@ const removeTailingHash = (text: string) => {
 	return text.substring(0, lastIndexOfHash);
 };
 
-let heading1Count = 1;
+interface TocItem extends MarkdownHeading {
+	children: TocItem[];
+}
 
-const maxLevel = siteConfig.toc.depth;
+function buildToc(headings: MarkdownHeading[]): TocItem[] {
+	const toc: TocItem[] = [];
+	const parentStack: TocItem[] = [];
+
+	headings.forEach((h) => {
+		const item: TocItem = { ...h, text: removeTailingHash(h.text), children: [] };
+
+		while (parentStack.length > 0 && parentStack[parentStack.length - 1].depth >= item.depth) {
+			parentStack.pop();
+		}
+
+		if (parentStack.length > 0) {
+			parentStack[parentStack.length - 1].children.push(item);
+		} else {
+			toc.push(item);
+		}
+		parentStack.push(item);
+	});
+
+	return toc;
+}
+
+const toc = buildToc(headings);
 ---
 {isPostsRoute &&
 <table-of-contents class:list={[className, "group block relative z-0 bg-[var(--float-panel-bg-opaque)] rounded-xl p-2"]}>
-    {headings.filter((heading) => heading.depth < minDepth + maxLevel).map((heading) =>
-            <a href={`#${heading.slug}`} class="px-2 flex gap-2 relative transition w-full min-h-9 rounded-xl
-        hover:bg-[var(--toc-btn-hover)] active:bg-[var(--toc-btn-active)] py-2
-    ">
-                <div class:list={["transition w-5 h-5 shrink-0 rounded-lg text-xs flex items-center justify-center font-bold",
-                    {
-                        "bg-[var(--toc-badge-bg)] text-[var(--btn-content)]": heading.depth == minDepth,
-                        "ml-4": heading.depth == minDepth + 1,
-                        "ml-8": heading.depth == minDepth + 2,
-                    }
-                ]}
-                >
-                    {heading.depth == minDepth && heading1Count++}
-                    {heading.depth == minDepth + 1 && <div class="transition w-2 h-2 rounded-[0.1875rem] bg-[var(--toc-badge-bg)]"></div>}
-                    {heading.depth == minDepth + 2 && <div class="transition w-1.5 h-1.5 rounded-sm bg-black/5 dark:bg-white/10"></div>}
-                </div>
-                <div class:list={["transition text-sm", {
-                    "text-50": heading.depth == minDepth || heading.depth == minDepth + 1,
-                    "text-30": heading.depth == minDepth + 2,
-                }]}>{removeTailingHash(heading.text)}</div>
-            </a>
-    )}
+    <TOCList items={toc} />
     <div id="active-indicator" class:list={[{'hidden': headings.length == 0}, "-z-10 absolute bg-[var(--toc-btn-hover)] left-2 right-2 rounded-xl transition-all " +
         "group-hover:bg-transparent border-2 border-[var(--toc-btn-hover)] group-hover:border-[var(--toc-btn-active)] border-dashed"]}></div>
 </table-of-contents>}
