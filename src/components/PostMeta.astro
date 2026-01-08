@@ -68,6 +68,7 @@ const className = Astro.props.class;
 -->
 
     <!-- tags -->
+<!--
     <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
         <div class="meta-icon"
         >
@@ -85,7 +86,7 @@ const className = Astro.props.class;
             {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
         </div>
     </div>
-
+-->
 
     <!-- umami 逆向工程 -->
     {slug && (
@@ -146,7 +147,7 @@ const className = Astro.props.class;
                 if (visitorsElement) visitorsElement.innerHTML = `${visits} 人`;
                 return;
             }
-        
+
 
             if (viewsElement) {
                 const currentViews = parseInt(viewsElement.textContent) || 0;
