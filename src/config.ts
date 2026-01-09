@@ -66,10 +66,10 @@ export const siteConfig: SiteConfig = {
       //   theme: 'light',              // (Optional) Either 'light' or 'dark', set only if you have different favicons for light and dark mode
       //   sizes: '32x32',              // (Optional) Size of the favicon, set only if you have favicons of different sizes
     },
-  ],
+    ],
+
   officialSites: [
-    { url: "https://blog.srprolin.top", alias: "EdgeOne" },
-    { url: "https://cf-blog.srprolin.top", alias: "Cloudflare" }
+    { url: "https://blog.srprolin.top", alias: "EdgeOne" }
   ],
 };
 
