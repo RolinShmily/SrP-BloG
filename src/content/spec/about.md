@@ -8,6 +8,14 @@
 
 ![Alt](https://repobeats.axiom.co/api/embed/1f000384d6face53ef69c9ee9c0e59a7010d1465.svg "Repobeats analytics image")
 
+## 随机背景图API
+
+通过识别用户设备UA来返回 横/竖 屏背景图。
+
+项目开源，如果其中图片侵犯了您的权益，请联系作者。
+
+::github{repo="RolinShmily/SrP-IMG"}
+
 ## 网站性质
 
 本网站是一个静态网站，这意味着：
@@ -24,19 +32,12 @@
 
 本网站由以下服务提供商托管：
 
-**腾讯云EdgeOne(优)**
+**腾讯云EdgeOne**
 
 - 可能收集的信息：IP 地址、访问时间、请求的页面、浏览器信息
 - 用途：提供 CDN 服务、安全防护、性能优化
 - 加速区域：全球
 - 主域名:`blog.srprolin.top`
-
-**CloudFlare Pages**
-
-- 可能收集的信息：IP 地址、访问时间、请求的页面、浏览器信息
-- 用途：提供 CDN 服务、网站托管、安全防护、性能优化
-- 可访问区域(网络请求)：全球
-- 域名：`cf-blog.srprolin.top`
 
 ### 分析和统计服务
 
@@ -62,12 +63,6 @@
 
 - 必须按照 [GitHub OAuth](https://docs.github.com/zh/apps/oauth-apps/building-oauth-apps/authorizing-oauth-apps) 流程授权 [giscus](https://github.com/giscus) app 代表它发布
 - 或者可以直接在项目 [GitHub Discussion](https://github.com/RolinShmily/SrP-BloG/discussions) 里评论。
-
-## 随机背景图API
-
-托管至[EdgeOne](https://edgeone.ai/zh/products/function)，通过识别用户UA来返回 横/竖 屏背景图。
-
-::github{repo="RolinShmily/SrP-IMG"}
 
 ## Cookie 和本地存储
 
