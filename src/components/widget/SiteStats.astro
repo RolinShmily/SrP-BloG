@@ -1,0 +1,112 @@
+---
+import I18nKey from "../../i18n/i18nKey";
+import { i18n } from "../../i18n/translation";
+import { Icon } from "astro-icon/components";
+import { siteConfig } from "../../config";
+import { getTotalWords } from "../../utils/content-utils";
+import WidgetLayout from "./WidgetLayout.astro";
+
+const totalWords = await getTotalWords();
+const launchDate = siteConfig.launchDate || "2024-01-01";
+
+// 计算运行天数
+const calculateRunningDays = () => {
+	const launch = new Date(launchDate);
+	const today = new Date();
+	const diffTime = today.getTime() - launch.getTime();
+	const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+	return diffDays;
+};
+
+const runningDays = calculateRunningDays();
+
+interface Props {
+	class?: string;
+	style?: string;
+}
+const className = Astro.props.class;
+const style = Astro.props.style;
+---
+
+<WidgetLayout
+	name={i18n(I18nKey.siteStats)}
+	id="site-stats"
+	class={className}
+	style={style}
+>
+	<div class="grid grid-cols-2 gap-3">
+		<!-- 运行天数 -->
+		<div class="text-center">
+			<div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
+				<Icon name="material-symbols:event-available" class="text-base"></Icon>
+				<span class="text-xs">{i18n(I18nKey.runningDays)}</span>
+			</div>
+			<div id="site-running-days" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">
+				{runningDays}
+			</div>
+		</div>
+
+		<!-- 总字数 -->
+		<div class="text-center border-l border-neutral-200 dark:border-neutral-700">
+			<div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
+				<Icon name="material-symbols:notes" class="text-base"></Icon>
+				<span class="text-xs">{i18n(I18nKey.totalWords)}</span>
+			</div>
+			<div id="site-total-words" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">
+				0
+			</div>
+		</div>
+	</div>
+</WidgetLayout>
+
+<script define:vars={{ totalWords }}>
+	// 数字动画函数
+	function animateValue(obj, start, end, duration) {
+		let startTimestamp = null;
+		const step = (timestamp) => {
+			if (!startTimestamp) startTimestamp = timestamp;
+			const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+			obj.innerHTML = Math.floor(progress * (end - start) + start);
+			if (progress < 1) {
+				window.requestAnimationFrame(step);
+			} else {
+				obj.innerHTML = end.toLocaleString();
+			}
+		};
+		window.requestAnimationFrame(step);
+	}
+
+	// 格式化数字（超过千用k，超过万用w）
+	function formatNumber(num) {
+		if (num >= 10000) {
+			return (num / 10000).toFixed(1) + 'w';
+		} else if (num >= 1000) {
+			return (num / 1000).toFixed(1) + 'k';
+		}
+		return num.toString();
+	}
+
+	// 动画显示总字数
+	function animateTotalWords() {
+		const element = document.getElementById('site-total-words');
+		if (element) {
+			animateValue(element, 0, totalWords, 1000);
+		}
+	}
+
+	// 页面加载完成后执行
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', animateTotalWords);
+	} else {
+		animateTotalWords();
+	}
+
+	// Swup 页面切换后重新执行
+	if (window.swup) {
+		window.swup.hooks.on('page:view', animateTotalWords);
+	} else {
+		document.addEventListener('swup:enable', () => {
+			window.swup.hooks.on('page:view', animateTotalWords);
+		});
+	}
+</script>

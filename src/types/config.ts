@@ -57,6 +57,9 @@ export type SiteConfig = {
     depth: 1 | 2 | 3;
   };
 
+  // 网站建站日期，用于计算运行天数
+  launchDate?: string;
+
   favicon: Favicon[];
 
   // 域名切换器

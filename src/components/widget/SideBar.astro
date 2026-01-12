@@ -3,6 +3,7 @@ import type { MarkdownHeading } from "astro";
 import Categories from "./Categories.astro";
 import Profile from "./Profile.astro";
 import Tag from "./Tags.astro";
+import SiteStats from "./SiteStats.astro";
 
 // 域名切换器
 import DomainSwitcher from "./DomainSwitcher.astro";
@@ -23,7 +24,15 @@ const className = Astro.props.class;
         <!--
         <DomainSwitcher class="onload-animation" style="animation-delay: 150ms"></DomainSwitcher>
          -->
+        <!-- 分类 -->
+        <!--
         <Categories class="onload-animation" style="animation-delay: 150ms"></Categories>
+        -->
+        <!-- 标签 -->
+        <!--
         <Tag class="onload-animation" style="animation-delay: 200ms"></Tag>
+        -->
+        <!-- 站点统计 -->
+        <SiteStats class="onload-animation" style="animation-delay: 300ms"></SiteStats>
     </div>
 </div>

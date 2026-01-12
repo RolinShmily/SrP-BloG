@@ -59,6 +59,10 @@ export const siteConfig: SiteConfig = {
     enable: true, // Display the table of contents on the right side of the post
     depth: 3, // Maximum heading depth to show in the table, from 1 to 3
   },
+
+  // 网站建站日期，格式：YYYY-MM-DD
+  launchDate: "2024-01-01",
+
   favicon: [
     // Leave this array empty to use the default favicon
     {

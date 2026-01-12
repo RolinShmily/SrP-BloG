@@ -25,6 +25,12 @@ pnpm-debug.log*
 package-lock.json
 bun.lockb
 yarn.lock
+CLAUDE.md
+tmpclaude-424f-cwd
+tmpclaude-c882-cwd
+tmpclaude-de99-cwd
+tmpclaude-f833-cwd
+tmpclaude-eda9-cwd
 
 .vscode
 

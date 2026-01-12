@@ -117,3 +117,20 @@ export async function getCategoryList(): Promise<Category[]> {
 	}
 	return ret;
 }
+
+/**
+ * 计算总字数
+ */
+export async function getTotalWords() {
+	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	let totalWords = 0;
+	for (const post of allBlogPosts) {
+		const { remarkPluginFrontmatter } = await post.render();
+		totalWords += remarkPluginFrontmatter?.words || 0;
+	}
+
+	return totalWords;
+}
