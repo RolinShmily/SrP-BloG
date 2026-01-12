@@ -77,7 +77,11 @@ export const navBarConfig: NavBarConfig = {
   links: [
     LinkPreset.Home,
     LinkPreset.Archive,
-    LinkPreset.About,
+    {
+      name: "书签",
+      url: "/navi/", // Internal links should not include the base path, as it is automatically added
+      external: false, // Show an external link icon and will open in a new tab
+    },
     {
       name: "追番",
       url: "/anime/", // Internal links should not include the base path, as it is automatically added
@@ -87,11 +91,6 @@ export const navBarConfig: NavBarConfig = {
       name: "友链",
       url: "/frlinks/", // Internal links should not include the base path, as it is automatically added
       external: false, // Show an external link icon and will open in a new tab
-    },
-    {
-      name: "开往",
-      url: "https://www.travellings.cn/train.html", // Internal links should not include the base path, as it is automatically added
-      external: true, // Show an external link icon and will open in a new tab
     },
     {
       name: "名片",
