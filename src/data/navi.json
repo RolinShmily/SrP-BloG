@@ -1,0 +1,4214 @@
+{
+  "categories": [
+    {
+      "name": "书籍文档综合类",
+      "sort": 1,
+      "items": [
+        {
+          "name": "SrP-DoC",
+          "url": "https://doc.srprolin.top/",
+          "logo": "undefined",
+          "category": "书籍文档综合类",
+          "description": "关于个人项目的说明书",
+          "sort": 0
+        },
+        {
+          "name": "我的世界高版本服主教程合集",
+          "url": "https://docs.superiormc.cn/",
+          "logo": "undefined",
+          "category": "书籍文档综合类",
+          "description": "欢迎 | 我的世界高版本服主教程合集",
+          "sort": 0
+        },
+        {
+          "name": "Alist前端优化文档",
+          "url": "https://anwen-anyi.github.io/index/",
+          "logo": "https://anwen-anyi.github.io/home.png",
+          "category": "书籍文档综合类",
+          "description": "（开源版本为openlist）安稳的个人分享自留地",
+          "sort": 1
+        },
+        {
+          "name": "你缺失的那门计算机课",
+          "url": "https://www.criwits.top/missing/",
+          "logo": "https://www.criwits.top/missing/favicon.png",
+          "category": "书籍文档综合类",
+          "description": "计算机基础扫盲札记",
+          "sort": 1
+        },
+        {
+          "name": "Potplayer终极优化教程",
+          "url": "https://blog.17lai.site/posts/2f8fb473/",
+          "logo": "https://blog.17lai.site/favicon.webp",
+          "category": "书籍文档综合类",
+          "description": "实现PC视频播放最强画质 | 夜法之书",
+          "sort": 1
+        },
+        {
+          "name": "missing-semester",
+          "url": "https://missing-semester-cn.github.io/",
+          "logo": "https://missing-semester-cn.github.io/favicon-32x32.png",
+          "category": "书籍文档综合类",
+          "description": "麻省MIT著名缺失的计算机课中文版",
+          "sort": 1
+        },
+        {
+          "name": "Linux 101",
+          "url": "https://101.lug.ustc.edu.cn/",
+          "logo": "https://101.lug.ustc.edu.cn/assets/images/favicon.png",
+          "category": "书籍文档综合类",
+          "description": "Linux入门指南",
+          "sort": 1
+        },
+        {
+          "name": "在Android上使用Rime输入法",
+          "url": "https://chenhe.me/post/rime-android",
+          "logo": "https://img.chenhe.cc/avatar/chenhe?s=200",
+          "category": "书籍文档综合类",
+          "description": "在安卓上使用rime输入法，并同步雾凇拼音词库。",
+          "sort": 1
+        },
+        {
+          "name": "千古前端图文教程",
+          "url": "https://web.qianguyihao.com/",
+          "logo": "https://www.qianguyihao.com/melody-favicon.ico",
+          "category": "书籍文档综合类",
+          "description": "来自千古个人博客",
+          "sort": 1
+        },
+        {
+          "name": "Linux中的用户、用户组的管理",
+          "url": "https://wxler.github.io/2021/02/10/111843/",
+          "logo": "https://wxler.github.io/assets/logo.png?v=2.0.0",
+          "category": "书籍文档综合类",
+          "description": "Layne's Blog",
+          "sort": 1
+        },
+        {
+          "name": "SSH 连接远程服务器",
+          "url": "https://blog.eimoon.com/p/ssh-connect-remote-server-guide/",
+          "logo": "https://blog.eimoon.com/favicon.ico",
+          "category": "书籍文档综合类",
+          "description": "从入门到实践（全指南）",
+          "sort": 1
+        },
+        {
+          "name": "个人博客访问速度优化",
+          "url": "https://zhuanlan.zhihu.com/p/675908515",
+          "logo": "https://static.zhihu.com/heifetz/favicon.ico",
+          "category": "书籍文档综合类",
+          "description": "CDN,图片压缩, HTTP2 - 知乎",
+          "sort": 1
+        },
+        {
+          "name": "stun原理",
+          "url": "https://bulianglin.com/archives/stun.html",
+          "logo": "https://bulianglin.com/archives/stun.html/favicon.ico",
+          "category": "书籍文档综合类",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "嘉立创使用助手",
+          "url": "https://prodocs.lceda.cn/cn/",
+          "logo": "https://prodocs.lceda.cn/cn/favicon.ico",
+          "category": "书籍文档综合类",
+          "description": "",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "社区平台",
+      "sort": 1,
+      "items": [
+        {
+          "name": "爱发电",
+          "url": "https://afdian.com",
+          "logo": "https://static.afdiancdn.com/static/img/icons/apple-touch-icon-60x60.png",
+          "category": "社区平台",
+          "description": "创作者赞助平台",
+          "sort": 1
+        },
+        {
+          "name": "爱赞助",
+          "url": "https://www.azz.net/",
+          "logo": "https://cc.huotan.net/azz/img/favicon.ico",
+          "category": "社区平台",
+          "description": "创作者赞助平台",
+          "sort": 1
+        },
+        {
+          "name": "Docker Hub",
+          "url": "https://hub.docker.com/",
+          "logo": "https://hub.docker.com/favicon.ico",
+          "category": "社区平台",
+          "description": "docker官网",
+          "sort": 1
+        },
+        {
+          "name": "Z-Library",
+          "url": "https://zh.z-library.sk",
+          "logo": "https://z-lib.id/favicon.svg",
+          "category": "社区平台",
+          "description": "世界最大电子图书馆",
+          "sort": 1
+        },
+        {
+          "name": "ExtensionsForVScode",
+          "url": "https://marketplace.visualstudio.com/vscode",
+          "logo": "https://marketplace.visualstudio.com/favicon.ico",
+          "category": "社区平台",
+          "description": "VSCode拓展市场",
+          "sort": 1
+        },
+        {
+          "name": "中国铁路12306网站",
+          "url": "https://www.12306.cn/index/",
+          "logo": "https://www.12306.cn/index/images/favicon.ico",
+          "category": "社区平台",
+          "description": "高铁、火车信息查询",
+          "sort": 1
+        },
+        {
+          "name": "高德地图",
+          "url": "https://www.amap.com/",
+          "logo": "https://a.amap.com/pc/static/favicon.ico",
+          "category": "社区平台",
+          "description": "看地图",
+          "sort": 1
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/",
+          "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/GitHub_Invertocat_Logo.svg/120px-GitHub_Invertocat_Logo.svg.png",
+          "category": "社区平台",
+          "description": "微软旗下的代码托管和协作平台",
+          "sort": 1
+        },
+        {
+          "name": "HuggingFace",
+          "url": "https://huggingface.co/",
+          "logo": "https://hub-avatar.baai.ac.cn/user/45017.png",
+          "category": "社区平台",
+          "description": "AI模型发布平台",
+          "sort": 1
+        },
+        {
+          "name": "博客园",
+          "url": "http://www.cnblogs.com",
+          "logo": "https://assets.cnblogs.com/favicon_v3_2.ico",
+          "category": "社区平台",
+          "description": "开发者网上家园",
+          "sort": 1
+        },
+        {
+          "name": "Reddit",
+          "url": "https://www.reddit.com/",
+          "logo": "https://www.redditstatic.com/shreddit/assets/favicon/128x128.png",
+          "category": "社区平台",
+          "description": "红迪- 互联网的核心",
+          "sort": 1
+        },
+        {
+          "name": "OSHW hub",
+          "url": "https://oshwhub.com",
+          "logo": "https://th.bing.com/th/id/R.78516f46b675023faa86d418d453d887?rik=gm1I%2fZgSTC6Jlg&pid=ImgRaw&r=0",
+          "category": "社区平台",
+          "description": "立创开源硬件社区",
+          "sort": 1
+        },
+        {
+          "name": "野火电子论坛",
+          "url": "https://www.firebbs.cn/",
+          "logo": "https://doc.embedfire.com/products/link/zh/latest/_static/images/product.png",
+          "category": "社区平台",
+          "description": "Powered by Discuz!",
+          "sort": 1
+        },
+        {
+          "name": "CSDN",
+          "url": "https://www.csdn.net/",
+          "logo": "https://g.csdnimg.cn/static/logo/favicon32.ico",
+          "category": "社区平台",
+          "description": "开发者社区",
+          "sort": 1
+        },
+        {
+          "name": "Gitee",
+          "url": "https://gitee.com/",
+          "logo": "https://gitee.com/favicon.ico",
+          "category": "社区平台",
+          "description": "中国开源代码托管平台",
+          "sort": 1
+        },
+        {
+          "name": "V2EX",
+          "url": "https://www.v2ex.com/",
+          "logo": "https://www.v2ex.com/static/icon-192.png",
+          "category": "社区平台",
+          "description": "一个关于分享和探索的地方",
+          "sort": 1
+        },
+        {
+          "name": "X (twitter)",
+          "url": "https://x.com/",
+          "logo": "https://abs.twimg.com/favicons/twitter.3.ico",
+          "category": "社区平台",
+          "description": "X是一款社交平台，原名Twitter",
+          "sort": 1
+        },
+        {
+          "name": "Discord",
+          "url": "https://discord.com/",
+          "logo": "https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/6266bc493fb42d4e27bb8393_847541504914fd33810e70a0ea73177e.ico",
+          "category": "社区平台",
+          "description": "专为社群设计的免费通信平台，提供语音、视频和文本聊天服务",
+          "sort": 1
+        },
+        {
+          "name": "Pixiv",
+          "url": "https://www.pixiv.net/",
+          "logo": "https://www.pixiv.net/favicon20250122.ico",
+          "category": "社区平台",
+          "description": "源自日本的在线社区，主要供艺术家分享插画、漫画和小说的平台",
+          "sort": 1
+        },
+        {
+          "name": "百度贴吧",
+          "url": "https://tieba.baidu.com/index.html",
+          "logo": "https://tb3.bdstatic.com/public/icon/favicon-v2.ico",
+          "category": "社区平台",
+          "description": "百度旗下的主题式中文网络社区",
+          "sort": 1
+        },
+        {
+          "name": "Bangumi",
+          "url": "https://bangumi.tv/",
+          "logo": "https://bangumi.tv/img/ico/ico_ios.png",
+          "category": "社区平台",
+          "description": "用于记录、评价和讨论动漫、游戏、影视等作品的中文社区网站",
+          "sort": 1
+        },
+        {
+          "name": "知乎",
+          "url": "https://www.zhihu.com/",
+          "logo": "https://static.zhihu.com/heifetz/assets/apple-touch-icon-152.81060cab.png",
+          "category": "社区平台",
+          "description": "有问题，就会有答案",
+          "sort": 1
+        },
+        {
+          "name": "萌娘百科",
+          "url": "https://zh.moegirl.org.cn/",
+          "logo": "https://tse1.mm.bing.net/th/id/OIP.SnCVqJ2iq6dm0ieru4DJlwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "社区平台",
+          "description": "ACG百科全书",
+          "sort": 1
+        },
+        {
+          "name": "豆瓣",
+          "url": "https://www.douban.com",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/3670307.png",
+          "category": "社区平台",
+          "description": "影视评分",
+          "sort": 1
+        },
+        {
+          "name": "吉他中国",
+          "url": "https://guitarschina.com",
+          "logo": "https://guitarschina.com/favicon.ico",
+          "category": "社区平台",
+          "description": "国内吉他爱好者论坛",
+          "sort": 1
+        },
+        {
+          "name": "3DM GAME",
+          "url": "https://bbs.3dmgame.com",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/%E4%B8%8B%E8%BD%BD.jfif",
+          "category": "社区平台",
+          "description": "中国单机游戏论坛",
+          "sort": 1
+        },
+        {
+          "name": "NGA",
+          "url": "https://ngabbs.com",
+          "logo": "https://imgs.game773.com/uploadfile/gather/2024/0417/20240417982612.jpg",
+          "category": "社区平台",
+          "description": "玩家社区",
+          "sort": 1
+        },
+        {
+          "name": "Steam",
+          "url": "https://store.steampowered.com/",
+          "logo": "https://store.steampowered.com/favicon.ico",
+          "category": "社区平台",
+          "description": "Valve",
+          "sort": 1
+        },
+        {
+          "name": "小黑盒",
+          "url": "https://www.xiaoheihe.cn/app/bbs/home",
+          "logo": "https://imgheybox.max-c.com/oa/2024/11/25/94d49a74068aa645772ebeb65ba2f107.png",
+          "category": "社区平台",
+          "description": "一款面向游戏玩家的中文社区App",
+          "sort": 1
+        },
+        {
+          "name": "iCity",
+          "url": "https://icity.ly/welcome",
+          "logo": "https://icity.ly/favicon.png",
+          "category": "社区平台",
+          "description": "私人日记、倒数日等",
+          "sort": 1
+        },
+        {
+          "name": "恩山无线论坛",
+          "url": "https://www.right.com.cn/forum/",
+          "logo": "https://tse1.mm.bing.net/th/id/OIP.snVrnWQ2kPqSkaaYeuyAmwAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "社区平台",
+          "description": " Powered by Discuz!",
+          "sort": 1
+        },
+        {
+          "name": "Vigorous Pro",
+          "url": "https://teamspeak.app/",
+          "logo": "https://teamspeak.app/favicon.svg",
+          "category": "社区平台",
+          "description": "中文社区第一批 TeamSpeak",
+          "sort": 1
+        },
+        {
+          "name": "Linktree",
+          "url": "https://linktr.ee/admin",
+          "logo": "https://assets.production.linktr.ee/71336953c8a92585a383cb2c6cdb15009890c492/favicon/favicon.png",
+          "category": "社区平台",
+          "description": "创建链接卡片",
+          "sort": 1
+        },
+        {
+          "name": "KDE 社区",
+          "url": "https://kde.org/zh-cn/",
+          "logo": "https://tse3.mm.bing.net/th/id/OIP.TO7UXmXOVUZJxYqBojyPagHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "社区平台",
+          "description": "开发者项目分享，例如kde-connect，手机操作电脑",
+          "sort": 1
+        },
+        {
+          "name": "OBS Forums",
+          "url": "https://obsproject.com/forum/",
+          "logo": "https://obsproject.com/favicon-32x32.png",
+          "category": "社区平台",
+          "description": "OBS讨论区",
+          "sort": 1
+        },
+        {
+          "name": "Valve 开发者社区",
+          "url": "https://developer.valvesoftware.com/wiki/Main_Page",
+          "logo": "https://developer.valvesoftware.com/favicon.ico",
+          "category": "社区平台",
+          "description": "V社开发者社区",
+          "sort": 1
+        },
+        {
+          "name": "Crowdin",
+          "url": "https://crowdin.com/profile",
+          "logo": "https://crowdin.com/favicon.ico",
+          "category": "社区平台",
+          "description": "汉化组Atlauncher",
+          "sort": 1
+        },
+        {
+          "name": "Rockstar Games",
+          "url": "https://www.rockstargames.com",
+          "logo": "https://media-rockstargames-com.akamaized.net/rockstargames-newsite/img/meta-icons/rockstar/favicon.ico",
+          "category": "社区平台",
+          "description": "R星游戏档案",
+          "sort": 1
+        },
+        {
+          "name": "pushplus(推送加)",
+          "url": "https://www.pushplus.plus/doc/#%E5%BC%95%E8%A8%80",
+          "logo": "https://www.pushplus.plus/doc/#%E5%BC%95%E8%A8%80/doc/img/favicon.ico",
+          "category": "社区平台",
+          "description": "实时消息推送平台",
+          "sort": 1
+        },
+        {
+          "name": "京东",
+          "url": "https://www.jd.com",
+          "logo": "https://www.jd.com//www.jd.com/favicon.ico",
+          "category": "社区平台",
+          "description": "京东集团",
+          "sort": 1
+        },
+        {
+          "name": "淘宝网",
+          "url": "https://www.taobao.com",
+          "logo": "https://www.taobao.com//img.alicdn.com/tps/i3/T1OjaVFl4dXXa.JOZB-114-114.png",
+          "category": "社区平台",
+          "description": "阿里巴巴",
+          "sort": 1
+        },
+        {
+          "name": "Amazon",
+          "url": "https://www.amazon.com/",
+          "logo": "",
+          "category": "社区平台",
+          "description": "讓您花費更少，消費更開心。",
+          "sort": 1
+        },
+        {
+          "name": "Telegram",
+          "url": "https://web.telegram.org",
+          "logo": "",
+          "category": "社区平台",
+          "description": "注重速度和安全的云端即时通讯平台，支持聊天、通话和频道功能",
+          "sort": 1
+        },
+        {
+          "name": "微信公众平台",
+          "url": "https://mp.weixin.qq.com/",
+          "logo": "https://res.wx.qq.com/a/wx_fed/assets/res/OTE0YTAw.png",
+          "category": "社区平台",
+          "description": "公众号、小程序",
+          "sort": 1
+        },
+        {
+          "name": "pinterest",
+          "url": "https://www.pinterest.com/",
+          "logo": "",
+          "category": "社区平台",
+          "description": "创意与灵感",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "知识自查指南",
+      "sort": 1,
+      "items": [
+        {
+          "name": "正则表达式",
+          "url": "https://www.runoob.com/regexp/regexp-syntax.html",
+          "logo": "https://static.jyshare.com/images/favicon.ico",
+          "category": "知识自查指南",
+          "description": "语法 | 菜鸟教程",
+          "sort": 1
+        },
+        {
+          "name": "Git Pro 中文指南",
+          "url": "https://git-scm.com/book/zh/v2",
+          "logo": "https://git-scm.com/favicon.ico",
+          "category": "知识自查指南",
+          "description": "由Git官方出版的Wiki",
+          "sort": 1
+        },
+        {
+          "name": "Markdown 教程",
+          "url": "https://markdown.com.cn/",
+          "logo": "https://markdown.com.cn/favicon.ico",
+          "category": "知识自查指南",
+          "description": "轻量级标记语言",
+          "sort": 1
+        },
+        {
+          "name": "Wallpaper Engine",
+          "url": "https://docs.wallpaperengine.io/en/scene/overview.html",
+          "logo": "https://docs.wallpaperengine.io/favicon.ico",
+          "category": "知识自查指南",
+          "description": "壁纸引擎开发者文档",
+          "sort": 1
+        },
+        {
+          "name": "GitHub Actions",
+          "url": "https://docs.github.com/zh/actions",
+          "logo": "https://docs.github.com/zh/actions/assets/cb-345/images/site/favicon.png",
+          "category": "知识自查指南",
+          "description": "文档 - GitHub 文档",
+          "sort": 1
+        },
+        {
+          "name": "面向开发者的 Web 技术 | MDN",
+          "url": "https://developer.mozilla.org/zh-CN/docs/Web",
+          "logo": "https://developer.mozilla.org/zh-CN/docs/Web/apple-touch-icon.png",
+          "category": "知识自查指南",
+          "description": "web三大件和api简介教程",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "学业学习平台",
+      "sort": 1,
+      "items": [
+        {
+          "name": "学习通",
+          "url": "https://i.chaoxing.com/",
+          "logo": "https://images-eds-ssl.xboxlive.com/image?url=4rt9.lXDC4H_93laV1_eHHFT949fUipzkiFOBH3fAiZZUCdYojwUyX2aTonS1aIwMrx6NUIsHfUHSLzjGJFxxnEv04CmtAIjfbHcsBsVsPFCC1oSeUykaxXjqbDFBdLLKu66tsijQFvTv_hL_jQvRu4PoIAQCLyB8_G.QzWPO8Y-&format=webp&h=210",
+          "category": "学业学习平台",
+          "description": "学习通个人空间",
+          "sort": 1
+        },
+        {
+          "name": "河南工业大学",
+          "url": "https://www.haut.edu.cn/",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/20250520151516.png",
+          "category": "学业学习平台",
+          "description": "HAUT官网",
+          "sort": 1
+        },
+        {
+          "name": "中国知网",
+          "url": "https://www.cnki.net/",
+          "logo": "https://pic.xlhs.com/up/2022-1/202216138467278.png",
+          "category": "学业学习平台",
+          "description": "中国区论文集",
+          "sort": 1
+        },
+        {
+          "name": "中国大学MOOC",
+          "url": "https://www.icourse163.org/",
+          "logo": "https://ts1.tc.mm.bing.net/th/id/OIP-C.kvCh7JK9scEZrLuBHSISEQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "学业学习平台",
+          "description": "中国课堂",
+          "sort": 1
+        },
+        {
+          "name": "英语真题在线官方网站",
+          "url": "https://zhenti.burningvocabulary.cn/",
+          "logo": "https://zhenti.burningvocabulary.cn/favicon-32x32.png",
+          "category": "学业学习平台",
+          "description": "英语真题",
+          "sort": 1
+        },
+        {
+          "name": "OCS网课助手",
+          "url": "https://docs.ocsjs.com/",
+          "logo": "https://ocsjs.com/logo192.png",
+          "category": "学业学习平台",
+          "description": "",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "建站相关",
+      "sort": 1,
+      "items": [
+        {
+          "name": "微信开发者工具",
+          "url": "https://developers.weixin.qq.com/miniprogram/dev/devtools/nightly.html",
+          "logo": "https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico",
+          "category": "建站相关",
+          "description": "下载 / 开发版更新日志",
+          "sort": 0
+        },
+        {
+          "name": "十五个免费随机图片api接口网站[超详细]（不定时更新）-CSDN博客",
+          "url": "https://blog.csdn.net/SectSnow/article/details/115835711",
+          "logo": "https://g.csdnimg.cn/static/logo/favicon32.ico",
+          "category": "建站相关",
+          "description": "十五个免费随机图片api接口网站[超详细]（不定时更新）-CSDN博客",
+          "sort": 0
+        },
+        {
+          "name": " Vercel 部署徽章",
+          "url": "https://github.com/datejer/vercel-badge",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "建站相关",
+          "description": "datejer/vercel-badge：用于嵌入 Vercel 部署徽章的简单无服务器服务。 --- datejer/vercel-badge: Simple serverless service for embedding a Vercel deployment badge.",
+          "sort": 0
+        },
+        {
+          "name": "Unsplash",
+          "url": "https://unsplash.com/",
+          "logo": "https://unsplash.com/favicon.ico",
+          "category": "建站相关",
+          "description": "免费图像api Beautiful Free Images & Pictures | Unsplash",
+          "sort": 0
+        },
+        {
+          "name": "Umami自托管服务",
+          "url": "https://umami.zhcndoc.com/docs/guides/running-on-digitalocean",
+          "logo": "https://umami.zhcndoc.com/favicon.ico",
+          "category": "建站相关",
+          "description": "在 DigitalOcean 上运行 – 文档 - Umami 中文文档",
+          "sort": 0
+        },
+        {
+          "name": "Favicon.im: 即时网站图标获取器",
+          "url": "https://favicon.im/zh/",
+          "logo": "https://favicon.im/logo.png",
+          "category": "建站相关",
+          "description": "Favicon.im: 即时网站图标获取器",
+          "sort": 0
+        },
+        {
+          "name": "不蒜子 - 极简网页计数器",
+          "url": "https://busuanzi.ibruce.info/",
+          "logo": "undefined",
+          "category": "建站相关",
+          "description": "不蒜子 - 极简网页计数器",
+          "sort": 0
+        },
+        {
+          "name": "开往 | 友链接力",
+          "url": "https://www.travellings.cn/",
+          "logo": "https://www.travellings.cn/assets/favicon.png",
+          "category": "建站相关",
+          "description": "开往 | 友链接力",
+          "sort": 0
+        },
+        {
+          "name": "Certbot",
+          "url": "https://certbot.eff.org/",
+          "logo": "https://certbot.eff.org/favicon.ico",
+          "category": "建站相关",
+          "description": "自动申请免费Let’s Encrypt证书",
+          "sort": 1
+        },
+        {
+          "name": "Cloudflare",
+          "url": "https://dash.cloudflare.com/",
+          "logo": "https://dash.cloudflare.com/apple-touch-icon-57x57.png",
+          "category": "建站相关",
+          "description": "提供网站加速和安全服务",
+          "sort": 1
+        },
+        {
+          "name": "jsDelivr",
+          "url": "https://www.jsdelivr.com/",
+          "logo": "https://www.jsdelivr.com/favicon.ico",
+          "category": "建站相关",
+          "description": "免费开源公共CDN，代理GitHub资源",
+          "sort": 1
+        },
+        {
+          "name": "ITDOG",
+          "url": "https://www.itdog.cn/",
+          "logo": "https://www.itdog.cn/favicon.ico",
+          "category": "建站相关",
+          "description": " 在线ping_在线tcping_网站测速_HTTP测速_API测速_路由追踪_在线MTR_DNS查询_ITDOG-云邦畅想",
+          "sort": 1
+        },
+        {
+          "name": "Let's Encrypt",
+          "url": "https://letsencrypt.org/",
+          "logo": "https://letsencrypt.org/images/le-logo-lockonly.svg",
+          "category": "建站相关",
+          "description": "证书慈善家，让人人用上HTTPS",
+          "sort": 1
+        },
+        {
+          "name": "ZeroSSL",
+          "url": "https://app.zerossl.com/certificates",
+          "logo": "https://app.zerossl.com/images/zerossl_icon.ico",
+          "category": "建站相关",
+          "description": "提供3个免费SSL证书",
+          "sort": 1
+        },
+        {
+          "name": "百度站点管理",
+          "url": "https://ziyuan.baidu.com/site/index",
+          "logo": "https://ziyuan.baidu.com/favicon.ico",
+          "category": "建站相关",
+          "description": "baidu站点收录",
+          "sort": 1
+        },
+        {
+          "name": "Google Search",
+          "url": "https://search.google.com/search-console/welcome?hl=zh-CN",
+          "logo": "https://www.gstatic.com/search-console/scfe/favicon.png",
+          "category": "建站相关",
+          "description": "谷歌站点收录",
+          "sort": 1
+        },
+        {
+          "name": "Bing Webmaster",
+          "url": "https://www.bing.com/webmasters?site",
+          "logo": "https://www.bing.com/sa/simg/favicon-2x.ico",
+          "category": "建站相关",
+          "description": "必应站点收录",
+          "sort": 1
+        },
+        {
+          "name": "萌国萌站广场",
+          "url": "https://icp.gov.moe/aboutus.php",
+          "logo": "https://icp.gov.moe/favicon.ico",
+          "category": "建站相关",
+          "description": "萌备 - 虚拟备案",
+          "sort": 1
+        },
+        {
+          "name": "Font Awesome",
+          "url": "https://fontawesome.com/icons",
+          "logo": "https://fontawesome.com/favicon.ico",
+          "category": "建站相关",
+          "description": "ico库",
+          "sort": 1
+        },
+        {
+          "name": "iconfont",
+          "url": "https://www.iconfont.cn/",
+          "logo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRkQ384ZARkfYccHbCGwEo4Spf_l8yOb0LJVw&s",
+          "category": "建站相关",
+          "description": "阿里巴巴ico库",
+          "sort": 1
+        },
+        {
+          "name": "PACE",
+          "url": "https://codebyzach.github.io/pace/",
+          "logo": "https://avatars.githubusercontent.com/u/20159826?s=48&v=4",
+          "category": "建站相关",
+          "description": "页面加载进度条CSS",
+          "sort": 1
+        },
+        {
+          "name": "Shields",
+          "url": "https://shields.io/",
+          "logo": "https://shields.io/img/favicon.ico",
+          "category": "建站相关",
+          "description": "GitHub徽章生成",
+          "sort": 1
+        },
+        {
+          "name": "GitHub repositories",
+          "url": "https://repobeats.axiom.co/",
+          "logo": "https://repobeats.axiom.co/favicon-32x32.png",
+          "category": "建站相关",
+          "description": "github仓库活动渲染api",
+          "sort": 1
+        },
+        {
+          "name": "Deed",
+          "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans",
+          "logo": "https://creativecommons.org/wp-content/themes/vocabulary-theme/vocabulary/favicon/apple-touch-icon.png",
+          "category": "建站相关",
+          "description": "署名—非商业性使用—相同方式共享 4.0 协议国际版 - Creative Commons",
+          "sort": 1
+        },
+        {
+          "name": "GPL",
+          "url": "https://www.gnu.org/licenses/#GPL",
+          "logo": "https://www.gnu.org/graphics/gnu-head-mini.png",
+          "category": "建站相关",
+          "description": "开源协议",
+          "sort": 1
+        },
+        {
+          "name": "云团子ICP备案中心",
+          "url": "https://icp.we2050.com/",
+          "logo": "https://icp.we2050.com/logo.png",
+          "category": "建站相关",
+          "description": "安全 • 可爱 • 高效的二次元虚拟备案",
+          "sort": 1
+        },
+        {
+          "name": "WakaTime",
+          "url": "https://wakatime.com/",
+          "logo": "https://wakatime.com/favicon-32x32.png",
+          "category": "建站相关",
+          "description": "VSCode时间统计",
+          "sort": 1
+        },
+        {
+          "name": "Favicon.io",
+          "url": "https://favicon.io/",
+          "logo": "https://favicon.io/assets/static/favicon.b9532cc.ed88c65f76fa003989a0c683d668c765.png",
+          "category": "建站相关",
+          "description": "ICO生成器",
+          "sort": 1
+        },
+        {
+          "name": "Vercel",
+          "url": "https://vercel.com/rolinshmilys-projects",
+          "logo": "https://logo.clearbit.com/vercel.com",
+          "category": "建站相关",
+          "description": "前端项目托管",
+          "sort": 1
+        },
+        {
+          "name": "LeanCloud",
+          "url": "https://console.leancloud.app/apps",
+          "logo": "https://console.leancloud.app/favicon.ico",
+          "category": "建站相关",
+          "description": "公用数据库平台",
+          "sort": 1
+        },
+        {
+          "name": "Netlify",
+          "url": "https://www.netlify.com/",
+          "logo": "https://www.netlify.com/favicon/favicon.ico",
+          "category": "建站相关",
+          "description": "web托管平台",
+          "sort": 1
+        },
+        {
+          "name": "1Panel",
+          "url": "https://1panel.cn/docs/v2/",
+          "logo": "https://1panel.cn/favicon.ico",
+          "category": "建站相关",
+          "description": "Linux服务器面板",
+          "sort": 1
+        },
+        {
+          "name": "Hexo",
+          "url": "https://hexo.io/zh-cn/docs/",
+          "logo": "",
+          "category": "建站相关",
+          "description": "轻量博客前端框架",
+          "sort": 1
+        },
+        {
+          "name": "nginx",
+          "url": "https://nginx.org/en/docs/",
+          "logo": "https://nginx.org/favicon.ico",
+          "category": "建站相关",
+          "description": "网站反向代理项目",
+          "sort": 1
+        },
+        {
+          "name": "Nginx Proxy Manager",
+          "url": "https://nginxproxymanager.com/guide/",
+          "logo": "https://nginxproxymanager.com/icon.png",
+          "category": "建站相关",
+          "description": "为Nginx搭建的可视化操作面板",
+          "sort": 1
+        },
+        {
+          "name": "Butterfly",
+          "url": "https://butterfly.js.org/posts/21cfbf15/",
+          "logo": "https://butterfly.js.org/posts/21cfbf15/img/favicon.ico",
+          "category": "建站相关",
+          "description": "hexo主题文档",
+          "sort": 1
+        },
+        {
+          "name": "Waline",
+          "url": "https://waline.js.org/guide/get-started/server.html",
+          "logo": "https://waline.js.org/guide/get-started/server.html/favicon.ico",
+          "category": "建站相关",
+          "description": "由Valine衍生的无后端评论系统",
+          "sort": 1
+        },
+        {
+          "name": "Chart",
+          "url": "https://www.chartjs.org/docs/latest/",
+          "logo": "https://www.chartjs.org/docs/latest/docs/latest/favicon.ico",
+          "category": "建站相关",
+          "description": "文章图表渲染器",
+          "sort": 1
+        },
+        {
+          "name": "abcjs",
+          "url": "https://paulrosen.github.io/abcjs/",
+          "logo": "",
+          "category": "建站相关",
+          "description": "文章乐谱渲染器",
+          "sort": 1
+        },
+        {
+          "name": "ClustrMaps",
+          "url": "https://clustrmaps.com/",
+          "logo": "https://clustrmaps.com/favicon.ico",
+          "category": "建站相关",
+          "description": "访客地图组件",
+          "sort": 1
+        },
+        {
+          "name": "APlayer",
+          "url": "https://aplayer.js.org/#/zh-Hans/",
+          "logo": "https://aplayer.js.org/favicon.ico",
+          "category": "建站相关",
+          "description": "HTML音频播放器",
+          "sort": 1
+        },
+        {
+          "name": "Whistle",
+          "url": "https://wproxy.org/",
+          "logo": "https://wproxy.org/img/favicon.ico",
+          "category": "建站相关",
+          "description": "网络抓包与代理工具",
+          "sort": 1
+        },
+        {
+          "name": "Bing每日壁纸API",
+          "url": "https://bing.img.run/api.html",
+          "logo": "https://cn.bing.com/sa/simg/favicon-2x.ico",
+          "category": "建站相关",
+          "description": "Bing每日随机壁纸",
+          "sort": 1
+        },
+        {
+          "name": "Giscus",
+          "url": "https://giscus.app/zh-CN",
+          "logo": "https://giscus.app/zh-CN/favicon-16x16.png",
+          "category": "建站相关",
+          "description": "利用GitHub Discusion的评论区",
+          "sort": 1
+        },
+        {
+          "name": "uptimerobot",
+          "url": "https://dashboard.uptimerobot.com/monitors",
+          "logo": "https://uptimerobot.com/assets/ico/favicon.ico",
+          "category": "建站相关",
+          "description": "云监控应用",
+          "sort": 1
+        },
+        {
+          "name": "明月浩空 ",
+          "url": "https://myhkw.cn/",
+          "logo": "https://myhkw.cn/favicon.ico",
+          "category": "建站相关",
+          "description": "前端音乐播放器js",
+          "sort": 1
+        },
+        {
+          "name": "随机图czl",
+          "url": "https://random-api.czl.net/",
+          "logo": "https://random-api.czl.net/favicon.ico",
+          "category": "建站相关",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "edgeone",
+          "url": "https://console.cloud.tencent.com/edgeone",
+          "logo": "https://edgeone.ai/favicon.ico",
+          "category": "建站相关",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "IP测试",
+          "url": "https://ip.sb/",
+          "logo": "https://ip.sb/favicon-16x16.png",
+          "category": "建站相关",
+          "description": "",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "开源项目文档",
+      "sort": 1,
+      "items": [
+        {
+          "name": "Nuwax Agent OS",
+          "url": "https://nuwax.com/",
+          "logo": "undefined",
+          "category": "开源项目文档",
+          "description": "女娲智能体平台（Nuwax Agent OS）- 新一代AI应用设计、开发、实践平台，无需代码，轻松创建，适合各类人群，支持多种端发布及API，提供完善的工作流、插件开发能力，RAG知识库与数据表存储能力，MCP接入以及开放能力。",
+          "sort": 0
+        },
+        {
+          "name": "VitePress",
+          "url": "https://vitepress.dev/zh/guide/what-is-vitepress",
+          "logo": "https://vitepress.dev/vitepress-logo-mini.svg",
+          "category": "开源项目文档",
+          "description": "VitePress 是什么？ | VitePress",
+          "sort": 0
+        },
+        {
+          "name": "Umami 中文文档",
+          "url": "https://umami.zhcndoc.com/docs/guides",
+          "logo": "https://umami.zhcndoc.com/favicon.ico",
+          "category": "开源项目文档",
+          "description": "指南 – 文档 - Umami 中文文档",
+          "sort": 0
+        },
+        {
+          "name": "MC.JS - 网页版MC最佳中文版 - 官方网站",
+          "url": "https://www.mc.js.cool/",
+          "logo": "https://www.mc.js.cool/images/favicon.ico",
+          "category": "开源项目文档",
+          "description": "MC.JS - 网页版MC最佳中文版 - 官方网站",
+          "sort": 0
+        },
+        {
+          "name": "van-nav",
+          "url": "https://github.com/mereithhh/van-nav",
+          "logo": "https://avatars.githubusercontent.com/u/22872368?s=48&v=4",
+          "category": "开源项目文档",
+          "description": "一个轻量导航站，汇总你的所有服务。全平台支持，单文件部署，有配套浏览器插件",
+          "sort": 1
+        },
+        {
+          "name": "TS3-Translation",
+          "url": "https://github.com/VigorousPro/TS3-Translation_zh-CN",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "开源项目文档",
+          "description": "teamspeak3中文汉化",
+          "sort": 1
+        },
+        {
+          "name": "GPT-SoVITS 文档",
+          "url": "https://www.yuque.com/baicaigongchang1145haoyuangong/ib3g1e?#",
+          "logo": "https://mdn.alipayobjects.com/huamei_0prmtq/afts/img/A*vMxOQIh4KBMAAAAAAAAAAAAADvuFAQ/original",
+          "category": "开源项目文档",
+          "description": "白菜工厂1145号员工出品--AItts文本转语音",
+          "sort": 1
+        },
+        {
+          "name": "Open WebUI 文档",
+          "url": "https://docs.openwebui.com/",
+          "logo": "https://www.openwebui.com/./favicon.png",
+          "category": "开源项目文档",
+          "description": "自托管 AI 平台",
+          "sort": 1
+        },
+        {
+          "name": "Sun-Panel",
+          "url": "https://doc.sun-panel.top/zh_cn/introduce/project.html",
+          "logo": "https://doc.sun-panel.top/favicon.ico",
+          "category": "开源项目文档",
+          "description": "一个NAS、服务器导航面板、",
+          "sort": 1
+        },
+        {
+          "name": "Home | AList文档",
+          "url": "https://alistgo.com/zh/",
+          "logo": "https://alistgo.com/favicon.ico",
+          "category": "开源项目文档",
+          "description": "一个支持多种存储的文件列表程序，使用 Gin 和 Solidjs。",
+          "sort": 1
+        },
+        {
+          "name": "Komorebi",
+          "url": "https://lgug2z.github.io/komorebi/installation.html",
+          "logo": "",
+          "category": "开源项目文档",
+          "description": "适用于Windows平台的 桌面平铺",
+          "sort": 1
+        },
+        {
+          "name": "AstrBot",
+          "url": "https://astrbot.app/what-is-astrbot.html",
+          "logo": "https://docs.astrbot.app/what-is-astrbot.html/logo.png",
+          "category": "开源项目文档",
+          "description": "多平台聊天机器人",
+          "sort": 1
+        },
+        {
+          "name": "screengo",
+          "url": "https://screego.net/#/",
+          "logo": "https://screego.net/#/favicon-16x16.png",
+          "category": "开源项目文档",
+          "description": "为developer开发的远程演示服务",
+          "sort": 1
+        },
+        {
+          "name": "code-server",
+          "url": "https://coder.com/docs/code-server",
+          "logo": "https://coder.com/docs/code-server/favicon-32x32-dark.svg",
+          "category": "开源项目文档",
+          "description": "运行 VS Code Anywhere |编码器 --- code-server Docs: Run VS Code Anywhere | Coder",
+          "sort": 1
+        },
+        {
+          "name": "Syncthing",
+          "url": "https://syncthing.net/",
+          "logo": "https://syncthing.net/img/favicons/favicon-16x16.png",
+          "category": "开源项目文档",
+          "description": "实时同步工具",
+          "sort": 1
+        },
+        {
+          "name": "Vaultwarden Wiki",
+          "url": "https://github.com/dani-garcia/vaultwarden/wiki",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "开源项目文档",
+          "description": "自托管部署的bitwarden",
+          "sort": 1
+        },
+        {
+          "name": "ZeroTier",
+          "url": "https://docs.zerotier.com/",
+          "logo": "https://docs.zerotier.com/img/favicon-32x32.png",
+          "category": "开源项目文档",
+          "description": "异地组网轻量开源",
+          "sort": 1
+        },
+        {
+          "name": "Home | OpenList 文档",
+          "url": "https://docs.oplist.org/",
+          "logo": "https://doc.oplist.org/favicon.svg",
+          "category": "开源项目文档",
+          "description": "网盘聚合工具--开源版",
+          "sort": 1
+        },
+        {
+          "name": "ztncui",
+          "url": "https://key-networks.com/ztncui/",
+          "logo": "https://key-networks.com/favicon.ico",
+          "category": "开源项目文档",
+          "description": "zerotier节点网络控制器",
+          "sort": 1
+        },
+        {
+          "name": "obsidian-livesync",
+          "url": "https://github.com/vrtmrz/obsidian-livesync/blob/main/README_cn.md",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "开源项目文档",
+          "description": "obsidian自托管同步插件",
+          "sort": 1
+        },
+        {
+          "name": "XtermJS",
+          "url": "https://xtermjs.org/docs/",
+          "logo": "http://xtermjs.org/docs/images/favicon.png",
+          "category": "开源项目文档",
+          "description": "浏览器构建终端",
+          "sort": 1
+        },
+        {
+          "name": "frp",
+          "url": "https://gofrp.org/zh-cn/docs/",
+          "logo": "/zh-cn/docs/favicons/android-192x192.png",
+          "category": "开源项目文档",
+          "description": "内网穿透",
+          "sort": 1
+        },
+        {
+          "name": "RP-Soundboard",
+          "url": "https://github.com/MGraefe/RP-Soundboard?tab=readme-ov-file",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "开源项目文档",
+          "description": "ts3音频播放插件 ",
+          "sort": 1
+        },
+        {
+          "name": "Navidrome",
+          "url": "https://www.navidrome.org/",
+          "logo": "https://www.navidrome.org/favicons/favicon-16x16.png",
+          "category": "开源项目文档",
+          "description": "音乐收藏页",
+          "sort": 1
+        },
+        {
+          "name": "Termix",
+          "url": "https://docs.termix.site/",
+          "logo": "https://docs.termix.site/favicon.ico",
+          "category": "开源项目文档",
+          "description": "基于Web的服务器管理",
+          "sort": 1
+        },
+        {
+          "name": "rime-ice",
+          "url": "https://dvel.me/posts/rime-ice/",
+          "logo": "https://dvel.me/safari_pinned_tab.png",
+          "category": "开源项目文档",
+          "description": "雾凇拼音 | 长期维护的简体词库",
+          "sort": 1
+        },
+        {
+          "name": "BillionMail",
+          "url": "https://www.billionmail.com/",
+          "logo": "https://www.billionmail.com/favicon.ico",
+          "category": "开源项目文档",
+          "description": "免费开源邮件服务器",
+          "sort": 1
+        },
+        {
+          "name": "live-photo-conv",
+          "url": "https://github.com/wszqkzqk/live-photo-conv",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "开源项目文档",
+          "description": "Live Photo Converter 动态照片工具集",
+          "sort": 1
+        },
+        {
+          "name": "MSST WEBUI",
+          "url": "https://doc.msst.fun",
+          "logo": "",
+          "category": "开源项目文档",
+          "description": "AI音频分析分离",
+          "sort": 1
+        },
+        {
+          "name": "RSSHub",
+          "url": "https://rsshub.netlify.app/",
+          "logo": "",
+          "category": "开源项目文档",
+          "description": "Everything is RSSiable! ",
+          "sort": 1
+        },
+        {
+          "name": "FreshRSS",
+          "url": "https://www.freshrss.org/",
+          "logo": "https://freshrss.org/favicon.ico",
+          "category": "开源项目文档",
+          "description": "免费开源自托管RSS服务(安装文档在内网地址)",
+          "sort": 1
+        },
+        {
+          "name": "MCSmangaer",
+          "url": "https://www.mcsmanager.com/",
+          "logo": "https://www.mcsmanager.com/favicon.ico",
+          "category": "开源项目文档",
+          "description": "MC服务器管理面板",
+          "sort": 1
+        },
+        {
+          "name": "gmm Mod管理器",
+          "url": "https://gmm.aoe.top/",
+          "logo": "https://mod.3dmgame.com/static/upload/mod/202405/MOD663ed1e5509eb.png@webp",
+          "category": "开源项目文档",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "Mod Organizer",
+          "url": "https://www.modorganizer.org/",
+          "logo": "https://www.modorganizer.org/favicon.ico",
+          "category": "开源项目文档",
+          "description": "MOD管理器",
+          "sort": 1
+        },
+        {
+          "name": "PDF翻译",
+          "url": "https://pdf2zh-next.com/",
+          "logo": "https://pdf2zh-next.com/index.html/images/logo_photo.svg",
+          "category": "开源项目文档",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "文件夹icon",
+          "url": "https://icon11-community.github.io/icons/",
+          "logo": "https://raw.githubusercontent.com/icon11-community/Folder-Ico/main/ico/folder11.ico",
+          "category": "开源项目文档",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "VoceChat",
+          "url": "https://doc.voce.chat/zh-cn/",
+          "logo": "",
+          "category": "开源项目文档",
+          "description": "自建聊天房",
+          "sort": 1
+        },
+        {
+          "name": "Decap CMS",
+          "url": "https://decapcms.org/docs/intro/",
+          "logo": "https://decapcms.org/docs/intro/img/favicon/favicon-32x32.png",
+          "category": "开源项目文档",
+          "description": "静态内容管理系统",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "Web应用",
+      "sort": 1,
+      "items": [
+        {
+          "name": "随机头像生成器 ",
+          "url": "https://randomx.ai/zh-CN/tools/%E9%9A%8F%E6%9C%BA%E5%A4%B4%E5%83%8F%E7%94%9F%E6%88%90%E5%99%A8",
+          "logo": "https://randomx.ai/favicon.ico",
+          "category": "Web应用",
+          "description": "RandomX.ai",
+          "sort": 0
+        },
+        {
+          "name": "在线生成ASCII艺术字",
+          "url": "https://www.lddgo.net/string/text-to-ascii-art",
+          "logo": "https://www.lddgo.net/img/icon.png",
+          "category": "Web应用",
+          "description": "在线生成ASCII艺术字",
+          "sort": 0
+        },
+        {
+          "name": "Zerotier Central",
+          "url": "https://my.zerotier.com/",
+          "logo": "https://my.zerotier.com/img/favicon-32x32.png",
+          "category": "Web应用",
+          "description": "zerotier官方节点控制器",
+          "sort": 1
+        },
+        {
+          "name": "Speedtest",
+          "url": "https://www.speedtest.cn/",
+          "logo": "https://www.speedtest.cn/images/wsgj-icon.png?7432f03f95aeac5accd568dc40dcaa82",
+          "category": "Web应用",
+          "description": " 专业测网速, 网速测试, 宽带提速, 游戏测速, 直播测速, 5G测速, 物联网监测,Wi-Fi 7,Wi-Fi 6,FTTR,全屋Wi-Fi - SpeedTest.cn",
+          "sort": 1
+        },
+        {
+          "name": "IPv6 测试",
+          "url": "https://test-ipv6.com/index.html.zh_CN",
+          "logo": "https://test-ipv6.com/images/favicon.ico",
+          "category": "Web应用",
+          "description": "检测当前设备IPv6可用性",
+          "sort": 1
+        },
+        {
+          "name": "MOONDROP",
+          "url": "https://hub.moondroplab.tech/",
+          "logo": "https://hub.moondroplab.tech/favicon.ico",
+          "category": "Web应用",
+          "description": "水月雨控制台Sound-Tuning Tool",
+          "sort": 1
+        },
+        {
+          "name": "Canva可画",
+          "url": "https://www.canva.com",
+          "logo": "https://freepnglogo.com/images/all_img/1691829400logo-canva-png.png",
+          "category": "Web应用",
+          "description": "PPT可视化组件操作",
+          "sort": 1
+        },
+        {
+          "name": "Squoosh",
+          "url": "https://squoosh.app",
+          "logo": "https://squoosh.app/c/favicon-c9cf50ef.ico",
+          "category": "Web应用",
+          "description": "图片压缩",
+          "sort": 1
+        },
+        {
+          "name": "AI Hobbyist TTS",
+          "url": "https://gsv.acgnai.top/",
+          "logo": "https://ts4.tc.mm.bing.net/th/id/OIP-C.HfggqzRUb3ls-xlUMxiqPwHaEo?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "Web应用",
+          "description": "GPT-SoVITS 公益网站",
+          "sort": 1
+        },
+        {
+          "name": "zFrontier",
+          "url": "https://www.zfrontier.com/lab/keyboardTester",
+          "logo": "https://ts4.tc.mm.bing.net/th/id/OIP-C.mxUhqGken1e2Po9kxhVYlQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "Web应用",
+          "description": "在线键盘测试 ",
+          "sort": 1
+        },
+        {
+          "name": "Human Benchmark",
+          "url": "https://humanbenchmark.com/tests/reactiontime",
+          "logo": "https://humanbenchmark.com/favicon.ico",
+          "category": "Web应用",
+          "description": "反应测试 Reaction Time Test",
+          "sort": 1
+        },
+        {
+          "name": "TinyPNG",
+          "url": "https://tinypng.com/",
+          "logo": "https://tinypng.com/images/apple-touch-icon.png",
+          "category": "Web应用",
+          "description": "在线图片压缩",
+          "sort": 1
+        },
+        {
+          "name": "RGB颜色对照表",
+          "url": "https://tool.oschina.net/commons?type=3",
+          "logo": "https://tool.oschina.net/img/favicon.ico",
+          "category": "Web应用",
+          "description": "十六进制，三通道颜色",
+          "sort": 1
+        },
+        {
+          "name": "lrc-maker",
+          "url": "https://lrc-maker.github.io/",
+          "logo": "https://github.com/magic-akari/lrc-maker/raw/master/public/favicons/apple-touch-icon.png",
+          "category": "Web应用",
+          "description": "lrc歌词制作工具",
+          "sort": 1
+        },
+        {
+          "name": "code web",
+          "url": "https://vscode.dev/",
+          "logo": "https://code.visualstudio.com/assets/favicon.ico",
+          "category": "Web应用",
+          "description": "网页版vscode代码编辑器",
+          "sort": 1
+        },
+        {
+          "name": "中国科学技术大学测速网站",
+          "url": "https://test.ustc.edu.cn/",
+          "logo": "https://test.ustc.edu.cn/favicon.ico",
+          "category": "Web应用",
+          "description": "国内测速网站",
+          "sort": 1
+        },
+        {
+          "name": "Cook",
+          "url": "https://cook.yunyoujun.cn/",
+          "logo": "https://cook.yunyoujun.cn/apple-touch-icon.png",
+          "category": "Web应用",
+          "description": "菜谱网",
+          "sort": 1
+        },
+        {
+          "name": "LAPLACE Chat",
+          "url": "https://lchat.vupgo.com/",
+          "logo": "https://lchat.vupgo.com/favicon.svg",
+          "category": "Web应用",
+          "description": "Bilibili直播弹幕姬",
+          "sort": 1
+        },
+        {
+          "name": "PDF24",
+          "url": "https://tools.pdf24.org/zh/all-tools",
+          "logo": "https://tools.pdf24.org/static/img/pdf24.png?v=658057a1",
+          "category": "Web应用",
+          "description": "免费PDF工具",
+          "sort": 1
+        },
+        {
+          "name": "PearOCR",
+          "url": "https://pearocr.com/#/",
+          "logo": "https://pearocr.com/icons/favicon-128x128.png",
+          "category": "Web应用",
+          "description": "在线图片转文字，免费OCR，在线图片文字提取，本地运算，无上传",
+          "sort": 1
+        },
+        {
+          "name": "AutoEq",
+          "url": "https://www.autoeq.app/",
+          "logo": "https://www.autoeq.app/favicon-32x32.png",
+          "category": "Web应用",
+          "description": "自动eq调节",
+          "sort": 1
+        },
+        {
+          "name": "矩阵计算器",
+          "url": "https://matrixcalc.org/zh-CN/",
+          "logo": "https://matrixcalc.org/favicon.ico",
+          "category": "Web应用",
+          "description": "计算矩阵",
+          "sort": 1
+        },
+        {
+          "name": "Oopz",
+          "url": "https://oopz.cn/",
+          "logo": "https://staticcdn.oopz.cn/images/logo2.png",
+          "category": "Web应用",
+          "description": "游戏交流平台",
+          "sort": 1
+        },
+        {
+          "name": "KOOK",
+          "url": "https://www.kookapp.cn/",
+          "logo": "https://www.kookapp.cn/favicon.ico",
+          "category": "Web应用",
+          "description": "语音沟通工具",
+          "sort": 1
+        },
+        {
+          "name": "fish audio",
+          "url": "https://fish.audio/zh-CN/",
+          "logo": "",
+          "category": "Web应用",
+          "description": "AI语音",
+          "sort": 1
+        },
+        {
+          "name": "封面生成器",
+          "url": "https://cover.acofork.com/",
+          "logo": "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=0",
+          "category": "Web应用",
+          "description": "",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "云服务相关",
+      "sort": 1,
+      "items": [
+        {
+          "name": "阿里云 RAM 控制台",
+          "url": "https://ram.console.aliyun.com/users",
+          "logo": "https://img.alicdn.com/tfs/TB1_ZXuNcfpK1RjSZFOXXa6nFXa-32-32.ico",
+          "category": "云服务相关",
+          "description": "用户权限",
+          "sort": 0
+        },
+        {
+          "name": "Amazon S3",
+          "url": "https://aws.amazon.com/cn/s3/?nc2=h_ql_prod_fs_s3",
+          "logo": "https://a0.awsstatic.com/libra-css/images/site/fav/favicon.ico",
+          "category": "云服务相关",
+          "description": "云存储_对象存储_云存储服务-AWS云服务",
+          "sort": 1
+        },
+        {
+          "name": "阿里云ACR",
+          "url": "https://cr.console.aliyun.com/cn-hangzhou/instance/repositories",
+          "logo": "https://img.alicdn.com/tfs/TB1_ZXuNcfpK1RjSZFOXXa6nFXa-32-32.ico",
+          "category": "云服务相关",
+          "description": "阿里云私人镜像库",
+          "sort": 1
+        },
+        {
+          "name": "阿里云ECS",
+          "url": "https://ecs.console.aliyun.com/server/i-bp1d096zd1taz3v2ad4m/detail",
+          "logo": "https://img.alicdn.com/tfs/TB1_ZXuNcfpK1RjSZFOXXa6nFXa-32-32.ico",
+          "category": "云服务相关",
+          "description": "云服务器实例页",
+          "sort": 1
+        },
+        {
+          "name": "阿里云CDN",
+          "url": "https://cdn.console.aliyun.com/domain/list",
+          "logo": "https://img.alicdn.com/tfs/TB1_ZXuNcfpK1RjSZFOXXa6nFXa-32-32.ico",
+          "category": "云服务相关",
+          "description": "CDN控制台",
+          "sort": 1
+        },
+        {
+          "name": "阿里云SSL",
+          "url": "https://yundun.console.aliyun.com/?p=cas&spm=5176.12818093.resources_overview_product.SSLCertificatesService#/certExtend/free/",
+          "logo": "https://img.alicdn.com/tfs/TB1_ZXuNcfpK1RjSZFOXXa6nFXa-32-32.ico",
+          "category": "云服务相关",
+          "description": "个人免费证书管理",
+          "sort": 1
+        },
+        {
+          "name": "雨云",
+          "url": "https://www.rainyun.com/home",
+          "logo": "https://www.rainyun.com/home/favicon.ico",
+          "category": "云服务相关",
+          "description": "提供云计算和服务器等IT服务的",
+          "sort": 1
+        },
+        {
+          "name": "阿里云OSS",
+          "url": "https://oss.console.aliyun.com/bucket",
+          "logo": "https://img.alicdn.com/tfs/TB1_ZXuNcfpK1RjSZFOXXa6nFXa-32-32.ico",
+          "category": "云服务相关",
+          "description": "阿里云OSS控制台",
+          "sort": 1
+        },
+        {
+          "name": "腾讯云",
+          "url": "https://cloud.tencent.com/",
+          "logo": "https://cloud.tencent.com//cloudcache.tencent-cloud.com/qcloud/favicon.ico?t=201902181234",
+          "category": "云服务相关",
+          "description": "腾讯云官方云产品平台",
+          "sort": 1
+        },
+        {
+          "name": "皓量云擎",
+          "url": "https://www.haoliangyun.com/",
+          "logo": "https://www.haoliangyun.com/favicon.ico",
+          "category": "云服务相关",
+          "description": "云服务器厂商",
+          "sort": 1
+        },
+        {
+          "name": "简幻欢",
+          "url": "https://simpfun.cn/",
+          "logo": "https://simpfun.cn/logo.png",
+          "category": "云服务相关",
+          "description": "公益服务器项目",
+          "sort": 1
+        },
+        {
+          "name": "领创云",
+          "url": "https://www.lcyidc.com/",
+          "logo": "https://www.lcyidc.com/favicon.ico",
+          "category": "云服务相关",
+          "description": "领创云",
+          "sort": 1
+        },
+        {
+          "name": "AWS 云服务",
+          "url": "https://aws.amazon.com/cn/?nc2=h_lg",
+          "logo": "https://a0.awsstatic.com/libra-css/images/site/touch-icon-ipad-144-smile.png",
+          "category": "云服务相关",
+          "description": "专业的大数据和云计算服务以及云解决方案提供商",
+          "sort": 1
+        },
+        {
+          "name": "樱花frp",
+          "url": "https://www.natfrp.com/user/",
+          "logo": "https://www.natfrp.com/user/favicon.ico",
+          "category": "云服务相关",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "阿里云ESA",
+          "url": "https://esa.console.aliyun.com/site/1035567511259696/overview",
+          "logo": "https://account.aliyun.com/login/login.htm?oauth_callback=https%3A%2F%2Fesa.console.aliyun.com%2Fsite%2F1035567511259696%2Foverview&clearRedirectCookie=1&lang=zh//img.alicdn.com/tfs/TB1_ZXuNcfpK1RjSZFOXXa6nFXa-32-32.ico",
+          "category": "云服务相关",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "百度云盘控制台",
+          "url": "https://pan.baidu.com/union/console/",
+          "logo": "https://nd-static.bdstatic.com/open-platform-static/favicon-open-platform.ico",
+          "category": "云服务相关",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "Resend",
+          "url": "https://resend.com/",
+          "logo": "https://resend.com/static/favicons/favicon-marketing@180x180.png?v=1",
+          "category": "云服务相关",
+          "description": "云上邮件转发",
+          "sort": 1
+        },
+        {
+          "name": "spaceship",
+          "url": "https://www.spaceship.com/zh/domains/",
+          "logo": "https://www.spaceship.com/favicon.ico",
+          "category": "云服务相关",
+          "description": "域名购买",
+          "sort": 1
+        },
+        {
+          "name": "ClawCloud",
+          "url": "https://ap-northeast-1.run.claw.cloud/",
+          "logo": "https://ap-northeast-1.run.claw.cloud/logo.png?v=0327",
+          "category": "云服务相关",
+          "description": "5US免费云容器",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "知名基准项目",
+      "sort": 1,
+      "items": [
+        {
+          "name": "PostgreSQL",
+          "url": "https://www.postgresql.org/",
+          "logo": "https://www.postgresql.org/media/img/about/press/elephant.png",
+          "category": "知名基准项目",
+          "description": "世界上最先进的开源关系数据库",
+          "sort": 1
+        },
+        {
+          "name": "Scoop",
+          "url": "https://scoop.sh/",
+          "logo": "https://scoop.sh/favicon.ico",
+          "category": "知名基准项目",
+          "description": "Windows包管理工具",
+          "sort": 1
+        },
+        {
+          "name": "Bitwarden",
+          "url": "https://bitwarden.com/",
+          "logo": "https://avatars.githubusercontent.com/u/15990069?s=200&v=4",
+          "category": "知名基准项目",
+          "description": "私人密码库",
+          "sort": 1
+        },
+        {
+          "name": "Ollama",
+          "url": "https://ollama.com/",
+          "logo": "https://ollama.com/public/android-chrome-icon-512x512.png",
+          "category": "知名基准项目",
+          "description": "LLM大语言模型管理",
+          "sort": 1
+        },
+        {
+          "name": "Git",
+          "url": "https://git-scm.com/",
+          "logo": "https://git-scm.com/favicon.ico",
+          "category": "知名基准项目",
+          "description": "分布式版本控制工具",
+          "sort": 1
+        },
+        {
+          "name": "FFmpeg",
+          "url": "https://ffmpeg.org/",
+          "logo": "https://ffmpeg.org/favicon.ico",
+          "category": "知名基准项目",
+          "description": "强大的音视频编解码工具",
+          "sort": 1
+        },
+        {
+          "name": "Astro",
+          "url": "https://docs.astro.build/zh-cn/",
+          "logo": "",
+          "category": "知名基准项目",
+          "description": "新时代博客框架",
+          "sort": 1
+        },
+        {
+          "name": "选择许可证 | GPL | MIT | Apache",
+          "url": "https://choosealicense.com/",
+          "logo": "https://choosealicense.com/favicon.ico",
+          "category": "知名基准项目",
+          "description": "许可证标准文字",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "资源分享站",
+      "sort": 1,
+      "items": [
+        {
+          "name": "Homepage | CSGOWallpapers.com",
+          "url": "https://www.csgowallpapers.com/",
+          "logo": "undefined",
+          "category": "资源分享站",
+          "description": "Homepage | CSGOWallpapers.com",
+          "sort": 0
+        },
+        {
+          "name": "Wallhaven",
+          "url": "https://wallhaven.cc",
+          "logo": "https://wallhaven.cc/favicon.ico",
+          "category": "资源分享站",
+          "description": "壁纸分享站",
+          "sort": 1
+        },
+        {
+          "name": "Alpha Coders",
+          "url": "https://alphacoders.com",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/MKwVnSkx_400x400.jpg",
+          "category": "资源分享站",
+          "description": "壁纸分享站",
+          "sort": 1
+        },
+        {
+          "name": "LookAE",
+          "url": "https://www.lookae.com",
+          "logo": "https://www.lookae.com/favicon.ico",
+          "category": "资源分享站",
+          "description": "影视后期资源站",
+          "sort": 1
+        },
+        {
+          "name": "PanWiki",
+          "url": "https://www.2cycdx.com",
+          "logo": "https://pan666.net/template/dingzhi_2024_kfzys/dingzhi/logo.png",
+          "category": "资源分享站",
+          "description": "阿里网盘资源分享",
+          "sort": 1
+        },
+        {
+          "name": "炭火井茶",
+          "url": "https://link3.cc/acgn",
+          "logo": "https://link3.cc/favicon.ico",
+          "category": "资源分享站",
+          "description": "个人Link3聚合页—番剧网盘",
+          "sort": 1
+        },
+        {
+          "name": "Adobe软件大全",
+          "url": "https://www.alipan.com/s/1AWtFS8q13G/folder/66de86371f281fea4ba64b7ea79915f31e20a6ff",
+          "logo": "https://img.alicdn.com/imgextra/i1/O1CN01JDQCi21Dc8EfbRwvF_!!6000000000236-73-tps-64-64.ico",
+          "category": "资源分享站",
+          "description": "来自--影视后期",
+          "sort": 1
+        },
+        {
+          "name": "Switch520",
+          "url": "https://www.gamer520.com/",
+          "logo": "https://ig.freer.blog/2023/10/25/d67adcffb89dd.jpg",
+          "category": "资源分享站",
+          "description": "全球游戏交流站",
+          "sort": 1
+        },
+        {
+          "name": "理白嫖资源站",
+          "url": "https://byepiao.com/",
+          "logo": "https://byepiao.com/wp-content/uploads/2024/06/cropped-b64c8bd143b7fbd22c4e18a8c060ed95.png",
+          "category": "资源分享站",
+          "description": "理所应当地白嫖资源",
+          "sort": 1
+        },
+        {
+          "name": "teamspeak icons",
+          "url": "https://tsicons.com/",
+          "logo": "https://static.tsicons.com/favicon.ico?rel=1595244904027",
+          "category": "资源分享站",
+          "description": "适用于teamspeak服务器的图标徽章",
+          "sort": 1
+        },
+        {
+          "name": "RTSS汉化包",
+          "url": "https://oxoxoxox.lanzouu.com/b03h8wpkgd",
+          "logo": "https://js.woozooo.com/assets/favicon.ico",
+          "category": "资源分享站",
+          "description": "keyword: 1212",
+          "sort": 1
+        },
+        {
+          "name": "Benchmark-Overlays",
+          "url": "https://github.com/TroyMetrics/Benchmark-Overlays",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "资源分享站",
+          "description": "RTSS资源包 RivaTuner Overlay",
+          "sort": 1
+        },
+        {
+          "name": "GameBanana",
+          "url": "https://gamebanana.com",
+          "logo": "https://images.gamebanana.com/static/img/favicon/180x180.png",
+          "category": "资源分享站",
+          "description": "游戏mod资源站",
+          "sort": 1
+        },
+        {
+          "name": "Nexus mods",
+          "url": "https://www.nexusmods.com",
+          "logo": "https://www.nexusmods.com/favicon.ico",
+          "category": "资源分享站",
+          "description": "游戏mod资源站",
+          "sort": 1
+        },
+        {
+          "name": "icones",
+          "url": "https://icones.js.org/",
+          "logo": "https://icones.js.org/favicon-dark.svg",
+          "category": "资源分享站",
+          "description": "icon资源站",
+          "sort": 1
+        },
+        {
+          "name": "Pinterest",
+          "url": "https://www.pinterest.com",
+          "logo": "",
+          "category": "资源分享站",
+          "description": "插图，线稿",
+          "sort": 1
+        },
+        {
+          "name": "Bestdori",
+          "url": "https://bestdori.com/",
+          "logo": "https://bestdori.com/thumb-apple.png",
+          "category": "资源分享站",
+          "description": "Bangdream素材站",
+          "sort": 1
+        },
+        {
+          "name": "影视飓风",
+          "url": "https://www.ysjf.com/home",
+          "logo": "https://www.ysjf.com/home/logo.svg",
+          "category": "资源分享站",
+          "description": "",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "音乐音频相关",
+      "sort": 1,
+      "items": [
+        {
+          "name": "TONE3000",
+          "url": "https://www.tone3000.com/",
+          "logo": "https://avatars.githubusercontent.com/u/136020168?s=200&v=4",
+          "category": "音乐音频相关",
+          "description": "音色模拟，箱体模拟ir等",
+          "sort": 1
+        },
+        {
+          "name": "Lyrics | Home",
+          "url": "https://lyrics.lyricfind.com/",
+          "logo": "https://lyrics.lyricfind.com/LF-favicon.svg",
+          "category": "音乐音频相关",
+          "description": "歌词收录站",
+          "sort": 1
+        },
+        {
+          "name": "歌词千寻",
+          "url": "https://www.lrcgc.com/artist-00.html",
+          "logo": "https://www.lrcgc.com/favicon.ico",
+          "category": "音乐音频相关",
+          "description": "lrc歌词收录站",
+          "sort": 1
+        },
+        {
+          "name": "Vstsample",
+          "url": "https://www.vstsample.com/",
+          "logo": "https://vstsample.com/www/wwwroot/www.vstsample.com/wp-content/uploads/vstsample.ico",
+          "category": "音乐音频相关",
+          "description": "编曲资源插件音源采样网-同步🌎全球更新",
+          "sort": 1
+        },
+        {
+          "name": "SONICAKE | HOME",
+          "url": "https://www.sonicake.com/",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/1312314124.png",
+          "category": "音乐音频相关",
+          "description": "口袋小综合PocketMaster",
+          "sort": 1
+        },
+        {
+          "name": "NUX",
+          "url": "https://cn.nuxaudio.com/",
+          "logo": "https://ts1.tc.mm.bing.net/th/id/OIP-C.0vZFdeSbjT6P16LuoMqQiAHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "音乐音频相关",
+          "description": "综合效果器、音箱",
+          "sort": 1
+        },
+        {
+          "name": "Hibilly",
+          "url": "https://www.hibillyamps.com/",
+          "logo": "https://cdn.xuansiwei.com/yaogu8061/1705889366251/4ad56760-a408-4168-99b3-eda80b89516a_r__800-800_c__740404_.png?x-oss-process=style/webp",
+          "category": "音乐音频相关",
+          "description": "口袋小音箱",
+          "sort": 1
+        },
+        {
+          "name": "水月雨 MOONDROP",
+          "url": "https://moondroplab.com/cn/home",
+          "logo": "https://ts3.tc.mm.bing.net/th/id/OIP-C.uqicn2HJdwHH8XvPtk9rFwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "音乐音频相关",
+          "description": "官方网站 - 探索艺术与理性的融合",
+          "sort": 1
+        },
+        {
+          "name": "MOMA猛玛",
+          "url": "https://www.moma.com.cn/",
+          "logo": "https://ts2.tc.mm.bing.net/th/id/OIP-C.uqj5BXPKQEQHzGM7cuY7FQHaFU?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "音乐音频相关",
+          "description": "LARK MIX领夹无线麦克风",
+          "sort": 1
+        },
+        {
+          "name": "Neural DSP",
+          "url": "https://neuraldsp.com/",
+          "logo": "https://neuraldsp.com/favicon.ico",
+          "category": "音乐音频相关",
+          "description": "- Algorithmically Perfect -",
+          "sort": 1
+        },
+        {
+          "name": "Cakewalk",
+          "url": "https://www.cakewalk.com/",
+          "logo": "https://www.cakewalk.com/favicon.svg",
+          "category": "音乐音频相关",
+          "description": "免费DAW",
+          "sort": 1
+        },
+        {
+          "name": "Focusrite",
+          "url": "https://focusrite.com/",
+          "logo": "https://cdn11.bigcommerce.com/s-7exlzlf13h/product_images/Anniversary%20Favicon%2032x32.png?t=1758552482",
+          "category": "音乐音频相关",
+          "description": "Audio Interfaces and Pro Audio Equipment",
+          "sort": 1
+        },
+        {
+          "name": "Ableton",
+          "url": "https://www.ableton.com/zh-cn/",
+          "logo": "https://cdn-resources.ableton.com/80bA26cPQ1hEJDFjpUKntxfqdmG3ZykO/static/images/favicon.f83afbda6c78.ico",
+          "category": "音乐音频相关",
+          "description": "知名宿主DAW",
+          "sort": 1
+        },
+        {
+          "name": "StudioOne",
+          "url": "https://my.presonus.com/home",
+          "logo": "https://ts1.tc.mm.bing.net/th/id/OIP-C.vtXWO448fgopCAKrbtYx5AAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "音乐音频相关",
+          "description": "知名宿主DAW",
+          "sort": 1
+        },
+        {
+          "name": "2bplayed",
+          "url": "https://2bplayed.com/",
+          "logo": "https://2bplayed.com/wp-content/uploads/2022/11/cropped-2B-Played-Music-Logo-512x512-1-32x32.png",
+          "category": "音乐音频相关",
+          "description": "混音 插件",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "多媒体平台",
+      "sort": 1,
+      "items": [
+        {
+          "name": "BiliBili",
+          "url": "https://www.bilibili.com/",
+          "logo": "https://i0.hdslb.com/bfs/static/jinkela/long/images/favicon.ico",
+          "category": "多媒体平台",
+          "description": "哔哩哔哩 (゜-゜)つ",
+          "sort": 1
+        },
+        {
+          "name": "YouTube",
+          "url": "https://www.youtube.com/",
+          "logo": "https://www.youtube.com/s/desktop/c81c827c/img/logos/favicon_96x96.png",
+          "category": "多媒体平台",
+          "description": "全球最大流媒体",
+          "sort": 1
+        },
+        {
+          "name": "抖音",
+          "url": "https://www.douyin.com/",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/92b96e9f1b4d47f494adc8872574de70.png",
+          "category": "多媒体平台",
+          "description": "中国流行短视频平台",
+          "sort": 1
+        },
+        {
+          "name": "腾讯视频",
+          "url": "https://v.qq.com/",
+          "logo": "https://img.phb123.com/uploads/allimg/220902/812-220Z21559590-L.png",
+          "category": "多媒体平台",
+          "description": "腾讯旗下的中国在线视频平台",
+          "sort": 1
+        },
+        {
+          "name": "Twitch",
+          "url": "https://www.twitch.tv/",
+          "logo": "https://assets.twitch.tv/assets/favicon-32-e29e246c157142c94346.png",
+          "category": "多媒体平台",
+          "description": "亚马逊旗下的直播平台，主要用于游戏直播。",
+          "sort": 1
+        },
+        {
+          "name": "虎牙直播",
+          "url": "https://www.huya.com/",
+          "logo": "https://ts1.tc.mm.bing.net/th/id/OIP-C.iNYP8O37Tx8Pbk6auM61ygHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "多媒体平台",
+          "description": "中国领先的游戏直播平台。",
+          "sort": 1
+        },
+        {
+          "name": "Netflix",
+          "url": "https://www.netflix.com/hk/",
+          "logo": "https://ts4.tc.mm.bing.net/th/id/OIP-C.ahoKTrao5wh2CKafZfeHSQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3",
+          "category": "多媒体平台",
+          "description": "海外电视",
+          "sort": 1
+        },
+        {
+          "name": "QQ音乐",
+          "url": "https://y.qq.com/",
+          "logo": "https://y.qq.com//n//y.qq.com/favicon.ico?max_age=2592000",
+          "category": "多媒体平台",
+          "description": "腾讯旗下",
+          "sort": 1
+        },
+        {
+          "name": "网易云音乐",
+          "url": "https://music.163.com/",
+          "logo": "https://music.163.com//s1.music.126.net/style/favicon.ico?v20180823",
+          "category": "多媒体平台",
+          "description": "网易旗下",
+          "sort": 1
+        },
+        {
+          "name": "Spotify",
+          "url": "https://open.spotify.com/",
+          "logo": "",
+          "category": "多媒体平台",
+          "description": "全球最大的流媒体音乐服务平台，提供正版音乐、播客和其他音频内容",
+          "sort": 1
+        },
+        {
+          "name": "酷狗音乐",
+          "url": "https://www.kugou.com/",
+          "logo": "https://www.kugou.com/root/favicon.ico",
+          "category": "多媒体平台",
+          "description": "音乐流媒体",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "人工智能应用",
+      "sort": 1,
+      "items": [
+        {
+          "name": "豆包 - 字节跳动旗下 AI 智能助手",
+          "url": "https://www.doubao.com/chat/",
+          "logo": "https://lf-flow-web-cdn.doubao.com/obj/flow-doubao/doubao/chat/favicon.png",
+          "category": "人工智能应用",
+          "description": "豆包 - 字节跳动旗下 AI 智能助手",
+          "sort": 0
+        },
+        {
+          "name": "Vocu AI",
+          "url": "https://www.vocu.studio/",
+          "logo": "https://www.vocu.studio/favicon-96x96.png",
+          "category": "人工智能应用",
+          "description": " 超拟真AI语音合成与瞬时克隆平台",
+          "sort": 1
+        },
+        {
+          "name": "ChatGPT",
+          "url": "https://chat.openai.com/",
+          "logo": "",
+          "category": "人工智能应用",
+          "description": "OpenAI开发的大语言模型",
+          "sort": 1
+        },
+        {
+          "name": "DeepSeek",
+          "url": "https://www.deepseek.com/",
+          "logo": "https://www.deepseek.com/favicon.ico",
+          "category": "人工智能应用",
+          "description": "中国开源模型",
+          "sort": 1
+        },
+        {
+          "name": "Gammas",
+          "url": "https://gamma.app/",
+          "logo": "",
+          "category": "人工智能应用",
+          "description": "PPT生成",
+          "sort": 1
+        },
+        {
+          "name": "阿里云百炼",
+          "url": "https://bailian.console.aliyun.com/",
+          "logo": "https://gw.alicdn.com/imgextra/i4/O1CN01vVn7g32134zNZEeAR_!!6000000006928-55-tps-24-24.svg",
+          "category": "人工智能应用",
+          "description": "一站式大模型开发及应用构建平台",
+          "sort": 1
+        },
+        {
+          "name": "硅基流动",
+          "url": "https://siliconflow.cn/",
+          "logo": "https://siliconflow.cn/favicon.ico",
+          "category": "人工智能应用",
+          "description": "全场景产品矩阵",
+          "sort": 1
+        },
+        {
+          "name": "Hailuo AI",
+          "url": "https://hailuoai.video/",
+          "logo": "https://hailuoai.video/favicon.ico",
+          "category": "人工智能应用",
+          "description": "AI视频生成",
+          "sort": 1
+        },
+        {
+          "name": "v0 ",
+          "url": "https://v0.dev/chat",
+          "logo": "https://v0.app/chat/assets/apple-icon.png",
+          "category": "人工智能应用",
+          "description": "Vercel推出的前端代码生成器",
+          "sort": 1
+        },
+        {
+          "name": "Qwen",
+          "url": "https://chat.qwen.ai/",
+          "logo": "https://assets.alicdn.com/g/qwenweb/qwen-webui-fe/0.0.237/favicon.png",
+          "category": "人工智能应用",
+          "description": "通义千问是阿里云研发的大语言模型系列",
+          "sort": 1
+        },
+        {
+          "name": "Gemin",
+          "url": "https://gemini.google.com/app",
+          "logo": "",
+          "category": "人工智能应用",
+          "description": "谷歌开发的多模态AI大模型系列",
+          "sort": 1
+        },
+        {
+          "name": "Claude",
+          "url": "https://claude.ai/",
+          "logo": "https://cdn.prod.website-files.com/6889473510b50328dbb70ae6/68c33859cc6cd903686c66a2_apple-touch-icon.png",
+          "category": "人工智能应用",
+          "description": "Anthropic公司开发的大语言模型系列",
+          "sort": 1
+        },
+        {
+          "name": "Google AI Studio",
+          "url": "https://aistudio.google.com/",
+          "logo": "",
+          "category": "人工智能应用",
+          "description": "谷歌AI",
+          "sort": 1
+        },
+        {
+          "name": "n8n",
+          "url": "https://n8n.io/",
+          "logo": "https://n8n.io/favicon.ico",
+          "category": "人工智能应用",
+          "description": "AI工作流搭建平台",
+          "sort": 1
+        },
+        {
+          "name": "index-tts",
+          "url": "https://github.com/index-tts/index-tts/blob/main/docs/README_zh.md",
+          "logo": "https://github.com/favicon.ico",
+          "category": "人工智能应用",
+          "description": "bilibiliTTS项目",
+          "sort": 1
+        },
+        {
+          "name": "Kimi",
+          "url": "https://www.kimi.com/zh/",
+          "logo": "https://www.kimi.com/zh//statics.moonshot.cn/kimi-web-seo/favicon.ico",
+          "category": "人工智能应用",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "通义千问",
+          "url": "https://www.qianwen.com/chat/",
+          "logo": "https://img.alicdn.com/imgextra/i2/O1CN01FPcQDy1WTPjPX6IH9_!!6000000002789-2-tps-96-96.png",
+          "category": "人工智能应用",
+          "description": "阿里云",
+          "sort": 1
+        },
+        {
+          "name": "speedAI",
+          "url": "https://kuaipaper.com/welcome",
+          "logo": "https://kuaipaper.com/welcome/assets/logo/speedai.svg",
+          "category": "人工智能应用",
+          "description": "科研小助手",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "CS2",
+      "sort": 1,
+      "items": [
+        {
+          "name": "HLTV",
+          "url": "https://www.hltv.org",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/sada.webp",
+          "category": "CS2",
+          "description": "CS赛事直播与队伍信息",
+          "sort": 1
+        },
+        {
+          "name": "ProSettings",
+          "url": "https://prosettings.net",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/93485s.jfif",
+          "category": "CS2",
+          "description": "CS等游戏配置分享平台",
+          "sort": 1
+        },
+        {
+          "name": "FACEIT",
+          "url": "https://www.faceit.com",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/faceit.webp",
+          "category": "CS2",
+          "description": "CS国际社区竞技服",
+          "sort": 1
+        },
+        {
+          "name": "网易BUFF",
+          "url": "https://buff.163.com",
+          "logo": "https://tse3.mm.bing.net/th/id/OIP.tOf9qwPveqpl_AZlzPwhNAHaHa?pid=ImgDet&w=199&h=199&c=7&o=7&rm=3",
+          "category": "CS2",
+          "description": "CS饰品交易平台",
+          "sort": 1
+        },
+        {
+          "name": "悠悠有品",
+          "url": "https://www.youpin898.com",
+          "logo": "https://www.youpin898.com/favicon.ico",
+          "category": "CS2",
+          "description": "CS饰品交易平台",
+          "sort": 1
+        },
+        {
+          "name": "CS2 Console",
+          "url": "https://developer.valvesoftware.com/wiki/List_of_Counter-Strike_2_console_commands_and_variables",
+          "logo": "https://developer.valvesoftware.com/favicon.ico",
+          "category": "CS2",
+          "description": "CS2指令集",
+          "sort": 1
+        },
+        {
+          "name": "CSQAQ",
+          "url": "https://csqaq.com/home",
+          "logo": "https://csqaq.com/favicon.ico",
+          "category": "CS2",
+          "description": "饰品指数_CSGO价格趋势_CSGO大盘_CSGO走势网站_steam挂刀行情站",
+          "sort": 1
+        },
+        {
+          "name": "SteamDT",
+          "url": "https://steamdt.com/",
+          "logo": "https://steamdt.com/favicon.ico",
+          "category": "CS2",
+          "description": "原CSOB | CS饰品价格走势_CS2市场大盘_CSGO饰品市场_CS饰品指数_CS2库存估值",
+          "sort": 1
+        },
+        {
+          "name": "CS Major 预测",
+          "url": "https://majors.im/",
+          "logo": "https://majors.im/favicon.ico",
+          "category": "CS2",
+          "description": "major竞猜网站",
+          "sort": 1
+        },
+        {
+          "name": "CS2 Binds Generator",
+          "url": "https://www.cs2bindsgenerator.com/",
+          "logo": "https://www.cs2bindsgenerator.com/images/favicon.png",
+          "category": "CS2",
+          "description": "按键绑定cfg图形化设置",
+          "sort": 1
+        },
+        {
+          "name": "CS2 util",
+          "url": "https://www.cs2util.com/",
+          "logo": "https://www.cs2util.com/icons/apple-touch-icon.png",
+          "category": "CS2",
+          "description": "道具网（欧洲站）",
+          "sort": 1
+        },
+        {
+          "name": "hud-generator",
+          "url": "https://hud.hlae.site/",
+          "logo": "https://hud.hlae.site/favicon.ico",
+          "category": "CS2",
+          "description": "CS游戏hub生成器",
+          "sort": 1
+        },
+        {
+          "name": "5EPlay",
+          "url": "https://www.5eplay.com/",
+          "logo": "https://www.5eplay.com/favicon.ico",
+          "category": "CS2",
+          "description": "5EPlay赛凡网",
+          "sort": 1
+        },
+        {
+          "name": "完美世界竞技平台",
+          "url": "https://pvp.wanmei.com/",
+          "logo": "https://pvp.wanmei.com/pvpfavicon.ico",
+          "category": "CS2",
+          "description": "专业赛事对战平台",
+          "sort": 1
+        },
+        {
+          "name": "風雲社",
+          "url": "https://bbs.fyscs.cn/plugin.php?id=dsu_paulsign:sign",
+          "logo": "https://assets-forum.fyscs.cn/image/logo.png",
+          "category": "CS2",
+          "description": "风云社社区",
+          "sort": 1
+        },
+        {
+          "name": "TGPRO官方商店 – CS2训练社区",
+          "url": "https://tgpro.top/",
+          "logo": "https://tgpro.top/wp-content/uploads/2020/07/20181204222829.ico",
+          "category": "CS2",
+          "description": "TG死斗服",
+          "sort": 1
+        },
+        {
+          "name": "HLAE",
+          "url": "https://github.com/advancedfx/advancedfx",
+          "logo": "https://hlae.site/icon/hlae.png",
+          "category": "CS2",
+          "description": "官方仓库",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "Minecraft",
+      "sort": 1,
+      "items": [
+        {
+          "name": "Minecraft",
+          "url": "https://www.minecraft.net/zh-hans",
+          "logo": "https://www.minecraft.net/zh-hans/etc.clientlibs/minecraftnet/clientlibs/clientlib-site/resources/apple-icon-180x180.png",
+          "category": "Minecraft",
+          "description": "我的世界官方网站",
+          "sort": 1
+        },
+        {
+          "name": "MC百科",
+          "url": "https://www.mcmod.cn",
+          "logo": "https://www.mcmod.cn/images/favicon.ico",
+          "category": "Minecraft",
+          "description": "Minecraft国内资源分享站",
+          "sort": 1
+        },
+        {
+          "name": "Minecraft Wiki",
+          "url": "https://minecraft.wiki",
+          "logo": "https://minecraft.wiki/favicon.ico",
+          "category": "Minecraft",
+          "description": "Minecraft游戏知识内容",
+          "sort": 1
+        },
+        {
+          "name": "LittleSkin",
+          "url": "https://littleskin.cn",
+          "logo": "https://littleskin.cn/favicon.png",
+          "category": "Minecraft",
+          "description": "Minecraft皮肤管理与第三方登录",
+          "sort": 1
+        },
+        {
+          "name": "Modrinth",
+          "url": "https://modrinth.com",
+          "logo": "https://modrinth.com/favicon.ico",
+          "category": "Minecraft",
+          "description": "Minecraft资源分享站",
+          "sort": 1
+        },
+        {
+          "name": "CurseForge",
+          "url": "https://www.curseforge.com",
+          "logo": "https://www.curseforge.com/favicon.ico",
+          "category": "Minecraft",
+          "description": "Minecraft整合包分享平台",
+          "sort": 1
+        },
+        {
+          "name": "NameMC",
+          "url": "https://zh-cn.namemc.com",
+          "logo": "https://zh-cn.namemc.com/favicon.ico",
+          "category": "Minecraft",
+          "description": "Minecraft用户管理与皮肤分享",
+          "sort": 1
+        },
+        {
+          "name": "shaders mods",
+          "url": "https://shadersmods.com",
+          "logo": "https://shadersmods.com/wp-content/themes/smods/images/icons/safari-pinned-tab.svg",
+          "category": "Minecraft",
+          "description": "Minecraft光影资源分享",
+          "sort": 1
+        },
+        {
+          "name": "GetBukkit",
+          "url": "https://getbukkit.org/download/spigot",
+          "logo": "https://getbukkit.org/assets/img/favicon/safari-pinned-tab.svg",
+          "category": "Minecraft",
+          "description": "MC服务端核心下载站",
+          "sort": 1
+        },
+        {
+          "name": "McIcons - ccLeaf",
+          "url": "https://mcicons.ccleaf.com/",
+          "logo": "https://mcicons.ccleaf.com/favicon.png",
+          "category": "Minecraft",
+          "description": "MC图标大全",
+          "sort": 1
+        },
+        {
+          "name": "Cube 3D Text",
+          "url": "https://3dt.easecation.net/",
+          "logo": "https://3dt.easecation.net/vite.svg",
+          "category": "Minecraft",
+          "description": "MC立体字",
+          "sort": 1
+        },
+        {
+          "name": "Minecraft Sounds",
+          "url": "https://o.xbottle.top/mcsounds/",
+          "logo": "https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/20250721newstart/PixPin_2025-07-26_10-53-17.png",
+          "category": "Minecraft",
+          "description": "MC音效大全",
+          "sort": 1
+        },
+        {
+          "name": "Nova Skin",
+          "url": "https://minecraft.novaskin.me/wallpapers",
+          "logo": "",
+          "category": "Minecraft",
+          "description": "Minecraft自定义壁纸生成",
+          "sort": 1
+        },
+        {
+          "name": "BBSMC",
+          "url": "https://bbsmc.net/",
+          "logo": "https://bbsmc.net/favicon.ico",
+          "category": "Minecraft",
+          "description": "我的世界资源社区论坛",
+          "sort": 1
+        },
+        {
+          "name": "Chunk Base",
+          "url": "https://www.chunkbase.com/",
+          "logo": "https://www.chunkbase.com/favicon.ico",
+          "category": "Minecraft",
+          "description": "查询种子站",
+          "sort": 1
+        },
+        {
+          "name": "SpigotMC",
+          "url": "https://www.spigotmc.org/resources/categories/tools-and-utilities.15/",
+          "logo": "https://static.spigotmc.org/img/spigot-og.png",
+          "category": "Minecraft",
+          "description": "权威插件解释",
+          "sort": 1
+        },
+        {
+          "name": "HMCL",
+          "url": "https://hmcl.huangyuhui.net/",
+          "logo": "https://hmcl.huangyuhui.net/favicon.ico",
+          "category": "Minecraft",
+          "description": "Hello Minecraft! Launcher",
+          "sort": 1
+        },
+        {
+          "name": "PCL2",
+          "url": "https://afdian.com/a/LTCat",
+          "logo": "https://static.afdiancdn.com/favicon.ico",
+          "category": "Minecraft",
+          "description": "Plain Craft Launcher启动器",
+          "sort": 1
+        },
+        {
+          "name": "ATLauncher",
+          "url": "https://atlauncher.com/",
+          "logo": "https://atlauncher.com/favicon.ico",
+          "category": "Minecraft",
+          "description": "Modpack launcher for Minecraft (请下载Java版)",
+          "sort": 1
+        },
+        {
+          "name": "SJMCL Launcher",
+          "url": "https://mc.sjtu.cn/sjmcl/zh",
+          "logo": "https://mc.sjtu.cn/favicon.ico",
+          "category": "Minecraft",
+          "description": "上海交通大学启动器",
+          "sort": 1
+        },
+        {
+          "name": "MUA",
+          "url": "https://www.mualliance.cn/",
+          "logo": "https://www.mualliance.cn/wp-content/uploads/2023/01/cropped-mualogo_512_tm-180x180.png",
+          "category": "Minecraft",
+          "description": "Minecraft高校联盟 | Minecraft University Alliance",
+          "sort": 1
+        },
+        {
+          "name": "上海交通大学Minecraft社",
+          "url": "https://mc.sjtu.cn/",
+          "logo": "https://mc.sjtu.cn/wp-content/uploads/2022/03/cropped-mcclub-512px-180x180.png",
+          "category": "Minecraft",
+          "description": "Minecraft高校联盟创始成员 ",
+          "sort": 1
+        },
+        {
+          "name": "papaerMC",
+          "url": "https://papermc.io/",
+          "logo": "https://papermc.io/favicon.ico",
+          "category": "Minecraft",
+          "description": "MC_paper服务端核心",
+          "sort": 1
+        },
+        {
+          "name": "ServerPackCreator",
+          "url": "https://serverpackcreator.de/#/",
+          "logo": "https://serverpackcreator.de/#/icons/favicon.ico",
+          "category": "Minecraft",
+          "description": "客户端转服务端 工具",
+          "sort": 1
+        },
+        {
+          "name": "宁娜bilibili汉化",
+          "url": "https://www.ningnana.top/",
+          "logo": "https://www.ningnana.top/favicon.ico",
+          "category": "Minecraft",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "MUA皮肤站",
+          "url": "https://skin.mualliance.ltd/user",
+          "logo": "https://skin.mualliance.ltd/app/favicon.ico",
+          "category": "Minecraft",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "endlessManager",
+          "url": "https://blog.endmc.cc/archives/endless.html",
+          "logo": "https://blog.endmc.cc/archives/endless.html/favicon.ico",
+          "category": "Minecraft",
+          "description": "MC服务器管理",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "MC | 服务器插件",
+      "sort": 1,
+      "items": [
+        {
+          "name": "MCDReforged",
+          "url": "https://docs.mcdreforged.com/zh-cn/latest/quick_start/index.html",
+          "logo": "https://docs.mcdreforged.com/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "Minecraft服务端管理框架",
+          "sort": 1
+        },
+        {
+          "name": "MCDR插件仓库",
+          "url": "https://mcdreforged.com/zh-CN/plugins",
+          "logo": "https://mcdreforged.com/zh-CN/plugins/favicon.svg",
+          "category": "MC | 服务器插件",
+          "description": "基于MCDReforged的插件集",
+          "sort": 1
+        },
+        {
+          "name": "Prime Backup 文档",
+          "url": "https://tisunion.github.io/PrimeBackup/zh/",
+          "logo": "",
+          "category": "MC | 服务器插件",
+          "description": "基于MCDR的备份插件",
+          "sort": 1
+        },
+        {
+          "name": "EssentialsX Wiki",
+          "url": "https://essentialsx.net/wiki/Home.html",
+          "logo": "https://essentialsx.net/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "服务器基础插件",
+          "sort": 1
+        },
+        {
+          "name": "Wiki | LuckPerms",
+          "url": "https://luckperms.net/wiki/Home",
+          "logo": "https://luckperms.net/apple-touch-icon.png",
+          "category": "MC | 服务器插件",
+          "description": "服务器权限组插件",
+          "sort": 1
+        },
+        {
+          "name": "Vault",
+          "url": "https://github.com/milkbowl/Vault",
+          "logo": "",
+          "category": "MC | 服务器插件",
+          "description": "Bukkit常用的API库",
+          "sort": 1
+        },
+        {
+          "name": "PlaceholderAPI Wiki",
+          "url": "https://wiki.placeholderapi.com/",
+          "logo": "https://wiki.placeholderapi.com/assets/img/favicons/favicon-16x16.png",
+          "category": "MC | 服务器插件",
+          "description": "占位符API",
+          "sort": 1
+        },
+        {
+          "name": "ProtocolLib",
+          "url": "https://www.spigotmc.org/resources/protocollib.1997/",
+          "logo": "https://static.spigotmc.org/img/spigot-og.png",
+          "category": "MC | 服务器插件",
+          "description": "插件依赖库",
+          "sort": 1
+        },
+        {
+          "name": "Kyori Adventure",
+          "url": "https://docs.advntr.dev/getting-started.html",
+          "logo": "https://assets.papermc.io/web/apple-touch-icon-76x76.png",
+          "category": "MC | 服务器插件",
+          "description": "依赖库",
+          "sort": 1
+        },
+        {
+          "name": "Multiverse-Core",
+          "url": "https://mvplugins.org/",
+          "logo": "https://mvplugins.org/./multiverse.png",
+          "category": "MC | 服务器插件",
+          "description": "多世界插件",
+          "sort": 1
+        },
+        {
+          "name": "WorldEdit 创世神",
+          "url": "https://worldedit.enginehub.org/en/latest/quickstart/",
+          "logo": "https://worldedit.enginehub.org/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "创世神插件",
+          "sort": 1
+        },
+        {
+          "name": "WorldGuard",
+          "url": "https://worldguard.enginehub.org/en/latest/",
+          "logo": "https://worldguard.enginehub.org/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "世界建造管理",
+          "sort": 1
+        },
+        {
+          "name": "Chunky Wiki",
+          "url": "https://github.com/pop4959/Chunky/wiki/Commands",
+          "logo": "",
+          "category": "MC | 服务器插件",
+          "description": "服务器地图预加载插件",
+          "sort": 1
+        },
+        {
+          "name": "MiniMOTD Wiki",
+          "url": "https://github.com/jpenilla/MiniMOTD/wiki",
+          "logo": "",
+          "category": "MC | 服务器插件",
+          "description": "服务器外挂logo显示插件",
+          "sort": 1
+        },
+        {
+          "name": "TAB",
+          "url": "https://www.spigotmc.org/resources/tab-1-5-1-21-8.57806/",
+          "logo": "https://static.spigotmc.org/img/spigot-og.png",
+          "category": "MC | 服务器插件",
+          "description": "更好的tab和计分板",
+          "sort": 1
+        },
+        {
+          "name": "间歇泉 | GeyserMC",
+          "url": "https://geysermc.org/",
+          "logo": "https://geysermc.org/img/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "基岩版与Java之间的服务端跨平台插件",
+          "sort": 1
+        },
+        {
+          "name": "ViaVersion Wiki",
+          "url": "https://github.com/ViaVersion/ViaVersion/wiki/Installation",
+          "logo": "",
+          "category": "MC | 服务器插件",
+          "description": "跨版本插件",
+          "sort": 1
+        },
+        {
+          "name": "DecentHolograms Wiki",
+          "url": "https://wiki.decentholograms.eu/",
+          "logo": "https://wiki.decentholograms.eu/./assets/images/favicons/favicon-16x16.png",
+          "category": "MC | 服务器插件",
+          "description": "全息悬浮字",
+          "sort": 1
+        },
+        {
+          "name": "Simple Voice Chat",
+          "url": "https://modrepo.de/minecraft/voicechat/wiki/server_setup",
+          "logo": "https://modrepo.de/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "语音聊天插件、mod",
+          "sort": 1
+        },
+        {
+          "name": "Infinite Villager ",
+          "url": "https://modrinth.com/plugin/infinite-villager-trading?version=1.21.4&loader=spigot",
+          "logo": "https://modrinth.com/plugin/infinite-villager-trading/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "无限村民交易",
+          "sort": 1
+        },
+        {
+          "name": "SkinRestorer Wiki",
+          "url": "https://skinsrestorer.net/docs/installation",
+          "logo": "https://skinsrestorer.net/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "皮肤库插件",
+          "sort": 1
+        },
+        {
+          "name": "MobsToEggs",
+          "url": "https://gitlab.com/sugarfyi-team/public/mobstoeggs-public/-/wikis/home",
+          "logo": "https://gitlab.com/sugarfyi-team/public/mobstoeggs-public/-/wikis/home/assets/apple-touch-icon-b049d4bc0dd9626f31db825d61880737befc7835982586d015bded10b4435460.png",
+          "category": "MC | 服务器插件",
+          "description": "捕兽高手插件",
+          "sort": 1
+        },
+        {
+          "name": "graves",
+          "url": "https://github.com/AvarionMC/graves",
+          "logo": "",
+          "category": "MC | 服务器插件",
+          "description": "坟墓插件",
+          "sort": 1
+        },
+        {
+          "name": "GSit",
+          "url": "https://www.spigotmc.org/resources/gsit-modern-sit-seat-and-chair-lay-and-crawl-plugin-1-16-1-21-8.62325/",
+          "logo": "https://static.spigotmc.org/img/spigot-og.png",
+          "category": "MC | 服务器插件",
+          "description": "随地大小坐",
+          "sort": 1
+        },
+        {
+          "name": "ImageFrame",
+          "url": "https://modrinth.com/plugin/imageframe",
+          "logo": "https://modrinth.com/plugin/imageframe/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "图片插件",
+          "sort": 1
+        },
+        {
+          "name": "ItemframeSnipper",
+          "url": "https://modrinth.com/plugin/itemframe",
+          "logo": "https://modrinth.com/plugin/itemframe/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "框架展示柜消除器",
+          "sort": 1
+        },
+        {
+          "name": "FurnitureMaker",
+          "url": "https://dicecraft.de/furniture/index.php",
+          "logo": "https://dicecraft.de/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "家具插件",
+          "sort": 1
+        },
+        {
+          "name": "InteractiveChat",
+          "url": "https://modrinth.com/plugin/interactivechat",
+          "logo": "https://modrinth.com/plugin/interactivechat/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "交互式聊天",
+          "sort": 1
+        },
+        {
+          "name": "InteractionVision",
+          "url": "https://modrinth.com/plugin/interactionvisualizer",
+          "logo": "https://modrinth.com/plugin/interactionvisualizer/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "可视化交互",
+          "sort": 1
+        },
+        {
+          "name": "Sleeper",
+          "url": "https://modrinth.com/plugin/sleeper",
+          "logo": "https://modrinth.com/plugin/sleeper/favicon.ico",
+          "category": "MC | 服务器插件",
+          "description": "睡眠动画插件",
+          "sort": 1
+        },
+        {
+          "name": "Dynmap Wiki",
+          "url": "https://github.com/webbukkit/dynmap/wiki",
+          "logo": "",
+          "category": "MC | 服务器插件",
+          "description": "浏览器地图",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "MC | 客户端资源",
+      "sort": 1,
+      "items": [
+        {
+          "name": "REI——Manual",
+          "url": "https://chicken-fetch-ve7.craft.me/qj8mHyTVd7qkOZ",
+          "logo": "https://www.craft.do/share/static/safari-pinned-tab.svg",
+          "category": "MC | 客户端资源",
+          "description": "REI物品栏模组手册",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "MC | 整合包",
+      "sort": 1,
+      "items": [
+        {
+          "name": "[AFoP] 宁然一隅",
+          "url": "https://scarefree.cn/p9/",
+          "logo": "https://cd.starkettle.com/sg1.ico",
+          "category": "MC | 整合包",
+          "description": "来自--星遥工坊",
+          "sort": 1
+        },
+        {
+          "name": "落幕曲 (夸克下载页)",
+          "url": "https://pan.quark.cn/s/4e69ec77f734",
+          "logo": "https://pan.quark.cn/s/4e69ec77f734/favicon.ico",
+          "category": "MC | 整合包",
+          "description": "作者发布页(bilibili): BV1RPTxzcELj",
+          "sort": 1
+        },
+        {
+          "name": "龙之冒险：新征程",
+          "url": "https://bbsmc.net/modpack/lzmx",
+          "logo": "https://bbsmc.net/modpack/lzmx/favicon.ico",
+          "category": "MC | 整合包",
+          "description": "面对众多怪物的冒险之旅，你做好准备了吗？",
+          "sort": 1
+        },
+        {
+          "name": "香草纪元",
+          "url": "https://bbsmc.net/modpack/vefc",
+          "logo": "https://bbsmc.net/modpack/vefc/favicon.ico",
+          "category": "MC | 整合包",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "终焉决斗",
+          "url": "https://bbsmc.net/modpack/duel-of-the-end",
+          "logo": "https://bbsmc.net/modpack/duel-of-the-end/favicon.ico",
+          "category": "MC | 整合包",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "刀剑物语",
+          "url": "https://www.xyebbs.com/resources/1259?tab=info",
+          "logo": "https://www.xyebbs.com/resources/1259?tab=info/favicon.png",
+          "category": "MC | 整合包",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "ardacraft",
+          "url": "https://www.ardacraft.me/join",
+          "logo": "https://cdn.prod.website-files.com/661c3ca6920dd77e4c37907a/663b9e14d9b493a869961d96_AC-Logo-round-256.png",
+          "category": "MC | 整合包",
+          "description": "超真实",
+          "sort": 1
+        },
+        {
+          "name": "betterMC",
+          "url": "https://better-mc.com/download/",
+          "logo": "https://better-mc.com/wp-content/uploads/2024/10/cropped-cropped-better-mc-minecraft-scaled-1-180x180.webp",
+          "category": "MC | 整合包",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "永恒MC2",
+          "url": "https://www.curseforge.com/minecraft/modpacks/mc-eternal-2",
+          "logo": "https://www.curseforge.com/favicon.ico",
+          "category": "MC | 整合包",
+          "description": "",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "软件分享",
+      "sort": 1,
+      "items": [
+        {
+          "name": "Bing Wallpaper",
+          "url": "https://www.bing.com/apps/wallpaper",
+          "logo": "https://www.bing.com/apps/favicon.ico",
+          "category": "软件分享",
+          "description": "必应壁纸",
+          "sort": 0
+        },
+        {
+          "name": "Smart Input Pro​",
+          "url": "https://xiaolvpuzi.cn/docs/index.html",
+          "logo": "https://xiaolvpuzi.cn/docs/logo.png",
+          "category": "软件分享",
+          "description": "Smart Input Pro​",
+          "sort": 0
+        },
+        {
+          "name": "ncmc网易云音乐格式转换",
+          "url": "https://github.com/magic-akari/ncmc",
+          "logo": "https://github.githubassets.com/favicons/favicon-dark.svg",
+          "category": "软件分享",
+          "description": "magic-akari/ncmc: convert encrypted file to original music file",
+          "sort": 0
+        },
+        {
+          "name": "Crystal Dew World",
+          "url": "https://crystalmark.info/en/download/",
+          "logo": "https://crystalmark.info/favicon.ico",
+          "category": "软件分享",
+          "description": "磁盘检测工具",
+          "sort": 1
+        },
+        {
+          "name": "DaVinci Resolve",
+          "url": "https://www.blackmagicdesign.com/cn/products/davinciresolve",
+          "logo": "http://www.blackmagicdesign.com/favicon.ico",
+          "category": "软件分享",
+          "description": "免费的视频剪辑与调色器 | Blackmagic Design",
+          "sort": 1
+        },
+        {
+          "name": "yasb",
+          "url": "https://github.com/amnweb/yasb/",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "Windows顶部状态栏",
+          "sort": 1
+        },
+        {
+          "name": "TeamSpeak",
+          "url": "https://www.teamspeak.com/zh-CN/",
+          "logo": "https://www.teamspeak.com/zh-CN/user/themes/teamspeak/images/favicon.png",
+          "category": "软件分享",
+          "description": "语音即时通讯",
+          "sort": 1
+        },
+        {
+          "name": "animeko",
+          "url": "https://myani.org/",
+          "logo": "https://myani.org/logo.png",
+          "category": "软件分享",
+          "description": "集找番、追番、看番的一站式弹幕追番平台，云收藏同步 (Bangumi)，离线缓存，BitTorrent，弹幕云过滤。100% Kotlin/Compose Multiplatform",
+          "sort": 1
+        },
+        {
+          "name": "lossless-cut",
+          "url": "https://mifi.no/losslesscut/",
+          "logo": "",
+          "category": "软件分享",
+          "description": "无损音视频编辑",
+          "sort": 1
+        },
+        {
+          "name": "PicGo",
+          "url": "https://molunerfinn.com/PicGo/",
+          "logo": "https://molunerfinn.com/favicon.ico",
+          "category": "软件分享",
+          "description": "一个用于快速上传图片并获取图片 URL 链接的工具",
+          "sort": 1
+        },
+        {
+          "name": "scrcpy",
+          "url": "https://github.com/Genymobile/scrcpy",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "显示和控制您的 Android 设备",
+          "sort": 1
+        },
+        {
+          "name": "Game-Cheats-Manager",
+          "url": "https://github.com/dyang886/Game-Cheats-Manager",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "轻松下载和管理游戏作弊，方便您使用",
+          "sort": 1
+        },
+        {
+          "name": "DS4Windows",
+          "url": "https://ds4-windows.com/",
+          "logo": "https://ds4-windows.com/wp-content/uploads/2021/06/cropped-ds4windows-logo-1-180x180.png",
+          "category": "软件分享",
+          "description": "就像其他 ds4tools 一样，但更性感",
+          "sort": 1
+        },
+        {
+          "name": "G-Helper",
+          "url": "https://g-helper.com/",
+          "logo": "https://images.squarespace-cdn.com/content/v1/67209fe98e9c23759ac3c442/7f7fc77d-002e-4c75-a21e-d9b97e5bde0f/favicon.ico?format=100w",
+          "category": "软件分享",
+          "description": "适用于华硕笔记本电脑和 ROG Ally 的轻量级 Armoury Crate 替代品",
+          "sort": 1
+        },
+        {
+          "name": "Watt Toolkit",
+          "url": "https://steampp.net/",
+          "logo": "https://steampp.net/favicon.ico",
+          "category": "软件分享",
+          "description": "一个开源跨平台的多功能 Steam 工具箱。",
+          "sort": 1
+        },
+        {
+          "name": "Chatbox",
+          "url": "https://chatboxai.app/zh?utm_medium=github",
+          "logo": "https://chatboxai.app/zh/favicon.ico",
+          "category": "软件分享",
+          "description": "支持众多先进的 AI 模型和 API",
+          "sort": 1
+        },
+        {
+          "name": "Windhawk",
+          "url": "https://windhawk.net/",
+          "logo": "https://windhawk.net/favicon.ico",
+          "category": "软件分享",
+          "description": "Windows和程序的自定义市场",
+          "sort": 1
+        },
+        {
+          "name": "RoundedTB",
+          "url": "https://github.com/RoundedTB/RoundedTB",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "为您的任务栏添加边距、圆角和段落！",
+          "sort": 1
+        },
+        {
+          "name": "obsidian",
+          "url": "https://obsidian.md/",
+          "logo": "https://obsidian.md/apple-touch-icon.png",
+          "category": "软件分享",
+          "description": "黑曜石 - 笔记仓库",
+          "sort": 1
+        },
+        {
+          "name": "FFBox",
+          "url": "https://ffbox.ttqf.tech/",
+          "logo": "https://ffbox.ttqf.tech/./256.ico",
+          "category": "软件分享",
+          "description": "一个多媒体转码百宝箱 / 一个 FFmpeg 的套壳",
+          "sort": 1
+        },
+        {
+          "name": "cs-demo-manager",
+          "url": "https://cs-demo-manager.com/",
+          "logo": "https://cs-demo-manager.com/img/favicon.ico",
+          "category": "软件分享",
+          "description": "Counter-Strike 演示的配套应用程序。",
+          "sort": 1
+        },
+        {
+          "name": "Kazumi",
+          "url": "https://github.com/Predidit/Kazumi",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "基于自定义规则的番剧采集APP，支持流媒体在线观看，支持弹幕，支持实时超分辨率。",
+          "sort": 1
+        },
+        {
+          "name": "FinalShell",
+          "url": "https://www.hostbuf.com/",
+          "logo": "https://www.hostbuf.com/favicon.ico",
+          "category": "软件分享",
+          "description": "一款SSH工具、服务器管理",
+          "sort": 1
+        },
+        {
+          "name": "WinSCP",
+          "url": "https://winscp.net/eng/download.php",
+          "logo": "https://winscp.net/eng/download.php/favicon.ico",
+          "category": "软件分享",
+          "description": "SFTP、SCP、S3、FTP客户端",
+          "sort": 1
+        },
+        {
+          "name": "VideoCaptioner",
+          "url": "https://github.com/WEIFENG2333/VideoCaptioner",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "基于 LLM 的智能字幕助手 - 视频字幕生成、断句、校正、字幕翻译全流程处理！",
+          "sort": 1
+        },
+        {
+          "name": "Equalizer APO",
+          "url": "https://equalizerapo.com/",
+          "logo": "https://equalizerapo.com/favicon.ico",
+          "category": "软件分享",
+          "description": "频响均衡调节器",
+          "sort": 1
+        },
+        {
+          "name": "Cherry Studio",
+          "url": "https://www.cherry-ai.com/",
+          "logo": "https://cherry-ai.com/assets/favicon-BmbgeFTf.png",
+          "category": "软件分享",
+          "description": "官方网站 - 全能的 AI 助手",
+          "sort": 1
+        },
+        {
+          "name": "Caesium",
+          "url": "https://saerasoft.com/caesium/",
+          "logo": "https://saerasoft.com/caesium/images/logo_sm.png",
+          "category": "软件分享",
+          "description": "开源图像批量处理压缩工具",
+          "sort": 1
+        },
+        {
+          "name": "mpv",
+          "url": "https://mpv.io/",
+          "logo": "https://mpv.io/images/favicon-5d3b2a52.png",
+          "category": "软件分享",
+          "description": "高度自定义的媒体播放器",
+          "sort": 1
+        },
+        {
+          "name": "Honeyview",
+          "url": "https://cn.bandisoft.com/honeyview/",
+          "logo": "https://www.bandisoft.com/favicon.ico",
+          "category": "软件分享",
+          "description": "好用的图像查看器",
+          "sort": 1
+        },
+        {
+          "name": "图吧工具箱",
+          "url": "https://www.tbtool.cn/",
+          "logo": "https://www.tbtool.cn/resource/icon.ico",
+          "category": "软件分享",
+          "description": "DIY爱好者的必备工具合集",
+          "sort": 1
+        },
+        {
+          "name": "HxD",
+          "url": "https://mh-nexus.de/en/hxd/",
+          "logo": "https://mh-nexus.de/favicon.ico",
+          "category": "软件分享",
+          "description": "十六进制文件查看器",
+          "sort": 1
+        },
+        {
+          "name": "ArcTime Pro",
+          "url": "https://arctime.org/",
+          "logo": "https://arctime.org/images/favicon.ico?crc=388733599",
+          "category": "软件分享",
+          "description": "跨平台字幕软件 ",
+          "sort": 1
+        },
+        {
+          "name": "Ditto clipboard",
+          "url": "https://ditto-cp.sourceforge.io/",
+          "logo": "https://ditto-cp.sourceforge.io/favicon.ico",
+          "category": "软件分享",
+          "description": "强大的剪切板管理工具",
+          "sort": 1
+        },
+        {
+          "name": "ScreenToGif",
+          "url": "https://www.screentogif.com/",
+          "logo": "https://www.screentogif.com/logos/favicon-16x16.png",
+          "category": "软件分享",
+          "description": "快速生成Gif",
+          "sort": 1
+        },
+        {
+          "name": "Snipaste",
+          "url": "https://zh.snipaste.com/index.html",
+          "logo": "https://zh.snipaste.com/index.html/favicon.ico",
+          "category": "软件分享",
+          "description": "截图 + 贴图",
+          "sort": 1
+        },
+        {
+          "name": "PixPin",
+          "url": "https://pixpin.cn/",
+          "logo": "https://pixpin.cn/favicon.ico",
+          "category": "软件分享",
+          "description": "强大且免费的截图贴图工具",
+          "sort": 1
+        },
+        {
+          "name": "HRC",
+          "url": "https://funk.eu/hrc/",
+          "logo": "https://funk.eu/hrc/favicon.ico",
+          "category": "软件分享",
+          "description": "一键切换分辨率",
+          "sort": 1
+        },
+        {
+          "name": "MuMu模拟器",
+          "url": "https://mumu.163.com/",
+          "logo": "https://mumu.163.com/favicon.ico",
+          "category": "软件分享",
+          "description": "全平台多开模拟器",
+          "sort": 1
+        },
+        {
+          "name": "MSI Afterburner",
+          "url": "https://www.msi.com/Landing/afterburner/graphics-cards",
+          "logo": "https://www.msi.com/favicon.ico",
+          "category": "软件分享",
+          "description": "微星小飞机 硬件实时检测工具",
+          "sort": 1
+        },
+        {
+          "name": "NBTExplorer",
+          "url": "https://nbtexplorer.en.download.it/",
+          "logo": "https://nbtexplorer.en.download.it/favicon.ico",
+          "category": "软件分享",
+          "description": "用于Minecraft的NBT数据编辑器",
+          "sort": 1
+        },
+        {
+          "name": "oCam",
+          "url": "https://ohsoft.net/eng/ocam/download.php?cate=1002",
+          "logo": "",
+          "category": "软件分享",
+          "description": "开箱即用的屏幕录制工具",
+          "sort": 1
+        },
+        {
+          "name": "OBS Studio",
+          "url": "https://obsproject.com/",
+          "logo": "https://obsproject.com/favicon-16x16.png",
+          "category": "软件分享",
+          "description": "强大的推流工具",
+          "sort": 1
+        },
+        {
+          "name": "Guitar Pro",
+          "url": "https://www.guitar-pro.com/",
+          "logo": "https://www.guitar-pro.com/img/favicon.ico?1693462886",
+          "category": "软件分享",
+          "description": "TAB乐谱打谱查看软件",
+          "sort": 1
+        },
+        {
+          "name": "Sumatra PDF",
+          "url": "https://www.sumatrapdfreader.org/free-pdf-reader",
+          "logo": "https://www.sumatrapdfreader.org/favicon.ico",
+          "category": "软件分享",
+          "description": "好用的PDF查看器",
+          "sort": 1
+        },
+        {
+          "name": "PDFgear",
+          "url": "https://www.pdfgear.com/zh/",
+          "logo": "https://www.pdfgear.com/img/icon.png",
+          "category": "软件分享",
+          "description": "免费 PDF 编辑软件",
+          "sort": 1
+        },
+        {
+          "name": "UVR",
+          "url": "https://ultimatevocalremover.com/",
+          "logo": "https://ultimatevocalremover.com//img1.wsimg.com/isteam/ip/27b42b0b-4e5c-4246-8229-db96bd3bf24e/GUI-Icon.png/:/rs=w:180,h:180,m",
+          "category": "软件分享",
+          "description": "音频信息分离工具",
+          "sort": 1
+        },
+        {
+          "name": "Visual Studio Code",
+          "url": "https://code.visualstudio.com/",
+          "logo": "https://code.visualstudio.com/assets/apple-touch-icon.png",
+          "category": "软件分享",
+          "description": "世界第一编辑器",
+          "sort": 1
+        },
+        {
+          "name": "IntelliJ IDEA",
+          "url": "https://www.jetbrains.com/idea/download/?section=windows",
+          "logo": "https://www.jetbrains.com/idea/download/icon-512.png?r=1234",
+          "category": "软件分享",
+          "description": "适用于Java和Kotlin的IDE",
+          "sort": 1
+        },
+        {
+          "name": "AltSnap",
+          "url": "https://github.com/RamonUnch/AltSnap/wiki",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "一键窗口置顶与透明度切换",
+          "sort": 1
+        },
+        {
+          "name": "向日葵远程控制软件",
+          "url": "https://sunlogin.oray.com/",
+          "logo": "https://sunlogin.oray.com/favicon.ico",
+          "category": "软件分享",
+          "description": "远程控制电脑手机_远程桌面连接_远程办公|游戏|运维-贝锐向日葵官网",
+          "sort": 1
+        },
+        {
+          "name": "FFmpegFreeUI",
+          "url": "https://3fui.top/",
+          "logo": "https://3fui.top/images/logo_32.webp",
+          "category": "软件分享",
+          "description": "免费开源的FFmpeg图形界面",
+          "sort": 1
+        },
+        {
+          "name": "Keyviz",
+          "url": "https://mularahul.github.io/keyviz/",
+          "logo": "https://mularahul.github.io/keyviz/img/fav.ico",
+          "category": "软件分享",
+          "description": "键盘按键可视化",
+          "sort": 1
+        },
+        {
+          "name": "Termux",
+          "url": "https://termux.dev/cn/",
+          "logo": "https://termux.dev/favicon.ico",
+          "category": "软件分享",
+          "description": "安卓可用小型终端",
+          "sort": 1
+        },
+        {
+          "name": "Windows 10+ 激活工具",
+          "url": "https://cmwtat.cloudmoe.com/cn.htmlhttps://cmwtat.cloudmoe.com/cn.html",
+          "logo": "",
+          "category": "软件分享",
+          "description": "来自 云萌",
+          "sort": 1
+        },
+        {
+          "name": "Snow Shot",
+          "url": "https://github.com/mg-chao/snow-shot",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "简单优雅的工具软件",
+          "sort": 1
+        },
+        {
+          "name": "Server Box",
+          "url": "https://cdn.lpkt.cn/serverbox/",
+          "logo": "https://cdn.lpkt.cn/favicon.ico",
+          "category": "软件分享",
+          "description": "手机端服务器管理应用",
+          "sort": 1
+        },
+        {
+          "name": "Escrcpy",
+          "url": "https://viarotel.eu.org/zhHans/",
+          "logo": "https://viarotel.eu.org/zhhans/images/logo.ico",
+          "category": "软件分享",
+          "description": "安卓投屏器",
+          "sort": 1
+        },
+        {
+          "name": "KDE Connect",
+          "url": "https://apps.kde.org/zh-cn/kdeconnect/",
+          "logo": "https://apps.kde.org/zh-cn/kdeconnect/safari-pinned-tab.svg",
+          "category": "软件分享",
+          "description": "万物互联",
+          "sort": 1
+        },
+        {
+          "name": "LocalSend",
+          "url": "https://localsend.org/zh-CN",
+          "logo": "https://localsend.org/zh-CN/apple-touch-icon.png",
+          "category": "软件分享",
+          "description": "局域网文件访问",
+          "sort": 1
+        },
+        {
+          "name": "RIME",
+          "url": "https://rime.im/",
+          "logo": "https://rime.im/favicon.png",
+          "category": "软件分享",
+          "description": "中州韻輸入法引擎",
+          "sort": 1
+        },
+        {
+          "name": "OBSNotifier",
+          "url": "https://github.com/DmitriySalnikov/OBSNotifier/tree/1.3.4",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "OBS提示可视化工具",
+          "sort": 1
+        },
+        {
+          "name": "WinDbg",
+          "url": "https://learn.microsoft.com/zh-cn/windows-hardware/drivers/debugger/",
+          "logo": "https://learn.microsoft.com/favicon.ico",
+          "category": "软件分享",
+          "description": "windows调试器，解析蓝屏报错文件dmp",
+          "sort": 1
+        },
+        {
+          "name": "Notepad3",
+          "url": "https://rizonesoft.com/downloads/notepad3/",
+          "logo": "https://i0.wp.com/rizonesoft.com/wp-content/uploads/2025/04/cropped-rizonesoft-siteicon.png?fit=180%2C180&ssl=1",
+          "category": "软件分享",
+          "description": "轻量富文本编辑器",
+          "sort": 1
+        },
+        {
+          "name": "WizTree",
+          "url": "https://diskanalyzer.com/download",
+          "logo": "https://diskanalyzer.com/download/favicon-16x16.png",
+          "category": "软件分享",
+          "description": "磁盘空间分析",
+          "sort": 1
+        },
+        {
+          "name": "FDM",
+          "url": "https://www.freedownloadmanager.org/zh/download.htm",
+          "logo": "https://www.freedownloadmanager.org/favicon.ico",
+          "category": "软件分享",
+          "description": "下载管理器",
+          "sort": 1
+        },
+        {
+          "name": "ImageGlass",
+          "url": "https://imageglass.org/release/imageglass-9-3-2-520-59",
+          "logo": "",
+          "category": "软件分享",
+          "description": "图片查看器",
+          "sort": 1
+        },
+        {
+          "name": "火绒安全",
+          "url": "https://www.huorong.cn/",
+          "logo": "https://www.huorong.cn/favicon.png",
+          "category": "软件分享",
+          "description": "曾经是非常好的简约的控权软件",
+          "sort": 1
+        },
+        {
+          "name": "卡巴斯基",
+          "url": "https://www.kaspersky.com.cn/",
+          "logo": "https://www.kaspersky.com.cn/favicon.ico",
+          "category": "软件分享",
+          "description": "高级付费杀毒软件",
+          "sort": 1
+        },
+        {
+          "name": "NVIDIA Broadcast",
+          "url": "https://www.nvidia.cn/geforce/broadcasting/broadcast-app/",
+          "logo": "https://www.nvidia.cn/favicon.ico",
+          "category": "软件分享",
+          "description": "NVIDIA降噪麦克风",
+          "sort": 1
+        },
+        {
+          "name": "DiskGenius",
+          "url": "https://www.diskgenius.cn/download.php",
+          "logo": "https://www.diskgenius.cn/favicon.ico",
+          "category": "软件分享",
+          "description": "磁盘分区管理",
+          "sort": 1
+        },
+        {
+          "name": "Bandizip",
+          "url": "https://www.bandisoft.com/bandizip/",
+          "logo": "https://www.bandisoft.com/favicon.ico",
+          "category": "软件分享",
+          "description": "压缩软件",
+          "sort": 1
+        },
+        {
+          "name": "7-Zip",
+          "url": "https://www.7-zip.org/",
+          "logo": "https://www.7-zip.org/favicon.ico",
+          "category": "软件分享",
+          "description": "压缩软件",
+          "sort": 1
+        },
+        {
+          "name": "NanaZip",
+          "url": "https://nanazip.cn/",
+          "logo": "https://nanazip.cn/favicon.png",
+          "category": "软件分享",
+          "description": "新兴压缩软件",
+          "sort": 1
+        },
+        {
+          "name": "GIMP",
+          "url": "https://www.gimp.org/",
+          "logo": "https://www.gimp.org/images/wilber32.png",
+          "category": "软件分享",
+          "description": "图像处理软件图像处理软件",
+          "sort": 1
+        },
+        {
+          "name": "iLok",
+          "url": "https://www.ilok.com/#!license-manager",
+          "logo": "https://www.ilok.com/#!license-manager/./VAADIN/themes/ilok/favicon.ico",
+          "category": "软件分享",
+          "description": "许可证管理器",
+          "sort": 1
+        },
+        {
+          "name": "Audio Jam",
+          "url": "https://audiojam.app/zh-CN",
+          "logo": "https://audiojam.app/zh-CN/images/logo.ico",
+          "category": "软件分享",
+          "description": "AI for musicians",
+          "sort": 1
+        },
+        {
+          "name": "EverythingToolbar",
+          "url": "https://github.com/srwi/EverythingToolbar",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "everything搜索栏",
+          "sort": 1
+        },
+        {
+          "name": "everything",
+          "url": "https://www.voidtools.com/zh-cn/",
+          "logo": "https://www.voidtools.com/zh-cn/favicon.ico",
+          "category": "软件分享",
+          "description": "voidtools",
+          "sort": 1
+        },
+        {
+          "name": "Global Potplayer",
+          "url": "https://potplayer.tv/?lang=zh_CN",
+          "logo": "https://m1.daumcdn.net/icon/w/c/13/11/42095036704489703.png",
+          "category": "软件分享",
+          "description": "视频播放器",
+          "sort": 1
+        },
+        {
+          "name": "SVP",
+          "url": "https://www.svp-team.com/zh/home/",
+          "logo": "https://www.svp-team.com/wp-content/uploads/2019/10/cropped-Logo-v4_4_YRB-aquarel_512-180x180.png",
+          "category": "软件分享",
+          "description": "SmoothVideo Project补帧插件",
+          "sort": 1
+        },
+        {
+          "name": "RTSS",
+          "url": "https://www.guru3d.com/download/rtss-rivatuner-statistics-server-download/",
+          "logo": "https://www.guru3d.com/data/themes/frontend/Guru3D/images/favicon_16x16.png",
+          "category": "软件分享",
+          "description": "性能检测 Rivatuner Statistics Server ",
+          "sort": 1
+        },
+        {
+          "name": "OneCommander",
+          "url": "https://www.onecommander.com/",
+          "logo": "https://onecommander.com/images/apple-touch-icon-114x114.png",
+          "category": "软件分享",
+          "description": "Windows高级资源管理器",
+          "sort": 1
+        },
+        {
+          "name": "QuickLook",
+          "url": "https://github.com/QL-Win/QuickLook",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "快速预览文件",
+          "sort": 1
+        },
+        {
+          "name": "ShareX",
+          "url": "https://getsharex.com/",
+          "logo": "https://getsharex.com/favicon.ico",
+          "category": "软件分享",
+          "description": "截图文件分享效率工具",
+          "sort": 1
+        },
+        {
+          "name": "HEU_KMS_Activator",
+          "url": "https://github.com/zbezj/HEU_KMS_Activator",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "Windows数字激活工具",
+          "sort": 1
+        },
+        {
+          "name": "foobar2000",
+          "url": "https://www.foobar2000.org/",
+          "logo": "https://www.foobar2000.org/favicon.ico",
+          "category": "软件分享",
+          "description": "音乐播放器",
+          "sort": 1
+        },
+        {
+          "name": "foobar2000",
+          "url": "https://www.cnblogs.com/asionwu/p/17103652.html",
+          "logo": "https://assets.cnblogs.com/favicon_v3_2.ico",
+          "category": "软件分享",
+          "description": "v1.6.16 汉化版(2023.04.19) - asionwu - 博客园",
+          "sort": 1
+        },
+        {
+          "name": "Phantom",
+          "url": "https://phantom.com/",
+          "logo": "https://phantom.com/_web_platform_assets/favicon.ico",
+          "category": "软件分享",
+          "description": "电子钱包",
+          "sort": 1
+        },
+        {
+          "name": "Steamcommunity 302",
+          "url": "https://www.dogfight360.com/blog/18682/",
+          "logo": "https://www.dogfight360.com/blog/wp-content/uploads/2014/12/cropped-cropped-QQ图片201412071552001-180x180.jpg",
+          "category": "软件分享",
+          "description": "网络代理 Ver.13.0.07_fix – Dogfight360",
+          "sort": 1
+        },
+        {
+          "name": "XShell+XFtp",
+          "url": "https://www.xshell.com/zh/free-for-home-school/",
+          "logo": "https://www.xshell.com/zh/free-for-home-school/wp-content/uploads/2018/12/favicon.ico",
+          "category": "软件分享",
+          "description": "业界最强大的SSH客户机",
+          "sort": 1
+        },
+        {
+          "name": "Fluent Reader",
+          "url": "https://hyliu.me/fluent-reader/",
+          "logo": "https://hyliu.me/fluent-reader/imgs/icon.png",
+          "category": "软件分享",
+          "description": "RSS阅读器",
+          "sort": 1
+        },
+        {
+          "name": "Cheat Engine",
+          "url": "https://www.cheatengine.org/",
+          "logo": "https://www.cheatengine.org/favicon.ico",
+          "category": "软件分享",
+          "description": "游戏内存修改器",
+          "sort": 1
+        },
+        {
+          "name": "WeMod",
+          "url": "https://www.wemod.com/zh/download",
+          "logo": "https://www.wemod.com/favicon.ico",
+          "category": "软件分享",
+          "description": "mod管理器",
+          "sort": 1
+        },
+        {
+          "name": "FeedMe",
+          "url": "https://github.com/seazon/FeedMe",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "安卓RSS阅读器",
+          "sort": 1
+        },
+        {
+          "name": "Voukoder Pro",
+          "url": "https://www.voukoder.org/",
+          "logo": "https://www.voukoder.org/images/favicon/default.favicon-48x48.png",
+          "category": "软件分享",
+          "description": "剪辑软件第三方导出",
+          "sort": 1
+        },
+        {
+          "name": "ReShade",
+          "url": "https://reshade.me/",
+          "logo": "https://reshade.me/favicon.ico",
+          "category": "软件分享",
+          "description": "重塑游戏画面",
+          "sort": 1
+        },
+        {
+          "name": "Cyberduck",
+          "url": "https://cyberduck.io/",
+          "logo": "https://cyberduck.io//cdn.cyberduck.io/img/cyberduck-icon-rect-32.png",
+          "category": "软件分享",
+          "description": "FTP，SFTP，S3，webDav前端文件浏览器",
+          "sort": 1
+        },
+        {
+          "name": "Zotero",
+          "url": "https://www.zotero.org/",
+          "logo": "https://www.zotero.org/favicon.ico",
+          "category": "软件分享",
+          "description": "论文查看器",
+          "sort": 1
+        },
+        {
+          "name": "office部署工具",
+          "url": "https://otp.landian.vip/zh-cn/",
+          "logo": "https://otp.landian.vip/favicon.ico",
+          "category": "软件分享",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "adr远程连接",
+          "url": "https://devolutions.net/",
+          "logo": "https://devolutions.net/favicon.ico",
+          "category": "软件分享",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "CAP",
+          "url": "https://cap.so/",
+          "logo": "https://cap.so/favicon.ico",
+          "category": "软件分享",
+          "description": "操作录屏",
+          "sort": 1
+        },
+        {
+          "name": "MobaXterm",
+          "url": "https://mobaxterm.mobatek.net/",
+          "logo": "https://mobaxterm.mobatek.net/favicon.ico",
+          "category": "软件分享",
+          "description": "ssh客户端",
+          "sort": 1
+        },
+        {
+          "name": "WSA",
+          "url": "https://github.com/MustardChef/WSABuilds",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "模拟安卓APP",
+          "sort": 1
+        },
+        {
+          "name": "MobaXterm汉化版",
+          "url": "https://github.com/RipplePiam/MobaXterm-Chinese-Simplified",
+          "logo": "https://github.githubassets.com/favicons/favicon.svg",
+          "category": "软件分享",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "Wireshark",
+          "url": "https://www.wireshark.org/",
+          "logo": "https://www.wireshark.org/favicon.ico",
+          "category": "软件分享",
+          "description": "开源网络数据流分析工具",
+          "sort": 1
+        },
+        {
+          "name": "HFS",
+          "url": "https://www.rejetto.com/hfs/",
+          "logo": "https://www.rejetto.com/favicon.ico",
+          "category": "软件分享",
+          "description": "简易HTTP文件服务器",
+          "sort": 1
+        },
+        {
+          "name": "sunshine",
+          "url": "https://app.lizardbyte.dev/Sunshine/?lng=zh-CN",
+          "logo": "https://app.lizardbyte.dev/favicon.ico",
+          "category": "软件分享",
+          "description": "串流基地",
+          "sort": 1
+        },
+        {
+          "name": "navicat",
+          "url": "https://www.navicat.com.cn/",
+          "logo": "https://www.navicat.com.cn/images/Navicat_16_Premium_win_256x256.ico",
+          "category": "软件分享",
+          "description": "SQL可视化数据库",
+          "sort": 1
+        },
+        {
+          "name": "DBeaver",
+          "url": "https://dbeaver.io/download/",
+          "logo": "https://dbeaver.io/wp-content/uploads/2016/07/beaver_icon_32x32.png",
+          "category": "软件分享",
+          "description": "数据库管理",
+          "sort": 1
+        },
+        {
+          "name": "RaiDrive",
+          "url": "https://www.raidrive.com/",
+          "logo": "https://www.raidrive.com/favicon.ico",
+          "category": "软件分享",
+          "description": "webDAV挂载器",
+          "sort": 1
+        },
+        {
+          "name": "SmartSystemMenu",
+          "url": "https://github.com/AlexanderPro/SmartSystemMenu",
+          "logo": "",
+          "category": "软件分享",
+          "description": "Windows拓展窗口栏",
+          "sort": 1
+        },
+        {
+          "name": "Trae",
+          "url": "https://www.trae.cn/",
+          "logo": "https://lf-cdn.trae.com.cn/obj/trae-com-cn/trae_website_prod_cn/favicon.png",
+          "category": "软件分享",
+          "description": "字节AI IDE",
+          "sort": 1
+        },
+        {
+          "name": "pot",
+          "url": "https://pot-app.com/",
+          "logo": "https://pot-app.com/favicon.ico",
+          "category": "软件分享",
+          "description": "划词OCR翻译",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "网盘",
+      "sort": 1,
+      "items": [
+        {
+          "name": "夸克网盘",
+          "url": "https://pan.quark.cn",
+          "logo": "https://image.quark.cn/s/uae/g/3o/broccoli/resource/202404/d94d93e0-03a2-11ef-be4c-79ebae2e18ac.vnd.microsoft.icon",
+          "category": "网盘",
+          "description": "夸克网盘",
+          "sort": 1
+        },
+        {
+          "name": "阿里云盘",
+          "url": "https://www.aliyundrive.com/drive/file",
+          "logo": "https://img.alicdn.com/imgextra/i1/O1CN01JDQCi21Dc8EfbRwvF_!!6000000000236-73-tps-64-64.ico",
+          "category": "网盘",
+          "description": "阿里云盘",
+          "sort": 1
+        },
+        {
+          "name": "百度云盘",
+          "url": "https://pan.baidu.com",
+          "logo": "https://nd-static.bdstatic.com/m-static/wp-brand/favicon.ico",
+          "category": "网盘",
+          "description": "百度云盘",
+          "sort": 1
+        },
+        {
+          "name": "Google 云端硬盘",
+          "url": "https://drive.google.com/drive/",
+          "logo": "",
+          "category": "网盘",
+          "description": "利用安全的云端存储空间在线共享文件 | Google Workspace",
+          "sort": 1
+        },
+        {
+          "name": "天翼云盘",
+          "url": "https://cloud.189.cn/web/main/file/folder/-11",
+          "logo": "https://cloud.dlife.cn/web/main/logo.ico",
+          "category": "网盘",
+          "description": "天翼云盘",
+          "sort": 1
+        },
+        {
+          "name": "联通云盘",
+          "url": "https://pan.wo.cn/pan/file_list/all",
+          "logo": "https://pan.wo.cn/pan/file_list/all/favicon.ico",
+          "category": "网盘",
+          "description": "联通云盘",
+          "sort": 1
+        },
+        {
+          "name": "腾讯微云",
+          "url": "https://www.weiyun.com/disk",
+          "logo": "https://img.weiyun.com/vipstyle/nr/box/img/favicon.ico?max_age=31536000",
+          "category": "网盘",
+          "description": "腾讯微云",
+          "sort": 1
+        },
+        {
+          "name": "蓝奏云",
+          "url": "https://pc.woozooo.com/mydisk.php",
+          "logo": "https://pc.woozooo.com/account.php?action=login&ref=/mydisk.php/favicon.ico",
+          "category": "网盘",
+          "description": "蓝奏云",
+          "sort": 1
+        },
+        {
+          "name": "迅雷云盘",
+          "url": "https://pan.xunlei.com/",
+          "logo": "https://pan.xunlei.com//pan.xunlei.com/icon.png",
+          "category": "网盘",
+          "description": "迅雷云盘",
+          "sort": 1
+        },
+        {
+          "name": "123云盘",
+          "url": "https://www.123pan.com/",
+          "logo": "https://statics.123pan.com/static/pwa-icon-512.png",
+          "category": "网盘",
+          "description": "123云盘",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "API开放平台",
+      "sort": 1,
+      "items": [
+        {
+          "name": "高德控制台",
+          "url": "https://console.amap.com/dev/key/app",
+          "logo": "https://console.amap.com/dev/key/app//a.amap.com/lbs/static/img/console/favicon.ico",
+          "category": "API开放平台",
+          "description": "高德控制台",
+          "sort": 1
+        },
+        {
+          "name": "DeepSeek 开放平台",
+          "url": "https://platform.deepseek.com/api_keys",
+          "logo": "https://platform.deepseek.com/favicon.svg",
+          "category": "API开放平台",
+          "description": "DeepSeekAPI",
+          "sort": 1
+        },
+        {
+          "name": "栗次元API-举个栗子",
+          "url": "https://t.alcy.cc/",
+          "logo": "https://tc.alcy.cc/favicon.ico",
+          "category": "API开放平台",
+          "description": "二次元随机图片",
+          "sort": 1
+        },
+        {
+          "name": "faceit developer",
+          "url": "https://developers.faceit.com/",
+          "logo": "https://developers.faceit.com/favicon.ico",
+          "category": "API开放平台",
+          "description": "faceit",
+          "sort": 1
+        },
+        {
+          "name": "Steam Web API 密钥",
+          "url": "https://steamcommunity.com/dev/apikey",
+          "logo": "",
+          "category": "API开放平台",
+          "description": "Steam Web",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "邮箱",
+      "sort": 1,
+      "items": [
+        {
+          "name": "Outlook",
+          "url": "https://outlook.live.com/mail/0/",
+          "logo": "https://outlook.live.com/mail/0//res.public.onecdn.static.microsoft/assets/mail/pwa/v4/pngs/apple-touch-icon.png",
+          "category": "邮箱",
+          "description": "微软旗下",
+          "sort": 1
+        },
+        {
+          "name": "Gmail",
+          "url": "https://mail.google.com",
+          "logo": "",
+          "category": "邮箱",
+          "description": "谷歌旗下",
+          "sort": 1
+        },
+        {
+          "name": "网易邮箱",
+          "url": "https://mail.163.com/",
+          "logo": "https://mail.163.com/favicon.ico",
+          "category": "邮箱",
+          "description": "网易旗下",
+          "sort": 1
+        },
+        {
+          "name": "QQ邮箱",
+          "url": "https://wx.mail.qq.com/",
+          "logo": "https://mail.qq.com/zh_CN/htmledition/images/favicon/qqmail_favicon_96h.png",
+          "category": "邮箱",
+          "description": "腾讯旗下",
+          "sort": 1
+        }
+      ]
+    },
+    {
+      "name": "博客社区启发类",
+      "sort": 1,
+      "items": [
+        {
+          "name": "单独部署Alist前端以优化体验 - Bingxin Blog",
+          "url": "https://blog.byteloid.one/2024/02/25/%E5%8D%95%E7%8B%AC%E9%83%A8%E7%BD%B2Alist%E5%89%8D%E7%AB%AF%E4%BB%A5%E4%BC%98%E5%8C%96%E4%BD%93%E9%AA%8C/",
+          "logo": "https://blog.byteloid.one/img/fluid.png",
+          "category": "博客社区启发类",
+          "description": "单独部署Alist前端以优化体验 - Bingxin Blog",
+          "sort": 0
+        },
+        {
+          "name": "在 Fuwari 中使用 Giscus 评论系统 - 洛谷专栏",
+          "url": "https://www.luogu.com.cn/article/dxovmb51",
+          "logo": "https://fecdn.luogu.com.cn/favicon.ico",
+          "category": "博客社区启发类",
+          "description": "在 Fuwari 中使用 Giscus 评论系统 - 洛谷专栏",
+          "sort": 0
+        },
+        {
+          "name": "给不懂的萌新解释一下什么是BE？【gta5科技吧】_百度贴吧",
+          "url": "https://tieba.baidu.com/p/9700619115",
+          "logo": "https://tb3.bdstatic.com/public/icon/favicon-v2.ico",
+          "category": "博客社区启发类",
+          "description": "给不懂的萌新解释一下什么是BE？【gta5科技吧】_百度贴吧",
+          "sort": 0
+        },
+        {
+          "name": "静态博客也想展示文章浏览量？当然可以！ - AcoFork Blog",
+          "url": "https://blog.2b2x.cn/posts/static-view/",
+          "logo": "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=0",
+          "category": "博客社区启发类",
+          "description": "静态博客也想展示文章浏览量？当然可以！ - AcoFork Blog",
+          "sort": 0
+        },
+        {
+          "name": "使用 Vercel 部署自托管 Umami 实时监控网站 – River's Blog",
+          "url": "https://www.moon-odyssey.com/self-hosted-umami-analystics-with-vercel/",
+          "logo": "https://www.moon-odyssey.com/favicon-dark.svg",
+          "category": "博客社区启发类",
+          "description": "使用 Vercel 部署自托管 Umami 实时监控网站 – River's Blog",
+          "sort": 0
+        },
+        {
+          "name": "VitePress 链接前加图标 - 唯知笔记",
+          "url": "https://note.weizwz.com/vitepress/basic/link-icon",
+          "logo": "https://note.weizwz.com/favicon.ico",
+          "category": "博客社区启发类",
+          "description": "VitePress 链接前加图标 - 唯知笔记",
+          "sort": 0
+        },
+        {
+          "name": "2核2G2M服务器卡死？-CLOUD技术博",
+          "url": "https://blog.zestp.com/archives/9227",
+          "logo": "https://blog.zestp.com/favicon.ico",
+          "category": "博客社区启发类",
+          "description": "2核2G2M服务器卡死？-CLOUD技术博",
+          "sort": 0
+        },
+        {
+          "name": "SrP-CFG 游戏CS2的指令、设置",
+          "url": "https://blog.srprolin.top/posts/srp-cfg/",
+          "logo": "https://blog.srprolin.top/favicon/favicon.ico",
+          "category": "博客社区启发类",
+          "description": "详细介绍CS2游戏cfg文件的各种知识，并分享自用配置",
+          "sort": 1
+        },
+        {
+          "name": "LivePhoto In Markdown",
+          "url": "https://www.v2ex.com/t/1065151",
+          "logo": "https://www.v2ex.com/static/icon-192.png",
+          "category": "博客社区启发类",
+          "description": "Live图在markdown文章中 - V2EX",
+          "sort": 1
+        },
+        {
+          "name": "Certbot自动申请SSL指南",
+          "url": "https://www.cnblogs.com/wzlinux/p/11188419.html",
+          "logo": "https://assets.cnblogs.com/favicon_v3_2.ico",
+          "category": "博客社区启发类",
+          "description": "以Nginx为例，为网站自动配置 SSL 证书并续期 - 小水滴18 - 博客园",
+          "sort": 1
+        },
+        {
+          "name": "Nginx禁用端口访问源站",
+          "url": "https://blog.ybyq.wang/archives/117.html",
+          "logo": "https://static.blog.ybyq.wang/usr/themes/handsome/assets/img/favicon.ico",
+          "category": "博客社区启发类",
+          "description": " Xuan's blog",
+          "sort": 1
+        },
+        {
+          "name": "Astro建站思路方案",
+          "url": "https://fuwari.oh1.top/posts/essay/afoim_fuwari/",
+          "logo": "https://fuwari.oh1.top/posts/essay/afoim_fuwari/favicon/icon.webp",
+          "category": "博客社区启发类",
+          "description": "统计信息，时间戳，友联",
+          "sort": 1
+        },
+        {
+          "name": "申请netlify开源计划",
+          "url": "https://fuwari.oh1.top/posts/guide/netlify-opensource-plan/",
+          "logo": "https://fuwari.oh1.top/posts/guide/netlify-opensource-plan/favicon/icon.webp",
+          "category": "博客社区启发类",
+          "description": "申请netlify开源计划",
+          "sort": 1
+        },
+        {
+          "name": "黑曜石与fuwari的结合",
+          "url": "https://blog.2b2x.cn/posts/obsidian/",
+          "logo": "https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=0",
+          "category": "博客社区启发类",
+          "description": "黑曜石与fuwari的结合",
+          "sort": 1
+        },
+        {
+          "name": "Astro置顶文章",
+          "url": "https://blog.imxizhen.asia/posts/%E6%95%99%E7%A8%8B/fuwari%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E7%BD%AE%E9%A1%B6%E5%B8%96%E5%AD%90%E5%8A%9F%E8%83%BD/",
+          "logo": "https://blog.imxizhen.asia/posts/%E6%95%99%E7%A8%8B/fuwari%E4%B8%BB%E9%A2%98%E5%8D%9A%E5%AE%A2%E6%B7%BB%E5%8A%A0%E7%BD%AE%E9%A1%B6%E5%B8%96%E5%AD%90%E5%8A%9F%E8%83%BD/favicon/imxizhen.icon.png",
+          "category": "博客社区启发类",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "Minecraft整合包服务器调优",
+          "url": "https://docs.liuliyue.cn/games/mcje/introduction/server-optimization.html",
+          "logo": "https://docs.liuliyue.cn/games/mcje/introduction/server-optimization.html/favicon.ico",
+          "category": "博客社区启发类",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "SMB服务",
+          "url": "https://onianbai.com/list_49/137.html",
+          "logo": "https://onianbai.com/favicon.ico",
+          "category": "博客社区启发类",
+          "description": "",
+          "sort": 1
+        },
+        {
+          "name": "Astro RSS 图像路径修复",
+          "url": "https://billyle.dev/posts/adding-rss-feed-content-and-fixing-markdown-image-paths-in-astro?utm_source=chatgpt.com#conclusion",
+          "logo": "https://billyle.dev/posts/adding-rss-feed-content-and-fixing-markdown-image-paths-in-astro/favicon-32x32.png",
+          "category": "博客社区启发类",
+          "description": "",
+          "sort": 1
+        }
+      ]
+    }
+  ]
+}

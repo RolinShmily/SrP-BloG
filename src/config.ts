@@ -81,11 +81,7 @@ export const navBarConfig: NavBarConfig = {
   links: [
     LinkPreset.Home,
     LinkPreset.Archive,
-    {
-      name: "书签",
-      url: "/navi/", // Internal links should not include the base path, as it is automatically added
-      external: false, // Show an external link icon and will open in a new tab
-    },
+    LinkPreset.About,
     {
       name: "追番",
       url: "/anime/", // Internal links should not include the base path, as it is automatically added

@@ -6,6 +6,10 @@ import { h } from "hastscript";
  *
  * @param {Object} properties - The properties of the component.
  * @param {string} properties.href - The URL to display.
+ * @param {string} [properties.title] - Pre-rendered title.
+ * @param {string} [properties.description] - Pre-rendered description.
+ * @param {string} [properties.logo] - Pre-rendered logo URL.
+ * @param {string} [properties.image] - Pre-rendered image URL.
  * @param {import('mdast').RootContent[]} children - The children elements of the component.
  * @returns {import('mdast').Parent} The created URL Card component.
  */
@@ -25,6 +29,8 @@ export function UrlCardComponent(properties, children) {
   const url = properties.href;
   const cardUuid = `UC${Math.random().toString(36).slice(-6)}`; // Collisions are not important
 
+  const hasPrerenderedData = properties.title || properties.description || properties.logo || properties.image;
+
   const nImage = h(`div#${cardUuid}-image`, { class: "uc-image" });
 
   const nTitle = h("div", { class: "uc-titlebar" }, [
@@ -37,19 +43,43 @@ export function UrlCardComponent(properties, children) {
   const nDescription = h(
     `div#${cardUuid}-description`,
     { class: "uc-description" },
-    "Waiting for api.microlink.io..."
+    hasPrerenderedData ? (properties.description || "No description available") : "Waiting for api.microlink.io..."
   );
 
   const nTitleText = h(
     `div#${cardUuid}-title`,
     { class: "uc-title-text" },
-    "Loading..."
+    hasPrerenderedData ? (properties.title || new URL(url).hostname) : "Loading..."
   );
 
   const nScript = h(
     `script#${cardUuid}-script`,
     { type: "text/javascript", defer: true },
-    `
+    hasPrerenderedData ? `
+      (function() {
+        const card = document.getElementById('${cardUuid}-card');
+        card.classList.remove("fetch-waiting");
+
+        const faviconEl = document.getElementById('${cardUuid}-favicon');
+        const imageEl = document.getElementById('${cardUuid}-image');
+
+        ${properties.logo ? `
+          faviconEl.style.backgroundImage = 'url(${properties.logo})';
+          faviconEl.style.backgroundColor = 'transparent';
+        ` : `
+          faviconEl.style.display = 'none';
+        `}
+
+        ${properties.image ? `
+          imageEl.style.backgroundImage = 'url(${properties.image})';
+        ` : `
+          imageEl.style.display = 'none';
+          document.getElementById('${cardUuid}-container').classList.add('no-image');
+        `}
+
+        console.log("[URL-CARD] Loaded prerendered card for ${url} | ${cardUuid}.")
+      })();
+    ` : `
       fetch('https://api.microlink.io?url=${encodeURIComponent(
         url
       )}').then(response => response.json()).then(data => {

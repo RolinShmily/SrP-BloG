@@ -93,11 +93,6 @@ collections:
         label: "番剧"
         fields:
           - { label: "内容", name: "body", widget: "markdown", required: false }
-      - file: "src/content/spec/navi.md"
-        name: "navi"
-        label: "书签"
-        fields:
-          - { label: "内容", name: "body", widget: "markdown", required: false }
       - file: "src/content/spec/web.md"
         name: "web"
         label: "网页"

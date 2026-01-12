@@ -56,7 +56,7 @@ function buildToc(headings: MarkdownHeading[]): TocItem[] {
 
 const toc = buildToc(headings);
 ---
-{isPostsRoute &&
+{headings.length > 0 &&
 <table-of-contents class:list={[className, "group block relative z-0 bg-[var(--float-panel-bg-opaque)] rounded-xl p-2"]}>
     <TOCList items={toc} />
     <div id="active-indicator" class:list={[{'hidden': headings.length == 0}, "-z-10 absolute bg-[var(--toc-btn-hover)] left-2 right-2 rounded-xl transition-all " +

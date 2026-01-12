@@ -1,26 +1,217 @@
 ---
-
-import { getEntry, render } from "astro:content";
-import Markdown from "@components/misc/Markdown.astro";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
 
-const naviPost = await getEntry("spec", "navi");
+// 导入导航数据
+import naviData from "../data/navi.json";
 
-if (!naviPost) {
-	throw new Error("Navi page content not found");
+// 生成 headings 用于 TOC
+const headings = naviData.categories.map(cat => ({
+	depth: 2,
+	slug: cat.name.toLowerCase().replace(/\s+/g, '-'),
+	text: cat.name
+}));
+
+// 定义导航项目类型
+interface NavItem {
+	name: string;
+	url: string;
+	logo: string;
+	category: string;
+	description: string;
+	sort: number;
 }
 
-const { Content } = await render(naviPost);
+interface Category {
+	name: string;
+	sort: number;
+	items: NavItem[];
+}
 ---
 
-<MainGridLayout title={i18n(I18nKey.navi)} description={i18n(I18nKey.navi)}>
-    <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
-        <div class="card-base z-10 px-9 py-6 relative w-full ">
-            <Markdown class="mt-2">
-                <Content />
-            </Markdown>
-        </div>
-    </div>
+<MainGridLayout title="书签" description="书签" headings={headings}>
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-9 py-6 relative w-full text-black dark:text-white">
+			<!-- 标题和搜索框 -->
+			<div class="mb-6">
+				<h1 class="text-3xl font-bold mb-4 text-center">静态书签归档</h1>
+				<div class="relative max-w-md mx-auto">
+					<input
+						id="nav-search"
+						type="text"
+						placeholder="搜索书签..."
+						class="w-full px-4 py-2 pl-10 rounded-lg border-2 border-black/10 dark:border-white/10 bg-black/5 dark:bg-white/5 focus:outline-none focus:border-[var(--primary)] transition-colors"
+					/>
+					<svg class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-black/40 dark:text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+					</svg>
+				</div>
+			</div>
+
+			<!-- 搜索结果提示 -->
+			<div id="search-info" class="hidden mb-4 text-center text-sm text-black/50 dark:text-white/50"></div>
+
+			<!-- 无搜索结果提示 -->
+			<div id="no-results" class="hidden text-center py-12">
+				<p class="text-black/50 dark:text-white/50">未找到匹配的书签</p>
+			</div>
+
+			<!-- 导航分类列表 -->
+			<div id="nav-categories">
+			{naviData.categories.map((category: Category) => {
+				const categoryId = category.name.toLowerCase().replace(/\s+/g, '-');
+				return (
+					<div id={categoryId} data-category class="nav-category mb-8">
+						<h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-[var(--primary)]">
+							{category.name}
+							<span class="ml-3 text-sm font-normal text-black/50 dark:text-white/50">
+								({category.items.length})
+							</span>
+						</h2>
+						<div data-items class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+							{category.items.map((item: NavItem) => (
+								<a
+									data-item
+									href={item.url}
+									target="_blank"
+									data-name={item.name.toLowerCase()}
+									data-url={item.url.toLowerCase()}
+									data-description={item.description?.toLowerCase() || ''}
+									class="nav-card group card-base hover:scale-105 transition-all duration-300 p-4 rounded-xl flex flex-col text-black dark:text-white"
+								>
+									<div class="flex items-start gap-3 mb-2">
+										{item.logo && item.logo !== 'undefined' ? (
+											<img
+												src={item.logo}
+												alt={item.name}
+												class="w-8 h-8 rounded flex-shrink-0"
+												loading="lazy"
+												onerror={(e) => (e.currentTarget.style.display = 'none')}
+											/>
+										) : (
+											<div class="w-8 h-8 rounded bg-[var(--primary)]/20 flex items-center justify-center text-[var(--primary)] text-sm font-bold flex-shrink-0">
+												{item.name[0]?.toUpperCase()}
+											</div>
+										)}
+										<div class="flex-1 min-w-0">
+											<h3 class="font-bold text-lg truncate group-hover:text-[var(--primary)] transition-colors">
+												{item.name}
+											</h3>
+											<p class="text-xs text-black/50 dark:text-white/50 truncate">
+												{new URL(item.url).hostname}
+											</p>
+										</div>
+									</div>
+									{item.description && (
+										<p class="text-sm text-black/70 dark:text-white/70 line-clamp-2">
+											{item.description}
+										</p>
+									)}
+								</a>
+							))}
+						</div>
+					</div>
+				);
+			})}
+			</div>
+		</div>
+	</div>
 </MainGridLayout>
+
+<style>
+	.nav-card {
+		cursor: pointer;
+	}
+
+	.line-clamp-2 {
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	/* TOC 锚点偏移 */
+	.nav-category {
+		scroll-margin-top: 6rem;
+	}
+
+	/* 搜索隐藏动画 */
+	[data-category].search-hidden {
+		display: none;
+	}
+
+	[data-item].search-hidden {
+		display: none;
+	}
+</style>
+
+<script data-swup-ignore-script>
+	const searchInput = document.getElementById('nav-search');
+	const searchInfo = document.getElementById('search-info');
+	const noResults = document.getElementById('no-results');
+	const categories = document.querySelectorAll('[data-category]');
+
+	function filterNavItems(searchTerm) {
+		const term = searchTerm.toLowerCase().trim();
+		let visibleCount = 0;
+
+		if (!term) {
+			// 清空搜索时恢复所有显示
+			categories.forEach(cat => {
+				cat.classList.remove('search-hidden');
+				cat.querySelectorAll('[data-item]').forEach(item => {
+					item.classList.remove('search-hidden');
+				});
+			});
+			searchInfo.classList.add('hidden');
+			noResults.classList.add('hidden');
+			return;
+		}
+
+		categories.forEach(cat => {
+			const items = cat.querySelectorAll('[data-item]');
+			let categoryVisible = false;
+
+			items.forEach(item => {
+				const name = item.dataset.name || '';
+				const url = item.dataset.url || '';
+				const description = item.dataset.description || '';
+
+				const matches = name.includes(term) ||
+					url.includes(term) ||
+					description.includes(term);
+
+				if (matches) {
+					item.classList.remove('search-hidden');
+					categoryVisible = true;
+				} else {
+					item.classList.add('search-hidden');
+				}
+			});
+
+			if (categoryVisible) {
+				cat.classList.remove('search-hidden');
+				visibleCount++;
+			} else {
+				cat.classList.add('search-hidden');
+			}
+		});
+
+		// 显示搜索结果信息
+		searchInfo.textContent = `找到 ${visibleCount} 个匹配的分类`;
+		searchInfo.classList.remove('hidden');
+
+		// 无结果提示
+		if (visibleCount === 0) {
+			noResults.classList.remove('hidden');
+		} else {
+			noResults.classList.add('hidden');
+		}
+	}
+
+	// 实时搜索
+	searchInput?.addEventListener('input', (e) => {
+		filterNavItems(e.target.value);
+	});
+</script>
