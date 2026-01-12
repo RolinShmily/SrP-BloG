@@ -1,5 +1,5 @@
 ---
-title: CFG_Installer_v2
+title: SrP-CFG安装器v2 | 版本发布 | 使用指南
 published: 2026-01-12
 pinned: true
 description: 为SrP-CFG预设打造，但不限于该预设的CFG安装器，GUI版v2发布，本文将简要描述使用指南。
