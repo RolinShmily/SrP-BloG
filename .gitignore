@@ -32,7 +32,8 @@ tmpclaude-de99-cwd
 tmpclaude-f833-cwd
 tmpclaude-eda9-cwd
 
-.vscode
+.vscode/
+.claude/
 
 # ide
 .idea

@@ -70,43 +70,36 @@ const style = Astro.props.style;
 			if (progress < 1) {
 				window.requestAnimationFrame(step);
 			} else {
-				obj.innerHTML = end.toLocaleString();
+				obj.innerHTML = end;
 			}
 		};
 		window.requestAnimationFrame(step);
 	}
 
-	// 格式化数字（超过千用k，超过万用w）
-	function formatNumber(num) {
-		if (num >= 10000) {
-			return (num / 10000).toFixed(1) + 'w';
-		} else if (num >= 1000) {
-			return (num / 1000).toFixed(1) + 'k';
+	// 动画显示统计数据
+	function loadSiteStats() {
+		const runningDaysElement = document.getElementById('site-running-days');
+		const totalWordsElement = document.getElementById('site-total-words');
+
+		if (runningDaysElement) {
+			const startVal = parseInt(runningDaysElement.textContent) || 0;
+			// 如果当前值已经是目标值，就不执行动画
+			if (startVal > 0) {
+				animateValue(runningDaysElement, 0, startVal, 1000);
+			}
 		}
-		return num.toString();
-	}
 
-	// 动画显示总字数
-	function animateTotalWords() {
-		const element = document.getElementById('site-total-words');
-		if (element) {
-			animateValue(element, 0, totalWords, 1000);
+		if (totalWordsElement) {
+			const startVal = parseInt(totalWordsElement.textContent) || 0;
+			// 如果当前值已经是目标值，就不执行动画
+			if (startVal !== totalWords) {
+				animateValue(totalWordsElement, startVal, totalWords, 1000);
+			}
 		}
 	}
 
-	// 页面加载完成后执行
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', animateTotalWords);
-	} else {
-		animateTotalWords();
-	}
-
-	// Swup 页面切换后重新执行
-	if (window.swup) {
-		window.swup.hooks.on('page:view', animateTotalWords);
-	} else {
-		document.addEventListener('swup:enable', () => {
-			window.swup.hooks.on('page:view', animateTotalWords);
-		});
-	}
+	// 页面加载完成后获取统计数据
+	document.addEventListener('DOMContentLoaded', loadSiteStats);
+	// 监听 Swup 内容替换事件，确保页面切换后重新获取数据
+	document.addEventListener('content:replace', loadSiteStats);
 </script>

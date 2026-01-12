@@ -143,10 +143,6 @@ const { remarkPluginFrontmatter } = await entry.render();
         const elements = document.querySelectorAll('.post-pageviews');
 
         elements.forEach(async (el) => {
-            // 如果元素已经处理过，且已有内容（非0），则不再处理
-            if (el.classList.contains('processed') && el.textContent !== '0') return;
-
-            el.classList.add('processed');
             const url = el.dataset.url;
             const baseUrl = el.dataset.umamiBaseUrl;
             const shareId = el.dataset.umamiShareId;
@@ -165,22 +161,30 @@ const { remarkPluginFrontmatter } = await entry.render();
 
                 const pageviews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
 
+                // 使用 sessionStorage 存储之前显示的值，避免重复动画
+                const cacheKey = `post-pageviews-${encodeURIComponent(url)}`;
+                const cachedViews = sessionStorage.getItem(cacheKey);
+                const startVal = cachedViews ? parseInt(cachedViews) : 0;
+
                 // 如果数据来自缓存，直接显示结果，跳过动画
                 if (statsData._fromCache) {
                     el.innerHTML = pageviews;
                     return;
                 }
 
-                const startVal = parseInt(el.textContent) || 0;
-
                 if (startVal !== pageviews) {
-                    // 只有当开始值是0的时候才播放动画（首次加载）
-                    if (startVal === 0) {
+                    // 只有当缓存的值不存在时才播放动画（首次加载）
+                    if (cachedViews === null) {
                          animateValue(el, startVal, pageviews, 1000);
                     } else {
                          el.innerHTML = pageviews;
                     }
+                } else {
+                    el.innerHTML = pageviews;
                 }
+
+                // 保存到 sessionStorage
+                sessionStorage.setItem(cacheKey, pageviews);
             } catch (e) {
                 console.error('Failed to load stats for', url, e);
             }

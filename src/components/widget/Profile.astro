@@ -96,12 +96,8 @@ const config = profileConfig;
     }
 
     // 获取全站访问量统计
-
     async function loadSiteStats() {
-        if (!umamiConfig.enable) {
-            return;
-        }
-
+        if (!umamiConfig.enable) return;
         try {
             const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
                 timezone: umamiConfig.timezone
@@ -112,6 +108,7 @@ const config = profileConfig;
 
             const viewsElement = document.getElementById('site-views');
             const visitorsElement = document.getElementById('site-visitors');
+
             if (viewsElement) {
                 const startVal = parseInt(viewsElement.textContent) || 0;
                 // 如果当前值已经是目标值，就不执行动画
@@ -134,7 +131,6 @@ const config = profileConfig;
 
     // 页面加载完成后获取统计数据
     document.addEventListener('DOMContentLoaded', loadSiteStats);
-
     // 监听 Swup 内容替换事件，确保页面切换后重新获取数据
     document.addEventListener('content:replace', loadSiteStats);
 </script>
