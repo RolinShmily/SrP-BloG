@@ -35,7 +35,16 @@ lang: ""
 
 - 你的每一步操作都会在日志输出中打印提示信息，如果遇到问题，请先查看日志。
 
+# 你会需要的链接
+
+- [项目说明书](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-1.html) | 本项目的一些废话
+- [下载地址](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-2.html) | 顾名思义
+- [使用指南](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-3.html) | 按键、控制台命令功能表
+- [更新日志](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-4.html) | 查看最新更新
+
 # steam好友代码查找
+
+如果你有更多方便的查找好友代码的方式，欢迎反馈。
 
 ## steam客户端查找
 方式1:
