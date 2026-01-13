@@ -2,7 +2,7 @@
 import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
 import { Icon } from "astro-icon/components";
-import { siteConfig } from "../../config";
+import { siteConfig, umamiConfig } from "../../config";
 import { getTotalWords } from "../../utils/content-utils";
 import WidgetLayout from "./WidgetLayout.astro";
 
@@ -36,7 +36,7 @@ const style = Astro.props.style;
 >
 	<div class="grid grid-cols-2 gap-3">
 		<!-- 运行天数 -->
-		<div class="text-center">
+		<div class="text-center p-2 rounded-lg bg-neutral-50/50 dark:bg-neutral-800/30 hover:bg-neutral-100/50 dark:hover:bg-neutral-700/30 transition">
 			<div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
 				<Icon name="material-symbols:event-available" class="text-base"></Icon>
 				<span class="text-xs">{i18n(I18nKey.runningDays)}</span>
@@ -47,7 +47,7 @@ const style = Astro.props.style;
 		</div>
 
 		<!-- 总字数 -->
-		<div class="text-center border-l border-neutral-200 dark:border-neutral-700">
+		<div class="text-center p-2 rounded-lg bg-neutral-50/50 dark:bg-neutral-800/30 hover:bg-neutral-100/50 dark:hover:bg-neutral-700/30 transition">
 			<div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
 				<Icon name="material-symbols:notes" class="text-base"></Icon>
 				<span class="text-xs">{i18n(I18nKey.totalWords)}</span>
@@ -56,10 +56,28 @@ const style = Astro.props.style;
 				0
 			</div>
 		</div>
+
+		<!-- 访问量 -->
+		<div class="text-center p-2 rounded-lg bg-neutral-50/50 dark:bg-neutral-800/30 hover:bg-neutral-100/50 dark:hover:bg-neutral-700/30 transition">
+			<div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
+				<Icon name="material-symbols:visibility-outline" class="text-base"></Icon>
+				<span class="text-xs">访问量</span>
+			</div>
+			<div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
+		</div>
+
+		<!-- 访客数 -->
+		<div class="text-center p-2 rounded-lg bg-neutral-50/50 dark:bg-neutral-800/30 hover:bg-neutral-100/50 dark:hover:bg-neutral-700/30 transition">
+			<div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
+				<Icon name="material-symbols:person" class="text-base"></Icon>
+				<span class="text-xs">访客数</span>
+			</div>
+			<div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
+		</div>
 	</div>
 </WidgetLayout>
 
-<script define:vars={{ totalWords }}>
+<script define:vars={{ totalWords, umamiConfig }}>
 	// 数字动画函数
 	function animateValue(obj, start, end, duration) {
 		let startTimestamp = null;
@@ -80,22 +98,30 @@ const style = Astro.props.style;
 	let isSwupNavigating = false;
 
 	// 动画显示统计数据
-	function loadSiteStats() {
+	async function loadSiteStats() {
 		const runningDaysElement = document.getElementById('site-running-days');
 		const totalWordsElement = document.getElementById('site-total-words');
+		const viewsElement = document.getElementById('site-views');
+		const visitorsElement = document.getElementById('site-visitors');
 
 		// 使用 sessionStorage 缓存数据
 		const runningDaysCacheKey = 'site-running-days';
 		const totalWordsCacheKey = 'site-total-words';
+		const viewsCacheKey = 'site-views';
+		const visitorsCacheKey = 'site-visitors';
 
 		// 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
 		if (!isSwupNavigating) {
 			sessionStorage.removeItem(runningDaysCacheKey);
 			sessionStorage.removeItem(totalWordsCacheKey);
+			sessionStorage.removeItem(viewsCacheKey);
+			sessionStorage.removeItem(visitorsCacheKey);
 		}
 
 		const cachedRunningDays = sessionStorage.getItem(runningDaysCacheKey);
 		const cachedTotalWords = sessionStorage.getItem(totalWordsCacheKey);
+		const cachedViews = sessionStorage.getItem(viewsCacheKey);
+		const cachedVisitors = sessionStorage.getItem(visitorsCacheKey);
 
 		// 如果有缓存（swup跳转），先立即显示缓存值
 		if (cachedRunningDays !== null && runningDaysElement) {
@@ -104,11 +130,17 @@ const style = Astro.props.style;
 		if (cachedTotalWords !== null && totalWordsElement) {
 			totalWordsElement.textContent = cachedTotalWords;
 		}
+		if (cachedViews !== null && viewsElement) {
+			viewsElement.textContent = cachedViews;
+		}
+		if (cachedVisitors !== null && visitorsElement) {
+			visitorsElement.textContent = cachedVisitors;
+		}
 
+		// 运行天数动画
 		if (runningDaysElement) {
 			const startVal = parseInt(runningDaysElement.textContent) || 0;
 			if (startVal > 0) {
-				// 只有缓存不存在时才播放动画（刷新或首次加载）
 				if (cachedRunningDays === null) {
 					animateValue(runningDaysElement, 0, startVal, 1000);
 				}
@@ -118,10 +150,10 @@ const style = Astro.props.style;
 			sessionStorage.setItem(runningDaysCacheKey, startVal);
 		}
 
+		// 总字数动画
 		if (totalWordsElement) {
 			const startVal = parseInt(totalWordsElement.textContent) || 0;
 			if (startVal !== totalWords) {
-				// 只有缓存不存在时才播放动画（刷新或首次加载）
 				if (cachedTotalWords === null) {
 					animateValue(totalWordsElement, startVal, totalWords, 1000);
 				} else if (startVal !== totalWords) {
@@ -131,6 +163,40 @@ const style = Astro.props.style;
 				totalWordsElement.textContent = totalWords;
 			}
 			sessionStorage.setItem(totalWordsCacheKey, totalWords);
+		}
+
+		// 获取访问量和访客数
+		if (umamiConfig.enable) {
+			try {
+				const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
+					timezone: umamiConfig.timezone
+				});
+
+				const pageviews = statsData.pageviews || 0;
+				const visitors = statsData.visitors || 0;
+
+				if (viewsElement) {
+					const startVal = parseInt(viewsElement.textContent) || 0;
+					if (cachedViews === null && startVal !== pageviews) {
+						animateValue(viewsElement, startVal, pageviews, 1000);
+					} else if (startVal !== pageviews) {
+						viewsElement.textContent = pageviews;
+					}
+					sessionStorage.setItem(viewsCacheKey, pageviews);
+				}
+
+				if (visitorsElement) {
+					const startVal = parseInt(visitorsElement.textContent) || 0;
+					if (cachedVisitors === null && startVal !== visitors) {
+						animateValue(visitorsElement, startVal, visitors, 1000);
+					} else if (startVal !== visitors) {
+						visitorsElement.textContent = visitors;
+					}
+					sessionStorage.setItem(visitorsCacheKey, visitors);
+				}
+			} catch (error) {
+				console.error('获取全站统计失败:', error);
+			}
 		}
 	}
 
