@@ -139,6 +139,9 @@ const { remarkPluginFrontmatter } = await entry.render();
         window.requestAnimationFrame(step);
     }
 
+    // 标记是否正在swup跳转
+    let isSwupNavigating = false;
+
     async function loadCardStats() {
         const elements = document.querySelectorAll('.post-pageviews');
 
@@ -154,6 +157,21 @@ const { remarkPluginFrontmatter } = await entry.render();
                 // Check if fetchUmamiStats exists
                 if (typeof window.fetchUmamiStats !== 'function') return;
 
+                // 使用 sessionStorage 存储之前显示的值
+                const cacheKey = `post-pageviews-${encodeURIComponent(url)}`;
+
+                // 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
+                if (!isSwupNavigating) {
+                    sessionStorage.removeItem(cacheKey);
+                }
+
+                const cachedViews = sessionStorage.getItem(cacheKey);
+
+                // 如果有缓存（swup跳转），先立即显示缓存值
+                if (cachedViews !== null) {
+                    el.innerHTML = cachedViews;
+                }
+
                 const statsData = await window.fetchUmamiStats(baseUrl, shareId, {
                     url: url,
                     timezone: timezone
@@ -161,23 +179,15 @@ const { remarkPluginFrontmatter } = await entry.render();
 
                 const pageviews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
 
-                // 使用 sessionStorage 存储之前显示的值，避免重复动画
-                const cacheKey = `post-pageviews-${encodeURIComponent(url)}`;
-                const cachedViews = sessionStorage.getItem(cacheKey);
-                const startVal = cachedViews ? parseInt(cachedViews) : 0;
-
-                // 如果数据来自缓存，直接显示结果，跳过动画
-                if (statsData._fromCache) {
-                    el.innerHTML = pageviews;
-                    return;
-                }
+                // 从DOM读取当前值作为起始值
+                const startVal = parseInt(el.textContent) || 0;
 
                 if (startVal !== pageviews) {
-                    // 只有当缓存的值不存在时才播放动画（首次加载）
+                    // 只有缓存不存在时才播放动画（刷新或首次加载）
                     if (cachedViews === null) {
-                         animateValue(el, startVal, pageviews, 1000);
+                        animateValue(el, startVal, pageviews, 1000);
                     } else {
-                         el.innerHTML = pageviews;
+                        el.innerHTML = pageviews;
                     }
                 } else {
                     el.innerHTML = pageviews;
@@ -192,5 +202,10 @@ const { remarkPluginFrontmatter } = await entry.render();
     }
 
     document.addEventListener('DOMContentLoaded', loadCardStats);
-    document.addEventListener('swup:contentReplaced', loadCardStats);
+    // 监听swup事件
+    document.addEventListener('swup:contentReplaced', () => {
+        isSwupNavigating = true;
+        loadCardStats();
+        setTimeout(() => { isSwupNavigating = false; }, 100);
+    });
 </script>

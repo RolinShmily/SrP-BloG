@@ -78,7 +78,7 @@ const config = profileConfig;
     }
 </style>
 
-<script define:vars={{ umamiConfig}}>
+<script define:vars={{ umamiConfig }}>
     // 数字动画函数
     function animateValue(obj, start, end, duration) {
         let startTimestamp = null;
@@ -95,6 +95,9 @@ const config = profileConfig;
         window.requestAnimationFrame(step);
     }
 
+    // 标记是否正在swup跳转
+    let isSwupNavigating = false;
+
     // 获取全站访问量统计
     async function loadSiteStats() {
         if (!umamiConfig.enable) return;
@@ -109,28 +112,58 @@ const config = profileConfig;
             const viewsElement = document.getElementById('site-views');
             const visitorsElement = document.getElementById('site-visitors');
 
+            // 使用 sessionStorage 缓存数据
+            const viewsCacheKey = 'site-views';
+            const visitorsCacheKey = 'site-visitors';
+
+            // 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
+            if (!isSwupNavigating) {
+                sessionStorage.removeItem(viewsCacheKey);
+                sessionStorage.removeItem(visitorsCacheKey);
+            }
+
+            const cachedViews = sessionStorage.getItem(viewsCacheKey);
+            const cachedVisitors = sessionStorage.getItem(visitorsCacheKey);
+
+            // 如果有缓存（swup跳转），先立即显示缓存值
+            if (cachedViews !== null && viewsElement) {
+                viewsElement.textContent = cachedViews;
+            }
+            if (cachedVisitors !== null && visitorsElement) {
+                visitorsElement.textContent = cachedVisitors;
+            }
+
             if (viewsElement) {
                 const startVal = parseInt(viewsElement.textContent) || 0;
-                // 如果当前值已经是目标值，就不执行动画
-                if (startVal !== pageviews) {
+                // 只有缓存不存在时才播放动画（刷新或首次加载）
+                if (cachedViews === null && startVal !== pageviews) {
                     animateValue(viewsElement, startVal, pageviews, 1000);
+                } else if (startVal !== pageviews) {
+                    viewsElement.textContent = pageviews;
                 }
+                sessionStorage.setItem(viewsCacheKey, pageviews);
             }
 
             if (visitorsElement) {
                 const startVal = parseInt(visitorsElement.textContent) || 0;
-                // 如果当前值已经是目标值，就不执行动画
-                if (startVal !== visitors) {
+                // 只有缓存不存在时才播放动画（刷新或首次加载）
+                if (cachedVisitors === null && startVal !== visitors) {
                     animateValue(visitorsElement, startVal, visitors, 1000);
+                } else if (startVal !== visitors) {
+                    visitorsElement.textContent = visitors;
                 }
+                sessionStorage.setItem(visitorsCacheKey, visitors);
             }
         } catch (error) {
             console.error('获取全站统计失败:', error);
         }
     }
 
-    // 页面加载完成后获取统计数据
     document.addEventListener('DOMContentLoaded', loadSiteStats);
-    // 监听 Swup 内容替换事件，确保页面切换后重新获取数据
-    document.addEventListener('content:replace', loadSiteStats);
+    // 监听swup事件
+    document.addEventListener('swup:contentReplaced', () => {
+        isSwupNavigating = true;
+        loadSiteStats();
+        setTimeout(() => { isSwupNavigating = false; }, 100);
+    });
 </script>

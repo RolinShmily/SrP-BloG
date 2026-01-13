@@ -76,30 +76,69 @@ const style = Astro.props.style;
 		window.requestAnimationFrame(step);
 	}
 
+	// 标记是否正在swup跳转
+	let isSwupNavigating = false;
+
 	// 动画显示统计数据
 	function loadSiteStats() {
 		const runningDaysElement = document.getElementById('site-running-days');
 		const totalWordsElement = document.getElementById('site-total-words');
 
+		// 使用 sessionStorage 缓存数据
+		const runningDaysCacheKey = 'site-running-days';
+		const totalWordsCacheKey = 'site-total-words';
+
+		// 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
+		if (!isSwupNavigating) {
+			sessionStorage.removeItem(runningDaysCacheKey);
+			sessionStorage.removeItem(totalWordsCacheKey);
+		}
+
+		const cachedRunningDays = sessionStorage.getItem(runningDaysCacheKey);
+		const cachedTotalWords = sessionStorage.getItem(totalWordsCacheKey);
+
+		// 如果有缓存（swup跳转），先立即显示缓存值
+		if (cachedRunningDays !== null && runningDaysElement) {
+			runningDaysElement.textContent = cachedRunningDays;
+		}
+		if (cachedTotalWords !== null && totalWordsElement) {
+			totalWordsElement.textContent = cachedTotalWords;
+		}
+
 		if (runningDaysElement) {
 			const startVal = parseInt(runningDaysElement.textContent) || 0;
-			// 如果当前值已经是目标值，就不执行动画
 			if (startVal > 0) {
-				animateValue(runningDaysElement, 0, startVal, 1000);
+				// 只有缓存不存在时才播放动画（刷新或首次加载）
+				if (cachedRunningDays === null) {
+					animateValue(runningDaysElement, 0, startVal, 1000);
+				}
+			} else {
+				runningDaysElement.textContent = startVal;
 			}
+			sessionStorage.setItem(runningDaysCacheKey, startVal);
 		}
 
 		if (totalWordsElement) {
 			const startVal = parseInt(totalWordsElement.textContent) || 0;
-			// 如果当前值已经是目标值，就不执行动画
 			if (startVal !== totalWords) {
-				animateValue(totalWordsElement, startVal, totalWords, 1000);
+				// 只有缓存不存在时才播放动画（刷新或首次加载）
+				if (cachedTotalWords === null) {
+					animateValue(totalWordsElement, startVal, totalWords, 1000);
+				} else if (startVal !== totalWords) {
+					totalWordsElement.textContent = totalWords;
+				}
+			} else {
+				totalWordsElement.textContent = totalWords;
 			}
+			sessionStorage.setItem(totalWordsCacheKey, totalWords);
 		}
 	}
 
-	// 页面加载完成后获取统计数据
 	document.addEventListener('DOMContentLoaded', loadSiteStats);
-	// 监听 Swup 内容替换事件，确保页面切换后重新获取数据
-	document.addEventListener('content:replace', loadSiteStats);
+	// 监听swup事件
+	document.addEventListener('swup:contentReplaced', () => {
+		isSwupNavigating = true;
+		loadSiteStats();
+		setTimeout(() => { isSwupNavigating = false; }, 100);
+	});
 </script>

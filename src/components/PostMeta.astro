@@ -126,10 +126,37 @@ const className = Astro.props.class;
         window.requestAnimationFrame(step);
     }
 
+    // 标记是否正在swup跳转
+    let isSwupNavigating = false;
+
     // 获取访问量统计
     async function fetchPageViews() {
         if (!umamiConfig.enable) return;
         try {
+            const viewsElement = document.getElementById(`page-views-${slug}`);
+            const visitorsElement = document.getElementById(`page-visitors-${slug}`);
+
+            // 使用 sessionStorage 存储之前显示的值
+            const viewsCacheKey = `post-views-${slug}`;
+            const visitorsCacheKey = `post-visitors-${slug}`;
+
+            // 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
+            if (!isSwupNavigating) {
+                sessionStorage.removeItem(viewsCacheKey);
+                sessionStorage.removeItem(visitorsCacheKey);
+            }
+
+            const cachedViews = sessionStorage.getItem(viewsCacheKey);
+            const cachedVisitors = sessionStorage.getItem(visitorsCacheKey);
+
+            // 如果有缓存（swup跳转），先立即显示缓存值
+            if (cachedViews !== null && viewsElement) {
+                viewsElement.innerHTML = `${cachedViews} 次`;
+            }
+            if (cachedVisitors !== null && visitorsElement) {
+                visitorsElement.innerHTML = `${cachedVisitors} 人`;
+            }
+
             const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
                 timezone: umamiConfig.timezone,
                 path: `eq./posts/${slug}/`
@@ -138,30 +165,14 @@ const className = Astro.props.class;
             const pageViews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
             const visits = (statsData.visitors && statsData.visitors.value) || statsData.visitors || 0;
 
-            const viewsElement = document.getElementById(`page-views-${slug}`);
-            const visitorsElement = document.getElementById(`page-visitors-${slug}`);
-
-            // 使用 sessionStorage 存储之前显示的值，避免重复动画
-            const viewsCacheKey = `post-views-${slug}`;
-            const visitorsCacheKey = `post-visitors-${slug}`;
-            const cachedViews = sessionStorage.getItem(viewsCacheKey);
-            const cachedVisitors = sessionStorage.getItem(visitorsCacheKey);
-
-            // 如果数据来自缓存，直接显示结果，跳过动画
-            if (statsData._fromCache) {
-                if (viewsElement) viewsElement.innerHTML = `${pageViews} 次`;
-                if (visitorsElement) visitorsElement.innerHTML = `${visits} 人`;
-                return;
-            }
-
             if (viewsElement) {
-                const startVal = cachedViews ? parseInt(cachedViews) : 0;
+                const startVal = parseInt(viewsElement.textContent) || 0;
                 if (startVal !== pageViews) {
-                    // 只有当缓存的值不存在时才播放动画（首次加载）
+                    // 只有缓存不存在时才播放动画（刷新或首次加载）
                     if (cachedViews === null) {
-                         animateValue(viewsElement, startVal, pageViews, 1000, '次');
+                        animateValue(viewsElement, startVal, pageViews, 1000, '次');
                     } else {
-                         viewsElement.innerHTML = `${pageViews} 次`;
+                        viewsElement.innerHTML = `${pageViews} 次`;
                     }
                 } else {
                     viewsElement.innerHTML = `${pageViews} 次`;
@@ -170,13 +181,13 @@ const className = Astro.props.class;
             }
 
             if (visitorsElement) {
-                const startVal = cachedVisitors ? parseInt(cachedVisitors) : 0;
+                const startVal = parseInt(visitorsElement.textContent) || 0;
                 if (startVal !== visits) {
-                    // 只有当缓存的值不存在时才播放动画（首次加载）
+                    // 只有缓存不存在时才播放动画（刷新或首次加载）
                     if (cachedVisitors === null) {
-                         animateValue(visitorsElement, startVal, visits, 1000, '人');
+                        animateValue(visitorsElement, startVal, visits, 1000, '人');
                     } else {
-                         visitorsElement.innerHTML = `${visits} 人`;
+                        visitorsElement.innerHTML = `${visits} 人`;
                     }
                 } else {
                     visitorsElement.innerHTML = `${visits} 人`;
@@ -194,5 +205,11 @@ const className = Astro.props.class;
     } else {
         fetchPageViews();
     }
+    // 监听swup事件
+    document.addEventListener('swup:contentReplaced', () => {
+        isSwupNavigating = true;
+        fetchPageViews();
+        setTimeout(() => { isSwupNavigating = false; }, 100);
+    });
 </script>
 )}
