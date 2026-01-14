@@ -5,3 +5,5 @@
 ::url{href="https://sms-activate.ru/"}
 ::url{href="https://justmysocks3.net/"}
 ::url{href="https://www.v2fly.org/"}
+::url{href="https://web.269601.xyz/admin/"}
+::url{href="https://oss.srprolin.top/v2rayN-windows-64.zip/"}
