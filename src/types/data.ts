@@ -4,7 +4,3 @@ export interface FrlinkContent {
   description: string;
   url: string;
 }
-
-export interface FrlinksData {
-  frlinksjson: FrlinkContent[];
-}

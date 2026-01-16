@@ -8,14 +8,16 @@ import { siteConfig } from "@/config";
 // giscus评论区文章页集成
 import Giscus from "../components/misc/Giscus.astro";
 
-import type { FrlinksData } from "@/types/data";
-import frlinksjson from "@/data/frlinks.json";
+import type { FrlinkContent } from "@/types/data";
+import { getFrlinks } from "@/data/frlinks";
+
+// 获取所有友链数据
+const frlinks = await getFrlinks();
 
 const frlinksMd = await getEntry("spec", "frlinks");
 if (!frlinksMd) throw new Error("友链说明文件未找到");
 
 const { Content } = await render(frlinksMd);
-const { frlinks } = frlinksjson as FrlinksData;
 ---
 <MainGridLayout title="友链" description="友情链接 - 与优秀的创作者们相连，共享知识与成长">
   <div class="w-full rounded-[var(--radius-large)] overflow-hidden relative">
