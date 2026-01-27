@@ -111,6 +111,11 @@ export const profileConfig: ProfileConfig = {
   bio: "私はバンド楽しいっておもったこと、一度もない",
   links: [
     {
+      name: "QQ",
+      icon: "fa-brands fa-qq",
+      url: "https://qm.qq.com/q/jXgwD3rtGE",
+    },
+    {
       name: "Bilibli",
       icon: "fa6-brands:bilibili",
       url: "https://space.bilibili.com/422744280",
