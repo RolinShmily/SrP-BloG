@@ -28,15 +28,15 @@ const { Content } = await render(frlinksMd);
             </div>
             <h1 class="text-2xl font-bold text-black dark:text-white">友链</h1>
         </div>
-        <link rel="stylesheet" href="/src/styles/frlink-card.css" />
+        <!-- 申请友链 -->
+            <p class="text-sm text-black/60 dark:text-white/60 mb-4">
+            如果您也想加入友链名单，<a target="_blank" href="https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/frlinks" class="transition link text-[var(--primary)] font-medium underline">请点击这里提交</a>
+            </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {frlinks.map((frlink) => (
                 <a href={frlink.url} target="_blank" class="frlink-card">
                     <div class="flex items-center gap-2">
                         <div class="relative w-5 h-5 rounded overflow-hidden" style={`--theme-hue: ${siteConfig.themeColor.hue}`}>
-                            <div class="loading-bar absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-1 bg-gray-200 dark:bg-gray-700 z-10 rounded-full overflow-hidden">
-                                <div class="loading-progress h-full w-8 bg-[oklch(0.70_0.14_var(--theme-hue))] animate-loading-progress rounded-full"></div>
-                            </div>
                             <img src={frlink.avatar} loading="lazy" class="w-full h-full object-cover opacity-0 transition-opacity duration-500" alt={`${frlink.name}的头像`} onload="this.style.opacity='1'; this.parentElement.querySelector('.loading-bar').style.opacity='0';"/>
                         </div>
                         <div class="font-bold text-black dark:text-white">{frlink.name}</div>
@@ -69,6 +69,7 @@ const { Content } = await render(frlinksMd);
         transition-property: all;
         transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         transition-duration: 0.15s;
+        transform: translateZ(0);
     }
 
     .friend-card:active {
