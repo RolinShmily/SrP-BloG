@@ -288,6 +288,9 @@ const bannerOffset =
 				pointer-events: none;
 				z-index: -1;
 				transition: opacity 0.3s ease-in-out;
+                /* Prevent background jump on mobile browsers with dynamic URL bars */
+                will-change: transform;
+                transform: translateZ(0);
 			}
 
 			#bg-box.loaded {
