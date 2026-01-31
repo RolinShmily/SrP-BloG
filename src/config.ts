@@ -81,7 +81,7 @@ export const navBarConfig: NavBarConfig = {
   links: [
     LinkPreset.Home,
     LinkPreset.Archive,
-    LinkPreset.About,
+    // LinkPreset.About,
     {
       name: "追番",
       url: "/anime/", // Internal links should not include the base path, as it is automatically added

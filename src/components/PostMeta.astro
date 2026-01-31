@@ -16,6 +16,8 @@ interface Props {
 	category: string | null;
 	hideTagsForMobile?: boolean;
 	hideUpdateDate?: boolean;
+	hideDate?: boolean;
+	hideStats?: boolean;
 }
 const {
 	published,
@@ -24,6 +26,8 @@ const {
 	category,
 	hideTagsForMobile = false,
 	hideUpdateDate = false,
+	hideDate = false,
+	hideStats = false,
     slug, // umami逆向工程所需的slug
 } = Astro.props;
 const className = Astro.props.class;
@@ -31,6 +35,7 @@ const className = Astro.props.class;
 
 <div class:list={["flex flex-wrap text-neutral-500 dark:text-neutral-400 items-center gap-4 gap-x-4 gap-y-2", className]}>
     <!-- publish date -->
+    {!hideDate && (
     <div class="flex items-center">
         <div class="meta-icon"
         >
@@ -38,6 +43,7 @@ const className = Astro.props.class;
         </div>
         <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
     </div>
+    )}
 
     <!-- update date -->
     {!hideUpdateDate && updated && updated.getTime() !== published.getTime() && (
@@ -89,7 +95,7 @@ const className = Astro.props.class;
 -->
 
     <!-- umami 逆向工程 -->
-    {slug && (
+    {!hideStats && slug && (
         <>
             <div class="flex items-center">
                 <div class="meta-icon">
