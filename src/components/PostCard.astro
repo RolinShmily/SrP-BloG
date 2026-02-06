@@ -69,10 +69,6 @@ const { remarkPluginFrontmatter } = await entry.render();
 
             {title}
         </a>
-
-        <!-- metadata -->
-        <PostMetadata published={published} updated={updated} tags={tags} hideTagsForMobile={true} hideUpdateDate={true} hideDate={true} hideStats={true} slug={entry.slug} class="mb-2 md:mb-4"></PostMetadata>
-
         <!-- description -->
         <div class:list={["transition text-75 mb-3.5 pr-4 line-clamp-1 md:line-clamp-2"]}>
             { description || remarkPluginFrontmatter.excerpt }
