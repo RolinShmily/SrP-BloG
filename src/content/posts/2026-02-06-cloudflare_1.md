@@ -7,8 +7,6 @@ image: ../assets/images/2026-02-06_13-36-52.png
 draft: false
 lang: ""
 ---
-# 摘要
-Cloudflare优选域名/IP原理、Workers路由应用示例。
 # CloudflareCDN与优选
 作为互联网中的重要角色，其CDN节点遍布全球，提供了非常多的入口IP。
 由于GFW的存在，中国大陆的访问情况并不是很友好，但总归有访问良好的节点IP。
