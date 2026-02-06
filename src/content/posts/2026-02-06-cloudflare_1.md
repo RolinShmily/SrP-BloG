@@ -3,6 +3,7 @@ title: Cloudflare优选原理小记
 published: 2026-02-06
 pinned: false
 description: Cloudflare优选域名/IP原理、Workers路由应用示例。
+image: ../assets/images/2026-02-06_13-36-52.png
 draft: false
 lang: ""
 ---
