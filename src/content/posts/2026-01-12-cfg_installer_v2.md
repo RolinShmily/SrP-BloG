@@ -11,7 +11,6 @@ draft: false
 lang: ""
 ---
 # 前言
-为SrP-CFG预设打造，但不限于该预设的CFG安装器，GUI版v2发布，本文将简要描述使用指南。
 请先阅读[前篇关于CFG的介绍](https://blog.srprolin.top/posts/srp-cfg/)，必要时阅读[SrP-CFG项目说明书](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-1.html)。
 # 项目地址
 ::github{repo="RolinShmily/SrP-CFG_ForCS2"}

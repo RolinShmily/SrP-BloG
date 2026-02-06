@@ -14,9 +14,7 @@ category: ""
 
 # 前言
 
-这是继上一篇关于 SMB 的续集，因其仅内网性，而虚拟局域网的不稳定性，也促使我去选择另一种文件共享协议，即 webDAV。
-
-可以借助 RaiDrive 实现挂载盘符，同时使用 GitHub 上的开源 webDAV 服务端，避免了 Windows 自带的 IIS 的繁琐配置。
+借助 RaiDrive 实现挂载盘符，同时使用 GitHub 上的开源 webDAV 服务端，避免了 Windows 自带的 IIS 的繁琐配置。
 
 使用到的外链：
 

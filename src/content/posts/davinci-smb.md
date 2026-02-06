@@ -9,10 +9,6 @@ draft: false
 lang: ""
 ---
 
-# 前言
-
-本文将 SMB、PostgreSQL 和达芬奇应用结合起来，实现了多人远程协同剪辑工作，案例平台均为 Windows，需要处于内网环境。
-
 # SMB 文件共享
 
 百度百科：
