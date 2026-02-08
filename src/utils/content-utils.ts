@@ -134,3 +134,14 @@ export async function getTotalWords() {
 
 	return totalWords;
 }
+
+/**
+ * 获取文章数量
+ */
+export async function getPostCount() {
+	const allBlogPosts = await getCollection<"posts">("posts", ({ data }) => {
+		return import.meta.env.PROD ? data.draft !== true : true;
+	});
+
+	return allBlogPosts.length;
+}

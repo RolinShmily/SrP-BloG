@@ -34,7 +34,7 @@ enum I18nKey {
 	license = "license",
 
 	siteStats = "siteStats",
-	runningDays = "runningDays",
+	postCountLabel = "postCountLabel",
 	totalWords = "totalWords",
 }
 

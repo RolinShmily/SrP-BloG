@@ -37,6 +37,7 @@ export const zh_CN: Translation = {
 	[Key.license]: "许可协议",
 
 	[Key.siteStats]: "站点统计",
+	[Key.postCountLabel]: "文章数",
 	[Key.runningDays]: "运行天数",
 	[Key.totalWords]: "总字数",
 };

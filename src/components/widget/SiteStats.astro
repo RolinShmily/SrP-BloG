@@ -3,22 +3,11 @@ import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
 import { Icon } from "astro-icon/components";
 import { siteConfig, umamiConfig } from "../../config";
-import { getTotalWords } from "../../utils/content-utils";
+import { getTotalWords, getPostCount } from "../../utils/content-utils";
 import WidgetLayout from "./WidgetLayout.astro";
 
 const totalWords = await getTotalWords();
-const launchDate = siteConfig.launchDate || "2024-01-01";
-
-// 计算运行天数
-const calculateRunningDays = () => {
-	const launch = new Date(launchDate);
-	const today = new Date();
-	const diffTime = today.getTime() - launch.getTime();
-	const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-	return diffDays;
-};
-
-const runningDays = calculateRunningDays();
+const postCount = await getPostCount();
 
 interface Props {
 	class?: string;
@@ -35,14 +24,14 @@ const style = Astro.props.style;
 	style={style}
 >
 	<div class="grid grid-cols-2 gap-3">
-		<!-- 运行天数 -->
+		<!-- 文章数 -->
 		<div class="text-center p-2 rounded-lg bg-neutral-50/50 dark:bg-neutral-800/30 hover:bg-neutral-100/50 dark:hover:bg-neutral-700/30 transition">
 			<div class="text-xs text-neutral-500 mb-1 flex items-center justify-center gap-1">
-				<Icon name="material-symbols:event-available" class="text-base"></Icon>
-				<span class="text-xs">{i18n(I18nKey.runningDays)}</span>
+				<Icon name="material-symbols:article" class="text-base"></Icon>
+				<span class="text-xs">{i18n(I18nKey.postCountLabel)}</span>
 			</div>
-			<div id="site-running-days" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">
-				{runningDays}
+			<div id="site-post-count" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">
+				{postCount}
 			</div>
 		</div>
 
@@ -77,7 +66,7 @@ const style = Astro.props.style;
 	</div>
 </WidgetLayout>
 
-<script define:vars={{ totalWords, umamiConfig }}>
+<script define:vars={{ totalWords, postCount, umamiConfig }}>
 	// 数字动画函数
 	function animateValue(obj, start, end, duration) {
 		let startTimestamp = null;
@@ -99,33 +88,33 @@ const style = Astro.props.style;
 
 	// 动画显示统计数据
 	async function loadSiteStats() {
-		const runningDaysElement = document.getElementById('site-running-days');
+		const postCountElement = document.getElementById('site-post-count');
 		const totalWordsElement = document.getElementById('site-total-words');
 		const viewsElement = document.getElementById('site-views');
 		const visitorsElement = document.getElementById('site-visitors');
 
 		// 使用 sessionStorage 缓存数据
-		const runningDaysCacheKey = 'site-running-days';
+		const postCountCacheKey = 'site-post-count';
 		const totalWordsCacheKey = 'site-total-words';
 		const viewsCacheKey = 'site-views';
 		const visitorsCacheKey = 'site-visitors';
 
 		// 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
 		if (!isSwupNavigating) {
-			sessionStorage.removeItem(runningDaysCacheKey);
+			sessionStorage.removeItem(postCountCacheKey);
 			sessionStorage.removeItem(totalWordsCacheKey);
 			sessionStorage.removeItem(viewsCacheKey);
 			sessionStorage.removeItem(visitorsCacheKey);
 		}
 
-		const cachedRunningDays = sessionStorage.getItem(runningDaysCacheKey);
+		const cachedPostCount = sessionStorage.getItem(postCountCacheKey);
 		const cachedTotalWords = sessionStorage.getItem(totalWordsCacheKey);
 		const cachedViews = sessionStorage.getItem(viewsCacheKey);
 		const cachedVisitors = sessionStorage.getItem(visitorsCacheKey);
 
 		// 如果有缓存（swup跳转），先立即显示缓存值
-		if (cachedRunningDays !== null && runningDaysElement) {
-			runningDaysElement.textContent = cachedRunningDays;
+		if (cachedPostCount !== null && postCountElement) {
+			postCountElement.textContent = cachedPostCount;
 		}
 		if (cachedTotalWords !== null && totalWordsElement) {
 			totalWordsElement.textContent = cachedTotalWords;
@@ -137,17 +126,17 @@ const style = Astro.props.style;
 			visitorsElement.textContent = cachedVisitors;
 		}
 
-		// 运行天数动画
-		if (runningDaysElement) {
-			const startVal = parseInt(runningDaysElement.textContent) || 0;
+		// 文章数动画
+		if (postCountElement) {
+			const startVal = parseInt(postCountElement.textContent) || 0;
 			if (startVal > 0) {
-				if (cachedRunningDays === null) {
-					animateValue(runningDaysElement, 0, startVal, 1000);
+				if (cachedPostCount === null) {
+					animateValue(postCountElement, 0, startVal, 1000);
 				}
 			} else {
-				runningDaysElement.textContent = startVal;
+				postCountElement.textContent = startVal;
 			}
-			sessionStorage.setItem(runningDaysCacheKey, startVal);
+			sessionStorage.setItem(postCountCacheKey, startVal);
 		}
 
 		// 总字数动画
