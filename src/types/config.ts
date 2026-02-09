@@ -3,6 +3,8 @@ import type { AUTO_MODE, DARK_MODE, LIGHT_MODE } from "@constants/constants";
 export type SiteConfig = {
   title: string;
   subtitle: string;
+  description?: string;
+  keywords?: string;
 
   lang:
     | "en"
