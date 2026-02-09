@@ -38,3 +38,6 @@ tmpclaude-eda9-cwd
 # ide
 .idea
 *.iml
+
+# IndexNow URL cache
+.last-urls.json
