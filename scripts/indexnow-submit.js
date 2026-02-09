@@ -4,7 +4,8 @@
  */
 
 import { readFile, readdir, writeFile } from 'node:fs/promises';
-import { join, existsSync } from 'node:path';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 
