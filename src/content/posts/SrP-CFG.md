@@ -377,6 +377,16 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 - [使用指南](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-3.html) | 按键、控制台命令功能表
 - [更新日志](https://doc.srprolin.top/posts/SrP-CFG_CS2/srpcfg-4.html) | 查看最新更新
 
+---
+
+为了更加无脑式的使用安装CFG，推荐使用SrP-CFG-Installer，下面是相关链接和页面展示：
+
+- [SrP-CFG安装器v2版本 | 使用指南 ](https://blog.srprolin.top/posts/2026-01-12-cfg_installer_v2/)
+
+![cfg_installer-1](../assets/images/2026-01-12_14-17-38.png)
+
+---
+
 下面是一组图文教程，如何下载并使用该套`CFG`预设：
 
 1. 打包下载目标文件夹。
