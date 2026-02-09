@@ -113,6 +113,16 @@ const bannerOffset =
         <script defer src="https://umami.srprolin.top/script.js" data-website-id="782f967d-d06d-42b7-88ed-85defd1ddef1" data-swup-ignore-script></script>
         <!-- umami逆向工程js -->
 		<script src="/js/umami-share.js" defer></script>
+        <!-- 百度统计代码 -->
+		<script is:inline>
+			var _hmt = _hmt || [];
+			(function() {
+				var hm = document.createElement("script");
+				hm.src = "https://hm.baidu.com/hm.js?7fcf5e6d84af6a48bf7788afefb07079";
+				var s = document.getElementsByTagName("script")[0];
+				s.parentNode.insertBefore(hm, s);
+			})();
+		</script>
         <!-- 随机图API注入bg-box背景图CSS -->
         <script data-swup-ignore-script is:inline define:vars={{ apiUrlBase: siteConfig.background.src }}>
             (function () {
