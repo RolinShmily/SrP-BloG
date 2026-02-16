@@ -161,22 +161,26 @@ async function main() {
     // 计算新增URL
     const newUrls = getNewUrls(currentUrls, lastUrls);
 
-    if (newUrls.length === 0) {
-      console.log('\n没有新URL，跳过提交');
-      // 仍然保存当前URL列表以保持最新状态
-      await saveUrls(currentUrls);
-      console.log('已更新URL记录');
+    // 检查 URL 列表是否有变化（新增或删除）
+    const hasChanges = newUrls.length > 0 || currentUrls.length !== lastUrls.length;
+
+    if (!hasChanges) {
+      console.log('\n没有URL变化，跳过提交');
       process.exit(0);
     }
 
-    console.log(`\n发现 ${newUrls.length} 个新URL:`);
-    newUrls.slice(0, 10).forEach(url => console.log(`  + ${url}`));
-    if (newUrls.length > 10) {
-      console.log(`  ... 还有 ${newUrls.length - 10} 个`);
-    }
+    if (newUrls.length === 0) {
+      console.log('\n没有新URL（但有URL被删除），跳过IndexNow提交');
+    } else {
+      console.log(`\n发现 ${newUrls.length} 个新URL:`);
+      newUrls.slice(0, 10).forEach(url => console.log(`  + ${url}`));
+      if (newUrls.length > 10) {
+        console.log(`  ... 还有 ${newUrls.length - 10} 个`);
+      }
 
-    // 提交新URL到IndexNow
-    await submitToIndexNow(newUrls);
+      // 提交新URL到IndexNow
+      await submitToIndexNow(newUrls);
+    }
 
     // 保存完整URL列表供下次比较
     await saveUrls(currentUrls);
