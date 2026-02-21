@@ -74,14 +74,23 @@ const { remarkPluginFrontmatter } = await entry.render();
             { description || remarkPluginFrontmatter.excerpt }
         </div>
 
-        <!-- stats -->
-        <div class="text-neutral-500 dark:text-neutral-400 flex gap-4 mb-3.5">
+        <!-- metadata -->
+        <div class="text-neutral-500 dark:text-neutral-400 flex gap-4 mb-3.5 flex-wrap">
+            <!-- publish date -->
+            <div class="flex items-center">
+                <div class="meta-icon">
+                    <Icon name="material-symbols:schedule-outline-rounded" class="text-xl"></Icon>
+                </div>
+                <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published).split(' ')[0]}</span>
+            </div>
+            <!-- page views -->
             <div class="flex items-center">
                 <div class="meta-icon">
                     <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
                 </div>
                 <span class="text-50 text-sm font-medium" id={`card-page-views-${entry.slug}`}>0 次</span>
             </div>
+            <!-- visitors -->
             <div class="flex items-center">
                 <div class="meta-icon">
                     <Icon name="material-symbols:person" class="text-xl"></Icon>
@@ -92,10 +101,6 @@ const { remarkPluginFrontmatter } = await entry.render();
 
         <!-- word count and read time  -->
         <div class="text-sm text-black/30 dark:text-white/30 flex gap-4 transition">
-            <div>
-                {formatDateToYYYYMMDD(published)}
-            </div>
-            <div>|</div>
             <div>
                 {remarkPluginFrontmatter.words} {" " + i18n(remarkPluginFrontmatter.words === 1 ? I18nKey.wordCount : I18nKey.wordsCount)}
             </div>

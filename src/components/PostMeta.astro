@@ -37,22 +37,20 @@ const className = Astro.props.class;
     <!-- publish date -->
     {!hideDate && (
     <div class="flex items-center">
-        <div class="meta-icon"
-        >
-            <Icon name="material-symbols:calendar-today-outline-rounded" class="text-xl"></Icon>
+        <div class="meta-icon">
+            <Icon name="material-symbols:schedule-outline-rounded" class="text-xl"></Icon>
         </div>
-        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published)}</span>
+        <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(published).split(' ')[0]}</span>
     </div>
     )}
 
     <!-- update date -->
     {!hideUpdateDate && updated && updated.getTime() !== published.getTime() && (
         <div class="flex items-center">
-            <div class="meta-icon"
-            >
+            <div class="meta-icon">
                 <Icon name="material-symbols:edit-calendar-outline-rounded" class="text-xl"></Icon>
             </div>
-            <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated)}</span>
+            <span class="text-50 text-sm font-medium">{formatDateToYYYYMMDD(updated).split(' ')[0]}</span>
         </div>
     )}
 

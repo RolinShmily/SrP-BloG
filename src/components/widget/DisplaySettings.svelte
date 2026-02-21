@@ -90,10 +90,8 @@ function toggleHideBg() {
                class="slider" step="1" style="width: 100%; --value-percent: {bgBlur / 20 * 100}%">
     </div>
 
-    <br>
-
     <!--背景启用否-->
-    <div class="flex flex-row gap-2 mb-3 items-center justify-between">
+    <div class="flex flex-row gap-2 mb-3 mt-3 items-center justify-between">
         <div class="flex gap-2 font-bold text-lg text-neutral-900 dark:text-neutral-100 transition relative ml-3
             before:w-1 before:h-4 before:rounded-md before:bg-[var(--primary)]
             before:absolute before:-left-3 before:top-[0.33rem]"
