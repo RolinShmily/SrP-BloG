@@ -20,7 +20,7 @@ export const siteConfig: SiteConfig = {
   title: "SrP-BloG",
   subtitle: "技术分享与实践",
   description:
-    "分享编程开发、游戏配置、服务器运维、网络技术、内网穿透、CDN优化、容器化部署等技术教程与实践经验的个人技术博客，记录学习与折腾的点点滴滴。",
+    "分享编程开发、游戏配置、服务器运维、网络技术、内网穿透、CDN优化、容器化部署等技术教程与实践经验的个人技术博客, 记录学习与折腾的点点滴滴。",
   keywords: "编程开发, 游戏配置, 服务器运维, 网络技术, 内网穿透, CDN优化, 容器化部署",
   lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
   themeColor: {
@@ -99,6 +99,11 @@ export const navBarConfig: NavBarConfig = {
       external: false, // Show an external link icon and will open in a new tab
     },
     {
+      name: "封面",
+      url: "/cover/", // Internal links should not include the base path, as it is automatically added
+      external: false, // Show an external link icon and will open in a new tab
+    },
+    {
       name: "名片",
       url: "https://link.srprolin.top", // Internal links should not include the base path, as it is automatically added
       external: true, // Show an external link icon and will open in a new tab
@@ -114,7 +119,7 @@ export const navBarConfig: NavBarConfig = {
 export const profileConfig: ProfileConfig = {
   avatar: "assets/images/mzm-cyan.jpg", // Relative to the /src directory. Relative to the /public directory if it starts with '/'
   name: "RoL1n",
-  bio: "私はバンド楽しいっておもったこと、一度もない",
+  bio: "Entities should not be multiplied unnecessarily.",
   links: [
     {
       name: "QQ",

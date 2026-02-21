@@ -6,14 +6,14 @@
 
 - 名称：SrP-BloG
 - 链接：https://blog.srprolin.top
-- 描述：因为会忘，所以有了这里。
+- 描述：如无必要，勿增实体。
 - 头像：https://blog.srprolin.top/favicon/favicon.ico
 
 ```json
 {
   "name": "SrP-BloG",
   "url": "https://blog.srprolin.top",
-  "description": "因为会忘，所以有了这里。",
+  "description": "如无必要，勿增实体。",
   "avatar": "https://blog.srprolin.top/favicon/favicon.ico"
 }
 ```
