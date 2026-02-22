@@ -1,5 +1,6 @@
 import type {
   ExpressiveCodeConfig,
+  GitHubEditConfig,
   LicenseConfig,
   NavBarConfig,
   ProfileConfig,
@@ -21,7 +22,8 @@ export const siteConfig: SiteConfig = {
   subtitle: "技术分享与实践",
   description:
     "分享编程开发、游戏配置、服务器运维、网络技术、内网穿透、CDN优化、容器化部署等技术教程与实践经验的个人技术博客, 记录学习与折腾的点点滴滴。",
-  keywords: "编程开发, 游戏配置, 服务器运维, 网络技术, 内网穿透, CDN优化, 容器化部署",
+  keywords:
+    "编程开发, 游戏配置, 服务器运维, 网络技术, 内网穿透, CDN优化, 容器化部署",
   lang: "zh_CN", // Language code, e.g. 'en', 'zh_CN', 'ja', etc.
   themeColor: {
     hue: 345, // Default hue for the theme color, from 0 to 360. e.g. red: 0, teal: 200, cyan: 250, pink: 345
@@ -84,18 +86,13 @@ export const navBarConfig: NavBarConfig = {
     LinkPreset.Archive,
     // LinkPreset.About,
     {
-      name: "追番",
-      url: "/anime/", // Internal links should not include the base path, as it is automatically added
-      external: false, // Show an external link icon and will open in a new tab
-    },
-    {
       name: "友链",
       url: "/frlinks/", // Internal links should not include the base path, as it is automatically added
       external: false, // Show an external link icon and will open in a new tab
     },
     {
-      name: "书签",
-      url: "/navi/", // Internal links should not include the base path, as it is automatically added
+      name: "赞助",
+      url: "/sponsors/", // Internal links should not include the base path, as it is automatically added
       external: false, // Show an external link icon and will open in a new tab
     },
     {
@@ -104,13 +101,18 @@ export const navBarConfig: NavBarConfig = {
       external: false, // Show an external link icon and will open in a new tab
     },
     {
-      name: "名片",
-      url: "https://link.srprolin.top", // Internal links should not include the base path, as it is automatically added
-      external: true, // Show an external link icon and will open in a new tab
+      name: "书签",
+      url: "/navi/", // Internal links should not include the base path, as it is automatically added
+      external: false, // Show an external link icon and will open in a new tab
     },
     {
-      name: "统计",
-      url: "https://umami.srprolin.top/share/UiFLP8hXMRLuRR5T", // Internal links should not include the base path, as it is automatically added
+      name: "追番",
+      url: "/anime/", // Internal links should not include the base path, as it is automatically added
+      external: false, // Show an external link icon and will open in a new tab
+    },
+    {
+      name: "名片",
+      url: "https://link.srprolin.top", // Internal links should not include the base path, as it is automatically added
       external: true, // Show an external link icon and will open in a new tab
     },
   ],
@@ -154,4 +156,11 @@ export const expressiveCodeConfig: ExpressiveCodeConfig = {
   // Note: Some styles (such as background color) are being overridden, see the astro.config.mjs file.
   // Please select a dark theme, as this blog theme currently only supports dark background color
   theme: "github-dark",
+};
+
+// GitHub 编辑配置
+export const gitHubEditConfig: GitHubEditConfig = {
+  enable: true,
+  baseUrl:
+    "https://github.com/RolinShmily/SrP-BloG/blob/main/src/content/posts",
 };

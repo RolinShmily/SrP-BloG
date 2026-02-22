@@ -1,0 +1,21 @@
+---
+interface Props {
+	dataType: "friends" | "sponsors";
+	class?: string;
+}
+
+const { dataType, class: className } = Astro.props;
+
+const linkText =
+	dataType === "friends"
+		? "https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/friends"
+		: "https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/sponsors";
+
+const dataName = dataType === "friends" ? "友链" : "赞助";
+---
+
+<div class:list={["text-sm text-black/60 dark:text-white/60", className]}>
+    <p>
+        如果您已{dataType === 'friends' ? '添加' : '赞助'}，并且想加入{dataName}名单，<a target="_blank" href={linkText} class="transition link text-[var(--primary)] font-medium underline">请点击这里提交 PR</a>
+    </p>
+</div>
