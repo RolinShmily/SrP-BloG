@@ -13,7 +13,7 @@ import { getSortedPosts } from "@utils/content-utils";
 import { getCommitUrl, getPostHistory } from "@utils/git-history";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
-import { gitHubEditConfig, licenseConfig } from "src/config";
+import { cmsEditConfig, gitHubEditConfig, licenseConfig } from "src/config";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig, umamiConfig } from "../../config";
@@ -170,16 +170,33 @@ const jsonLd = {
                             </div>
                             <div class="flex-1">
                                 <p class="text-black/80 dark:text-white/80 text-sm mb-1">发现错误或想要改进这篇文章？</p>
-                                <a
-                                    href={`${gitHubEditConfig.baseUrl}/${entry.slug}.md`}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    class="inline-flex items-center gap-1 text-[var(--primary)] hover:text-[oklch(0.65_0.16_var(--hue))] text-sm font-medium transition-colors"
-                                >
-                                    <Icon name="fa6-brands:github" class="text-[0.875rem]"></Icon>
-                                    在 GitHub 上编辑此页
-                                    <Icon name="material-symbols:open-in-new" class="text-[0.75rem]"></Icon>
-                                </a>
+                                <div class="flex flex-wrap gap-x-3 gap-y-1">
+                                    <a
+                                        href={`${gitHubEditConfig.baseUrl}/${entry.slug}.md`}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="inline-flex items-center gap-1 text-[var(--primary)] hover:text-[oklch(0.65_0.16_var(--hue))] text-sm font-medium transition-colors"
+                                    >
+                                        <Icon name="fa6-brands:github" class="text-[0.875rem]"></Icon>
+                                        在 GitHub 上编辑此页
+                                        <Icon name="material-symbols:open-in-new" class="text-[0.75rem]"></Icon>
+                                    </a>
+                                    {cmsEditConfig.enable && (
+                                        <span class="text-black/30 dark:text-white/30">或</span>
+                                    )}
+                                    {cmsEditConfig.enable && (
+                                        <a
+                                            href={`${cmsEditConfig.baseUrl}/#/collections/posts/entries/${entry.slug}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="inline-flex items-center gap-1 text-[var(--primary)] hover:text-[oklch(0.65_0.16_var(--hue))] text-sm font-medium transition-colors"
+                                        >
+                                            <Icon name="material-symbols:edit-document-rounded" class="text-[0.875rem]"></Icon>
+                                            在 CMS 中编辑此页
+                                            <Icon name="material-symbols:open-in-new" class="text-[0.75rem]"></Icon>
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         </div>
 

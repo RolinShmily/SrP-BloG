@@ -1,4 +1,5 @@
 import type {
+  CmsEditConfig,
   ExpressiveCodeConfig,
   GitHubEditConfig,
   LicenseConfig,
@@ -163,4 +164,10 @@ export const gitHubEditConfig: GitHubEditConfig = {
   enable: true,
   baseUrl:
     "https://github.com/RolinShmily/SrP-BloG/blob/main/src/content/posts",
+};
+
+// CMS 编辑配置
+export const cmsEditConfig: CmsEditConfig = {
+  enable: true,
+  baseUrl: "/admin",
 };

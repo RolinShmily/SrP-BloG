@@ -144,3 +144,9 @@ export type GitHubEditConfig = {
   enable: boolean;
   baseUrl: string; // 例如: https://github.com/RolinShmily/SrP-BloG/blob/main/src/content/posts
 };
+
+// CMS 编辑配置类型
+export type CmsEditConfig = {
+  enable: boolean;
+  baseUrl: string; // 例如: /admin
+};
