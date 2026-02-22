@@ -4,16 +4,25 @@
 
 ### 我的信息
 
-- 名称：SrP-BloG
-- 链接：https://blog.srprolin.top
-- 描述：如无必要，勿增实体。
-- 头像：https://blog.srprolin.top/favicon/favicon.ico
-
 ```json
 {
   "name": "SrP-BloG",
-  "url": "https://blog.srprolin.top",
+  "url": "https://blog.srprolin.top/",
   "description": "如无必要，勿增实体。",
   "avatar": "https://blog.srprolin.top/favicon/favicon.ico"
+}
+```
+
+### 注意
+
+如果您使用 [Pull Request](https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/frlinks) 提交友链，请在`json`文件中添加回链验证字段，详见如下模板：
+
+```json
+{
+  "name": "Your-name",
+  "url": "Your-site-url",
+  "description": "Your-description",
+  "avatar": "Your-avatar-url",
+  "backlink": "Your-friend-link-page-url"
 }
 ```
