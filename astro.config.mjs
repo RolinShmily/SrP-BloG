@@ -70,6 +70,7 @@ export default defineConfig({
         "mingcute": ["*"],
         "simple-icons": ["*"],
       },
+      iconDir: "public/icons",
     }),
     expressiveCode({
       themes: [expressiveCodeConfig.theme, expressiveCodeConfig.theme],
