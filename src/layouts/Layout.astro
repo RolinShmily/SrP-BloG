@@ -127,6 +127,14 @@ const bannerOffset =
 				s.parentNode.insertBefore(hm, s);
 			})();
 		</script>
+        <!-- Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-3BJMF4MP44"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+			gtag('config', 'G-3BJMF4MP44');
+		</script>
         <!-- 随机图API注入bg-box背景图CSS -->
         <script data-swup-ignore-script is:inline define:vars={{ apiUrlBase: siteConfig.background.src }}>
             (function () {

@@ -125,9 +125,9 @@ export const profileConfig: ProfileConfig = {
   bio: "Entities should not be multiplied unnecessarily.",
   links: [
     {
-      name: "QQ",
+      name: "QQ交流群",
       icon: "fa6-brands:qq",
-      url: "https://qm.qq.com/q/jXgwD3rtGE",
+      url: "https://qm.qq.com/q/4eC5AuM0hi",
     },
     {
       name: "Bilibli",
