@@ -59,13 +59,21 @@ const { Content, headings } = await render(aboutPost);
         <div>
             <h2 class="text-lg font-bold text-black dark:text-white mb-3">其他联系方式</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="support-card" id="email-card">
-                    <div class="flex items-center gap-2 mb-2">
-                        <Icon name="material-symbols:mail" class="text-[1.2rem] text-[var(--primary)]"></Icon>
-                        <span class="font-semibold text-black dark:text-white">邮箱地址</span>
+                <div class="support-card">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="flex items-center gap-2">
+                            <Icon name="material-symbols:mail" class="text-[1.2rem] text-[var(--primary)]"></Icon>
+                            <span class="font-semibold text-black dark:text-white">邮箱地址</span>
+                        </div>
+                        <button
+                            class="copy-btn flex items-center gap-1 px-3 py-1.5 text-xs font-medium rounded-md bg-black/5 dark:bg-white/10 text-black/70 dark:text-white/70 hover:bg-[var(--primary)] hover:text-white dark:hover:text-white/90 transition-colors"
+                            data-copy-text="mail@srprolin.top"
+                        >
+                            <Icon name="material-symbols:content-copy" class="text-[1rem]"></Icon>
+                            <span class="copy-text">复制</span>
+                        </button>
                     </div>
                     <p class="text-sm text-[var(--primary)] select-all">mail@srprolin.top</p>
-                    <p class="text-xs text-black/40 dark:text-white/40 mt-1" id="copy-hint">点击卡片复制</p>
                 </div>
             </div>
         </div>
@@ -80,41 +88,39 @@ const { Content, headings } = await render(aboutPost);
     </div>
 </MainGridLayout>
 
-<script>
-const emailCard = document.getElementById('email-card');
-const copyHint = document.getElementById('copy-hint');
+<script data-swup-ignore-script>
+// Use event delegation to handle copy button clicks
+document.addEventListener('click', (e) => {
+    const copyBtn = e.target.closest('.copy-btn');
+    if (!copyBtn) return;
 
-if (emailCard && copyHint) {
-    emailCard.addEventListener('click', () => {
-        const email = 'mail@srprolin.top';
-        navigator.clipboard.writeText(email).then(() => {
-            const originalHint = copyHint.textContent;
-            copyHint.textContent = '已复制!';
-            copyHint.style.color = 'var(--primary)';
-            setTimeout(() => {
-                copyHint.textContent = originalHint;
-                copyHint.style.color = '';
-            }, 1500);
-        }).catch(() => {
-            // Fallback for older browsers
-            const textArea = document.createElement('textarea');
-            textArea.value = email;
-            textArea.style.position = 'fixed';
-            textArea.style.opacity = '0';
-            document.body.appendChild(textArea);
-            textArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textArea);
-            const originalHint = copyHint.textContent;
-            copyHint.textContent = '已复制!';
-            copyHint.style.color = 'var(--primary)';
-            setTimeout(() => {
-                copyHint.textContent = originalHint;
-                copyHint.style.color = '';
-            }, 1500);
-        });
+    const email = copyBtn.dataset.copyText || 'mail@srprolin.top';
+    const copyText = copyBtn.querySelector('.copy-text');
+
+    const copyToClipboard = () => {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            return navigator.clipboard.writeText(email);
+        }
+        // Fallback for older browsers
+        const textArea = document.createElement('textarea');
+        textArea.value = email;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        return Promise.resolve();
+    };
+
+    copyToClipboard().then(() => {
+        const originalText = copyText.textContent;
+        copyText.textContent = '已复制!';
+        setTimeout(() => {
+            copyText.textContent = originalText;
+        }, 1500);
     });
-}
+});
 </script>
 
 <style>
