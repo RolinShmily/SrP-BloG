@@ -899,50 +899,46 @@ function downloadLink(url: string, filename: string) {
                 <div class="flex justify-between text-sm"><label class="text-gray-700 dark:text-gray-300 font-bold">图标大小</label> <span class="text-gray-500 dark:text-gray-400 font-mono">{iconSize}px</span></div>
                 <input type="range" value={iconSize} on:input={handleIconSizeChange} min="20" max="700" class="range-slider" />
             </div>
-            <div class="flex flex-col gap-2">
-                <div class="flex justify-between text-sm"><label class="text-gray-700 dark:text-gray-300 font-bold">间距</label> <span class="text-gray-500 dark:text-gray-400 font-mono">{gap}px</span></div>
-                <input type="range" bind:value={gap} min="0" max="200" class="range-slider" />
-            </div>
         </div>
 
         <!-- Text Position Controls -->
         <div class="space-y-4">
             <div class="bg-transparent rounded-lg p-3 space-y-3 border border-[var(--line-color)]">
                 <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300">左侧文字位置</h4>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col gap-3">
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
                             <label>水平移动</label>
                             <span>{leftTextOffset.horizontal}px</span>
                         </div>
-                        <input type="range" bind:value={leftTextOffset.horizontal} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={leftTextOffset.horizontal} min="-300" max="300" class="range-slider h-1" />
                     </div>
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
                             <label>垂直移动</label>
                             <span>{leftTextOffset.vertical}px</span>
                         </div>
-                        <input type="range" bind:value={leftTextOffset.vertical} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={leftTextOffset.vertical} min="-300" max="300" class="range-slider h-1" />
                     </div>
                 </div>
             </div>
 
             <div class="bg-transparent rounded-lg p-3 space-y-3 border border-[var(--line-color)]">
                 <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300">右侧文字位置</h4>
-                <div class="grid grid-cols-2 gap-3">
+                <div class="flex flex-col gap-3">
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
                             <label>水平移动</label>
                             <span>{rightTextOffset.horizontal}px</span>
                         </div>
-                        <input type="range" bind:value={rightTextOffset.horizontal} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={rightTextOffset.horizontal} min="-300" max="300" class="range-slider h-1" />
                     </div>
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
                             <label>垂直移动</label>
                             <span>{rightTextOffset.vertical}px</span>
                         </div>
-                        <input type="range" bind:value={rightTextOffset.vertical} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={rightTextOffset.vertical} min="-300" max="300" class="range-slider h-1" />
                     </div>
                 </div>
             </div>
