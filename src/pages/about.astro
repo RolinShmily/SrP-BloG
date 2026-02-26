@@ -16,7 +16,7 @@ if (!aboutPost) {
 
 const { Content, headings } = await render(aboutPost);
 ---
-<MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)} headings={headings}>
+<MainGridLayout title={i18n(I18nKey.about)} description={i18n(I18nKey.about)} headings={headings} showToc={false}>
     <div class="card-base p-6" id="contact">
         <div class="flex items-center gap-2 mb-6">
             <div class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center text-white dark:text-black/70">

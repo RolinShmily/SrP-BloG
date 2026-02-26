@@ -5,6 +5,8 @@ import { onMount } from "svelte";
 
 let leftText = "Text";
 let rightText = "Text";
+let leftTextOffset = { top: 0, bottom: 0, left: 0, right: 0 };
+let rightTextOffset = { top: 0, bottom: 0, left: 0, right: 0 };
 let iconName = "material-symbols:home-outline";
 let fontSize = 64;
 let iconSize = 64;
@@ -83,6 +85,7 @@ let linkScale = true;
 let baseScale = 100;
 
 let iconSvg = "";
+let customIcon: string | null = null;
 let svgContainer: SVGSVGElement;
 
 // Background Image State
@@ -587,6 +590,10 @@ function downloadLink(url: string, filename: string) {
                     text-shadow: {textShadow.x}px {textShadow.y}px {textShadow.blur}px {hexToRgba(textShadow.color, textShadow.alpha)};
                     line-height: 1;
                     white-space: nowrap;
+                    margin-top: {leftTextOffset.top}px;
+                    margin-bottom: {leftTextOffset.bottom}px;
+                    margin-left: {leftTextOffset.left}px;
+                    margin-right: {leftTextOffset.right}px;
                 ">{leftText}</span>
 
                 {#if iconSvg}
@@ -619,6 +626,10 @@ function downloadLink(url: string, filename: string) {
                     text-shadow: {textShadow.x}px {textShadow.y}px {textShadow.blur}px {hexToRgba(textShadow.color, textShadow.alpha)};
                     line-height: 1;
                     white-space: nowrap;
+                    margin-top: {rightTextOffset.top}px;
+                    margin-bottom: {rightTextOffset.bottom}px;
+                    margin-left: {rightTextOffset.left}px;
+                    margin-right: {rightTextOffset.right}px;
                 ">{rightText}</span>
             </div>
         </foreignObject>
@@ -856,6 +867,77 @@ function downloadLink(url: string, filename: string) {
             <div class="flex flex-col gap-2">
                 <div class="flex justify-between text-sm"><label class="text-gray-700 dark:text-gray-300 font-bold">间距</label> <span class="text-gray-500 dark:text-gray-400 font-mono">{gap}px</span></div>
                 <input type="range" bind:value={gap} min="0" max="200" class="range-slider" />
+            </div>
+        </div>
+
+        <!-- Text Position Controls -->
+        <div class="space-y-4">
+            <div class="bg-transparent rounded-lg p-3 space-y-3 border border-[var(--line-color)]">
+                <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300">左侧文字位置</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>上移</label>
+                            <span>{leftTextOffset.top}px</span>
+                        </div>
+                        <input type="range" bind:value={leftTextOffset.top} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>下移</label>
+                            <span>{leftTextOffset.bottom}px</span>
+                        </div>
+                        <input type="range" bind:value={leftTextOffset.bottom} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>左移</label>
+                            <span>{leftTextOffset.left}px</span>
+                        </div>
+                        <input type="range" bind:value={leftTextOffset.left} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>右移</label>
+                            <span>{leftTextOffset.right}px</span>
+                        </div>
+                        <input type="range" bind:value={leftTextOffset.right} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-transparent rounded-lg p-3 space-y-3 border border-[var(--line-color)]">
+                <h4 class="text-sm font-bold text-gray-700 dark:text-gray-300">右侧文字位置</h4>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>上移</label>
+                            <span>{rightTextOffset.top}px</span>
+                        </div>
+                        <input type="range" bind:value={rightTextOffset.top} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>下移</label>
+                            <span>{rightTextOffset.bottom}px</span>
+                        </div>
+                        <input type="range" bind:value={rightTextOffset.bottom} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>左移</label>
+                            <span>{rightTextOffset.left}px</span>
+                        </div>
+                        <input type="range" bind:value={rightTextOffset.left} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
+                            <label>右移</label>
+                            <span>{rightTextOffset.right}px</span>
+                        </div>
+                        <input type="range" bind:value={rightTextOffset.right} min="-100" max="100" class="range-slider h-1" />
+                    </div>
+                </div>
             </div>
         </div>
 
