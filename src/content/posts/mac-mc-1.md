@@ -1,12 +1,15 @@
 ---
-title: 使用MacMini搭建Minecraft服务器
+title: 使用MacMini搭建Minecraft服务器 | MCSmanger面板 | SakuraFRP樱花映射
 published: 2025-12-07
-description: "依靠M4芯片极高的性能功耗比，作为搭建吃单核的Minecraft_Java版服务器再合适不过。本篇将完全使用SSH终端，保姆级搭建起MCSManager面板，依靠它来搭建游戏服务器；并使用樱花映射的客户端frpc，将服务器穿透至互联网，搭建起完整的可公网访问服务器。"
+description: 依靠M4芯片极高的性能功耗比，作为搭建吃单核的Minecraft_Java版服务器再合适不过。本篇将完全使用SSH终端，保姆级搭建起MCSManager面板，依靠它来搭建游戏服务器；并使用樱花映射的客户端frpc，将服务器穿透至互联网，搭建起完整的可公网访问服务器。
 image: ../assets/images/2026-01-05-14꞉25.png
-tags: [mac, minecraft, frp]
-category: ""
+tags:
+  - mac
+  - minecraft
+  - frp
 draft: false
 lang: ""
+category: ""
 ---
 
 # 简介
@@ -172,9 +175,6 @@ sudo nano /Library/LaunchDaemons/com.mcsmanager.daemon.plist
     <key>RunAtLoad</key>
     <true/>
 
-    <key>KeepAlive</key>
-    <true/>
-
     <key>WorkingDirectory</key>
     <string>这里填写你的mcsmanager绝对路径</string>
 
@@ -227,9 +227,6 @@ sudo nano /Library/LaunchDaemons/com.mcsmanager.web.plist
     </array>
 
     <key>RunAtLoad</key>
-    <true/>
-
-    <key>KeepAlive</key>
     <true/>
 
     <key>WorkingDirectory</key>
@@ -411,9 +408,6 @@ sudo nano /Library/LaunchDaemons/com.frp.sfrp.plist
     <array>
         <string>/Users/test/sakura_frp/start_sfrp.sh</string>
     </array>
-
-    <key>KeepAlive</key>
-    <true/>
 
     <key>RunAtLoad</key>
     <true/>
