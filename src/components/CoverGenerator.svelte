@@ -5,8 +5,8 @@ import { onMount } from "svelte";
 
 let leftText = "Text";
 let rightText = "Text";
-let leftTextOffset = { top: 0, bottom: 0, left: 0, right: 0 };
-let rightTextOffset = { top: 0, bottom: 0, left: 0, right: 0 };
+let leftTextOffset = { horizontal: 0, vertical: 0 };
+let rightTextOffset = { horizontal: 0, vertical: 0 };
 let iconName = "material-symbols:home-outline";
 let fontSize = 64;
 let iconSize = 64;
@@ -87,6 +87,9 @@ let baseScale = 100;
 let iconSvg = "";
 let customIcon: string | null = null;
 let svgContainer: SVGSVGElement;
+
+// Custom icon upload
+let customIconFile: string | null = null;
 
 // Background Image State
 let bgImage: string | null = null;
@@ -180,6 +183,19 @@ function handleBgImageUpload(e: Event) {
 			bgImageScale = 1;
 			bgBlur = 0;
 			bgOpacity = 1;
+		};
+		reader.readAsDataURL(file);
+	}
+}
+
+function handleIconUpload(e: Event) {
+	const file = (e.target as HTMLInputElement).files?.[0];
+	if (file) {
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			customIconFile = e.target?.result as string;
+			customIcon = e.target?.result as string;
+			iconName = "";
 		};
 		reader.readAsDataURL(file);
 	}
@@ -332,7 +348,9 @@ $: canvasWidth = Math.round(BASE_HEIGHT * maxWidthRatio);
 $: canvasHeight = BASE_HEIGHT;
 
 $: {
-	if (iconName?.includes(":")) {
+	if (customIconFile) {
+		iconSvg = `<img src="${customIconFile}" style="width: 100%; height: 100%; object-fit: contain;" />`;
+	} else if (iconName?.includes(":")) {
 		const [prefix, name] = iconName.split(":");
 		fetch(`https://api.iconify.design/${prefix}/${name}.svg`)
 			.then((res) => {
@@ -397,6 +415,7 @@ function onSearchInput(e: Event) {
 
 function selectIcon(icon: string) {
 	iconName = icon;
+	customIconFile = null;
 	searchResults = [];
 	searchQuery = "";
 }
@@ -590,10 +609,7 @@ function downloadLink(url: string, filename: string) {
                     text-shadow: {textShadow.x}px {textShadow.y}px {textShadow.blur}px {hexToRgba(textShadow.color, textShadow.alpha)};
                     line-height: 1;
                     white-space: nowrap;
-                    margin-top: {leftTextOffset.top}px;
-                    margin-bottom: {leftTextOffset.bottom}px;
-                    margin-left: {leftTextOffset.left}px;
-                    margin-right: {leftTextOffset.right}px;
+                    transform: translate({leftTextOffset.horizontal}px, {leftTextOffset.vertical}px);
                 ">{leftText}</span>
 
                 {#if iconSvg}
@@ -626,10 +642,7 @@ function downloadLink(url: string, filename: string) {
                     text-shadow: {textShadow.x}px {textShadow.y}px {textShadow.blur}px {hexToRgba(textShadow.color, textShadow.alpha)};
                     line-height: 1;
                     white-space: nowrap;
-                    margin-top: {rightTextOffset.top}px;
-                    margin-bottom: {rightTextOffset.bottom}px;
-                    margin-left: {rightTextOffset.left}px;
-                    margin-right: {rightTextOffset.right}px;
+                    transform: translate({rightTextOffset.horizontal}px, {rightTextOffset.vertical}px);
                 ">{rightText}</span>
             </div>
         </foreignObject>
@@ -833,10 +846,32 @@ function downloadLink(url: string, filename: string) {
                     </div>
                 {/if}
                 <div class="flex flex-wrap justify-between items-center text-xs mt-1 gap-2">
-                    <span class="text-gray-500 dark:text-gray-400 truncate max-w-[150px]" title={iconName}>当前: {iconName}</span>
+                    <span class="text-gray-500 dark:text-gray-400 truncate max-w-[150px]" title={iconName}>当前: {iconName || customIconFile ? '自定义图标' : '无'}</span>
                     <button on:click={() => window.open('https://icones.js.org/', '_blank')} class="text-[var(--primary)] hover:underline whitespace-nowrap">
                         浏览图标库 ↗
                     </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-2">
+                <label class="text-sm font-bold text-gray-700 dark:text-gray-300">上传图标</label>
+                <div class="relative">
+                    <input type="file" accept="image/*,.svg" on:change={handleIconUpload} class="hidden" id="icon-upload" />
+                    <label for="icon-upload" class="flex items-center justify-center w-full px-4 py-3 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:border-[var(--primary)] hover:bg-[var(--primary)]/5 transition-all group">
+                        <div class="flex flex-col items-center gap-1 text-gray-500 dark:text-gray-400 group-hover:text-[var(--primary)]">
+                            <Icon icon="material-symbols:upload-file" class="w-6 h-6" />
+                            <span class="text-xs">{customIconFile ? '点击更换图标' : '点击上传图标'}</span>
+                        </div>
+                    </label>
+                    {#if customIconFile}
+                        <button
+                            on:click={() => { customIconFile = null; iconName = "material-symbols:home-outline"; }}
+                            class="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 shadow-sm"
+                            title="移除图标"
+                        >
+                            <Icon icon="material-symbols:close" class="w-3 h-3" />
+                        </button>
+                    {/if}
                 </div>
             </div>
         </div>
@@ -877,31 +912,17 @@ function downloadLink(url: string, filename: string) {
                 <div class="grid grid-cols-2 gap-3">
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>上移</label>
-                            <span>{leftTextOffset.top}px</span>
+                            <label>水平移动</label>
+                            <span>{leftTextOffset.horizontal}px</span>
                         </div>
-                        <input type="range" bind:value={leftTextOffset.top} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={leftTextOffset.horizontal} min="-100" max="100" class="range-slider h-1" />
                     </div>
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>下移</label>
-                            <span>{leftTextOffset.bottom}px</span>
+                            <label>垂直移动</label>
+                            <span>{leftTextOffset.vertical}px</span>
                         </div>
-                        <input type="range" bind:value={leftTextOffset.bottom} min="-100" max="100" class="range-slider h-1" />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>左移</label>
-                            <span>{leftTextOffset.left}px</span>
-                        </div>
-                        <input type="range" bind:value={leftTextOffset.left} min="-100" max="100" class="range-slider h-1" />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>右移</label>
-                            <span>{leftTextOffset.right}px</span>
-                        </div>
-                        <input type="range" bind:value={leftTextOffset.right} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={leftTextOffset.vertical} min="-100" max="100" class="range-slider h-1" />
                     </div>
                 </div>
             </div>
@@ -911,31 +932,17 @@ function downloadLink(url: string, filename: string) {
                 <div class="grid grid-cols-2 gap-3">
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>上移</label>
-                            <span>{rightTextOffset.top}px</span>
+                            <label>水平移动</label>
+                            <span>{rightTextOffset.horizontal}px</span>
                         </div>
-                        <input type="range" bind:value={rightTextOffset.top} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={rightTextOffset.horizontal} min="-100" max="100" class="range-slider h-1" />
                     </div>
                     <div class="flex flex-col gap-1">
                         <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>下移</label>
-                            <span>{rightTextOffset.bottom}px</span>
+                            <label>垂直移动</label>
+                            <span>{rightTextOffset.vertical}px</span>
                         </div>
-                        <input type="range" bind:value={rightTextOffset.bottom} min="-100" max="100" class="range-slider h-1" />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>左移</label>
-                            <span>{rightTextOffset.left}px</span>
-                        </div>
-                        <input type="range" bind:value={rightTextOffset.left} min="-100" max="100" class="range-slider h-1" />
-                    </div>
-                    <div class="flex flex-col gap-1">
-                        <div class="flex justify-between text-[10px] text-gray-500 dark:text-gray-400">
-                            <label>右移</label>
-                            <span>{rightTextOffset.right}px</span>
-                        </div>
-                        <input type="range" bind:value={rightTextOffset.right} min="-100" max="100" class="range-slider h-1" />
+                        <input type="range" bind:value={rightTextOffset.vertical} min="-100" max="100" class="range-slider h-1" />
                     </div>
                 </div>
             </div>
