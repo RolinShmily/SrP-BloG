@@ -1,5 +1,5 @@
 ---
-title: BetterMCv54整合包实装MacMiniM4服务端
+title: MC整合包MacMini实装 | rcon远程终端控制 | launchd系统进程守护
 published: 2025-12-20
 description: 本篇结合之前的MacMini搭建mc服务器，实装一下整合包BetterMCv54服务端，将使用非面板管理，引入rcon技术向服务器发送指令
 image: ../assets/images/2026-01-05-14꞉20.png
@@ -148,15 +148,6 @@ sudo nano /Library/LaunchDaemons/com.betterMCv54.plist
 
     <key>WorkingDirectory</key>
     <string>/YOUR/PATH/TO/SERVER_DIR</string>
-
-    <key>RunAtLoad</key>
-    <true/>
-
-    <key>KeepAlive</key>
-    <dict>
-        <key>SuccessfulExit</key>
-        <false/>
-    </dict>
 
     <key>ProcessType</key>
     <string>Interactive</string>
