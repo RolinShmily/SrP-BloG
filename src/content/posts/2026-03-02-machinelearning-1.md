@@ -1,5 +1,5 @@
 ---
-title: MachineLearning-1
+title: 机器学习
 published: 2024-07-24
 pinned: false
 description: 记录一次市图书馆看书所得。
