@@ -161,6 +161,18 @@
       "message": "CMS:Create Posts “2026-02-09-cms_1”"
     }
   ],
+  "2026-02-23-folo.md": [
+    {
+      "hash": "1701b657442d694e037c6a594e9936906ccc0f06",
+      "date": "2026-02-23 22:54:39 +0800",
+      "message": "CMS:Update Posts “2026-02-23-folo”"
+    },
+    {
+      "hash": "d614a69c46137e8d58ec79dee608860bdd8a9b60",
+      "date": "2026-02-23 22:54:25 +0800",
+      "message": "CMS:Create Posts “2026-02-23-folo”"
+    }
+  ],
   "2026-02-11-router_1.md": [
     {
       "hash": "328abaf3e4e26e751307a619d4718bf395b04904",
@@ -188,19 +200,12 @@
       "message": "CMS:Create Posts “2026-02-11-router_1”"
     }
   ],
-  "2026-02-23-folo.md": [
-    {
-      "hash": "1701b657442d694e037c6a594e9936906ccc0f06",
-      "date": "2026-02-23 22:54:39 +0800",
-      "message": "CMS:Update Posts “2026-02-23-folo”"
-    },
-    {
-      "hash": "d614a69c46137e8d58ec79dee608860bdd8a9b60",
-      "date": "2026-02-23 22:54:25 +0800",
-      "message": "CMS:Create Posts “2026-02-23-folo”"
-    }
-  ],
   "2026-02-24-s3-1.md": [
+    {
+      "hash": "653264786a877bc0311eea73ec1a75ad33520908",
+      "date": "2026-02-24 17:33:23 +0800",
+      "message": "CMS:Update Posts “2026-02-24-s3-1”"
+    },
     {
       "hash": "2720c120029bc21d374adea1e5b80c4300bcc730",
       "date": "2026-02-24 16:46:34 +0800",
@@ -217,21 +222,16 @@
       "message": "CMS:Create Posts “2026-02-24-s3-1”"
     }
   ],
-  "autoexec.md": [
+  "2026-02-26-astrbot-1.md": [
     {
-      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
-      "date": "2026-01-05 16:53:59 +0800",
-      "message": "CMS:Update Posts “autoexec”"
+      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
+      "date": "2026-02-26 21:58:17 +0800",
+      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
     },
     {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
-      "date": "2025-11-18 21:40:11 +0800",
-      "message": "docs(post):发布autoexec文件详解"
+      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
+      "date": "2026-02-26 21:57:19 +0800",
+      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
     }
   ],
   "CFGInstaller.md": [
@@ -251,11 +251,11 @@
       "message": "docs(post):CFGinstaller文章发布"
     }
   ],
-  "draft.md": [
+  "2026-03-02-machinelearning-1.md": [
     {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
+      "hash": "17247551cdef0c28c0adad9399d929a0f15042f5",
+      "date": "2026-03-02 18:59:55 +0800",
+      "message": "CMS:Create Posts “2026-03-02-machinelearning-1”"
     }
   ],
   "C_inVScode.md": [
@@ -270,145 +270,16 @@
       "message": "post:在VSCode中搭建C语言环境"
     }
   ],
-  "crosshair_view.md": [
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
-    }
-  ],
-  "expressive-code.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "davinci-smb.md": [
-    {
-      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
-      "date": "2026-02-06 22:11:48 +0800",
-      "message": "docs:文章格式修改"
-    },
-    {
-      "hash": "49aec9fa3541bb7f2b929e4feac977657b93de73",
-      "date": "2025-12-30 17:32:38 +0800",
-      "message": "fix(posts):文章修修改改"
-    },
-    {
-      "hash": "5a651d28d5d3c97981ff1cf857b15d9dc178feb6",
-      "date": "2025-12-21 23:18:42 +0800",
-      "message": "docs(davinci):添加封面"
-    },
-    {
-      "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
-      "date": "2025-12-21 19:54:10 +0800",
-      "message": "docs(post):达芬奇协作发布"
-    }
-  ],
-  "guide/index.md": [
-    {
-      "hash": "0e3e38eceff44af8728723ad71567acd05d78370",
-      "date": "2025-10-26 16:11:23 +0800",
-      "message": "about:上线Netlify托管服务"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "frp-1.md": [
-    {
-      "hash": "ddb8f2fe9772833b54bc6d4521940692fbd5eaf3",
-      "date": "2026-01-05 16:53:33 +0800",
-      "message": "CMS:Update Posts “frp-1”"
-    },
+  "Minecraft-1.md": [
     {
       "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
       "date": "2025-12-10 10:57:02 +0800",
       "message": "docs(posts):标签量缩减至3个;feat++"
     },
     {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "29b17d0b2e0c483178183f976c08e50b87ad0db2",
-      "date": "2025-12-05 16:38:24 +0800",
-      "message": "docs(post):frp-1发布"
-    }
-  ],
-  "mac-mc-1.md": [
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
-      "date": "2026-01-05 14:45:19 +0800",
-      "message": "fix:修改封面"
-    },
-    {
-      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
-      "date": "2026-01-05 14:41:46 +0800",
-      "message": "fix:修复文章封面"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
-      "date": "2025-12-07 18:37:35 +0800",
-      "message": "docs(post):mac-mc-1发布"
-    }
-  ],
-  "markdown-extended.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "mac-mc-2.md": [
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
-      "date": "2026-01-05 14:21:52 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
-      "date": "2026-01-05 14:20:56 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
-      "date": "2025-12-20 13:06:34 +0800",
-      "message": "docs(post):mac-mc-2发布"
+      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
+      "date": "2025-10-26 14:21:03 +0800",
+      "message": "移植文章Minecraft-1"
     }
   ],
   "Markdown-1.md": [
@@ -433,28 +304,16 @@
       "message": "post:Markdown-1"
     }
   ],
-  "markdown.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "Minecraft-1.md": [
+  "Python-1.md": [
     {
       "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
       "date": "2025-12-10 10:57:02 +0800",
       "message": "docs(posts):标签量缩减至3个;feat++"
     },
     {
-      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
-      "date": "2025-10-26 14:21:03 +0800",
-      "message": "移植文章Minecraft-1"
+      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
+      "date": "2025-10-26 19:45:47 +0800",
+      "message": "post:PyTorch环境搭建"
     }
   ],
   "OBS-1.md": [
@@ -472,18 +331,6 @@
       "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
       "date": "2025-10-26 21:09:00 +0800",
       "message": "post:OBS-1"
-    }
-  ],
-  "Python-1.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
-      "date": "2025-10-26 19:45:47 +0800",
-      "message": "post:PyTorch环境搭建"
     }
   ],
   "SrP-CFG.md": [
@@ -543,6 +390,18 @@
       "message": "post:SrP-CFG"
     }
   ],
+  "Zerotier-1.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
+      "date": "2025-10-26 20:48:12 +0800",
+      "message": "post:Zerotier-1"
+    }
+  ],
   "SrP-Sakura_Minecraft.md": [
     {
       "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
@@ -570,7 +429,60 @@
       "message": "post:Minecraft-2"
     }
   ],
-  "video.md": [
+  "autoexec.md": [
+    {
+      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
+      "date": "2026-01-05 16:53:59 +0800",
+      "message": "CMS:Update Posts “autoexec”"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
+      "date": "2025-11-18 21:40:11 +0800",
+      "message": "docs(post):发布autoexec文件详解"
+    }
+  ],
+  "crosshair_view.md": [
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
+    }
+  ],
+  "draft.md": [
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "davinci-smb.md": [
+    {
+      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
+      "date": "2026-02-06 22:11:48 +0800",
+      "message": "docs:文章格式修改"
+    },
+    {
+      "hash": "49aec9fa3541bb7f2b929e4feac977657b93de73",
+      "date": "2025-12-30 17:32:38 +0800",
+      "message": "fix(posts):文章修修改改"
+    },
+    {
+      "hash": "5a651d28d5d3c97981ff1cf857b15d9dc178feb6",
+      "date": "2025-12-21 23:18:42 +0800",
+      "message": "docs(davinci):添加封面"
+    },
+    {
+      "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
+      "date": "2025-12-21 19:54:10 +0800",
+      "message": "docs(post):达芬奇协作发布"
+    }
+  ],
+  "expressive-code.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -580,6 +492,145 @@
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
+    }
+  ],
+  "guide/index.md": [
+    {
+      "hash": "0e3e38eceff44af8728723ad71567acd05d78370",
+      "date": "2025-10-26 16:11:23 +0800",
+      "message": "about:上线Netlify托管服务"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "frp-1.md": [
+    {
+      "hash": "ddb8f2fe9772833b54bc6d4521940692fbd5eaf3",
+      "date": "2026-01-05 16:53:33 +0800",
+      "message": "CMS:Update Posts “frp-1”"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "29b17d0b2e0c483178183f976c08e50b87ad0db2",
+      "date": "2025-12-05 16:38:24 +0800",
+      "message": "docs(post):frp-1发布"
+    }
+  ],
+  "markdown-extended.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "mac-mc-2.md": [
+    {
+      "hash": "1476509546a384379a28e5c82d55431677c65a62",
+      "date": "2026-02-26 20:50:10 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
+      "date": "2026-01-05 14:21:52 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
+      "date": "2026-01-05 14:20:56 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
+      "date": "2025-12-20 13:06:34 +0800",
+      "message": "docs(post):mac-mc-2发布"
+    }
+  ],
+  "mac-mc-1.md": [
+    {
+      "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
+      "date": "2026-02-26 20:53:16 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
+      "date": "2026-01-05 14:45:19 +0800",
+      "message": "fix:修改封面"
+    },
+    {
+      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
+      "date": "2026-01-05 14:41:46 +0800",
+      "message": "fix:修复文章封面"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
+      "date": "2025-12-07 18:37:35 +0800",
+      "message": "docs(post):mac-mc-1发布"
+    }
+  ],
+  "markdown.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "sunmoon-scrcpy.md": [
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
+      "date": "2025-11-10 12:16:55 +0800",
+      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "ssh-1.md": [
@@ -614,21 +665,16 @@
       "message": "post:ssh-1发布"
     }
   ],
-  "sunmoon-scrcpy.md": [
+  "video.md": [
     {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
     },
     {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
-      "date": "2025-11-10 12:16:55 +0800",
-      "message": "doc(post):如何投屏和串流？"
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
     }
   ],
   "webDAV-1.md": [
@@ -656,18 +702,6 @@
       "hash": "c10a0e26bb86906430166141899e28710319d0bd",
       "date": "2025-12-25 21:15:58 +0800",
       "message": "docs(post):weDAV-1发布"
-    }
-  ],
-  "Zerotier-1.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
-      "date": "2025-10-26 20:48:12 +0800",
-      "message": "post:Zerotier-1"
     }
   ]
 }
