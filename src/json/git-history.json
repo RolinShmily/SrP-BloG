@@ -110,6 +110,18 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
+    }
+  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "8b7f2755bf21e81e9d59350825776cfa51c97ce1",
@@ -130,18 +142,6 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
-    }
-  ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -222,16 +222,16 @@
       "message": "CMS:Create Posts “2026-02-24-s3-1”"
     }
   ],
-  "2026-02-26-astrbot-1.md": [
+  "2026-03-02-machinelearning-1.md": [
     {
-      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
-      "date": "2026-02-26 21:58:17 +0800",
-      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
+      "hash": "10041d477e03f7a40d59f8e9dd8a0ab4440288af",
+      "date": "2026-03-02 19:00:22 +0800",
+      "message": "CMS:Update Posts “2026-03-02-machinelearning-1”"
     },
     {
-      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
-      "date": "2026-02-26 21:57:19 +0800",
-      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
+      "hash": "17247551cdef0c28c0adad9399d929a0f15042f5",
+      "date": "2026-03-02 18:59:55 +0800",
+      "message": "CMS:Create Posts “2026-03-02-machinelearning-1”"
     }
   ],
   "CFGInstaller.md": [
@@ -251,11 +251,16 @@
       "message": "docs(post):CFGinstaller文章发布"
     }
   ],
-  "2026-03-02-machinelearning-1.md": [
+  "2026-02-26-astrbot-1.md": [
     {
-      "hash": "17247551cdef0c28c0adad9399d929a0f15042f5",
-      "date": "2026-03-02 18:59:55 +0800",
-      "message": "CMS:Create Posts “2026-03-02-machinelearning-1”"
+      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
+      "date": "2026-02-26 21:58:17 +0800",
+      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
+    },
+    {
+      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
+      "date": "2026-02-26 21:57:19 +0800",
+      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
     }
   ],
   "C_inVScode.md": [
@@ -540,33 +545,6 @@
       "message": "initblog"
     }
   ],
-  "mac-mc-2.md": [
-    {
-      "hash": "1476509546a384379a28e5c82d55431677c65a62",
-      "date": "2026-02-26 20:50:10 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
-      "date": "2026-01-05 14:21:52 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
-      "date": "2026-01-05 14:20:56 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
-      "date": "2025-12-20 13:06:34 +0800",
-      "message": "docs(post):mac-mc-2发布"
-    }
-  ],
   "mac-mc-1.md": [
     {
       "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
@@ -602,6 +580,33 @@
       "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
       "date": "2025-12-07 18:37:35 +0800",
       "message": "docs(post):mac-mc-1发布"
+    }
+  ],
+  "mac-mc-2.md": [
+    {
+      "hash": "1476509546a384379a28e5c82d55431677c65a62",
+      "date": "2026-02-26 20:50:10 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
+      "date": "2026-01-05 14:21:52 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
+      "date": "2026-01-05 14:20:56 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
+      "date": "2025-12-20 13:06:34 +0800",
+      "message": "docs(post):mac-mc-2发布"
     }
   ],
   "markdown.md": [
