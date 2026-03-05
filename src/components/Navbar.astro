@@ -4,7 +4,6 @@ import { navBarConfig, siteConfig } from "../config";
 import { LinkPresets } from "../constants/link-presets";
 import { LinkPreset, type NavBarLink } from "../types/config";
 import { url } from "../utils/url-utils";
-import LightDarkSwitch from "./LightDarkSwitch.svelte";
 import Search from "./Search.svelte";
 import DisplaySettings from "./widget/DisplaySettings.svelte";
 import NavMenuPanel from "./widget/NavMenuPanel.astro";
@@ -50,7 +49,8 @@ let links: NavBarLink[] = navBarConfig.links.map(
                         <Icon name="material-symbols:palette-outline" class="text-[1.25rem]"></Icon>
                     </button>
             )}
-            <LightDarkSwitch client:only="svelte"></LightDarkSwitch>
+            <!-- LightDarkSwitch disabled - theme locked to dark mode -->
+<!-- <LightDarkSwitch client:only="svelte"></LightDarkSwitch> -->
             <button aria-label="Menu" name="Nav Menu" class="btn-plain scale-animation rounded-lg w-11 h-11 active:scale-90 md:!hidden" id="nav-menu-switch">
                 <Icon name="material-symbols:menu-rounded" class="text-[1.25rem]"></Icon>
             </button>
@@ -61,24 +61,9 @@ let links: NavBarLink[] = navBarConfig.links.map(
 </div>
 
 <script>
-function switchTheme() {
-    if (localStorage.theme === 'dark') {
-        document.documentElement.classList.remove('dark');
-        localStorage.theme = 'light';
-    } else {
-        document.documentElement.classList.add('dark');
-        localStorage.theme = 'dark';
-    }
-}
+// Theme switch functionality disabled - theme locked to dark mode
 
 function loadButtonScript() {
-    let switchBtn = document.getElementById("scheme-switch");
-    if (switchBtn) {
-        switchBtn.onclick = function () {
-            switchTheme()
-        };
-    }
-
     let settingBtn = document.getElementById("display-settings-switch");
     if (settingBtn) {
         settingBtn.onclick = function () {
