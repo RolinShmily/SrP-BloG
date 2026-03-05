@@ -16,6 +16,7 @@ import { Icon } from "astro-icon/components";
 import { cmsEditConfig, gitHubEditConfig, licenseConfig } from "src/config";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
+import PostUpdateNotice from "../../components/widget/PostUpdateNotice.astro";
 import { profileConfig, siteConfig, umamiConfig } from "../../config";
 import {
 	formatDateToYYYYMMDD,
@@ -132,6 +133,13 @@ const jsonLd = {
             }
 
 
+            <!-- 文章时效性提示（发布超过半年才显示，位于文章内容前） -->
+            <PostUpdateNotice
+                published={entry.data.published}
+                updated={entry.data.updated}
+                history={history}
+            />
+
             <Markdown class="mb-6 markdown-content onload-animation">
                 <Content />
             </Markdown>
@@ -202,13 +210,13 @@ const jsonLd = {
 
                         <!-- 修订历史 -->
                         {history.length > 0 && (
-                            <div class="flex items-start gap-3 mt-4">
+                            <div id="revision-history" class="flex items-start gap-3 mt-4">
                                 <div class="h-5 w-5 rounded bg-[var(--primary)] flex items-center justify-center">
                                     <Icon name="material-symbols:history-rounded" class="text-[0.875rem] text-white dark:text-black/70"></Icon>
                                 </div>
                                 <div class="flex-1">
                                     <p class="text-black/80 dark:text-white/80 text-sm mb-1">文章修订历史 ({history.length} 次)</p>
-                                    <details class="group">
+                                    <details id="revision-history-details" class="group">
                                         <summary class="cursor-pointer text-sm text-[var(--primary)] font-medium hover:underline select-none">
                                             查看变更记录
                                         </summary>

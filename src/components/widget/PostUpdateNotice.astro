@@ -1,0 +1,123 @@
+---
+import { Icon } from "astro-icon/components";
+import type { Commit } from "@utils/git-history";
+
+interface Props {
+	published: string | Date;
+	updated?: string | Date;
+	history: Commit[];
+}
+
+const { published, updated, history } = Astro.props;
+const publishedStr =
+	published instanceof Date ? published.toISOString() : published;
+const updatedStr =
+	updated instanceof Date ? updated.toISOString() : updated;
+
+// 使用 Git 历史中最新的提交日期作为最后修改时间
+let lastUpdatedStr;
+if (history && history.length > 0) {
+	// 历史记录是按时间倒序排列的，第一个就是最新的
+	lastUpdatedStr = history[0].date;
+} else if (updated) {
+	lastUpdatedStr = updatedStr;
+} else {
+	lastUpdatedStr = publishedStr;
+}
+---
+
+<div id="outdated-notice" class="hidden mb-6 p-4 rounded-xl bg-[var(--license-block-bg)] border border-[var(--line-divider)] items-center gap-3 text-white/80 onload-animation">
+    <div class="h-8 w-8 rounded-lg bg-[var(--primary)] flex items-center justify-center shrink-0">
+        <Icon name="material-symbols:info-outline-rounded" class="text-xl text-black/70" />
+    </div>
+    <div class="text-sm leading-relaxed flex flex-col sm:flex-row sm:items-center gap-2">
+        <span id="outdated-message">正在计算文章时效性...</span>
+        {history.length > 0 && (
+            <a id="history-link" href="#revision-history" class="hidden items-center gap-1 px-2 py-1 rounded bg-[var(--primary)] text-black/70 text-xs font-bold hover:opacity-80 transition-all w-fit whitespace-nowrap shrink-0" data-auto-open-details>
+                <Icon name="material-symbols:history-rounded" class="text-sm" />
+                查看修订历史
+            </a>
+        )}
+    </div>
+</div>
+
+<script define:vars={{ publishedAt: publishedStr, lastUpdated: lastUpdatedStr }}>
+    function updateNotice() {
+        const notice = document.getElementById('outdated-notice');
+        const message = document.getElementById('outdated-message');
+        const historyLink = document.getElementById('history-link');
+        if (!notice || !message) return;
+
+        const publishedDate = new Date(publishedAt);
+        const updatedDate = new Date(lastUpdated);
+        const now = new Date();
+
+        const diffTimeUpdated = Math.abs(now - updatedDate);
+        const diffDaysUpdated = Math.floor(diffTimeUpdated / (1000 * 60 * 60 * 24));
+
+        const diffTimePublished = Math.abs(now - publishedDate);
+        const diffDaysPublished = Math.floor(diffTimePublished / (1000 * 60 * 60 * 24));
+
+        // 只有当文章发布超过半年（约183天）时才显示提示
+        const HALF_YEAR_DAYS = 183;
+
+        if (diffDaysPublished < HALF_YEAR_DAYS) {
+            return; // 文章发布不足半年，不显示提示
+        }
+
+        let statusText = "";
+        if (diffDaysUpdated === 0) {
+            statusText = "这篇文章今天刚刚更新，内容非常新鲜。";
+            if (historyLink) historyLink.classList.add('hidden');
+        } else {
+            statusText = `文章初次发布于 ${diffDaysPublished} 天前，最后修改于 ${diffDaysUpdated} 天前，部分技术细节可能已随时间演变，请结合实际情况参考。`;
+            if (historyLink) {
+                historyLink.classList.remove('hidden');
+                historyLink.classList.add('flex');
+            }
+        }
+
+        message.innerText = statusText;
+
+        notice.classList.remove('hidden');
+        notice.classList.add('flex');
+    }
+
+    // 自动展开修订历史详情
+    function setupHistoryLink() {
+        const historyLink = document.getElementById('history-link');
+        if (!historyLink) return;
+
+        historyLink.addEventListener('click', function(e) {
+            // 使用 setTimeout 让浏览器先执行默认的锚点跳转
+            setTimeout(() => {
+                const details = document.getElementById('revision-history-details');
+                if (details && !details.open) {
+                    details.open = true;
+                }
+            }, 100);
+        });
+    }
+
+    // 检查 URL hash，如果是从其他地方跳转到 #revision-history，也需要展开
+    function checkHashAndExpand() {
+        if (window.location.hash === '#revision-history') {
+            const details = document.getElementById('revision-history-details');
+            if (details && !details.open) {
+                setTimeout(() => {
+                    details.open = true;
+                }, 300);
+            }
+        }
+    }
+
+    updateNotice();
+    setupHistoryLink();
+    checkHashAndExpand();
+
+    document.addEventListener('swup:contentReplaced', () => {
+        updateNotice();
+        setupHistoryLink();
+        checkHashAndExpand();
+    });
+</script>
