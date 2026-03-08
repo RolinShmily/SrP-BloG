@@ -248,6 +248,11 @@
   ],
   "2026-03-07-pve-1.md": [
     {
+      "hash": "6be62f7786fa6346e13ef27bc13e15e58050f067",
+      "date": "2026-03-07 18:32:40 +0800",
+      "message": "chore: 修复链接地址"
+    },
+    {
       "hash": "6974961d35d65ef804a4107f6563ec2d09e1573d",
       "date": "2026-03-07 14:21:13 +0800",
       "message": "fix: 修bug"
@@ -355,33 +360,6 @@
       "message": "post:PyTorch环境搭建"
     }
   ],
-  "SrP-Sakura_Minecraft.md": [
-    {
-      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
-      "date": "2025-12-21 23:16:19 +0800",
-      "message": "docs(ssmc):修复文章外链错误，归档该文章"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
-      "date": "2025-11-06 21:41:52 +0800",
-      "message": "post:在文章中引入文档页"
-    },
-    {
-      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
-      "date": "2025-10-27 23:55:19 +0800",
-      "message": "post:添加百度网盘链接，删除SrP-Cloud"
-    },
-    {
-      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
-      "date": "2025-10-26 21:21:31 +0800",
-      "message": "post:Minecraft-2"
-    }
-  ],
   "SrP-CFG.md": [
     {
       "hash": "732115b93ceb35aa479c8e60cb60e25a923e29c8",
@@ -451,6 +429,33 @@
       "message": "post:Zerotier-1"
     }
   ],
+  "SrP-Sakura_Minecraft.md": [
+    {
+      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
+      "date": "2025-12-21 23:16:19 +0800",
+      "message": "docs(ssmc):修复文章外链错误，归档该文章"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
+      "date": "2025-11-06 21:41:52 +0800",
+      "message": "post:在文章中引入文档页"
+    },
+    {
+      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
+      "date": "2025-10-27 23:55:19 +0800",
+      "message": "post:添加百度网盘链接，删除SrP-Cloud"
+    },
+    {
+      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
+      "date": "2025-10-26 21:21:31 +0800",
+      "message": "post:Minecraft-2"
+    }
+  ],
   "crosshair_view.md": [
     {
       "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
@@ -497,19 +502,19 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
-  "expressive-code.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
+  "draft.md": [
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
     }
   ],
-  "draft.md": [
+  "expressive-code.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
@@ -614,7 +619,7 @@
       "message": "docs(post):mac-mc-1发布"
     }
   ],
-  "markdown.md": [
+  "markdown-extended.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -626,7 +631,7 @@
       "message": "initblog"
     }
   ],
-  "markdown-extended.md": [
+  "markdown.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
