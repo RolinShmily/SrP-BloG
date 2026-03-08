@@ -1,5 +1,5 @@
 ---
-title: archlinux-1
+title: 安装Archlinux+ClaudeCode，PVE小主机焕发第二春
 published: 2026-03-08
 description: '在PVE中安装ArchLinux+niri桌面，并启用核显直通，安装ClaudeCode！'
 image: '../assets/images/2026-03-08-1148.png'
