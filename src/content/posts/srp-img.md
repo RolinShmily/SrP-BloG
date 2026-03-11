@@ -49,7 +49,7 @@ lang: ""
 
 ### 前端预览
 
-![](../assets/images/srp-img-preview.png)
+![](../assets/images/2026-03-11-22-42.png)
 
 ## 部署指南
 
