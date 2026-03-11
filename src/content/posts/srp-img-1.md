@@ -3,7 +3,7 @@ title: SrP-IMG | 零成本随机图片API与现代化画廊
 published: 2026-03-11
 pinned: false
 description: 基于Cloudflare Pages/Workers部署的无限流量、零成本、多分类随机图片解决方案。
-image: ../assets/images/srp-img-preview.png
+image: ../assets/images/2026-03-11-22-42.png
 draft: false
 lang: ""
 ---
