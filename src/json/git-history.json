@@ -110,18 +110,6 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
-    }
-  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "8b7f2755bf21e81e9d59350825776cfa51c97ce1",
@@ -142,6 +130,18 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
+    }
+  ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -331,6 +331,18 @@
       "message": "移植文章Minecraft-1"
     }
   ],
+  "Python-1.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
+      "date": "2025-10-26 19:45:47 +0800",
+      "message": "post:PyTorch环境搭建"
+    }
+  ],
   "OBS-1.md": [
     {
       "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
@@ -348,16 +360,31 @@
       "message": "post:OBS-1"
     }
   ],
-  "Python-1.md": [
+  "SrP-Sakura_Minecraft.md": [
+    {
+      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
+      "date": "2025-12-21 23:16:19 +0800",
+      "message": "docs(ssmc):修复文章外链错误，归档该文章"
+    },
     {
       "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
       "date": "2025-12-10 10:57:02 +0800",
       "message": "docs(posts):标签量缩减至3个;feat++"
     },
     {
-      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
-      "date": "2025-10-26 19:45:47 +0800",
-      "message": "post:PyTorch环境搭建"
+      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
+      "date": "2025-11-06 21:41:52 +0800",
+      "message": "post:在文章中引入文档页"
+    },
+    {
+      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
+      "date": "2025-10-27 23:55:19 +0800",
+      "message": "post:添加百度网盘链接，删除SrP-Cloud"
+    },
+    {
+      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
+      "date": "2025-10-26 21:21:31 +0800",
+      "message": "post:Minecraft-2"
     }
   ],
   "SrP-CFG.md": [
@@ -415,33 +442,6 @@
       "hash": "6241e9b6882c1abafbe941985d65541463ded92e",
       "date": "2025-10-26 20:15:36 +0800",
       "message": "post:SrP-CFG"
-    }
-  ],
-  "SrP-Sakura_Minecraft.md": [
-    {
-      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
-      "date": "2025-12-21 23:16:19 +0800",
-      "message": "docs(ssmc):修复文章外链错误，归档该文章"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
-      "date": "2025-11-06 21:41:52 +0800",
-      "message": "post:在文章中引入文档页"
-    },
-    {
-      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
-      "date": "2025-10-27 23:55:19 +0800",
-      "message": "post:添加百度网盘链接，删除SrP-Cloud"
-    },
-    {
-      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
-      "date": "2025-10-26 21:21:31 +0800",
-      "message": "post:Minecraft-2"
     }
   ],
   "Zerotier-1.md": [
@@ -655,6 +655,13 @@
       "message": "docs(post):mac-mc-2发布"
     }
   ],
+  "script-1.md": [
+    {
+      "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
+      "date": "2026-03-12 22:57:02 +0800",
+      "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
+    }
+  ],
   "ssh-1.md": [
     {
       "hash": "e741575d4d017db84e40f42f7a658941162e0957",
@@ -685,23 +692,6 @@
       "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
       "date": "2025-11-07 13:44:15 +0800",
       "message": "post:ssh-1发布"
-    }
-  ],
-  "sunmoon-scrcpy.md": [
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
-      "date": "2025-11-10 12:16:55 +0800",
-      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "srp-img.md": [
@@ -736,6 +726,23 @@
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
+    }
+  ],
+  "sunmoon-scrcpy.md": [
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
+      "date": "2025-11-10 12:16:55 +0800",
+      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "webDAV-1.md": [
