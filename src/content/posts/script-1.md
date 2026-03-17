@@ -1,12 +1,15 @@
 ---
 title: SrP-Scripts | 视频音频合并与重编码脚本
 published: 2026-03-12
-description: '个人脚本集合仓库介绍，以及视频音频合并与重编码脚本的详细使用说明'
-image: ''
-tags: ['脚本', 'FFmpeg', '视频处理']
-category: '工具脚本'
+description: 个人脚本集合仓库介绍，以及视频音频合并与重编码脚本的详细使用说明
+image: ""
+tags:
+  - 脚本
+  - FFmpeg
+  - 视频处理
 draft: false
-lang: 'zh-CN'
+lang: zh-CN
+category: 工具脚本
 ---
 
 # 相关链接
@@ -222,14 +225,6 @@ EXTENSIONS=("mkv")
 # 处理多种格式
 EXTENSIONS=("mp4" "mkv" "avi" "mov" "flv")
 ```
-
-## 后续计划
-
-- [ ] 添加批量处理配置选项
-- [ ] 支持自定义输出路径
-- [ ] 添加水印功能
-- [ ] 支持字幕轨道处理
-- [ ] 开发图形界面版本
 
 ## 许可证
 
