@@ -110,6 +110,18 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
+    }
+  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "8b7f2755bf21e81e9d59350825776cfa51c97ce1",
@@ -130,18 +142,6 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
-    }
-  ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -298,6 +298,11 @@
     }
   ],
   "2026-03-17-windows-1.md": [
+    {
+      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
+      "date": "2026-03-18 19:28:35 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
     {
       "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
       "date": "2026-03-17 19:44:23 +0800",
@@ -497,20 +502,6 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
-  "crosshair_view.md": [
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
-    }
-  ],
-  "draft.md": [
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
   "davinci-smb.md": [
     {
       "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
@@ -531,6 +522,20 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
+    }
+  ],
+  "draft.md": [
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "crosshair_view.md": [
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "expressive-code.md": [
