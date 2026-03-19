@@ -268,6 +268,23 @@
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
     }
   ],
+  "2026-03-17-windows-1.md": [
+    {
+      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
+      "date": "2026-03-18 19:28:35 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
+      "date": "2026-03-17 19:44:23 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
+      "date": "2026-03-17 19:43:34 +0800",
+      "message": "CMS:Create Posts “2026-03-17-windows-1”"
+    }
+  ],
   "CFGInstaller.md": [
     {
       "hash": "1bf81f07fe4ac226100f45f0b64d58bf2a791f52",
@@ -295,23 +312,6 @@
       "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
       "date": "2025-10-26 19:10:44 +0800",
       "message": "post:在VSCode中搭建C语言环境"
-    }
-  ],
-  "2026-03-17-windows-1.md": [
-    {
-      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
-      "date": "2026-03-18 19:28:35 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
-      "date": "2026-03-17 19:44:23 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
-      "date": "2026-03-17 19:43:34 +0800",
-      "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
   "Minecraft-1.md": [
@@ -378,6 +378,11 @@
     }
   ],
   "SrP-CFG.md": [
+    {
+      "hash": "475fd676c3894ab65ecc2d40982d5b4545260e78",
+      "date": "2026-03-19 18:31:24 +0800",
+      "message": "CMS:Update Posts “SrP-CFG”"
+    },
     {
       "hash": "732115b93ceb35aa479c8e60cb60e25a923e29c8",
       "date": "2026-02-09 14:57:40 +0800",
