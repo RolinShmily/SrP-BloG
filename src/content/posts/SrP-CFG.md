@@ -351,7 +351,7 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 下面是本人的启动项：
 
 ```ini
--allow_third_party_software -high -noreflex -noborder -worldwide
+-allow_third_party_software -worldwide
 ```
 
 我所采用的游戏优化方案是`锁帧`，因此我在启动项中添加`-noreflex`禁用了游戏内的`NVIDIA低延迟策略`，并在`NVIDIA控制面板`中也禁用了`程序CS2`的`Reflex`功能。
