@@ -2,7 +2,7 @@
 title: SrP-Scripts | 视频音频合并与重编码脚本
 published: 2026-03-12
 description: 个人脚本集合仓库介绍，以及视频音频合并与重编码脚本的详细使用说明
-image: ""
+image: ../assets/images/2026-03-20-1308.png
 tags:
   - 脚本
   - FFmpeg
