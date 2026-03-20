@@ -110,6 +110,18 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
+    }
+  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "8b7f2755bf21e81e9d59350825776cfa51c97ce1",
@@ -130,18 +142,6 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
-    }
-  ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -299,6 +299,11 @@
   ],
   "2026-03-17-windows-1.md": [
     {
+      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
+      "date": "2026-03-20 12:49:33 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
       "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
       "date": "2026-03-18 19:28:35 +0800",
       "message": "CMS:Update Posts “2026-03-17-windows-1”"
@@ -312,6 +317,18 @@
       "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
       "date": "2026-03-17 19:43:34 +0800",
       "message": "CMS:Create Posts “2026-03-17-windows-1”"
+    }
+  ],
+  "Minecraft-1.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
+      "date": "2025-10-26 14:21:03 +0800",
+      "message": "移植文章Minecraft-1"
     }
   ],
   "Markdown-1.md": [
@@ -334,18 +351,6 @@
       "hash": "e852ffe7c3ae86627b71638dbe8da1fe03fe1971",
       "date": "2025-10-26 21:14:35 +0800",
       "message": "post:Markdown-1"
-    }
-  ],
-  "Minecraft-1.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
-      "date": "2025-10-26 14:21:03 +0800",
-      "message": "移植文章Minecraft-1"
     }
   ],
   "OBS-1.md": [
@@ -507,6 +512,20 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
+  "draft.md": [
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "crosshair_view.md": [
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
+    }
+  ],
   "davinci-smb.md": [
     {
       "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
@@ -527,20 +546,6 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
-    }
-  ],
-  "draft.md": [
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "crosshair_view.md": [
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "expressive-code.md": [
@@ -696,23 +701,6 @@
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
     }
   ],
-  "sunmoon-scrcpy.md": [
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
-      "date": "2025-11-10 12:16:55 +0800",
-      "message": "doc(post):如何投屏和串流？"
-    }
-  ],
   "ssh-1.md": [
     {
       "hash": "e741575d4d017db84e40f42f7a658941162e0957",
@@ -743,6 +731,23 @@
       "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
       "date": "2025-11-07 13:44:15 +0800",
       "message": "post:ssh-1发布"
+    }
+  ],
+  "sunmoon-scrcpy.md": [
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
+      "date": "2025-11-10 12:16:55 +0800",
+      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "srp-img.md": [
