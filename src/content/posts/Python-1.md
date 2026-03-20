@@ -1,13 +1,20 @@
 ---
 title: Python与Pytorch的环境搭建
 published: 2024-07-18
-description: '本文目标为PyTorch搭建环境，其中用到Anaconda的python编译器，配置了VSCode的python环境，并启用Cuda相关单元'
-image: '../assets/images/2025-04-07_23-15-58.png'
-tags: [Python,PyTorch,VSCode]
-category: ''
+description: 本文目标为PyTorch搭建环境，其中用到Anaconda的python编译器，配置了VSCode的python环境，并启用Cuda相关单元
+image: ../assets/images/2025-04-07_23-15-58.png
+tags:
+  - Python
+  - PyTorch
+  - VSCode
 draft: false
-lang: ''
+lang: ""
+category: ""
 ---
+# ！！⚠️Attention⚠️！！
+
+文章已重写至[【重置版】在Windows系统中安装深度学习框架Pytorch与TensorFlow ](https://blog.srprolin.top/posts/pytorch-2/)
+
 # ***使用VScode搭建Python与Pytorch环境***
 
 ## 1.***Anaconda***
