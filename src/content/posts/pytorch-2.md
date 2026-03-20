@@ -1,12 +1,12 @@
 ---
 title: 【重置版】在Windows系统中安装深度学习框架Pytorch与TensorFlow
 published: 2026-03-19
-description: '深度学习框架pytorch、tensorflow的安装，涉及conda环境、python版本、cuda检测等，最终用vscode验证使用。'
-image: ''
+description: 深度学习框架pytorch、tensorflow的安装，涉及conda环境、python版本、cuda检测等，最终用vscode验证使用。
+image: ../assets/images/2025-04-07_23-15-58.png
 tags: []
-category: ''
-draft: false 
-lang: ''
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接与前情提要
 - [Anaconda](https://www.anaconda.com/download/success?reg=skipped)
