@@ -318,10 +318,6 @@ sudo nano /Library/LaunchDaemons/local.caffeinate.plist
         <string>/usr/bin/caffeinate</string>
         <string>-ims</string>
     </array>
-    <key>RunAtLoad</key>
-    <true/>
-    <key>KeepAlive</key>
-    <true/>
     <key>UserName</key>
     <string>root</string>
 </dict>
