@@ -26,6 +26,7 @@ package-lock.json
 bun.lockb
 yarn.lock
 CLAUDE.md
+.spec-workflow
 tmpclaude-424f-cwd
 tmpclaude-c882-cwd
 tmpclaude-de99-cwd
