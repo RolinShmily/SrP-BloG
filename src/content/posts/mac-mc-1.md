@@ -172,9 +172,6 @@ sudo nano /Library/LaunchDaemons/com.mcsmanager.daemon.plist
         <string>这里填写你的start-daemon.sh脚本绝对路径</string>
     </array>
 
-    <key>RunAtLoad</key>
-    <true/>
-
     <key>WorkingDirectory</key>
     <string>这里填写你的mcsmanager绝对路径</string>
 
@@ -225,9 +222,6 @@ sudo nano /Library/LaunchDaemons/com.mcsmanager.web.plist
     <array>
         <string>/Users/test/mcsmanager/start-web.sh</string>
     </array>
-
-    <key>RunAtLoad</key>
-    <true/>
 
     <key>WorkingDirectory</key>
     <string>/Users/test/mcsmanager/</string>
@@ -408,9 +402,6 @@ sudo nano /Library/LaunchDaemons/com.frp.sfrp.plist
     <array>
         <string>/Users/test/sakura_frp/start_sfrp.sh</string>
     </array>
-
-    <key>RunAtLoad</key>
-    <true/>
 
     <key>StandardOutPath</key>
     <string>/Users/test/sakura_frp/log/sfrp_stdout.log</string>
