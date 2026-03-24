@@ -1,12 +1,12 @@
 ---
 title: 安装Archlinux+ClaudeCode，PVE小主机焕发第二春
 published: 2026-03-08
-description: '在PVE中安装ArchLinux+niri桌面，并启用核显直通，安装ClaudeCode！'
-image: '../assets/images/2026-03-08-1148.png'
+description: 在PVE中安装ArchLinux+niri桌面，并启用核显直通，安装ClaudeCode！
+image: ../assets/images/2026-03-08-1148.png
 tags: []
-category: ''
-draft: false 
-lang: ''
+draft: false
+lang: ""
+category: ""
 ---
 
 # 相关链接
@@ -302,6 +302,9 @@ node -v # Should print "v24.14.0".
 # 验证 npm 版本：
 npm -v # Should print "11.9.0".
 ```
+
+> 如果你是Windows系统，我们需要在终端中输入`Set-ExecutionPolicy RemoteSigned`，以便于`npm`被系统正常识别。
+
 打开终端(Shorin's Niri默认快捷键`Super+T`)：
 ```bash
 # 切换为bash环境(Shorin's Niri默认使用了fish，提供非常友好的命令补全，但不兼容bash)
