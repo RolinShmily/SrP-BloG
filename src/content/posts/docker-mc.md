@@ -213,10 +213,10 @@ services:
     image: itzg/minecraft-server:java21-jdk  # 检查镜像名
     container_name: mc_bmp                   # 自定义容器显示名称
     healthcheck:                             # 容器健康检查
-        interval: 30s                        # 多久检查一次
-        timeout: 60s                         # 单次检查的超时时间
-        retries: 10                          # 连续失败多少次算不健康
-        start_period: 300s                   # 容器启动后多久才开始检查（等待启动时间）
+      interval: 30s                          # 多久检查一次
+      timeout: 60s                           # 单次检查的超时时间
+      retries: 10                            # 连续失败多少次算不健康
+      start_period: 300s                     # 容器启动后多久才开始检查（等待启动时间）
     ports:
       - 25565:25565                          # 游戏连接端口
       - 2222:2222                            # SSH命令传入端口
