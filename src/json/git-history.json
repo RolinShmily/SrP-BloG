@@ -324,18 +324,6 @@
       "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
-  "Minecraft-1.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
-      "date": "2025-10-26 14:21:03 +0800",
-      "message": "移植文章Minecraft-1"
-    }
-  ],
   "Markdown-1.md": [
     {
       "hash": "614de8ec92d7fa352219453a9e9da391ef35e95a",
@@ -356,6 +344,18 @@
       "hash": "e852ffe7c3ae86627b71638dbe8da1fe03fe1971",
       "date": "2025-10-26 21:14:35 +0800",
       "message": "post:Markdown-1"
+    }
+  ],
+  "Minecraft-1.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
+      "date": "2025-10-26 14:21:03 +0800",
+      "message": "移植文章Minecraft-1"
     }
   ],
   "OBS-1.md": [
@@ -558,6 +558,11 @@
   ],
   "docker-mc.md": [
     {
+      "hash": "c333693c0ac131616fc3f8630faa13b1c6f2646a",
+      "date": "2026-03-28 20:15:46 +0800",
+      "message": "CMS:Update Posts “docker-mc”"
+    },
+    {
       "hash": "6ad11ba7348468b86f0606192b7d4515a1316690",
       "date": "2026-03-27 16:54:06 +0800",
       "message": "posts: 发布文章docker-mc"
@@ -690,7 +695,7 @@
       "message": "docs(post):mac-mc-2发布"
     }
   ],
-  "markdown-extended.md": [
+  "markdown.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -702,7 +707,7 @@
       "message": "initblog"
     }
   ],
-  "markdown.md": [
+  "markdown-extended.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -724,6 +729,23 @@
       "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
       "date": "2026-03-20 12:41:16 +0800",
       "message": "doc(post): 深度学习框架的安装"
+    }
+  ],
+  "script-1.md": [
+    {
+      "hash": "abf909ff4730780d1289de42c46d9c37b3061fd6",
+      "date": "2026-03-20 13:10:13 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
+      "hash": "2dda8c68f50dfeaa230325317c45edb5e36d5d93",
+      "date": "2026-03-17 09:44:29 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
+      "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
+      "date": "2026-03-12 22:57:02 +0800",
+      "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
     }
   ],
   "ssh-1.md": [
@@ -756,23 +778,6 @@
       "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
       "date": "2025-11-07 13:44:15 +0800",
       "message": "post:ssh-1发布"
-    }
-  ],
-  "script-1.md": [
-    {
-      "hash": "abf909ff4730780d1289de42c46d9c37b3061fd6",
-      "date": "2026-03-20 13:10:13 +0800",
-      "message": "CMS:Update Posts “script-1”"
-    },
-    {
-      "hash": "2dda8c68f50dfeaa230325317c45edb5e36d5d93",
-      "date": "2026-03-17 09:44:29 +0800",
-      "message": "CMS:Update Posts “script-1”"
-    },
-    {
-      "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
-      "date": "2026-03-12 22:57:02 +0800",
-      "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
     }
   ],
   "srp-img.md": [
