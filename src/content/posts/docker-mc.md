@@ -1,12 +1,12 @@
 ---
 title: 通过Docker搭建Minecraft服务器 | MacMini、ArchLinux实战
 published: 2026-03-25
-description: '详细介绍Docker的安装配置、Frp的安装配置，涵盖各个操作系统，并提供Minecraft镜像的两种compose版本，以供搭建MC服务器作为参考。'
-image: '../assets/images/2026-03-27-1111.png'
+description: 详细介绍Docker的安装配置、Frp的安装配置，涵盖各个操作系统，并提供Minecraft镜像的两种compose版本，以供搭建MC服务器作为参考。
+image: ../assets/images/2026-03-27-1111.png
 tags: []
-category: ''
-draft: false 
-lang: ''
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接
 - [DockerDesktop安装文档](https://docs.docker.com/desktop/setup/install/windows-install/)
@@ -212,6 +212,11 @@ services:
   mc_bmp:
     image: itzg/minecraft-server:java21-jdk  # 检查镜像名
     container_name: mc_bmp                   # 自定义容器显示名称
+    healthcheck:                             # 容器健康检查
+        interval: 30s                        # 多久检查一次
+        timeout: 60s                         # 单次检查的超时时间
+        retries: 10                          # 连续失败多少次算不健康
+        start_period: 300s                   # 容器启动后多久才开始检查（等待启动时间）
     ports:
       - 25565:25565                          # 游戏连接端口
       - 2222:2222                            # SSH命令传入端口
