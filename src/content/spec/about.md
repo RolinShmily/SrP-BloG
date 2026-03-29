@@ -6,7 +6,7 @@
 
 ::github{repo="RolinShmily/SrP-BloG"}
 
-**随机背景图 API** - 提供横/竖屏背景图服务，通过识别用户设备 UA 返回适配的图片。
+**随机背景图 API** - 提供横/竖屏背景图服务，通过识别用户设备 UA 返回适配的图片: [img.srprolin.top](https://img.srprolin.top)
 
 ::github{repo="RolinShmily/SrP-IMG"}
 
