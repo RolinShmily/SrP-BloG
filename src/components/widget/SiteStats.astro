@@ -2,7 +2,7 @@
 import I18nKey from "../../i18n/i18nKey";
 import { i18n } from "../../i18n/translation";
 import { Icon } from "astro-icon/components";
-import { siteConfig, umamiConfig } from "../../config";
+import { siteConfig } from "../../config";
 import { getTotalWords, getPostCount } from "../../utils/content-utils";
 import WidgetLayout from "./WidgetLayout.astro";
 
@@ -52,7 +52,8 @@ const style = Astro.props.style;
 				<Icon name="material-symbols:visibility-outline" class="text-base"></Icon>
 				<span class="text-xs">访问量</span>
 			</div>
-			<div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
+			<div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300"
+		     data-umami-site data-umami-type="site-pageviews" data-umami-suffix="">--</div>
 		</div>
 
 		<!-- 访客数 -->
@@ -61,12 +62,13 @@ const style = Astro.props.style;
 				<Icon name="material-symbols:person" class="text-base"></Icon>
 				<span class="text-xs">访客数</span>
 			</div>
-			<div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300">0</div>
+			<div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300"
+		     data-umami-site data-umami-type="site-visitors" data-umami-suffix="">--</div>
 		</div>
 	</div>
 </WidgetLayout>
 
-<script define:vars={{ totalWords, postCount, umamiConfig }}>
+<script define:vars={{ totalWords, postCount }}>
 	// 数字动画函数
 	function animateValue(obj, start, end, duration) {
 		let startTimestamp = null;
@@ -86,31 +88,65 @@ const style = Astro.props.style;
 	// 标记是否正在swup跳转
 	let isSwupNavigating = false;
 
-	// 动画显示统计数据
+	// umami site stats 动画：轮询等待值填充后从0滚动到目标值
+	function animateUmamiSiteStats() {
+		var targets = [
+			{ id: 'site-views', cacheKey: 'umami-site-pageviews' },
+			{ id: 'site-visitors', cacheKey: 'umami-site-visitors' }
+		];
+
+		targets.forEach(function(target) {
+			var el = document.getElementById(target.id);
+			if (!el) return;
+
+			// 清除缓存（swup跳转时不清除）
+			if (!isSwupNavigating) {
+				sessionStorage.removeItem(target.cacheKey);
+			}
+
+			var cached = sessionStorage.getItem(target.cacheKey);
+			if (cached !== null && isSwupNavigating) {
+				// swup跳转时直接显示缓存值
+				el.textContent = cached;
+				return;
+			}
+
+			// 轮询等待 umami 填充值
+			var timer = setInterval(function() {
+				var raw = el.dataset.rawValue;
+				var num = parseInt(raw, 10);
+				if (num > 0 && !isNaN(num)) {
+					clearInterval(timer);
+					if (!isSwupNavigating) {
+						// 首次加载：从0动画到目标值
+						animateValue(el, 0, num, 1000);
+					}
+					sessionStorage.setItem(target.cacheKey, String(num));
+				}
+			}, 80);
+
+			// 安全：15秒后停止轮询
+			setTimeout(function() { clearInterval(timer); }, 15000);
+		});
+	}
+
+	// 动画显示本地统计数据（文章数 & 总字数）
 	async function loadSiteStats() {
 		const postCountElement = document.getElementById('site-post-count');
 		const totalWordsElement = document.getElementById('site-total-words');
-		const viewsElement = document.getElementById('site-views');
-		const visitorsElement = document.getElementById('site-visitors');
 
 		// 使用 sessionStorage 缓存数据
 		const postCountCacheKey = 'site-post-count';
 		const totalWordsCacheKey = 'site-total-words';
-		const viewsCacheKey = 'site-views';
-		const visitorsCacheKey = 'site-visitors';
 
 		// 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
 		if (!isSwupNavigating) {
 			sessionStorage.removeItem(postCountCacheKey);
 			sessionStorage.removeItem(totalWordsCacheKey);
-			sessionStorage.removeItem(viewsCacheKey);
-			sessionStorage.removeItem(visitorsCacheKey);
 		}
 
 		const cachedPostCount = sessionStorage.getItem(postCountCacheKey);
 		const cachedTotalWords = sessionStorage.getItem(totalWordsCacheKey);
-		const cachedViews = sessionStorage.getItem(viewsCacheKey);
-		const cachedVisitors = sessionStorage.getItem(visitorsCacheKey);
 
 		// 如果有缓存（swup跳转），先立即显示缓存值
 		if (cachedPostCount !== null && postCountElement) {
@@ -118,12 +154,6 @@ const style = Astro.props.style;
 		}
 		if (cachedTotalWords !== null && totalWordsElement) {
 			totalWordsElement.textContent = cachedTotalWords;
-		}
-		if (cachedViews !== null && viewsElement) {
-			viewsElement.textContent = cachedViews;
-		}
-		if (cachedVisitors !== null && visitorsElement) {
-			visitorsElement.textContent = cachedVisitors;
 		}
 
 		// 文章数动画
@@ -154,39 +184,8 @@ const style = Astro.props.style;
 			sessionStorage.setItem(totalWordsCacheKey, totalWords);
 		}
 
-		// 获取访问量和访客数
-		if (umamiConfig.enable) {
-			try {
-				const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
-					timezone: umamiConfig.timezone
-				});
-
-				const pageviews = statsData.pageviews || 0;
-				const visitors = statsData.visitors || 0;
-
-				if (viewsElement) {
-					const startVal = parseInt(viewsElement.textContent) || 0;
-					if (cachedViews === null && startVal !== pageviews) {
-						animateValue(viewsElement, startVal, pageviews, 1000);
-					} else if (startVal !== pageviews) {
-						viewsElement.textContent = pageviews;
-					}
-					sessionStorage.setItem(viewsCacheKey, pageviews);
-				}
-
-				if (visitorsElement) {
-					const startVal = parseInt(visitorsElement.textContent) || 0;
-					if (cachedVisitors === null && startVal !== visitors) {
-						animateValue(visitorsElement, startVal, visitors, 1000);
-					} else if (startVal !== visitors) {
-						visitorsElement.textContent = visitors;
-					}
-					sessionStorage.setItem(visitorsCacheKey, visitors);
-				}
-			} catch (error) {
-				console.error('获取全站统计失败:', error);
-			}
-		}
+		// umami site stats 动画
+		animateUmamiSiteStats();
 	}
 
 	document.addEventListener('DOMContentLoaded', loadSiteStats);

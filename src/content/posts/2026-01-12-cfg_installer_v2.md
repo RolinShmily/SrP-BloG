@@ -5,7 +5,7 @@ pinned: false
 description: 为SrP-CFG预设打造，但不限于该预设的CFG安装器，GUI版v2发布，本文将简要描述使用指南。
 image: ../assets/images/2026-01-12-14-18.png
 tags:
-  - cfg
+  - CFG
   - 安装器
 draft: false
 lang: ""

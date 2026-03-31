@@ -4,9 +4,9 @@ published: 2025-11-25
 description: 一个方便安装SrP-CFG的命令行程序
 image: ../assets/images/2026-01-05-16-37.png
 tags:
-  - cfg
-  - cs2
-  - steam
+  - CFG
+  - CS2
+  - Steam
 draft: false
 lang: ""
 category: ""

@@ -5,8 +5,7 @@ import { i18n } from "../i18n/translation";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
 import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
 
-// 引入umami逆向定义格式
-import { umamiConfig } from "../config";
+// umami 逆向工程已由集中式管理器接管
 
 interface Props {
 	class: string;
@@ -72,7 +71,6 @@ const className = Astro.props.class;
 -->
 
     <!-- tags -->
-<!--
     <div class:list={["items-center", {"flex": !hideTagsForMobile, "hidden md:flex": hideTagsForMobile}]}>
         <div class="meta-icon"
         >
@@ -90,130 +88,17 @@ const className = Astro.props.class;
             {!(tags && tags.length > 0) && <div class="transition text-50 text-sm font-medium">{i18n(I18nKey.noTags)}</div>}
         </div>
     </div>
--->
 
     <!-- umami 逆向工程 -->
     {!hideStats && slug && (
-        <>
-            <div class="flex items-center">
-                <div class="meta-icon">
-                    <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
-                </div>
-                <span class="text-50 text-sm font-medium" id={`page-views-${slug}`}>0 次</span>
+        <div class="flex items-center">
+            <div class="meta-icon">
+                <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
             </div>
-            <div class="flex items-center">
-                <div class="meta-icon">
-                    <Icon name="material-symbols:person" class="text-xl"></Icon>
-                </div>
-                <span class="text-50 text-sm font-medium" id={`page-visitors-${slug}`}>0 人</span>
-            </div>
-        </>
+            <span class="text-50 text-sm font-medium" id={`page-views-${slug}`}
+                  data-umami-slug={slug} data-umami-type="pageviews" data-umami-suffix=" 次">--</span>
+        </div>
     )}
 
 </div>
 
-{slug && (
-    <script define:vars={{ slug, umamiConfig }}>
-    // 数字动画函数
-    function animateValue(obj, start, end, duration, suffix = '') {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = `${Math.floor(progress * (end - start) + start)} ${suffix}`;
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                obj.innerHTML = `${end} ${suffix}`;
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
-
-    // 标记是否正在swup跳转
-    let isSwupNavigating = false;
-
-    // 获取访问量统计
-    async function fetchPageViews() {
-        if (!umamiConfig.enable) return;
-        try {
-            const viewsElement = document.getElementById(`page-views-${slug}`);
-            const visitorsElement = document.getElementById(`page-visitors-${slug}`);
-
-            // 使用 sessionStorage 存储之前显示的值
-            const viewsCacheKey = `post-views-${slug}`;
-            const visitorsCacheKey = `post-visitors-${slug}`;
-
-            // 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
-            if (!isSwupNavigating) {
-                sessionStorage.removeItem(viewsCacheKey);
-                sessionStorage.removeItem(visitorsCacheKey);
-            }
-
-            const cachedViews = sessionStorage.getItem(viewsCacheKey);
-            const cachedVisitors = sessionStorage.getItem(visitorsCacheKey);
-
-            // 如果有缓存（swup跳转），先立即显示缓存值
-            if (cachedViews !== null && viewsElement) {
-                viewsElement.innerHTML = `${cachedViews} 次`;
-            }
-            if (cachedVisitors !== null && visitorsElement) {
-                visitorsElement.innerHTML = `${cachedVisitors} 人`;
-            }
-
-            const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
-                timezone: umamiConfig.timezone,
-                path: `eq./posts/${slug}/`
-            });
-
-            const pageViews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
-            const visits = (statsData.visitors && statsData.visitors.value) || statsData.visitors || 0;
-
-            if (viewsElement) {
-                const startVal = parseInt(viewsElement.textContent) || 0;
-                if (startVal !== pageViews) {
-                    // 只有缓存不存在时才播放动画（刷新或首次加载）
-                    if (cachedViews === null) {
-                        animateValue(viewsElement, startVal, pageViews, 1000, '次');
-                    } else {
-                        viewsElement.innerHTML = `${pageViews} 次`;
-                    }
-                } else {
-                    viewsElement.innerHTML = `${pageViews} 次`;
-                }
-                sessionStorage.setItem(viewsCacheKey, pageViews);
-            }
-
-            if (visitorsElement) {
-                const startVal = parseInt(visitorsElement.textContent) || 0;
-                if (startVal !== visits) {
-                    // 只有缓存不存在时才播放动画（刷新或首次加载）
-                    if (cachedVisitors === null) {
-                        animateValue(visitorsElement, startVal, visits, 1000, '人');
-                    } else {
-                        visitorsElement.innerHTML = `${visits} 人`;
-                    }
-                } else {
-                    visitorsElement.innerHTML = `${visits} 人`;
-                }
-                sessionStorage.setItem(visitorsCacheKey, visits);
-            }
-        } catch (error) {
-            console.error('Error fetching page views:', error);
-        }
-    }
-
-    // 页面加载完成后获取统计数据
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', fetchPageViews);
-    } else {
-        fetchPageViews();
-    }
-    // 监听swup事件
-    document.addEventListener('swup:contentReplaced', () => {
-        isSwupNavigating = true;
-        fetchPageViews();
-        setTimeout(() => { isSwupNavigating = false; }, 100);
-    });
-</script>
-)}

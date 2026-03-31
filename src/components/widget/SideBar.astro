@@ -2,6 +2,7 @@
 import type { MarkdownHeading } from "astro";
 import Profile from "./Profile.astro";
 import SiteStats from "./SiteStats.astro";
+import Tag from "./Tags.astro";
 
 interface Props {
 	class?: string;
@@ -14,6 +15,8 @@ const className = Astro.props.class;
     <div id="sidebar-sticky" class="transition-all duration-700 flex flex-col w-full gap-4 top-4 sticky top-4">
         <!-- 个人资料 -->
         <Profile></Profile>
+        <!-- 站点统计 -->
+        <SiteStats class="onload-animation" style="animation-delay: 150ms"></SiteStats>
         <!-- 域名切换器 -->
         <!--
         <DomainSwitcher class="onload-animation" style="animation-delay: 150ms"></DomainSwitcher>
@@ -23,11 +26,7 @@ const className = Astro.props.class;
         <Categories class="onload-animation" style="animation-delay: 150ms"></Categories>
         -->
         <!-- 标签 -->
-        <!--
         <Tag class="onload-animation" style="animation-delay: 200ms"></Tag>
-        -->
-        <!-- 站点统计 -->
-        <SiteStats class="onload-animation" style="animation-delay: 300ms"></SiteStats>
         <!-- DeepWiki -->
         <a href="https://deepwiki.com/RolinShmily/SrP-BloG" target="_blank" rel="noopener noreferrer"
            class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-2xl bg-[var(--card-bg)] border-2 border-[var(--primary)] text-[var(--primary)] font-bold text-lg hover:bg-[var(--primary)] hover:text-white transition-all shadow-md active:scale-95 group">

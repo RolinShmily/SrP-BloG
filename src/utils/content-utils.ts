@@ -69,8 +69,10 @@ export async function getTagList(): Promise<Tag[]> {
 		});
 	});
 
-	// sort tags
+	// sort tags: 按文章数降序，同数量按字母升序
 	const keys: string[] = Object.keys(countMap).sort((a, b) => {
+		const diff = countMap[b] - countMap[a];
+		if (diff !== 0) return diff;
 		return a.toLowerCase().localeCompare(b.toLowerCase());
 	});
 

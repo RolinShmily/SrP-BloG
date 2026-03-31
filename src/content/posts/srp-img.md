@@ -4,6 +4,9 @@ published: 2026-03-11
 pinned: false
 description: 基于Cloudflare Pages/Workers部署的无限流量、零成本、多分类随机图片解决方案。
 image: ../assets/images/2026-03-11-22-42.png
+tags:
+  - Cloudflare
+  - 部署
 draft: false
 lang: ""
 ---
