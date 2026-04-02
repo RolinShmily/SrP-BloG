@@ -4,7 +4,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 
 import ConfigCarrier from "@components/ConfigCarrier.astro";
-import { profileConfig, siteConfig} from "@/config";
+import { profileConfig, siteConfig, umamiConfig} from "@/config";
 import {
 	AUTO_MODE,
 	BANNER_HEIGHT,
@@ -114,9 +114,20 @@ const bannerOffset =
 		))}
 
         <!-- umami_analyze跟踪代码 -->
-        <script defer src="https://umami.srprolin.top/script.js" data-website-id="782f967d-d06d-42b7-88ed-85defd1ddef1" data-swup-ignore-script></script>
-        <!-- umami逆向工程js -->
-		<script src="/js/umami-share.js" defer></script>
+        <script defer src="https://umami.srprolin.top/script.js" data-website-id="9eec586b-dc4f-4a84-a831-d4f1463c3d71" data-swup-ignore-script></script>
+        <!-- umami 全局配置（管理器初始化需要） -->
+        <script is:inline define:vars={{umamiConfig}}>
+            window.__UMAMI_CONFIG__ = {
+                enable: umamiConfig.enable,
+                baseUrl: umamiConfig.baseUrl,
+                shareId: umamiConfig.shareId,
+                timezone: umamiConfig.timezone
+            };
+        </script>
+        <!-- umami 逆向工程 js -->
+		<script defer src="/js/umami-share.js" data-swup-ignore-script></script>
+        <!-- umami 集中式统计管理器 -->
+		<script defer src="/js/umami-stats-manager.js" data-swup-ignore-script></script>
         <!-- 百度统计代码 -->
 		<script is:inline>
 			var _hmt = _hmt || [];

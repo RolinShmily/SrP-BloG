@@ -14,7 +14,7 @@ import { LinkPreset } from "./types/config";
 export const umamiConfig: UmamiConfig = {
   enable: true,
   baseUrl: "https://umami.srprolin.top",
-  shareId: "UiFLP8hXMRLuRR5T",
+  shareId: "GtKefwdonkOgToNA",
   timezone: "Asia/Shanghai",
 };
 

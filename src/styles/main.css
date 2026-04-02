@@ -171,3 +171,14 @@
 .shiny-text.disabled {
   animation: none;
 }
+
+/* umami 统计数字占位符样式 */
+[data-umami-slug],
+[data-umami-site] {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+[data-umami-slug].umami-loaded,
+[data-umami-site].umami-loaded {
+    opacity: 1;
+}

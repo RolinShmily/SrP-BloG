@@ -17,7 +17,7 @@ import { cmsEditConfig, gitHubEditConfig, licenseConfig } from "src/config";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import PostUpdateNotice from "../../components/widget/PostUpdateNotice.astro";
-import { profileConfig, siteConfig, umamiConfig } from "../../config";
+import { profileConfig, siteConfig } from "../../config";
 import {
 	formatDateToYYYYMMDD,
 	formatPostDateForDisplay,
@@ -348,83 +348,6 @@ const jsonLd = {
 
     // 支持 Swup 页面切换
     document.addEventListener('swup:contentReplaced', setupImageLoading);
-</script>
-
-<script define:vars={{ umamiConfig, postUrl: getPostUrlBySlug(entry.slug) }}>
-    // 数字动画函数
-    function animateValue(obj, start, end, duration) {
-        let startTimestamp = null;
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            obj.innerHTML = Math.floor(progress * (end - start) + start);
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
-            } else {
-                obj.innerHTML = end;
-            }
-        };
-        window.requestAnimationFrame(step);
-    }
-
-    // 标记是否正在swup跳转
-    let isSwupNavigating = false;
-
-    async function loadPageViews() {
-        if (!umamiConfig.enable) return;
-        try {
-            const element = document.getElementById('post-pageviews');
-            if (!element) return;
-
-            // 使用 sessionStorage 存储之前显示的值
-            const cacheKey = `post-pageviews-${postUrl}`;
-
-            // 如果不是swup跳转，清除缓存（刷新时需要重新播放动画）
-            if (!isSwupNavigating) {
-                sessionStorage.removeItem(cacheKey);
-            }
-
-            const cachedViews = sessionStorage.getItem(cacheKey);
-
-            // 如果有缓存（swup跳转），先立即显示缓存值
-            if (cachedViews !== null) {
-                element.innerHTML = cachedViews;
-            }
-
-            const statsData = await fetchUmamiStats(umamiConfig.baseUrl, umamiConfig.shareId, {
-                url: postUrl,
-                timezone: umamiConfig.timezone
-            });
-
-            const pageviews = (statsData.pageviews && statsData.pageviews.value) || statsData.pageviews || 0;
-
-            const startVal = parseInt(element.textContent) || 0;
-
-            if (startVal !== pageviews) {
-                // 只有缓存不存在时才播放动画（刷新或首次加载）
-                if (cachedViews === null) {
-                    animateValue(element, startVal, pageviews, 1000);
-                } else {
-                    element.innerHTML = pageviews;
-                }
-            } else {
-                element.innerHTML = pageviews;
-            }
-
-            // 保存到 sessionStorage
-            sessionStorage.setItem(cacheKey, pageviews);
-        } catch (error) {
-            console.error('获取页面访问量失败:', error);
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', loadPageViews);
-    // 监听swup事件
-    document.addEventListener('swup:contentReplaced', () => {
-        isSwupNavigating = true;
-        loadPageViews();
-        setTimeout(() => { isSwupNavigating = false; }, 100);
-    });
 </script>
 
 <style is:global>
