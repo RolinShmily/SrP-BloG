@@ -40,6 +40,38 @@ sudo sh install-docker.sh
 sudo systemctl start docker
 ```
 
+阿里云服务器参考教程:
+```zsh
+#删除Docker相关源
+sudo rm -f /etc/apt/sources.list.d/*docker*.list
+#卸载Docker和相关的软件包
+for pkg in docker.io docker-buildx-plugin docker-ce-cli docker-ce-rootless-extras docker-compose-plugin docker-doc docker-compose podman-docker containerd runc; do sudo apt-get remove -y $pkg; done
+
+#添加 GPG 密钥
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL http://mirrors.cloud.aliyuncs.com/docker-ce/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+#将该软件源添加到 Apt 源列表中。
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: http://mirrors.cloud.aliyuncs.com/docker-ce/linux/debian
+Suites: $(. /etc/os-release && echo "$VERSION_CODENAME")
+Components: stable
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+#安装Docker社区版本，容器运行时containerd.io，以及Docker构建和Compose插件
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+#启动Docker
+sudo systemctl start docker
+#设置Docker守护进程在系统启动时自动启动
+sudo systemctl enable docker
+```
+
 ## ArchLinux安装docker
 ```zsh
 # 使用pacman直接安装
