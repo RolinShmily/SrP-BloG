@@ -26,7 +26,7 @@ LGnewUI-2采用授权下载方式，需要在 [LGNewUi-Auth - 情侣小站在线
 
 # Docker的安装配置
 
-参考阿里云给出的文档,按序执行即可:
+参考[阿里云给出的文档](https://help.aliyun.com/zh/ecs/user-guide/install-and-use-docker),按序执行即可:
 ```zsh
 #删除Docker相关源
 sudo rm -f /etc/apt/sources.list.d/*docker*.list
