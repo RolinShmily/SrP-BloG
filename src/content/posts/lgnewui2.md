@@ -347,7 +347,7 @@ docker restart php74-fpm
 
 ## 路径权限问题
 
-在上文中，**PHP** 的挂载路径为`/var/www/love`，而docker容器的权限身份一般是`uid=33(www-data) gid=33(www-data) groups=33(www-data)`，需要保持路径所属身份一致：
+在上文中，**PHP** 的挂载路径为`/var/www/`，而docker容器的权限身份一般是`uid=33(www-data) gid=33(www-data) groups=33(www-data)`，需要保持路径所属身份一致：
 ```zsh
 # 确认容器权限身份，一般为uid=33(www-data) gid=33(www-data) groups=33(www-data)
 docker exec php74-fpm id www-data
@@ -355,7 +355,7 @@ docker exec php74-fpm id www-data
 sudo groupadd -g 33 www-data 2>/dev/null
 sudo useradd -u 33 -g 33 -M -s /sbin/nologin www-data 2>/dev/null
 # 2. 设置项目目录所有者
-sudo chown -R 33:33 /var/www/love/
+sudo chown -R 33:33 /var/www/
 ```
 
 ## MySQL数据库填写
