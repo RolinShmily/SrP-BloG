@@ -237,6 +237,8 @@ server {
         fastcgi_param PATH_INFO $path_info;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param REMOTE_ADDR $remote_addr;
+        fastcgi_param HTTP_X_FORWARDED_FOR $proxy_add_x_forwarded_for;
     }
 
     location / {
