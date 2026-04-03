@@ -612,13 +612,6 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
-  "crosshair_view.md": [
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
-    }
-  ],
   "davinci-smb.md": [
     {
       "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
@@ -639,6 +632,13 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
+    }
+  ],
+  "crosshair_view.md": [
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "docker-mc.md": [
@@ -668,19 +668,19 @@
       "message": "posts: 发布文章docker-mc"
     }
   ],
-  "draft.md": [
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
   "expressive-code.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
       "message": "将向导文章设置为草稿"
     },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "draft.md": [
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
@@ -719,6 +719,23 @@
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
+    }
+  ],
+  "lgnewui2.md": [
+    {
+      "hash": "831010b2ce1f3fd910c4536b1714e00af8b94604",
+      "date": "2026-04-03 16:39:49 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
+    {
+      "hash": "54dd43fa74ddfd3bc31c749dc7f2eeb33b42e583",
+      "date": "2026-04-03 16:32:50 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
+    {
+      "hash": "da303a2885d34daefb4649ecd98e1c3c80c4ff8c",
+      "date": "2026-04-03 16:17:38 +0800",
+      "message": "CMS:Update Posts \"lgnewui2\""
     }
   ],
   "mac-mc-1.md": [
@@ -761,18 +778,6 @@
       "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
       "date": "2025-12-07 18:37:35 +0800",
       "message": "docs(post):mac-mc-1发布"
-    }
-  ],
-  "lgnewui2.md": [
-    {
-      "hash": "54dd43fa74ddfd3bc31c749dc7f2eeb33b42e583",
-      "date": "2026-04-03 16:32:50 +0800",
-      "message": "CMS:Update Posts “lgnewui2”"
-    },
-    {
-      "hash": "da303a2885d34daefb4649ecd98e1c3c80c4ff8c",
-      "date": "2026-04-03 16:17:38 +0800",
-      "message": "CMS:Update Posts \"lgnewui2\""
     }
   ],
   "markdown-extended.md": [
@@ -831,23 +836,6 @@
       "message": "docs(post):mac-mc-2发布"
     }
   ],
-  "pytorch-2.md": [
-    {
-      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
-      "date": "2026-04-03 01:53:04 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
-      "date": "2026-03-20 12:50:13 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
-      "date": "2026-03-20 12:41:16 +0800",
-      "message": "doc(post): 深度学习框架的安装"
-    }
-  ],
   "script-1.md": [
     {
       "hash": "abf909ff4730780d1289de42c46d9c37b3061fd6",
@@ -863,6 +851,23 @@
       "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
       "date": "2026-03-12 22:57:02 +0800",
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
+    }
+  ],
+  "pytorch-2.md": [
+    {
+      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
+      "date": "2026-04-03 01:53:04 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
+      "date": "2026-03-20 12:50:13 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
+      "date": "2026-03-20 12:41:16 +0800",
+      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "srp-img.md": [
