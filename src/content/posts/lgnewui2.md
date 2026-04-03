@@ -188,6 +188,9 @@ sudo certbot certonly --nginx -d <your-domain>
 # 编辑配置(参考下文)
 sudo nano /etc/nginx/sites-available/default
 
+# 创建启用软链接
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
 # 测试配置格式正确否
 nginx -t
 
