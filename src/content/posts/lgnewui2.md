@@ -178,11 +178,14 @@ mkdir /var/www/love
 cd /var/www/love
 # 随后通过SFTP等工具上传源码至此
 ```
-使用certbot申请ssl证书：
+使用certbot申请ssl证书(确保域名都已在DNS处解析过)：
 ```zsh
-# 将<your-domain>更换为你的站点域名
-sudo certbot certonly --nginx -d <your-domain>
+# 将<your-main-domain>更换为你的主要站点域名；将<your-origin-domain>更换为cdn源站域名
+sudo certbot certonly --nginx -d <your-main-domain> -d <your-origin-domain>
 ```
+- `<your-main-domain>`示例: `love.example.com` | 作为主要访问地址
+- `<your-origin-domain>`示例: `origin-love.example.com` | 作为CDN源站回源地址
+
 编辑Nginx配置文件，并上线网站:
 ```zsh
 # 编辑配置(参考下文)
@@ -197,15 +200,13 @@ nginx -t
 # 重载nginx使配置生效
 sudo systemctl reload nginx
 ```
-Nginx(LGnewUI-2)配置文件(将`<your-origin-domain>`、`<your-main-domain>`替换为自定义域名)：
-- `<your-origin-domain>`示例: `origin-love.example.com`
-- `<your-main-domain>`示例: `love.example.com` (这也是certbot申请SSL的域名)
+Nginx(LGnewUI-2)配置文件(将`<your-origin-domain>`、`<your-main-domain>`替换为自定义域名):
 
 ```ini
 # ==================== Love站点 - HTTP ====================
 server {
     listen 80;
-    server_name <your-origin-domain>;
+    server_name <your-main-domain> <your-origin-domain> ;
 
     # HTTP自动跳转HTTPS
     return 301 https://$host$request_uri;
@@ -214,7 +215,7 @@ server {
 # ==================== Love站点 - HTTPS ====================
 server {
     listen 443 ssl http2;
-    server_name <your-main-domain>;
+    server_name <your-main-domain>  <your-origin-domain>;
 
     ssl_certificate /etc/letsencrypt/live/<your-main-domain>/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/<your-main-domain>/privkey.pem;
