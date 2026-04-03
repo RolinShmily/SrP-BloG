@@ -337,6 +337,9 @@ apt-get install -y libmagickwand-dev --no-install-recommends
 pecl install imagick
 docker-php-ext-enable imagick
 
+# mysql-client(mysqldump)
+apt-get install -y default-mysql-client
+
 # FFmpeg
 apt-get install -y ffmpeg --no-install-recommends
 
