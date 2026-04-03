@@ -1,12 +1,17 @@
 ---
 title: LGnewUI-2 部署 | Docker | PHP | MySQL | Nginx | Certbot
 published: 2026-04-03
-description: '基于docker部署的PHP站点，使用MySQL数据库，并以Nginx作为反向代理上线。'
-image: '../assets/images/2026-04-03-16-16.png'
-tags: [Docker,Nginx,PHP,MySQL,Certbot]
-category: ''
-draft: false 
-lang: ''
+description: 基于docker部署的PHP站点，使用MySQL数据库，并以Nginx作为反向代理上线。
+image: ../assets/images/2026-04-03-16-16.png
+tags:
+  - Docker
+  - Nginx
+  - PHP
+  - MySQL
+  - Certbot
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接
 
@@ -349,4 +354,28 @@ sudo useradd -u 33 -g 33 -M -s /sbin/nologin www-data 2>/dev/null
 # 2. 设置项目目录所有者
 sudo chown -R 33:33 /var/www/love/
 ```
+
+## MySQL数据库填写
+在上文的**compose**文件中，已经创建了一个数据库：
+- 地址：`mysql57`
+- 库名：`LGnewUI2`
+- 用户：`root`
+- 密码：`yourpassword`
+
+## 和风天气API--生成Ed25519密钥对
+```zsh
+cd ~
+# 生成私钥文件
+openssl genpkey -algorithm Ed25519 -out private.pem
+# 导出公钥文件
+openssl pkey -in private.pem -pubout -out public.pem
+# 查看内容
+cat private.pem
+cat public.pem
+```
+
+# 其他
+- [DBeaver](https://dbeaver.io/) | 数据库管理(此处可用来转移、备份MySQL)
+- [WinSCP](https://winscp.net/eng/docs/lang:chs) | SFTP工具(上传文件到服务器)
+- [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html) | SSH工具(连接服务器、编辑文件)
 
