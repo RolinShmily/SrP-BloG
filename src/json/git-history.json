@@ -389,6 +389,23 @@
       "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
+  "Minecraft-1.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
+      "date": "2025-10-26 14:21:03 +0800",
+      "message": "移植文章Minecraft-1"
+    }
+  ],
   "Markdown-1.md": [
     {
       "hash": "614de8ec92d7fa352219453a9e9da391ef35e95a",
@@ -409,23 +426,6 @@
       "hash": "e852ffe7c3ae86627b71638dbe8da1fe03fe1971",
       "date": "2025-10-26 21:14:35 +0800",
       "message": "post:Markdown-1"
-    }
-  ],
-  "Minecraft-1.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
-      "date": "2025-10-26 14:21:03 +0800",
-      "message": "移植文章Minecraft-1"
     }
   ],
   "OBS-1.md": [
@@ -727,6 +727,11 @@
     }
   ],
   "lgnewui2.md": [
+    {
+      "hash": "ee7b6c2170de04fdb933736c3517156900acf640",
+      "date": "2026-04-04 11:43:01 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
     {
       "hash": "3902951046992130383ccbfa43aa1e860ba5d2f7",
       "date": "2026-04-04 10:44:31 +0800",
