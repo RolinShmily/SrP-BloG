@@ -223,6 +223,9 @@ server {
     listen 443 ssl http2;
     server_name <your-main-domain> <your-origin-domain>;
 
+    real_ip_header X-Forwarded-For;
+    real_ip_recursive on;
+
     ssl_certificate /etc/letsencrypt/live/<your-main-domain>/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/<your-main-domain>/privkey.pem;
 
