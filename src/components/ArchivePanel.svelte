@@ -115,7 +115,7 @@ function filterPosts() {
 onMount(() => {
 	const params = new URLSearchParams(window.location.search);
 	activeTags = params.getAll("tag");
-	if (activeTags.length > 0) {
+	if (activeTags.length > 0 || params.get("expanded") === "true") {
 		expanded = true;
 	}
 	filterPosts();
@@ -125,7 +125,7 @@ onMount(() => {
 <!-- 标签过滤区 -->
 {#if allTags && allTags.length > 0}
 <div class="card-base px-6 py-4 mb-4">
-    <div class="flex items-center gap-2 overflow-hidden">
+    <div class="flex items-start gap-2 overflow-hidden">
         <!-- 标签容器：折叠时一行裁剪，展开时自动换行 -->
         <div class="flex flex-wrap items-center gap-2 min-w-0 flex-1 {expanded ? '' : 'max-h-[2.25rem] overflow-hidden'}" transition:max-height duration-300>
             {#each allTags as tag}
@@ -141,31 +141,36 @@ onMount(() => {
                 </button>
             {/each}
         </div>
-        <!-- 操作按钮：嵌入背景，shrink-0 保证始终在行末 -->
-        {#if activeTags.length > 0}
-            <button
-                class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg transition-all
-                    bg-black/[0.06] dark:bg-white/[0.06] text-red-400 border border-black/5 dark:border-white/10 hover:bg-red-50 dark:hover:bg-red-950 hover:text-red-500 hover:border-red-300 dark:hover:border-red-800"
-                on:click={clearTags}
-                title="清除筛选"
-            >
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-            </button>
-        {/if}
-        {#if allTags.length > 6}
-            <button
-                class="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg transition-all
-                    bg-black/[0.06] dark:bg-white/[0.06] text-[var(--primary)] border border-black/5 dark:border-white/10 hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)]"
-                on:click={() => expanded = !expanded}
-                title={expanded ? '收起' : '展开'}
-            >
-                {#if expanded}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
-                {:else}
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-                {/if}
-            </button>
-        {/if}
+        <!-- 操作按钮：始终锚定在第一行末尾 -->
+        <div class="shrink-0 flex items-center gap-2 h-9">
+            {#if activeTags.length > 0}
+                <button
+                    class="w-8 h-8 flex items-center justify-center rounded-lg transition-all
+                        bg-black/[0.06] dark:bg-white/[0.06] text-red-400 border border-black/5 dark:border-white/10 hover:bg-red-50 dark:hover:bg-red-950 hover:text-red-500 hover:border-red-300 dark:hover:border-red-800"
+                    on:click={clearTags}
+                    title="清除筛选"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                </button>
+            {:else}
+                <!-- 占位：保留删除按钮的位置 -->
+                <div class="w-8 h-8"></div>
+            {/if}
+            {#if allTags.length > 6}
+                <button
+                    class="w-8 h-8 flex items-center justify-center rounded-lg transition-all
+                        bg-black/[0.06] dark:bg-white/[0.06] text-[var(--primary)] border border-black/5 dark:border-white/10 hover:bg-[var(--primary)] hover:text-white hover:border-[var(--primary)]"
+                    on:click={() => expanded = !expanded}
+                    title={expanded ? '收起' : '展开'}
+                >
+                    {#if expanded}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+                    {:else}
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    {/if}
+                </button>
+            {/if}
+        </div>
     </div>
 </div>
 {/if}
