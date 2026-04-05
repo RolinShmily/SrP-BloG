@@ -15,7 +15,7 @@
   "name": "SrP-BloG",
   "url": "https://blog.srprolin.top/",
   "description": "如无必要，勿增实体。",
-  "avatar": "https://blog.srprolin.top/favicon/favicon.ico"
+  "avatar": "https://blog.srprolin.top/favicon/favicon.ico",
   "backlink": "https://blog.srprolin.top/frlinks/"
 }
 ```
