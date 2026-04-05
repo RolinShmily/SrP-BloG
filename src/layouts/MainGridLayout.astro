@@ -105,7 +105,7 @@ const mainPanelTop = siteConfig.banner.enable
         <CommentButton></CommentButton>
         <BackToTop></BackToTop>
         {siteConfig.toc.enable && showToc && <MobileTOC headings={headings} />}
-        {!siteConfig.toc.enable && <div id="mobile-toc-content" class="hidden"></div>}
+        {!(siteConfig.toc.enable && showToc) && <div id="mobile-toc-content" class="hidden"></div>}
     </div>
 </div>
 

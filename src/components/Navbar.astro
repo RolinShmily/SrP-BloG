@@ -30,6 +30,19 @@ let links: NavBarLink[] = navBarConfig.links.map(
                 {siteConfig.title}
             </div>
         </a>
+        <!-- Mobile: show first 3 nav links in center -->
+        <div class="flex md:hidden">
+            {links.slice(1, 4).map((l) => {
+                return <a aria-label={l.name} href={l.external ? l.url : url(l.url)} target={l.external ? "_blank" : null}
+                          class="btn-plain scale-animation rounded-lg h-11 font-bold px-3 active:scale-95 text-sm"
+                >
+                    <div class="flex items-center">
+                        {l.name}
+                    </div>
+                </a>;
+            })}
+        </div>
+        <!-- Desktop: show all nav links -->
         <div class="hidden md:flex">
             {links.map((l) => {
                 return <a aria-label={l.name} href={l.external ? l.url : url(l.url)} target={l.external ? "_blank" : null}
