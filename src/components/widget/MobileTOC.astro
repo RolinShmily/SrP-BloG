@@ -1,0 +1,173 @@
+---
+import type { MarkdownHeading } from "astro";
+import { Icon } from "astro-icon/components";
+import TOC from "./TOC.astro";
+
+interface Props {
+    headings: MarkdownHeading[];
+}
+
+const { headings = [] } = Astro.props;
+---
+
+<!-- Mobile TOC FAB + Bottom Sheet (hidden on desktop) -->
+<div class="mobile-toc lg:hidden">
+
+    <!-- FAB Button -->
+    <button id="mobile-toc-fab" aria-label="Open Table of Contents"
+        class:list={["mobile-toc-fab btn-card flex items-center justify-center rounded-full transition",
+            {"hide": headings.length === 0}]}
+    >
+        <Icon name="material-symbols:toc-rounded" class="mobile-toc-fab-icon"></Icon>
+    </button>
+
+    <!-- Overlay -->
+    <div id="mobile-toc-overlay" class="mobile-toc-overlay"></div>
+
+    <!-- Bottom Sheet Panel -->
+    <div id="mobile-toc-panel" class="mobile-toc-panel">
+        <!-- Header -->
+        <div class="mobile-toc-header">
+            <span class="text-sm font-bold text-50">目录</span>
+            <button id="mobile-toc-close" aria-label="Close Table of Contents" class="mobile-toc-close">
+                <Icon name="material-symbols:close-rounded" class="text-lg"></Icon>
+            </button>
+        </div>
+        <!-- TOC Content — Swup replaces this container on navigation -->
+        <div id="mobile-toc-content" class="mobile-toc-content">
+            {headings.length > 0 && <TOC headings={headings} />}
+        </div>
+    </div>
+
+</div>
+
+<style lang="stylus">
+.mobile-toc-fab
+    position: fixed
+    bottom: calc(9.5rem + env(safe-area-inset-bottom, 0px))
+    right: 1.5rem
+    width: 3rem
+    height: 3rem
+    color: var(--primary)
+    z-index: 40
+    cursor: pointer
+    pointer-events: auto
+    opacity: 1
+    &.hide
+        transform: translateY(1rem) scale(0.9)
+        opacity: 0
+        pointer-events: none
+
+.mobile-toc-fab-icon
+    font-size: 1.5rem
+
+.mobile-toc-overlay
+    position: fixed
+    inset: 0
+    background: rgba(0, 0, 0, 0.4)
+    z-index: 45
+    opacity: 0
+    pointer-events: none
+    transition: opacity 0.3s ease
+    &.open
+        opacity: 1
+        pointer-events: auto
+
+.mobile-toc-panel
+    position: fixed
+    bottom: 0
+    left: 0
+    right: 0
+    max-height: 70vh
+    background: var(--float-panel-bg-opaque)
+    border-radius: 1rem 1rem 0 0
+    z-index: 45
+    transform: translateY(100%)
+    transition: transform 0.3s ease
+    overflow: hidden
+    display: flex
+    flex-direction: column
+    &.open
+        transform: translateY(0)
+
+.mobile-toc-header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    padding: 0.75rem 1rem
+    border-bottom: 1px solid var(--line-divider)
+    flex-shrink: 0
+
+.mobile-toc-close
+    color: var(--primary)
+    cursor: pointer
+    padding: 0.25rem
+    border-radius: 0.5rem
+    transition: background 0.15s ease
+    &:hover
+        background: var(--toc-btn-hover)
+
+.mobile-toc-content
+    overflow-y: auto
+    overflow-x: hidden
+    padding: 0.5rem 0.75rem
+    -webkit-overflow-scrolling: touch
+    flex: 1
+
+</style>
+
+<script is:inline>
+(function initMobileTOC() {
+    const fab = document.getElementById('mobile-toc-fab');
+    const overlay = document.getElementById('mobile-toc-overlay');
+    const panel = document.getElementById('mobile-toc-panel');
+    const closeBtn = document.getElementById('mobile-toc-close');
+
+    if (!fab || !overlay || !panel || !closeBtn) return;
+
+    function openDrawer() {
+        overlay.classList.add('open');
+        panel.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+        overlay.classList.remove('open');
+        panel.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    // Remove old listeners by cloning (avoids duplicates on re-init)
+    const newFab = fab.cloneNode(true);
+    fab.parentNode.replaceChild(newFab, fab);
+    const newOverlay = overlay.cloneNode(true);
+    overlay.parentNode.replaceChild(newOverlay, overlay);
+    const newCloseBtn = closeBtn.cloneNode(true);
+    closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+
+    newFab.addEventListener('click', openDrawer);
+    newOverlay.addEventListener('click', closeDrawer);
+    newCloseBtn.addEventListener('click', closeDrawer);
+
+    // Close drawer when clicking a TOC link
+    panel.addEventListener('click', function(e) {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (anchor) {
+            closeDrawer();
+        }
+    });
+
+    // After Swup replaces #mobile-toc-content, update FAB visibility
+    const contentEl = document.getElementById('mobile-toc-content');
+    if (contentEl) {
+        const hasContent = contentEl.querySelector('table-of-contents');
+        if (hasContent) {
+            newFab.classList.remove('hide');
+        } else {
+            newFab.classList.add('hide');
+        }
+    }
+
+    document.addEventListener('swup:contentReplaced', initMobileTOC);
+})();
+</script>

@@ -3,9 +3,9 @@ import { Icon } from "astro-icon/components";
 ---
 
 <!-- There can't be a filter on parent element, or it will break `fixed` -->
-<div class="comment-btn-wrapper hidden lg:block">
-    <div id="comment-btn" class="comment-btn hide flex items-center rounded-2xl overflow-hidden transition" onclick="scrollToComment()">
-        <button aria-label="Scroll to Comments" class="btn-card h-[3.75rem] w-[3.75rem]">
+<div class="comment-btn-wrapper">
+    <div id="comment-btn" class="comment-btn hide flex items-center justify-center rounded-full lg:rounded-2xl overflow-hidden transition" onclick="scrollToComment()">
+        <button aria-label="Scroll to Comments" class="btn-card h-[3rem] w-[3rem] lg:h-[3.75rem] lg:w-[3.75rem]">
             <Icon name="mingcute:comment-fill" class="mx-auto"></Icon>
         </button>
     </div>
@@ -13,12 +13,15 @@ import { Icon } from "astro-icon/components";
 
 <style lang="stylus">
 .comment-btn-wrapper
-    width: 3.75rem
-    height: 3.75rem
     position: absolute
     right: 0
     top: 0
     pointer-events: none
+    width: 3rem
+    height: 3rem
+    @media (min-width: 1024px)
+        width: 3.75rem
+        height: 3.75rem
 
 .comment-btn
     color: var(--primary)
@@ -26,19 +29,32 @@ import { Icon } from "astro-icon/components";
     font-weight: bold
     border: none
     position: fixed
-    bottom: 14.5rem
     opacity: 1
     cursor: pointer
-    transform: translateX(5rem)
     pointer-events: auto
+    z-index: 40
+    // Mobile: independent fixed position at bottom-right
+    bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px))
+    right: 1.5rem
+    transform: translateY(0)
+    transition: opacity 0.3s ease, transform 0.3s ease
     i
         font-size: 1.75rem
     &.hide
-        transform: translateX(5rem) scale(0.9)
+        transform: translateY(1rem) scale(0.9)
         opacity: 0
         pointer-events: none
     &:active
-      transform: translateX(5rem) scale(0.9)
+        transform: scale(0.9)
+    @media (min-width: 1024px)
+        right: auto
+        bottom: 14.5rem
+        transform: translateX(5rem)
+        transition: opacity 0.3s ease, transform 0.3s ease
+        &.hide
+            transform: translateX(5rem) scale(0.9)
+        &:active
+            transform: translateX(5rem) scale(0.9)
 
 </style>
 
@@ -52,23 +68,18 @@ function scrollToComment() {
 </script>
 
 <script is:inline>
-// 显示/隐藏按钮的逻辑 - 与 BackToTop 类似
+// Show/hide logic - similar to BackToTop
 function handleScroll() {
     const commentBtn = document.getElementById('comment-btn');
     const giscusContainer = document.getElementById('giscus-container');
 
     if (!commentBtn) return;
 
-    // 检查是否存在评论区
     const hasCommentSection = !!giscusContainer;
 
     if (hasCommentSection) {
-        // 获取评论区位置
         const rect = giscusContainer.getBoundingClientRect();
-        const commentTop = rect.top + window.pageYOffset;
-
-        // 滚动超过一定高度且评论区不在视口内时显示按钮
-        const scrollHeight = 200; // 与 BackToTop 相同的触发高度
+        const scrollHeight = 200;
         const isCommentVisible = rect.top < window.innerHeight && rect.bottom > 0;
 
         if ((window.pageYOffset > scrollHeight) && !isCommentVisible) {
@@ -77,7 +88,6 @@ function handleScroll() {
             commentBtn.classList.add('hide');
         }
     } else {
-        // 没有评论区时隐藏按钮
         commentBtn.classList.add('hide');
     }
 }
@@ -85,7 +95,6 @@ function handleScroll() {
 window.addEventListener('scroll', handleScroll);
 window.addEventListener('load', handleScroll);
 
-// Swup 页面切换时重新初始化
 document.addEventListener('swup:contentReplaced', () => {
     handleScroll();
 });

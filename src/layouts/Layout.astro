@@ -725,6 +725,7 @@ if (window?.swup?.hooks) {
 }
 
 let backToTopBtn = document.getElementById('back-to-top-btn');
+let mobileTocFab = document.getElementById('mobile-toc-fab');
 let toc = document.getElementById('toc-wrapper');
 let navbar = document.getElementById('navbar-wrapper')
 function scrollFunction() {
@@ -735,6 +736,14 @@ function scrollFunction() {
 			backToTopBtn.classList.remove('hide')
 		} else {
 			backToTopBtn.classList.add('hide')
+		}
+	}
+
+	if (mobileTocFab) {
+		if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+			mobileTocFab.classList.remove('hide')
+		} else {
+			mobileTocFab.classList.add('hide')
 		}
 	}
 
