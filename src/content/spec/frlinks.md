@@ -3,6 +3,7 @@
 - [重新捡起 RSS：RSSHub + FreshRSS 建立我的信息流 ── 亂筆](https://blog.l3zc.com/2023/07/rsshub-freshrss-information-flow/)
 - [VitePress 建站资源汇总 ── 唯知笔记](https://note.weizwz.com/vitepress/all/resource-all)
 - [你真的懂了浏览器跨域吗？COOP，COEP，CORP，CORS都是管什么的？ ── AcoFork](https://2x.nz/posts/coxp/)
+- [试试Cloudflare IP优选！让Cloudflare在国内再也不是减速器！ ── AcoFork](https://2x.nz/posts/cf-fastip/)
 - [SMTP 协议全过程：一封邮件从点击“发送”到抵达对方收件箱的旅程 ── 雪诺](https://blog.4365754.xyz/2026/03/smtp.html)
 - [跨平台的开源输入法Rime定制指南，打造强大的个性化输入法 ── Mintimate](https://www.mintimate.cn/2023/03/18/rimeQuickInit/)
 
