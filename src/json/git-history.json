@@ -467,33 +467,6 @@
       "message": "post:PyTorch环境搭建"
     }
   ],
-  "SrP-Sakura_Minecraft.md": [
-    {
-      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
-      "date": "2025-12-21 23:16:19 +0800",
-      "message": "docs(ssmc):修复文章外链错误，归档该文章"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
-      "date": "2025-11-06 21:41:52 +0800",
-      "message": "post:在文章中引入文档页"
-    },
-    {
-      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
-      "date": "2025-10-27 23:55:19 +0800",
-      "message": "post:添加百度网盘链接，删除SrP-Cloud"
-    },
-    {
-      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
-      "date": "2025-10-26 21:21:31 +0800",
-      "message": "post:Minecraft-2"
-    }
-  ],
   "SrP-CFG.md": [
     {
       "hash": "0d8e137941afdee014bd58355e8e970add4de563",
@@ -564,6 +537,33 @@
       "hash": "6241e9b6882c1abafbe941985d65541463ded92e",
       "date": "2025-10-26 20:15:36 +0800",
       "message": "post:SrP-CFG"
+    }
+  ],
+  "SrP-Sakura_Minecraft.md": [
+    {
+      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
+      "date": "2025-12-21 23:16:19 +0800",
+      "message": "docs(ssmc):修复文章外链错误，归档该文章"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
+      "date": "2025-11-06 21:41:52 +0800",
+      "message": "post:在文章中引入文档页"
+    },
+    {
+      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
+      "date": "2025-10-27 23:55:19 +0800",
+      "message": "post:添加百度网盘链接，删除SrP-Cloud"
+    },
+    {
+      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
+      "date": "2025-10-26 21:21:31 +0800",
+      "message": "post:Minecraft-2"
     }
   ],
   "Zerotier-1.md": [
@@ -732,6 +732,11 @@
     }
   ],
   "lgnewui2.md": [
+    {
+      "hash": "6bbdabad530d8b4bdf8ae4447391d9f44e8c2079",
+      "date": "2026-04-08 22:59:53 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
     {
       "hash": "ab118ac89a22c6fbde8f295d73dfcdaf5247d6eb",
       "date": "2026-04-05 15:19:47 +0800",
