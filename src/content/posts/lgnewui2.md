@@ -387,6 +387,18 @@ cat private.pem
 cat public.pem
 ```
 
+## 获取CDN客户端真实IP
+在Nginx配置文件的`Server`字段中，添加如下配置：
+```ini
+set_real_ip_from 0.0.0.0/0;
+real_ip_header X-Forwarded-For;
+real_ip_recursive on;
+```
+具体功能：
+- 接受来自所有IP的请求(理论上该使用场景只需填写CDN的IP段)
+- 从`X-Forwarded-For`请求头获取真实IP
+- 递归搜索，从右向左排除所有信任IP段，取第一个不信任IP(当前配置下默认取最左侧第一个IP，通常为CDN自动填写的客户端真实IP)
+
 # 其他
 - [DBeaver](https://dbeaver.io/) | 数据库管理(此处可用来转移、备份MySQL)
 - [WinSCP](https://winscp.net/eng/docs/lang:chs) | SFTP工具(上传文件到服务器)
