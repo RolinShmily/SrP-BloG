@@ -1,13 +1,13 @@
-::url{href="https://cf.090227.xyz/"}
-::url{href="https://ghproxy.link/"}
-::url{href="https://w01.qytweba03.cc/dashboard"}
-::url{href="https://xmrth1.net/"}
-::url{href="https://sms-activate.ru/"}
-::url{href="https://justmysocks3.net/"}
-::url{href="https://www.v2fly.org/"}
-::url{href="https://blog.cmliussss.com/p/SUBAPI/"}
-::url{href="https://blog.cmliussss.com/p/edt2/"}
-::url{href="https://web.269601.xyz/admin/"}
+- [CM优选域名](https://cf.090227.xyz/)
+- [Github代理站](https://ghproxy.link/)
+- [青云梯机场](https://w01.qytweba03.cc/dashboard)
+- [Xmrth机场](https://xmrth1.net/)
+- [SMS虚拟接码平台](https://sms-activate.ru/)
+- [socks3搭建](https://justmysocks3.net/)
+- [V2fly社区](https://www.v2fly.org/)
+- [SubAPI搭建 - CM](https://blog.cmliussss.com/p/SUBAPI/)
+- [EdgeTunnel2 - CM](https://blog.cmliussss.com/p/edt2/)
 
+- [web.269601.xyz](https://web.269601.xyz/admin/)
 - [V2rayN_Windows-x64_Ver7.17.3_GithubOrigin](https://github.com/2dust/v2rayN/releases/download/7.17.3/v2rayN-windows-64.zip)
 - [V2rayNG_Android-arm64_Ver1.10.32_GithubOrigin](https://github.com/2dust/v2rayNG/releases/download/1.10.32/v2rayNG_1.10.32_arm64-v8a.apk)
