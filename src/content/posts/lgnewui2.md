@@ -91,42 +91,62 @@ docker save -o <path>/<name>.tar <image_name>
 docker load -i <path>/<name>.tar
 ```
 
-# PHP、MySQL的compose配置
+# MySQL的compose配置
 
 ```zsh
 # 创建docker文件夹
-mkdir ~/php74
 mkdir ~/mysql57
 
-# 编辑php的docker-compose(参考下文给出的yml)
-nano ~/php74/docker-compose.yml
+# 创建 MySQL 自定义优化配置文件(参考下文给出的 low-memory.cnf)
+sudo mkdir -p /data/mysql/conf
+sudo nano /data/mysql/conf/low-memory.cnf
 
-# 编辑mysql的docker-compose(参考下文给出的yml)
+# 编辑mysql的docker-compose(参考下文给出的 docker-compose.yml)
 nano ~/mysql57/docker-compose.yml
 ```
 
-**php7.4-fpm** 配置示例：
-```yaml
-version: '3.9'
-services:
-    php:
-        image: 'php:7.4-fpm'
-        ports:
-            - '9000:9000'
-        volumes:
-            - '/var/www:/var/www'
-        restart: always
-        container_name: php74-fpm
+```ini
+# low-memory.cnf
+[mysqld]
+# ===== 内存核心调优 =====
+innodb_buffer_pool_size = 256M
+innodb_buffer_pool_instances = 1
+
+# ===== 连接优化 =====
+max_connections = 30            
+thread_cache_size = 4
+table_open_cache = 64
+table_definition_cache = 256
+
+# ===== 临时表和排序 =====
+tmp_table_size = 16M
+max_heap_table_size = 16M
+sort_buffer_size = 256K        
+join_buffer_size = 256K
+read_buffer_size = 128K
+read_rnd_buffer_size = 128K
+
+# ===== 日志优化 =====
+innodb_log_file_size = 32M
+innodb_log_buffer_size = 4M
+sync_binlog = 0                 
+
+# ===== 其他 =====
+performance_schema = OFF        
+innodb_flush_method = O_DIRECT
+skip-name-resolve    
 ```
 
-**mysql5.7** 配置示例:
 ```yaml
+# docker-compose.yml
 version: '3.9'
 services:
     mysql:
         image: 'mysql:5.7.44'
         volumes:
             - '/data/mysql:/var/lib/mysql'
+            # 优化配置文件
+            - '/data/mysql/conf:/etc/mysql/conf.d'
         environment:
             - MYSQL_DATABASE=LGnewUI2
             - MYSQL_ROOT_PASSWORD=yourpassword
@@ -134,12 +154,23 @@ services:
             - '3306:3306'
         restart: always
         container_name: mysql57
+        # 内存限制(优化)
+        deploy:
+            resources:
+                limits:
+                    memory: 512M
+                reservations:
+                    memory: 256M
+        # MySQL启动参数(优化)
+        command: >
+            --character-set-server=utf8mb4
+            --collation-server=utf8mb4_general_ci
+            --default-storage-engine=InnoDB
 ```
 
 可以先拉取镜像，或者参考上一节的内容，加载离线镜像包:
 ```zsh
 # 拉取镜像 (方式1)
-sudo docker pull php:7.4-fpm
 sudo docker pull mysql:5.7.44
 
 # 加载镜像 (方式2)
@@ -148,14 +179,157 @@ sudo docker load -i <path>/<name>.tar
 
 随后就可以启用容器了:
 ```zsh
-cd ~/php74
-sudo docker compose up -d
-
 cd ~/mysql57
 sudo docker compose up -d
 ```
 
-现在需要创建docker网络，用于连通php与mysql：
+# PHP-FPM的compose配置
+> 笔者已将构建好的镜像 `rol1n/lgnewui2-php74-fpm:latest` 上传至 Docker Hub
+由于需要安装PHP的一些拓展和依赖，纯净的官方镜像并不能满足需求，所以需要：
+- 从 `Dockerfile` 配置本地构建新镜像
+
+```zsh
+# 创建docker文件夹
+mkdir ~/php74-fpm
+
+# 拉取官方纯净镜像
+sudo docker pull php:7.4-fpm
+
+# 将SourceGuardian加密文件放进构建目录，这里以x86-64文件为例
+cd ~/php74-fpm/build
+wget https://raw.githubusercontent.com/BaseMax/sourceguardian-loader-linux-x86-64/refs/heads/main/ixed.7.4.lin
+
+# 创建构建目录并编辑 Dockerfile(参考下文给出的 Dockerfile)
+mkdir -p ~/php74-fpm/build  
+nano ~/php74-fpm/build/Dockerfile
+
+# 创建 PHP-FPM 自定义优化配置(参考下文给出的 zz-cusom.conf)
+sudo mkdir -p /data/php/conf
+sudo nano /data/php/conf/zz-custom.conf
+
+# 创建 PHP 自定义优化 ini 配置(参考下文给出的 performance.ini)
+sudo mkdir -p /data/php/php-conf
+sudo nano /data/php/php-conf/performance.ini
+
+# 编辑php-fpm的docker-compose(参考下文给出的 docker-compose.yml)
+nano ~/mysql57/docker-compose.yml
+```
+
+```ini
+# Dockerfile
+FROM php:7.4-fpm
+
+# ===== 换阿里云apt源 =====
+RUN echo "deb http://mirrors.aliyun.com/debian bullseye main contrib non-free" > /etc/apt/sources.list \
+ && echo "deb http://mirrors.aliyun.com/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list
+
+# ===== 安装系统依赖 =====
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpng-dev libjpeg-dev libwebp-dev libzip-dev libicu-dev \
+    libmagickwand-dev default-mysql-client ffmpeg \
+ && rm -rf /var/lib/apt/lists/*
+
+# ===== PHP内置扩展 =====
+RUN docker-php-ext-install pdo_mysql mysqli exif
+
+# GD扩展（图片处理）
+RUN docker-php-ext-configure gd --with-jpeg --with-webp \
+ && docker-php-ext-install gd
+
+# Zip扩展（压缩）
+RUN docker-php-ext-install zip
+
+# Intl扩展（国际化）
+RUN docker-php-ext-install intl
+
+# ===== PECL扩展 =====
+RUN pecl install imagick && docker-php-ext-enable imagick
+
+# ===== SourceGuardian =====
+# 将 ixed.7.4.lin 放在同目录下，构建时复制进去
+COPY ixed.7.4.lin /usr/local/lib/php/extensions/no-debug-non-zts-20190902/
+RUN echo "extension=ixed.7.4.lin" > /usr/local/etc/php/conf.d/ixed.ini \
+ && echo "sourceguardian.enable_vm_hybrid=1" >> /usr/local/etc/php/conf.d/ixed.ini
+
+# ===== PHP基础配置 =====
+RUN echo "upload_max_filesize = 20M" > /usr/local/etc/php/conf.d/custom.ini \
+ && echo "post_max_size = 20M" >> /usr/local/etc/php/conf.d/custom.ini
+
+```
+
+```ini
+; zz-cusom.conf
+[www]
+; 进程管理 - 动态模式
+pm = dynamic
+pm.max_children = 8             
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+pm.max_requests = 200      
+
+; 慢日志（排查问题用）
+slowlog = /var/log/php-fpm-slow.log
+request_slowlog_timeout = 3s
+```
+
+```ini
+; performance.ini
+; 内存限制
+memory_limit = 64M              
+; OPcache 优化
+[opcache]
+opcache.enable = 1
+opcache.memory_consumption = 32        
+opcache.interned_strings_buffer = 4
+opcache.max_accelerated_files = 2000    
+opcache.validate_timestamps = 0        
+opcache.save_comments = 1
+opcache.fast_shutdown = 1
+```
+
+```yaml
+# docker-compose.yml
+version: '3.9'
+services:
+    php:
+        build:
+            context: ./build      
+            dockerfile: Dockerfile
+        image: 'lgnewui2-php74-fpm'
+        ports:
+            - '9000:9000'
+        volumes:
+            - '/var/www:/var/www'
+            # PHP-FPM优化配置
+            - '/data/php/conf/zz-custom.conf:/usr/local/etc/php-fpm.d/zz-custom.conf'  
+            # PHP优化配置
+            - '/data/php/php-conf:/usr/local/etc/php/conf.d/custom-performance'          
+        restart: always
+        container_name: php74-fpm
+        # 内存限制(优化)
+        deploy:
+            resources:
+                limits:
+                    memory: 256M
+                reservations:
+                    memory: 128M
+```
+
+```zsh
+# 进入根目录
+cd ~/php74-fpm
+
+# 构建镜像
+sudo docker compose build
+
+# 启动容器
+sudo docker compose up -d
+```
+
+# MySQL与PHP通信
+
+我们需要创建新的docker网络，用于连通php与mysql：
 ```zsh
 sudo docker network create mynet
 sudo docker network connect mynet php74-fpm
@@ -233,9 +407,24 @@ server {
     client_body_timeout 60s;
 
     gzip on;
-    gzip_types text/plain text/css application/javascript text/xml application/xml application/xml+rss text/javascript;
-    gzip_comp_level 6;
+    gzip_comp_level 5;              
+    gzip_min_length 1k;             
     gzip_vary on;
+    gzip_buffers 4 8k;
+    gzip_http_version 1.1;
+    gzip_proxied any;
+    gzip_types
+        text/plain
+        text/css
+        text/javascript
+        application/javascript
+        application/x-javascript
+        application/json
+        application/xml
+        application/xml+rss
+        image/svg+xml
+        font/woff2
+        font/ttf;
 
     location ~ ^.+?\.php(/.*)?$ {
         fastcgi_pass 127.0.0.1:9000;
@@ -289,71 +478,7 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
   -subj "/CN=unused"
 ```
 
-# LGnewUI-2 新版本依赖补全
-
-此节用于解决LGnewUI部署引导中大多数问题。
-
-## SourceGuardian 加密依赖文件
-- [ixed.7.4.lin_x86-64下载链接--来自GitHub](https://raw.githubusercontent.com/BaseMax/sourceguardian-loader-linux-x86-64/refs/heads/main/ixed.7.4.lin)
-
-将此文件上传到服务器后，进入PHP容器的bash环境进行依赖安装：
-```zsh
-# 把ixed.7.4.lin文件从宿主机复制到容器
-docker cp ixed.7.4.lin php74-fpm:/usr/local/lib/php/extensions/no-debug-non-zts-20190902/
-# 进容器配置php.ini
-docker exec -it php74-fpm bash
-echo "extension=ixed.7.4.lin" >> /usr/local/etc/php/conf.d/ixed.ini
-echo "sourceguardian.enable_vm_hybrid=1" >> /usr/local/etc/php/conf.d/ixed.ini
-```
-
-## PHP基本配置与依赖拓展
-```zsh
-# 进入容器bash环境(请判断你是否在宿主机中)
-docker exec -it php74-fpm bash
-
-# 基本配置
-echo 'upload_max_filesize = 20M' >> /usr/local/etc/php/conf.d/custom.ini
-echo 'post_max_size = 20M' >> /usr/local/etc/php/conf.d/custom.ini
-
-# mysql拓展
-docker-php-ext-install pdo_mysql mysqli
-
-# EXIF拓展
-docker-php-ext-install exif
-
-# 换阿里云apt源
-echo "deb http://mirrors.aliyun.com/debian bullseye main contrib non-free" > /etc/apt/sources.list
-echo "deb http://mirrors.aliyun.com/debian-security bullseye-security main contrib non-free" >> /etc/apt/sources.list
-apt-get update
-
-# GD拓展（图片处理）
-apt-get install -y libpng-dev libjpeg-dev libwebp-dev --no-install-recommends
-docker-php-ext-configure gd --with-jpeg --with-webp
-docker-php-ext-install gd
-
-# Zip拓展（压缩）
-apt-get install -y libzip-dev --no-install-recommends
-docker-php-ext-install zip
-
-# Intl拓展（国际化）
-apt-get install -y libicu-dev --no-install-recommends
-docker-php-ext-install intl
-
-# imagick拓展
-apt-get install -y libmagickwand-dev --no-install-recommends
-pecl install imagick
-docker-php-ext-enable imagick
-
-# mysql-client(mysqldump)
-apt-get install -y default-mysql-client
-
-# FFmpeg
-apt-get install -y ffmpeg --no-install-recommends
-
-# 退出容器bash环境，重启容器
-exit
-docker restart php74-fpm
-```
+# LGnewUI-2 杂项处理
 
 ## 路径权限问题
 
@@ -399,191 +524,7 @@ real_ip_recursive on;
 - 从`X-Forwarded-For`请求头获取真实IP
 - 递归搜索，从右向左排除所有信任IP段，取第一个不信任IP(当前配置下默认取最左侧第一个IP，通常为CDN自动填写的客户端真实IP)
 
-# 2H2G3M云服务器内存性能优化
-
-仅针对当前站点场景，也即`docker`容器化`mysql`、`php`+反向代理`nginx`建站。
-
-## MySQL配置优化
-**步骤一：创建 MySQL 自定义配置文件**
-
-```bash
-sudo mkdir -p /data/mysql/conf
-sudo nano /data/mysql/conf/low-memory.cnf
-```
-
-写入以下内容：
-
-```ini
-[mysqld]
-# ===== 内存核心调优 =====
-# InnoDB缓冲池 - 2G机器建议256M~384M
-innodb_buffer_pool_size = 256M
-innodb_buffer_pool_instances = 1
-
-# ===== 连接优化 =====
-max_connections = 30            # 小站不需要太多并发连接
-thread_cache_size = 4
-table_open_cache = 64
-table_definition_cache = 256
-
-# ===== 临时表和排序 =====
-tmp_table_size = 16M
-max_heap_table_size = 16M
-sort_buffer_size = 256K         # 每连接排序缓冲，够用就行
-join_buffer_size = 256K
-read_buffer_size = 128K
-read_rnd_buffer_size = 128K
-
-# ===== 日志优化 =====
-innodb_log_file_size = 32M
-innodb_log_buffer_size = 4M
-sync_binlog = 0                 # 非金融场景，牺牲一点安全换性能
-
-# ===== 其他 =====
-performance_schema = OFF        # 关掉！节省 100M~200M 内存
-innodb_flush_method = O_DIRECT
-skip-name-resolve               # 跳过DNS反解，加速连接
-```
-
-**步骤二：修改 MySQL 的 docker-compose.yml**
-
-```bash
-nano ~/mysql57/docker-compose.yml
-```
-
-修改为：
-
-```yaml
-version: '3.9'
-services:
-    mysql:
-        image: 'mysql:5.7.44'
-        volumes:
-            - '/data/mysql:/var/lib/mysql'
-            - '/data/mysql/conf:/etc/mysql/conf.d'   # 新增：挂载自定义配置
-        environment:
-            - MYSQL_DATABASE=LGnewUI2
-            - MYSQL_ROOT_PASSWORD=yourpassword
-        ports:
-            - '3306:3306'
-        restart: always
-        container_name: mysql57
-        # 新增：内存限制
-        deploy:
-            resources:
-                limits:
-                    memory: 512M
-                reservations:
-                    memory: 256M
-        # 新增：MySQL启动参数
-        command: >
-            --character-set-server=utf8mb4
-            --collation-server=utf8mb4_general_ci
-            --default-storage-engine=InnoDB
-```
-
-**步骤三：重启 MySQL 容器**
-
-```bash
-cd ~/mysql57
-sudo docker compose down
-sudo docker compose up -d
-
-# 重新连接Docker网络
-sudo docker network connect mynet mysql57
-```
-
-## PHP-FPM配置优化
-**步骤一：创建 PHP-FPM 自定义配置**
-
-```bash
-sudo mkdir -p /data/php/conf
-sudo nano /data/php/conf/zz-custom.conf
-```
-
-写入以下内容：
-
-```ini
-[www]
-; 进程管理 - 动态模式
-pm = dynamic
-pm.max_children = 8             ; 2G机器最多8个进程
-pm.start_servers = 2
-pm.min_spare_servers = 1
-pm.max_spare_servers = 3
-pm.max_requests = 200           ; 定期重启防内存泄漏
-
-; 慢日志（排查问题用）
-slowlog = /var/log/php-fpm-slow.log
-request_slowlog_timeout = 3s
-```
-
-**步骤二：创建 PHP 自定义 ini 配置**
-
-```bash
-sudo mkdir -p /data/php/php-conf
-sudo nano /data/php/php-conf/performance.ini
-```
-
-写入以下内容：
-
-```ini
-; 内存限制
-memory_limit = 64M              ; 小站64M绰绰有余
-
-; OPcache 优化
-[opcache]
-opcache.enable = 1
-opcache.memory_consumption = 32         ; 32M够用
-opcache.interned_strings_buffer = 4
-opcache.max_accelerated_files = 2000    ; 项目文件数不多
-opcache.validate_timestamps = 0         ; 生产环境关闭自动检测
-opcache.save_comments = 1
-opcache.fast_shutdown = 1
-; 更新代码后需要手动重启 php-fpm 容器或通过面板清除缓存
-```
-
-**步骤三：修改 PHP 的 docker-compose.yml**
-
-```bash
-nano ~/php74-fpm/docker-compose.yml
-```
-
-修改为：
-
-```yaml
-version: '3.9'
-services:
-    php:
-        image: 'php:7.4-fpm'
-        ports:
-            - '9000:9000'
-        volumes:
-            - '/var/www:/var/www'
-            - '/data/php/conf/zz-custom.conf:/usr/local/etc/php-fpm.d/zz-custom.conf'  # 新增：FPM配置
-            - '/data/php/php-conf:/usr/local/etc/php/conf.d/custom-performance'          # 新增：PHP配置
-        restart: always
-        container_name: php74-fpm
-        # 新增：内存限制
-        deploy:
-            resources:
-                limits:
-                    memory: 256M
-                reservations:
-                    memory: 128M
-```
-
-**步骤四：重启 PHP 容器**
-
-```bash
-cd ~/php74-fpm
-sudo docker compose down
-sudo docker compose up -d
-
-# 重新连接Docker网络
-sudo docker network connect mynet php74-fpm
-```
-## 添加Swap分区
+## 服务器性能优化：添加Swap分区
 2G内存没有 Swap 很危险，OOM 时会直接杀进程。
 ```bash
 # 创建 2G swap 文件
@@ -604,41 +545,7 @@ free -h
 ```
 
 
-编辑 Nginx 站点配置：
-
-```bash
-sudo nano /etc/nginx/sites-available/default
-```
-
-在 `server` 块内替换现有 gzip 配置为：
-
-```nginx
-# ===== Gzip 压缩优化 =====
-gzip on;
-gzip_comp_level 5;              # 5是性价比最高的等级
-gzip_min_length 1k;             # 小于1K不压缩
-gzip_vary on;
-gzip_buffers 4 8k;
-gzip_http_version 1.1;
-gzip_proxied any;
-gzip_types
-    text/plain
-    text/css
-    text/javascript
-    application/javascript
-    application/x-javascript
-    application/json
-    application/xml
-    application/xml+rss
-    image/svg+xml
-    font/woff2
-    font/ttf;
-```
-
-> CSS/JS 通常能压缩 60%~80%，效果立竿见影。
-
-
-# 其他
+# 其他工具
 - [DBeaver](https://dbeaver.io/) | 数据库管理(此处可用来转移、备份MySQL)
 - [WinSCP](https://winscp.net/eng/docs/lang:chs) | SFTP工具(上传文件到服务器)
 - [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html) | SSH工具(连接服务器、编辑文件)
