@@ -399,6 +399,245 @@ real_ip_recursive on;
 - 从`X-Forwarded-For`请求头获取真实IP
 - 递归搜索，从右向左排除所有信任IP段，取第一个不信任IP(当前配置下默认取最左侧第一个IP，通常为CDN自动填写的客户端真实IP)
 
+# 2H2G3M云服务器内存性能优化
+
+仅针对当前站点场景，也即`docker`容器化`mysql`、`php`+反向代理`nginx`建站。
+
+## MySQL配置优化
+**步骤一：创建 MySQL 自定义配置文件**
+
+```bash
+sudo mkdir -p /data/mysql/conf
+sudo nano /data/mysql/conf/low-memory.cnf
+```
+
+写入以下内容：
+
+```ini
+[mysqld]
+# ===== 内存核心调优 =====
+# InnoDB缓冲池 - 2G机器建议256M~384M
+innodb_buffer_pool_size = 256M
+innodb_buffer_pool_instances = 1
+
+# ===== 连接优化 =====
+max_connections = 30            # 小站不需要太多并发连接
+thread_cache_size = 4
+table_open_cache = 64
+table_definition_cache = 256
+
+# ===== 临时表和排序 =====
+tmp_table_size = 16M
+max_heap_table_size = 16M
+sort_buffer_size = 256K         # 每连接排序缓冲，够用就行
+join_buffer_size = 256K
+read_buffer_size = 128K
+read_rnd_buffer_size = 128K
+
+# ===== 日志优化 =====
+innodb_log_file_size = 32M
+innodb_log_buffer_size = 4M
+sync_binlog = 0                 # 非金融场景，牺牲一点安全换性能
+
+# ===== 其他 =====
+performance_schema = OFF        # 关掉！节省 100M~200M 内存
+innodb_flush_method = O_DIRECT
+skip-name-resolve               # 跳过DNS反解，加速连接
+```
+
+**步骤二：修改 MySQL 的 docker-compose.yml**
+
+```bash
+nano ~/mysql57/docker-compose.yml
+```
+
+修改为：
+
+```yaml
+version: '3.9'
+services:
+    mysql:
+        image: 'mysql:5.7.44'
+        volumes:
+            - '/data/mysql:/var/lib/mysql'
+            - '/data/mysql/conf:/etc/mysql/conf.d'   # 新增：挂载自定义配置
+        environment:
+            - MYSQL_DATABASE=LGnewUI2
+            - MYSQL_ROOT_PASSWORD=yourpassword
+        ports:
+            - '3306:3306'
+        restart: always
+        container_name: mysql57
+        # 新增：内存限制
+        deploy:
+            resources:
+                limits:
+                    memory: 512M
+                reservations:
+                    memory: 256M
+        # 新增：MySQL启动参数
+        command: >
+            --character-set-server=utf8mb4
+            --collation-server=utf8mb4_general_ci
+            --default-storage-engine=InnoDB
+```
+
+**步骤三：重启 MySQL 容器**
+
+```bash
+cd ~/mysql57
+sudo docker compose down
+sudo docker compose up -d
+
+# 重新连接Docker网络
+sudo docker network connect mynet mysql57
+```
+
+## PHP-FPM配置优化
+**步骤一：创建 PHP-FPM 自定义配置**
+
+```bash
+sudo mkdir -p /data/php/conf
+sudo nano /data/php/conf/zz-custom.conf
+```
+
+写入以下内容：
+
+```ini
+[www]
+; 进程管理 - 动态模式
+pm = dynamic
+pm.max_children = 8             ; 2G机器最多8个进程
+pm.start_servers = 2
+pm.min_spare_servers = 1
+pm.max_spare_servers = 3
+pm.max_requests = 200           ; 定期重启防内存泄漏
+
+; 慢日志（排查问题用）
+slowlog = /var/log/php-fpm-slow.log
+request_slowlog_timeout = 3s
+```
+
+**步骤二：创建 PHP 自定义 ini 配置**
+
+```bash
+sudo mkdir -p /data/php/php-conf
+sudo nano /data/php/php-conf/performance.ini
+```
+
+写入以下内容：
+
+```ini
+; 内存限制
+memory_limit = 64M              ; 小站64M绰绰有余
+
+; OPcache 优化
+[opcache]
+opcache.enable = 1
+opcache.memory_consumption = 32         ; 32M够用
+opcache.interned_strings_buffer = 4
+opcache.max_accelerated_files = 2000    ; 项目文件数不多
+opcache.validate_timestamps = 0         ; 生产环境关闭自动检测
+opcache.save_comments = 1
+opcache.fast_shutdown = 1
+; 更新代码后需要手动重启 php-fpm 容器或通过面板清除缓存
+```
+
+**步骤三：修改 PHP 的 docker-compose.yml**
+
+```bash
+nano ~/php74-fpm/docker-compose.yml
+```
+
+修改为：
+
+```yaml
+version: '3.9'
+services:
+    php:
+        image: 'php:7.4-fpm'
+        ports:
+            - '9000:9000'
+        volumes:
+            - '/var/www:/var/www'
+            - '/data/php/conf/zz-custom.conf:/usr/local/etc/php-fpm.d/zz-custom.conf'  # 新增：FPM配置
+            - '/data/php/php-conf:/usr/local/etc/php/conf.d/custom-performance'          # 新增：PHP配置
+        restart: always
+        container_name: php74-fpm
+        # 新增：内存限制
+        deploy:
+            resources:
+                limits:
+                    memory: 256M
+                reservations:
+                    memory: 128M
+```
+
+**步骤四：重启 PHP 容器**
+
+```bash
+cd ~/php74-fpm
+sudo docker compose down
+sudo docker compose up -d
+
+# 重新连接Docker网络
+sudo docker network connect mynet php74-fpm
+```
+## 添加Swap分区
+2G内存没有 Swap 很危险，OOM 时会直接杀进程。
+```bash
+# 创建 2G swap 文件
+sudo fallocate -l 2G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+# 持久化配置
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+# 降低swap使用倾向（优先用物理内存）
+echo 'vm.swappiness = 10' | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
+# 验证
+free -h
+```
+
+
+编辑 Nginx 站点配置：
+
+```bash
+sudo nano /etc/nginx/sites-available/default
+```
+
+在 `server` 块内替换现有 gzip 配置为：
+
+```nginx
+# ===== Gzip 压缩优化 =====
+gzip on;
+gzip_comp_level 5;              # 5是性价比最高的等级
+gzip_min_length 1k;             # 小于1K不压缩
+gzip_vary on;
+gzip_buffers 4 8k;
+gzip_http_version 1.1;
+gzip_proxied any;
+gzip_types
+    text/plain
+    text/css
+    text/javascript
+    application/javascript
+    application/x-javascript
+    application/json
+    application/xml
+    application/xml+rss
+    image/svg+xml
+    font/woff2
+    font/ttf;
+```
+
+> CSS/JS 通常能压缩 60%~80%，效果立竿见影。
+
+
 # 其他
 - [DBeaver](https://dbeaver.io/) | 数据库管理(此处可用来转移、备份MySQL)
 - [WinSCP](https://winscp.net/eng/docs/lang:chs) | SFTP工具(上传文件到服务器)
