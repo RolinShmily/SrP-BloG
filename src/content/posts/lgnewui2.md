@@ -97,7 +97,7 @@ docker load -i <path>/<name>.tar
 # 创建docker文件夹
 mkdir ~/mysql57
 
-# 创建 MySQL 自定义优化配置文件(参考下文给出的 low-memory.cnf)
+# [2h2g3m小水管服务器] 创建 MySQL 自定义优化配置文件(参考下文给出的 low-memory.cnf)
 sudo mkdir -p /data/mysql/conf
 sudo nano /data/mysql/conf/low-memory.cnf
 
@@ -129,12 +129,14 @@ read_rnd_buffer_size = 128K
 # ===== 日志优化 =====
 innodb_log_file_size = 32M
 innodb_log_buffer_size = 4M
+innodb_flush_log_at_trx_commit = 2
 sync_binlog = 0                 
 
 # ===== 其他 =====
 performance_schema = OFF        
 innodb_flush_method = O_DIRECT
 skip-name-resolve    
+max_allowed_packet = 64M
 ```
 
 ```yaml
@@ -203,16 +205,16 @@ wget https://raw.githubusercontent.com/BaseMax/sourceguardian-loader-linux-x86-6
 mkdir -p ~/php74-fpm/build  
 nano ~/php74-fpm/build/Dockerfile
 
-# 创建 PHP-FPM 自定义优化配置(参考下文给出的 zz-cusom.conf)
+# [2h2g3m小水管服务器] 创建 PHP-FPM 自定义优化配置(参考下文给出的 zz-cusom.conf)
 sudo mkdir -p /data/php/conf
 sudo nano /data/php/conf/zz-custom.conf
 
-# 创建 PHP 自定义优化 ini 配置(参考下文给出的 performance.ini)
+# [2h2g3m小水管服务器] 创建 PHP 自定义优化 ini 配置(参考下文给出的 performance.ini)
 sudo mkdir -p /data/php/php-conf
 sudo nano /data/php/php-conf/performance.ini
 
 # 编辑php-fpm的docker-compose(参考下文给出的 docker-compose.yml)
-nano ~/mysql57/docker-compose.yml
+nano ~/php74-fpm/docker-compose.yml
 ```
 
 ```ini
@@ -276,7 +278,7 @@ request_slowlog_timeout = 3s
 ```ini
 ; performance.ini
 ; 内存限制
-memory_limit = 64M              
+memory_limit = 128M              
 ; OPcache 优化
 [opcache]
 opcache.enable = 1
@@ -286,6 +288,9 @@ opcache.max_accelerated_files = 2000
 opcache.validate_timestamps = 0        
 opcache.save_comments = 1
 opcache.fast_shutdown = 1
+; 执行时间限制
+max_execution_time = 120
+max_input_time = 120
 ```
 
 ```yaml
@@ -311,9 +316,9 @@ services:
         deploy:
             resources:
                 limits:
-                    memory: 256M
+                    memory: 512M
                 reservations:
-                    memory: 128M
+                    memory: 256M
 ```
 
 ```zsh
@@ -433,6 +438,10 @@ server {
         fastcgi_param PATH_INFO $path_info;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+
+        fastcgi_read_timeout 300;
+        fastcgi_send_timeout 300;
+        fastcgi_connect_timeout 300;
     }
 
     location / {
@@ -544,9 +553,7 @@ sudo sysctl -p
 free -h
 ```
 
-
 # 其他工具
 - [DBeaver](https://dbeaver.io/) | 数据库管理(此处可用来转移、备份MySQL)
 - [WinSCP](https://winscp.net/eng/docs/lang:chs) | SFTP工具(上传文件到服务器)
 - [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html) | SSH工具(连接服务器、编辑文件)
-
