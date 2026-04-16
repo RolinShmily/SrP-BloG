@@ -1,8 +1,9 @@
 ---
-title: 使用Spire.Doc将代码块插入Word文档中 | SrP-Scripts | Python
+title: 使用Spire.Doc将代码块插入Word文档中  | Python | SrP-Scripts
 published: 2026-04-16
 pinned: false
 description: 一个PyPI包，功能是将代码格式、高亮保留，并以RTL布局写入Word文档中，有效解决在Word报告中粘贴代码块不规范问题。
+image: ../assets/images/2026-03-20-1308.png
 tags:
   - Word
   - PyPI
@@ -26,7 +27,7 @@ lang: ""
 
 ## 依赖要求
 
-- Python 3.10+
+- `Python 3.10+`
 - `pygments`
 - `spire.doc`
 
@@ -40,16 +41,7 @@ pip install pygments spire.doc
 
 脚本当前会处理以下扩展名：
 
-- `.m`
-- `.py`
-- `.c`
-- `.cpp`
-- `.java`
-- `.cs`
-- `.js`
-- `.ts`
-- `.go`
-- `.rs`
+`.m`、`.py`、`.c`、`.cpp`、`.java`、`.cs`、`.js、`.ts`、`.go`、`.rs`
 
 如果文件扩展名无法被 `Pygments` 正确识别，脚本会回退到 `MatlabLexer` 进行高亮处理。
 
@@ -145,6 +137,8 @@ if __name__ == "__main__":
     main()
 ```
 
-# GitHub个人脚本仓库
+# 个人脚本仓库
 
 ::github{repo="RolinShmily/SrP-Scripts"}
+
+如果觉得有用，欢迎给个 Star！如果有问题或建议，欢迎提 Issue 或 PR。
