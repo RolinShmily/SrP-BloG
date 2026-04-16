@@ -330,6 +330,16 @@
   ],
   "2026-04-16-srp-scripts-2.md": [
     {
+      "hash": "b0688780ca8e54006e58b56f820b0e90e5c481cb",
+      "date": "2026-04-16 18:05:24 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "9832b280ea667679f84bc058b9229c1df112952a",
+      "date": "2026-04-16 17:52:30 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
       "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
       "date": "2026-04-16 17:51:28 +0800",
       "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
@@ -546,6 +556,18 @@
       "message": "post:SrP-CFG"
     }
   ],
+  "Zerotier-1.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
+      "date": "2025-10-26 20:48:12 +0800",
+      "message": "post:Zerotier-1"
+    }
+  ],
   "SrP-Sakura_Minecraft.md": [
     {
       "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
@@ -571,18 +593,6 @@
       "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
       "date": "2025-10-26 21:21:31 +0800",
       "message": "post:Minecraft-2"
-    }
-  ],
-  "Zerotier-1.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
-      "date": "2025-10-26 20:48:12 +0800",
-      "message": "post:Zerotier-1"
     }
   ],
   "archlinux-1.md": [
@@ -942,6 +952,11 @@
   ],
   "script-1.md": [
     {
+      "hash": "157bf043262dbfd36d406c2afe3405d94c4ee6f8",
+      "date": "2026-04-16 18:05:35 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
       "hash": "abf909ff4730780d1289de42c46d9c37b3061fd6",
       "date": "2026-03-20 13:10:13 +0800",
       "message": "CMS:Update Posts “script-1”"
@@ -955,23 +970,6 @@
       "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
       "date": "2026-03-12 22:57:02 +0800",
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
-    }
-  ],
-  "sunmoon-scrcpy.md": [
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
-      "date": "2025-11-10 12:16:55 +0800",
-      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "ssh-1.md": [
@@ -1004,6 +1002,23 @@
       "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
       "date": "2025-11-07 13:44:15 +0800",
       "message": "post:ssh-1发布"
+    }
+  ],
+  "sunmoon-scrcpy.md": [
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
+      "date": "2025-11-10 12:16:55 +0800",
+      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "srp-img.md": [
