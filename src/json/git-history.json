@@ -399,18 +399,6 @@
       "message": "CMS:Create Posts “2026-04-16-yt-dlp”"
     }
   ],
-  "C_inVScode.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
-      "date": "2025-10-26 19:10:44 +0800",
-      "message": "post:在VSCode中搭建C语言环境"
-    }
-  ],
   "CFGInstaller.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -431,6 +419,18 @@
       "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
       "date": "2025-11-25 14:12:38 +0800",
       "message": "docs(post):CFGinstaller文章发布"
+    }
+  ],
+  "C_inVScode.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
+      "date": "2025-10-26 19:10:44 +0800",
+      "message": "post:在VSCode中搭建C语言环境"
     }
   ],
   "Markdown-1.md": [
@@ -472,23 +472,6 @@
       "message": "移植文章Minecraft-1"
     }
   ],
-  "OBS-1.md": [
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
-      "date": "2025-10-26 21:09:00 +0800",
-      "message": "post:OBS-1"
-    }
-  ],
   "Python-1.md": [
     {
       "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
@@ -504,6 +487,23 @@
       "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
       "date": "2025-10-26 19:45:47 +0800",
       "message": "post:PyTorch环境搭建"
+    }
+  ],
+  "OBS-1.md": [
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
+      "date": "2025-10-26 21:09:00 +0800",
+      "message": "post:OBS-1"
     }
   ],
   "SrP-Sakura_Minecraft.md": [
@@ -814,6 +814,11 @@
   ],
   "lgnewui2.md": [
     {
+      "hash": "0e3cab2ff08a118c6a3a2512116935f7ea1038af",
+      "date": "2026-04-16 19:28:31 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
+    {
       "hash": "331a53232cbfdcf7486017e25de77fc98c74f5ff",
       "date": "2026-04-16 19:16:51 +0800",
       "message": "CMS:Update Posts “lgnewui2”"
@@ -977,6 +982,33 @@
       "message": "doc(post): 深度学习框架的安装"
     }
   ],
+  "script-1.md": [
+    {
+      "hash": "001d10ae88ccf05fb35c0f77658c1e6ba17bc2a1",
+      "date": "2026-04-16 19:02:01 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
+      "hash": "157bf043262dbfd36d406c2afe3405d94c4ee6f8",
+      "date": "2026-04-16 18:05:35 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
+      "hash": "abf909ff4730780d1289de42c46d9c37b3061fd6",
+      "date": "2026-03-20 13:10:13 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
+      "hash": "2dda8c68f50dfeaa230325317c45edb5e36d5d93",
+      "date": "2026-03-17 09:44:29 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
+      "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
+      "date": "2026-03-12 22:57:02 +0800",
+      "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
+    }
+  ],
   "ssh-1.md": [
     {
       "hash": "e741575d4d017db84e40f42f7a658941162e0957",
@@ -1007,33 +1039,6 @@
       "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
       "date": "2025-11-07 13:44:15 +0800",
       "message": "post:ssh-1发布"
-    }
-  ],
-  "script-1.md": [
-    {
-      "hash": "001d10ae88ccf05fb35c0f77658c1e6ba17bc2a1",
-      "date": "2026-04-16 19:02:01 +0800",
-      "message": "CMS:Update Posts “script-1”"
-    },
-    {
-      "hash": "157bf043262dbfd36d406c2afe3405d94c4ee6f8",
-      "date": "2026-04-16 18:05:35 +0800",
-      "message": "CMS:Update Posts “script-1”"
-    },
-    {
-      "hash": "abf909ff4730780d1289de42c46d9c37b3061fd6",
-      "date": "2026-03-20 13:10:13 +0800",
-      "message": "CMS:Update Posts “script-1”"
-    },
-    {
-      "hash": "2dda8c68f50dfeaa230325317c45edb5e36d5d93",
-      "date": "2026-03-17 09:44:29 +0800",
-      "message": "CMS:Update Posts “script-1”"
-    },
-    {
-      "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
-      "date": "2026-03-12 22:57:02 +0800",
-      "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
     }
   ],
   "srp-img.md": [
