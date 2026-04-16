@@ -328,6 +328,55 @@
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
     }
   ],
+  "2026-04-16-srp-scripts-2.md": [
+    {
+      "hash": "41ee8b648d63d056e78b08be42b855d00c495e80",
+      "date": "2026-04-16 19:08:31 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "44aaed5d0101b9a7d9198222f1e2ec5a9cb3b775",
+      "date": "2026-04-16 19:01:53 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "b0688780ca8e54006e58b56f820b0e90e5c481cb",
+      "date": "2026-04-16 18:05:24 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "9832b280ea667679f84bc058b9229c1df112952a",
+      "date": "2026-04-16 17:52:30 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
+      "date": "2026-04-16 17:51:28 +0800",
+      "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
+    }
+  ],
+  "CFGInstaller.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "1bf81f07fe4ac226100f45f0b64d58bf2a791f52",
+      "date": "2026-01-05 16:53:14 +0800",
+      "message": "CMS:Update Posts “CFGInstaller”"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
+    }
+  ],
   "2026-03-17-windows-1.md": [
     {
       "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
@@ -360,50 +409,6 @@
       "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
-  "CFGInstaller.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "1bf81f07fe4ac226100f45f0b64d58bf2a791f52",
-      "date": "2026-01-05 16:53:14 +0800",
-      "message": "CMS:Update Posts “CFGInstaller”"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
-    }
-  ],
-  "2026-04-16-srp-scripts-2.md": [
-    {
-      "hash": "44aaed5d0101b9a7d9198222f1e2ec5a9cb3b775",
-      "date": "2026-04-16 19:01:53 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "b0688780ca8e54006e58b56f820b0e90e5c481cb",
-      "date": "2026-04-16 18:05:24 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "9832b280ea667679f84bc058b9229c1df112952a",
-      "date": "2026-04-16 17:52:30 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
-      "date": "2026-04-16 17:51:28 +0800",
-      "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
-    }
-  ],
   "C_inVScode.md": [
     {
       "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
@@ -414,6 +419,23 @@
       "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
       "date": "2025-10-26 19:10:44 +0800",
       "message": "post:在VSCode中搭建C语言环境"
+    }
+  ],
+  "Minecraft-1.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
+      "date": "2025-10-26 14:21:03 +0800",
+      "message": "移植文章Minecraft-1"
     }
   ],
   "Markdown-1.md": [
@@ -436,23 +458,6 @@
       "hash": "e852ffe7c3ae86627b71638dbe8da1fe03fe1971",
       "date": "2025-10-26 21:14:35 +0800",
       "message": "post:Markdown-1"
-    }
-  ],
-  "Minecraft-1.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "eaa761abca419b7c6474f534d57cd2c36924e1f2",
-      "date": "2025-10-26 14:21:03 +0800",
-      "message": "移植文章Minecraft-1"
     }
   ],
   "Python-1.md": [
@@ -561,18 +566,6 @@
       "message": "post:SrP-CFG"
     }
   ],
-  "Zerotier-1.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
-      "date": "2025-10-26 20:48:12 +0800",
-      "message": "post:Zerotier-1"
-    }
-  ],
   "SrP-Sakura_Minecraft.md": [
     {
       "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
@@ -598,6 +591,18 @@
       "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
       "date": "2025-10-26 21:21:31 +0800",
       "message": "post:Minecraft-2"
+    }
+  ],
+  "Zerotier-1.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
+      "date": "2025-10-26 20:48:12 +0800",
+      "message": "post:Zerotier-1"
     }
   ],
   "archlinux-1.md": [
