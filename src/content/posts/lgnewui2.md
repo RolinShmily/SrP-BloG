@@ -533,6 +533,23 @@ real_ip_recursive on;
 - 从`X-Forwarded-For`请求头获取真实IP
 - 递归搜索，从右向左排除所有信任IP段，取第一个不信任IP(当前配置下默认取最左侧第一个IP，通常为CDN自动填写的客户端真实IP)
 
+## 敏感目录拒绝访问
+在Nginx配置文件的`Server`字段中，添加如下配置：
+```ini
+# ── 敏感目录 ──
+location ^~ /storage/ { return 404; }
+location ^~ /config/ { return 404; }
+location ^~ /vendor/ { return 404; }
+location ^~ /phpmailer/ { return 404; }
+location ^~ /cron/ { return 404; }
+location ^~ /install/ { return 404; }
+
+# ── 敏感根目录文件 ──
+location = /composer.json { return 404; }
+location = /readme.txt { return 404; }
+location = /config.php { return 404; }
+```
+
 ## 服务器性能优化：添加Swap分区
 2G内存没有 Swap 很危险，OOM 时会直接杀进程。
 ```bash
