@@ -1,5 +1,5 @@
 ---
-title: srp-scripts-2
+title: 使用Spire.Doc将代码块插入Word文档中 | SrP-Scripts | Python
 published: 2026-04-16
 pinned: false
 description: 一个PyPI包，功能是将代码格式、高亮保留，并以RTL布局写入Word文档中，有效解决在Word报告中粘贴代码块不规范问题。
