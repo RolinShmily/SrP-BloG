@@ -399,6 +399,18 @@
       "message": "CMS:Create Posts “2026-04-16-yt-dlp”"
     }
   ],
+  "C_inVScode.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
+      "date": "2025-10-26 19:10:44 +0800",
+      "message": "post:在VSCode中搭建C语言环境"
+    }
+  ],
   "CFGInstaller.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -419,18 +431,6 @@
       "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
       "date": "2025-11-25 14:12:38 +0800",
       "message": "docs(post):CFGinstaller文章发布"
-    }
-  ],
-  "C_inVScode.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
-      "date": "2025-10-26 19:10:44 +0800",
-      "message": "post:在VSCode中搭建C语言环境"
     }
   ],
   "Markdown-1.md": [
@@ -472,23 +472,6 @@
       "message": "移植文章Minecraft-1"
     }
   ],
-  "Python-1.md": [
-    {
-      "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
-      "date": "2026-03-20 13:12:15 +0800",
-      "message": "CMS:Update Posts “Python-1”"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
-      "date": "2025-10-26 19:45:47 +0800",
-      "message": "post:PyTorch环境搭建"
-    }
-  ],
   "OBS-1.md": [
     {
       "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
@@ -504,6 +487,23 @@
       "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
       "date": "2025-10-26 21:09:00 +0800",
       "message": "post:OBS-1"
+    }
+  ],
+  "Python-1.md": [
+    {
+      "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
+      "date": "2026-03-20 13:12:15 +0800",
+      "message": "CMS:Update Posts “Python-1”"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
+      "date": "2025-10-26 19:45:47 +0800",
+      "message": "post:PyTorch环境搭建"
     }
   ],
   "SrP-Sakura_Minecraft.md": [
@@ -813,6 +813,11 @@
     }
   ],
   "lgnewui2.md": [
+    {
+      "hash": "84c3bf7f9e5e65e952d07e1b52d0663458afed27",
+      "date": "2026-04-16 19:31:36 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
     {
       "hash": "0e3cab2ff08a118c6a3a2512116935f7ea1038af",
       "date": "2026-04-16 19:28:31 +0800",
