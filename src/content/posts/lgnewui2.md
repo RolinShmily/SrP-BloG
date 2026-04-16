@@ -533,7 +533,7 @@ real_ip_recursive on;
 - 从`X-Forwarded-For`请求头获取真实IP
 - 递归搜索，从右向左排除所有信任IP段，取第一个不信任IP(当前配置下默认取最左侧第一个IP，通常为CDN自动填写的客户端真实IP)
 
-> 阿里云ESA的默认请求表头为`ali-real-client-ip`，如有开启请替换掉`X-Forwarded-For`。
+> 阿里云ESA(开启HTTP请求头添加后)的默认请求头为`ali-real-client-ip`，如有开启请替换掉`X-Forwarded-For`。
 
 ## 敏感目录拒绝访问
 在Nginx配置文件的`Server`字段中，添加如下配置：
