@@ -4,7 +4,6 @@ published: 2026-03-12
 description: 个人脚本集合仓库介绍，以及视频音频合并与重编码脚本的详细使用说明
 image: ""
 tags:
-  - Script
   - FFmpeg
 draft: false
 lang: zh-CN
