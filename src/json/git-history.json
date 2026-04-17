@@ -328,38 +328,6 @@
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
     }
   ],
-  "2026-04-16-srp-scripts-2.md": [
-    {
-      "hash": "ebe8776602dfafe1f4cd9dab5dd59dfa927fa2f1",
-      "date": "2026-04-17 23:20:54 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "41ee8b648d63d056e78b08be42b855d00c495e80",
-      "date": "2026-04-16 19:08:31 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "44aaed5d0101b9a7d9198222f1e2ec5a9cb3b775",
-      "date": "2026-04-16 19:01:53 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "b0688780ca8e54006e58b56f820b0e90e5c481cb",
-      "date": "2026-04-16 18:05:24 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "9832b280ea667679f84bc058b9229c1df112952a",
-      "date": "2026-04-16 17:52:30 +0800",
-      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
-    },
-    {
-      "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
-      "date": "2026-04-16 17:51:28 +0800",
-      "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
-    }
-  ],
   "2026-03-17-windows-1.md": [
     {
       "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
@@ -392,7 +360,44 @@
       "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
+  "2026-04-16-srp-scripts-2.md": [
+    {
+      "hash": "ebe8776602dfafe1f4cd9dab5dd59dfa927fa2f1",
+      "date": "2026-04-17 23:20:54 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "41ee8b648d63d056e78b08be42b855d00c495e80",
+      "date": "2026-04-16 19:08:31 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "44aaed5d0101b9a7d9198222f1e2ec5a9cb3b775",
+      "date": "2026-04-16 19:01:53 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "b0688780ca8e54006e58b56f820b0e90e5c481cb",
+      "date": "2026-04-16 18:05:24 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "9832b280ea667679f84bc058b9229c1df112952a",
+      "date": "2026-04-16 17:52:30 +0800",
+      "message": "CMS:Update Posts “2026-04-16-srp-scripts-2”"
+    },
+    {
+      "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
+      "date": "2026-04-16 17:51:28 +0800",
+      "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
+    }
+  ],
   "2026-04-16-yt-dlp.md": [
+    {
+      "hash": "d3cd482f8682423bb94f1d9e2f874989fe2f71ea",
+      "date": "2026-04-17 23:21:21 +0800",
+      "message": "CMS:Update Posts “2026-04-16-yt-dlp”"
+    },
     {
       "hash": "c2a143d3d8a5581124526458540223e4003b45d9",
       "date": "2026-04-16 19:08:58 +0800",
@@ -629,6 +634,23 @@
       "message": "docs(post):CFGinstaller文章发布"
     }
   ],
+  "autoexec.md": [
+    {
+      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
+      "date": "2026-01-05 16:53:59 +0800",
+      "message": "CMS:Update Posts “autoexec”"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
+      "date": "2025-11-18 21:40:11 +0800",
+      "message": "docs(post):发布autoexec文件详解"
+    }
+  ],
   "archlinux-1.md": [
     {
       "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
@@ -649,23 +671,6 @@
       "hash": "550ebcd1e51746ea4ff63cbe0fed86df345b7076",
       "date": "2026-03-08 11:50:47 +0800",
       "message": "post: 发布文章archlinux"
-    }
-  ],
-  "autoexec.md": [
-    {
-      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
-      "date": "2026-01-05 16:53:59 +0800",
-      "message": "CMS:Update Posts “autoexec”"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
-      "date": "2025-11-18 21:40:11 +0800",
-      "message": "docs(post):发布autoexec文件详解"
     }
   ],
   "draft.md": [
@@ -877,6 +882,38 @@
       "message": "CMS:Update Posts \"lgnewui2\""
     }
   ],
+  "mac-mc-2.md": [
+    {
+      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
+      "date": "2026-03-24 22:19:58 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "1476509546a384379a28e5c82d55431677c65a62",
+      "date": "2026-02-26 20:50:10 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
+      "date": "2026-01-05 14:21:52 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
+      "date": "2026-01-05 14:20:56 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
+      "date": "2025-12-20 13:06:34 +0800",
+      "message": "docs(post):mac-mc-2发布"
+    }
+  ],
   "mac-mc-1.md": [
     {
       "hash": "032be9cfc3590040ad33c4caa1cede095c9a4339",
@@ -917,38 +954,6 @@
       "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
       "date": "2025-12-07 18:37:35 +0800",
       "message": "docs(post):mac-mc-1发布"
-    }
-  ],
-  "mac-mc-2.md": [
-    {
-      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
-      "date": "2026-03-24 22:19:58 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "1476509546a384379a28e5c82d55431677c65a62",
-      "date": "2026-02-26 20:50:10 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
-      "date": "2026-01-05 14:21:52 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
-      "date": "2026-01-05 14:20:56 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
-      "date": "2025-12-20 13:06:34 +0800",
-      "message": "docs(post):mac-mc-2发布"
     }
   ],
   "markdown-extended.md": [
