@@ -6,7 +6,7 @@ image: ../assets/images/2026-01-05-16-44.png
 tags:
   - SSH
   - SFTP
-  - 云服务器
+  - Linux
 draft: false
 lang: ""
 category: ""

@@ -4,7 +4,6 @@ published: 2025-11-18
 description: 本篇将详细解析autoexec.cfg文件的功能列表，和部分实现途径
 image: ../assets/images/2026-01-05-16-41.png
 tags:
-  - autoexec
   - CFG
   - CS2
 draft: false

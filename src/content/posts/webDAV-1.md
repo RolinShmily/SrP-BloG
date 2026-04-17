@@ -5,6 +5,7 @@ description: 这是继上一篇关于SMB的续集，因其仅内网性，而虚�
 image: ../assets/images/2026-01-05-14-05.png
 tags:
   - WebDAV
+  - RaiDrive
 draft: false
 lang: ""
 category: ""

@@ -7,7 +7,7 @@ tags:
   - Docker
   - Minecraft
   - Linux
-  - MacOS
+  - Mac
 draft: false
 lang: ""
 category: ""

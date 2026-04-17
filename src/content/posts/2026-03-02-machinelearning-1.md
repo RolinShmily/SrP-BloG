@@ -6,7 +6,7 @@ description: 记录一次市图书馆看书所得。
 image: ../assets/images/s33771410.jpg
 tags:
   - AI
-  - 机器学习
+  - MachineLearning
 draft: false
 lang: ""
 ---

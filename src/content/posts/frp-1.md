@@ -4,9 +4,8 @@ published: 2025-12-05
 description: IPv4的告尽，突破多层NAT实现内网穿透的需求增大，Frp借由公网IP服务器实现内网端口流量转发，突破内网访达限制。
 image: ../assets/images/2026-01-05-16-34.png
 tags:
-  - frp
-  - 内网穿透
-  - systemd
+  - Frp
+  - Network
 draft: false
 lang: ""
 category: ""
