@@ -6,7 +6,6 @@ description: 一个PyPI包，功能是将代码格式、高亮保留，并以RTL
 image: ""
 tags:
   - Word
-  - PyPI
   - Python
 draft: false
 lang: ""
