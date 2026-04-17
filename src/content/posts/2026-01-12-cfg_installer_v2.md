@@ -6,7 +6,7 @@ description: 为SrP-CFG预设打造，但不限于该预设的CFG安装器，GUI
 image: ../assets/images/2026-01-12-14-18.png
 tags:
   - CFG
-  - 安装器
+  - CS2
 draft: false
 lang: ""
 ---
