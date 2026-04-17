@@ -43,6 +43,11 @@
   ],
   "2026-01-03-todo-list.md": [
     {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
       "hash": "268e60e5fe8bb67332bb8f0eb4cdcf914baebf8c",
       "date": "2026-01-16 13:12:41 +0800",
       "message": "CMS:Update Posts “2026-01-03-todo-list”"
@@ -279,6 +284,11 @@
   ],
   "2026-03-02-machinelearning-1.md": [
     {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
       "date": "2026-04-01 00:28:07 +0800",
       "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
@@ -301,6 +311,11 @@
   ],
   "2026-02-26-astrbot-1.md": [
     {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
       "date": "2026-04-01 00:28:07 +0800",
       "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
@@ -317,6 +332,11 @@
     }
   ],
   "2026-03-07-pve-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
       "date": "2026-04-01 00:28:07 +0800",
@@ -439,6 +459,18 @@
       "message": "CMS:Create Posts “2026-04-16-yt-dlp”"
     }
   ],
+  "C_inVScode.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
+      "date": "2025-10-26 19:10:44 +0800",
+      "message": "post:在VSCode中搭建C语言环境"
+    }
+  ],
   "CFGInstaller.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -459,18 +491,6 @@
       "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
       "date": "2025-11-25 14:12:38 +0800",
       "message": "docs(post):CFGinstaller文章发布"
-    }
-  ],
-  "C_inVScode.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
-      "date": "2025-10-26 19:10:44 +0800",
-      "message": "post:在VSCode中搭建C语言环境"
     }
   ],
   "Markdown-1.md": [
@@ -496,6 +516,11 @@
     }
   ],
   "Minecraft-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
       "date": "2026-04-01 00:28:07 +0800",
@@ -547,6 +572,11 @@
     }
   ],
   "SrP-Sakura_Minecraft.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
     {
       "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
       "date": "2025-12-21 23:16:19 +0800",
@@ -647,6 +677,11 @@
   ],
   "Zerotier-1.md": [
     {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
       "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
       "date": "2025-12-10 10:57:02 +0800",
       "message": "docs(posts):标签量缩减至3个;feat++"
@@ -665,6 +700,11 @@
     }
   ],
   "autoexec.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
     {
       "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
       "date": "2026-01-05 16:53:59 +0800",
@@ -734,6 +774,11 @@
   ],
   "docker-mc.md": [
     {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
       "hash": "e7005da9cadff7b741c1a881b2809f865e16b97e",
       "date": "2026-04-03 22:49:13 +0800",
       "message": "CMS:Update Posts “docker-mc”"
@@ -789,6 +834,11 @@
     }
   ],
   "frp-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
     {
       "hash": "ddb8f2fe9772833b54bc6d4521940692fbd5eaf3",
       "date": "2026-01-05 16:53:33 +0800",
@@ -1076,6 +1126,11 @@
   ],
   "ssh-1.md": [
     {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
       "hash": "e741575d4d017db84e40f42f7a658941162e0957",
       "date": "2026-01-24 21:32:52 +0800",
       "message": "CMS:Update Posts “ssh-1”"
@@ -1138,19 +1193,12 @@
       "message": "post: 发布Srp-img项目介绍文章"
     }
   ],
-  "video.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
   "sunmoon-scrcpy.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
     {
       "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
       "date": "2025-12-31 19:18:55 +0800",
@@ -1167,7 +1215,24 @@
       "message": "doc(post):如何投屏和串流？"
     }
   ],
+  "video.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
   "webDAV-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
     {
       "hash": "16ef0c2be512acac6f424787c28bd4ed33fbeea3",
       "date": "2026-04-17 23:37:40 +0800",
