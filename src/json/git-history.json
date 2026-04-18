@@ -363,6 +363,43 @@
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
     }
   ],
+  "2026-03-17-windows-1.md": [
+    {
+      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
+      "date": "2026-04-17 23:32:57 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
+      "date": "2026-04-04 23:03:03 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
+      "date": "2026-03-20 12:49:33 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
+      "date": "2026-03-18 19:28:35 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
+      "date": "2026-03-17 19:44:23 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
+      "date": "2026-03-17 19:43:34 +0800",
+      "message": "CMS:Create Posts “2026-03-17-windows-1”"
+    }
+  ],
   "2026-04-16-srp-scripts-2.md": [
     {
       "hash": "6c12d015cd6c0a70f0ce48fc6762488822ce9698",
@@ -403,43 +440,6 @@
       "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
       "date": "2026-04-16 17:51:28 +0800",
       "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
-    }
-  ],
-  "2026-03-17-windows-1.md": [
-    {
-      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
-      "date": "2026-04-17 23:32:57 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
-      "date": "2026-04-04 23:03:03 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
-      "date": "2026-03-20 12:49:33 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
-      "date": "2026-03-18 19:28:35 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
-      "date": "2026-03-17 19:44:23 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
-      "date": "2026-03-17 19:43:34 +0800",
-      "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
   "2026-04-16-yt-dlp.md": [
@@ -719,28 +719,6 @@
       "message": "post:Zerotier-1"
     }
   ],
-  "autoexec.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
-      "date": "2026-01-05 16:53:59 +0800",
-      "message": "CMS:Update Posts “autoexec”"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
-      "date": "2025-11-18 21:40:11 +0800",
-      "message": "docs(post):发布autoexec文件详解"
-    }
-  ],
   "archlinux-1.md": [
     {
       "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
@@ -763,11 +741,26 @@
       "message": "post: 发布文章archlinux"
     }
   ],
-  "crosshair_view.md": [
+  "autoexec.md": [
     {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
+      "date": "2026-01-05 16:53:59 +0800",
+      "message": "CMS:Update Posts “autoexec”"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
+      "date": "2025-11-18 21:40:11 +0800",
+      "message": "docs(post):发布autoexec文件详解"
     }
   ],
   "davinci-smb.md": [
@@ -790,6 +783,13 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
+    }
+  ],
+  "crosshair_view.md": [
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "docker-mc.md": [
@@ -829,19 +829,19 @@
       "message": "posts: 发布文章docker-mc"
     }
   ],
-  "draft.md": [
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
   "expressive-code.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
       "message": "将向导文章设置为草稿"
     },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "draft.md": [
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
@@ -1099,6 +1099,11 @@
   ],
   "script-1.md": [
     {
+      "hash": "ec891d9941d194c0292232b671be3b705c96f2f5",
+      "date": "2026-04-18 15:58:46 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
+    {
       "hash": "b6e8504c3475250873543a23facfb4e3510a5804",
       "date": "2026-04-17 23:31:29 +0800",
       "message": "CMS:Update Posts “script-1”"
@@ -1183,6 +1188,18 @@
       "message": "post: 发布Srp-img项目介绍文章"
     }
   ],
+  "video.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
   "sunmoon-scrcpy.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -1203,18 +1220,6 @@
       "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
       "date": "2025-11-10 12:16:55 +0800",
       "message": "doc(post):如何投屏和串流？"
-    }
-  ],
-  "video.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
     }
   ],
   "ssh-1.md": [
