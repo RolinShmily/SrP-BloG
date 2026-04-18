@@ -2,7 +2,7 @@
 title: 将任意视频转换为单通道音频、H.264编码的mp4格式视频 | FFmpeg
 published: 2026-03-12
 description: 个人脚本集合仓库介绍，以及视频音频合并与重编码脚本的详细使用说明
-image: ""
+image: ../assets/images/2026-0418-1558.png
 tags:
   - FFmpeg
 draft: false
