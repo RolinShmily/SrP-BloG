@@ -409,7 +409,7 @@ server {
     index index.php index.html index.htm;
 
     client_max_body_size 100m;
-    client_body_timeout 60s;
+    client_body_timeout 180s;
 
     gzip on;
     gzip_comp_level 5;              
