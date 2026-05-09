@@ -1,12 +1,14 @@
 ---
-title: 使用Docker部署Umami统计服务 | Nginx
+title: 使用Docker部署Umami统计服务 | Nginx | PostgreSQL
 published: 2026-04-19
-description: '一个使用docker在Debian13服务器上搭建Umami统计服务的部署记录。'
-image: '../assets/images/2026-0419-2237.png'
-tags: [Docker,Nginx]
-category: ''
-draft: false 
-lang: ''
+description: 一个使用docker在Debian13服务器上搭建Umami统计服务的部署记录。
+image: ../assets/images/2026-0419-2237.png
+tags:
+  - Docker
+  - Nginx，PostgreSQL
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接
 - [Umami官网](https://umami.is/)
@@ -81,6 +83,15 @@ sudo docker pull docker.umami.is/umami-software/umami:latest
 # 拉取成功后启动容器
 cd ~/umami
 sudo docker compose up -d
+```
+
+# PostgreSQL数据库备份与恢复
+```bash
+# 备份数据库
+docker exec -t <容器名umami-postgres> pg_dump -U <用户名umami> <数据库名umami_db> > ~/backup.sql
+
+# 恢复数据库
+cat ~/backup.sql | docker exec -i <容器名umami-postgres> psql -U <用户名umami> <数据库名umami_db>
 ```
 
 
