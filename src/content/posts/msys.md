@@ -141,7 +141,7 @@ ninja --version
 - [Stm32CubeIDE](https://www.st.com.cn/zh/development-tools/stm32cubeide.html#section-get-software-table)
 - [Stm32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)
 
-一般来说，[Stm32CubeIDE](https://www.st.com.cn/zh/development-tools/stm32cubeide.html#section-get-software-table)已经为我们解决了所有环境问题，但现在，我们有了 [STM32CubeIDE-for-Visual-Studio-Code](https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension)，这使得我们完全可以在VSCode中实现Stm32的开发调试烧录全流程，只需要安装这一套插件即可。
+一般来说，[Stm32CubeIDE](https://www.st.com.cn/zh/development-tools/stm32cubeide.html#section-get-software-table)已经为我们解决了所有环境问题，但现在，我们有了 [STM32CubeIDE-for-Visual-Studio-Code](https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension)，这使得我们完全可以在VSCode中实现Stm32的开发调试烧录全流程，只需要安装这一套插件，再另外安装[Stm32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)来创建工程即可。
 
 ![](../assets/images/Snipaste_2026-05-10_14-09-19.png)
 
