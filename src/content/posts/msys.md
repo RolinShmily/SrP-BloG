@@ -1,12 +1,18 @@
 ---
-title: 在Windows上使用MSYS2+MinGW工具链 | gcc | gdb | cmake | make | VScode
+title: 在Windows上使用MSYS2+MinGW工具链 | gcc | gdb | cmake | make | Ninja | VScode
 published: 2026-05-10
-description: '通过在Windows系统上安装MSYS2模拟Linux环境，并使用pacman包管理器安装MinGW版的gcc、gdb、cmake、make工具链，并使用VScode搭建有关C/Cpp、嵌入式Stm32的开发环境。'
-image: '../assets/images/2026-0510-1413.png'
-tags: [MSYS2,MinGW,VScode,C,Cpp,Stm32]
-category: ''
-draft: false 
-lang: ''
+description: 通过在Windows系统上安装MSYS2模拟Linux环境，并使用pacman包管理器安装MinGW版的gcc、gdb、cmake、make工具链，并使用VScode搭建有关C/Cpp、嵌入式Stm32的开发环境。
+image: ../assets/images/2026-0510-1413.png
+tags:
+  - MSYS2
+  - MinGW
+  - VScode
+  - C
+  - Cpp
+  - Stm32
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接
 - [MSYS2官方文档](https://www.msys2.org/)
@@ -109,12 +115,13 @@ VScode设置(`settings.json`)文件内容：
 在终端中输入如下命令即可安装工具链：
 ```bash
 # 下载安装
-pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gdb mingw-w64-ucrt-x86_64-make mingw-w64-ucrt-x86_64-cmake
+pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gdb mingw-w64-ucrt-x86_64-make mingw-w64-ucrt-x86_64-cmake ninja
 # 版本检查
 gcc -v
 gdb -v
 mingw32-make --version
 cmake --version
+ninja --version
 ```
 
 # C/Cpp环境配置
