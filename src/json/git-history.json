@@ -130,23 +130,6 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
-    }
-  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -172,6 +155,23 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
+    }
+  ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -282,6 +282,28 @@
       "message": "CMS:Create Posts “2026-02-24-s3-1”"
     }
   ],
+  "2026-02-26-astrbot-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
+      "date": "2026-02-26 21:58:17 +0800",
+      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
+    },
+    {
+      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
+      "date": "2026-02-26 21:57:19 +0800",
+      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
+    }
+  ],
   "2026-03-02-machinelearning-1.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -307,28 +329,6 @@
       "hash": "17247551cdef0c28c0adad9399d929a0f15042f5",
       "date": "2026-03-02 18:59:55 +0800",
       "message": "CMS:Create Posts “2026-03-02-machinelearning-1”"
-    }
-  ],
-  "2026-02-26-astrbot-1.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
-      "date": "2026-02-26 21:58:17 +0800",
-      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
-    },
-    {
-      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
-      "date": "2026-02-26 21:57:19 +0800",
-      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
     }
   ],
   "2026-03-07-pve-1.md": [
@@ -361,6 +361,43 @@
       "hash": "cc52220b2769570adf783b96fe977e9c08b7ea2a",
       "date": "2026-03-07 14:08:42 +0800",
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
+    }
+  ],
+  "2026-03-17-windows-1.md": [
+    {
+      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
+      "date": "2026-04-17 23:32:57 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
+      "date": "2026-04-04 23:03:03 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
+      "date": "2026-03-20 12:49:33 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
+      "date": "2026-03-18 19:28:35 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
+      "date": "2026-03-17 19:44:23 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
+      "date": "2026-03-17 19:43:34 +0800",
+      "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
   "2026-04-16-srp-scripts-2.md": [
@@ -405,43 +442,6 @@
       "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
     }
   ],
-  "2026-03-17-windows-1.md": [
-    {
-      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
-      "date": "2026-04-17 23:32:57 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
-      "date": "2026-04-04 23:03:03 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
-      "date": "2026-03-20 12:49:33 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
-      "date": "2026-03-18 19:28:35 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
-      "date": "2026-03-17 19:44:23 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
-      "date": "2026-03-17 19:43:34 +0800",
-      "message": "CMS:Create Posts “2026-03-17-windows-1”"
-    }
-  ],
   "2026-04-16-yt-dlp.md": [
     {
       "hash": "4ad269519fe062e105aa2b74570a4e66c4375f84",
@@ -481,6 +481,13 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
+    }
+  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -496,13 +503,6 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
-    }
-  ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "C_inVScode.md": [
@@ -617,38 +617,6 @@
       "message": "post:PyTorch环境搭建"
     }
   ],
-  "SrP-Sakura_Minecraft.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
-      "date": "2025-12-21 23:16:19 +0800",
-      "message": "docs(ssmc):修复文章外链错误，归档该文章"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
-      "date": "2025-11-06 21:41:52 +0800",
-      "message": "post:在文章中引入文档页"
-    },
-    {
-      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
-      "date": "2025-10-27 23:55:19 +0800",
-      "message": "post:添加百度网盘链接，删除SrP-Cloud"
-    },
-    {
-      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
-      "date": "2025-10-26 21:21:31 +0800",
-      "message": "post:Minecraft-2"
-    }
-  ],
   "SrP-CFG.md": [
     {
       "hash": "0d8e137941afdee014bd58355e8e970add4de563",
@@ -736,6 +704,38 @@
       "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
       "date": "2025-10-26 20:48:12 +0800",
       "message": "post:Zerotier-1"
+    }
+  ],
+  "SrP-Sakura_Minecraft.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
+      "date": "2025-12-21 23:16:19 +0800",
+      "message": "docs(ssmc):修复文章外链错误，归档该文章"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
+      "date": "2025-11-06 21:41:52 +0800",
+      "message": "post:在文章中引入文档页"
+    },
+    {
+      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
+      "date": "2025-10-27 23:55:19 +0800",
+      "message": "post:添加百度网盘链接，删除SrP-Cloud"
+    },
+    {
+      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
+      "date": "2025-10-26 21:21:31 +0800",
+      "message": "post:Minecraft-2"
     }
   ],
   "agent-1.md": [
@@ -1156,6 +1156,11 @@
     }
   ],
   "msys.md": [
+    {
+      "hash": "fb8ed18e28501af80064e9e13821ef48d4629603",
+      "date": "2026-05-10 18:31:35 +0800",
+      "message": "CMS:Update Posts “msys”"
+    },
     {
       "hash": "579a7eda2b8af73028ce1810a468e1b3e85a72ed",
       "date": "2026-05-10 18:15:05 +0800",
