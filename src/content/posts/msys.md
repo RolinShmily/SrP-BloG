@@ -90,7 +90,7 @@ VScode设置(`settings.json`)文件内容：
 13. [WakaTime](https://marketplace.visualstudio.com/items?itemName=WakaTime.vscode-wakatime)：代码编辑时间统计，需要登录。
 ![](../assets/images/Snipaste_2026-05-10_13-43-25.png)
 
-## MSYS2安装MinGW工具链
+## MSYS2集成终端
 
 在[MSYS2文档中](https://www.msys2.org/docs/ides-editors/)，提供了将MSYS2终端集成到VScode的方法，便是在`settings.json`文件中添加如下字段：
 ```jsonc
@@ -112,37 +112,46 @@ VScode设置(`settings.json`)文件内容：
 
 ![](../assets/images/Snipaste_2026-05-10_13-52-09.png)
 
-在终端中输入如下命令即可安装工具链：
+# C/C++环境配置
+打开MSYS2的UCRT64终端，输入如下命令安装工具链：
 ```bash
-# 下载安装
-pacman -S mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-gdb mingw-w64-ucrt-x86_64-make mingw-w64-ucrt-x86_64-cmake ninja
+# 编译器、调试器、构建系统、构建工具
+pacman -S mingw-w64-ucrt-x86_64-{gcc,gdb,cmake,ninja,make}
 # 版本检查
 gcc -v
 gdb -v
-mingw32-make --version
 cmake --version
 ninja --version
+mingw32-make --version
 ```
-
-# C/Cpp环境配置
 打开VSCODE，创建配置文件，复制继承上文中的通用配置，随后激活后，在拓展中安装：
 - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 - [C/C++ Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)
 - [C/C++ Themes](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-themes)
 - [C/C++ DevTools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpp-devtools)
+- [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
 ![](../assets/images/Snipaste_2026-05-10_14-01-40.png)
 ![](../assets/images/Snipaste_2026-05-10_14-01-49.png)
 ![](../assets/images/Snipaste_2026-05-10_14-01-53.png)
 ![](../assets/images/Snipaste_2026-05-10_14-01-57.png)
+![](../assets/images/snipaste_2026-05-10_23-42-57.png)
 
 由于上文已经安装了MinGW工具链，因此拓展会自动寻找环境变量中的gcc编译器，MSYS2安装在默认位置下便无需手动配置路径了。
 
 # Stm32环境配置
-- [Stm32CubeIDE](https://www.st.com.cn/zh/development-tools/stm32cubeide.html#section-get-software-table)
-- [Stm32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)
 
-一般来说，[Stm32CubeIDE](https://www.st.com.cn/zh/development-tools/stm32cubeide.html#section-get-software-table)已经为我们解决了所有环境问题，但现在，我们有了 [STM32CubeIDE-for-Visual-Studio-Code](https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension)，这使得我们完全可以在VSCode中实现Stm32的开发调试烧录全流程，只需要安装这一套插件，再另外安装[Stm32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)来创建工程即可。
+安装[Stm32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)用于下载固件库和创建工程。
 
+打开MSYS2的UCRT64终端，输入如下命令安装工具链：
+```bash
+# 交叉编译器
+pacman -S mingw-w64-ucrt-x86_64-arm-none-eabi-gcc
+# 版本检查
+arm-none-eabi-gcc --version 
+```
+打开VSCODE，创建配置文件，复制继承上文中的通用配置，随后激活后，在拓展中安装：
+
+[STM32CubeIDE-for-Visual-Studio-Code](https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension)
 ![](../assets/images/Snipaste_2026-05-10_14-09-19.png)
 
-同样的，我们已在前文中配置好了gcc、cmake等工具链，拓展在安装完必要的组件后，会自行查找所需工具路径，现在点击左侧小蝴蝶，就能用上完全的Stm32CubeIDE功能了。
+同样的，我们已在前文中配置好了gcc、cmake等工具链，拓展在安装完必要的组件后，会自行查找所需工具路径，现在点击左侧小蝴蝶，就能用上Stm32CubeIDE的功能了。
