@@ -130,6 +130,23 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
+    }
+  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -155,23 +172,6 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
-    }
-  ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -282,28 +282,6 @@
       "message": "CMS:Create Posts “2026-02-24-s3-1”"
     }
   ],
-  "2026-02-26-astrbot-1.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
-      "date": "2026-02-26 21:58:17 +0800",
-      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
-    },
-    {
-      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
-      "date": "2026-02-26 21:57:19 +0800",
-      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
-    }
-  ],
   "2026-03-02-machinelearning-1.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -329,6 +307,28 @@
       "hash": "17247551cdef0c28c0adad9399d929a0f15042f5",
       "date": "2026-03-02 18:59:55 +0800",
       "message": "CMS:Create Posts “2026-03-02-machinelearning-1”"
+    }
+  ],
+  "2026-02-26-astrbot-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
+      "date": "2026-02-26 21:58:17 +0800",
+      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
+    },
+    {
+      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
+      "date": "2026-02-26 21:57:19 +0800",
+      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
     }
   ],
   "2026-03-07-pve-1.md": [
@@ -745,28 +745,6 @@
       "message": "posts: 发布文章"
     }
   ],
-  "archlinux-1.md": [
-    {
-      "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
-      "date": "2026-04-03 01:52:00 +0800",
-      "message": "CMS:Update Posts “archlinux-1”"
-    },
-    {
-      "hash": "526973791be6e696a4e207c82a79fc0a3839b296",
-      "date": "2026-03-24 18:14:43 +0800",
-      "message": "CMS:Update Posts “archlinux-1”"
-    },
-    {
-      "hash": "b757ad40050b710578890ecd76cda3e51f0a1e80",
-      "date": "2026-03-08 11:50:59 +0800",
-      "message": "chore: 修改标题"
-    },
-    {
-      "hash": "550ebcd1e51746ea4ff63cbe0fed86df345b7076",
-      "date": "2026-03-08 11:50:47 +0800",
-      "message": "post: 发布文章archlinux"
-    }
-  ],
   "autoexec.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -789,6 +767,35 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
+  "archlinux-1.md": [
+    {
+      "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
+      "date": "2026-04-03 01:52:00 +0800",
+      "message": "CMS:Update Posts “archlinux-1”"
+    },
+    {
+      "hash": "526973791be6e696a4e207c82a79fc0a3839b296",
+      "date": "2026-03-24 18:14:43 +0800",
+      "message": "CMS:Update Posts “archlinux-1”"
+    },
+    {
+      "hash": "b757ad40050b710578890ecd76cda3e51f0a1e80",
+      "date": "2026-03-08 11:50:59 +0800",
+      "message": "chore: 修改标题"
+    },
+    {
+      "hash": "550ebcd1e51746ea4ff63cbe0fed86df345b7076",
+      "date": "2026-03-08 11:50:47 +0800",
+      "message": "post: 发布文章archlinux"
+    }
+  ],
+  "crosshair_view.md": [
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
+    }
+  ],
   "davinci-smb.md": [
     {
       "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
@@ -809,13 +816,6 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
-    }
-  ],
-  "crosshair_view.md": [
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "docker-mc.md": [
@@ -855,19 +855,19 @@
       "message": "posts: 发布文章docker-mc"
     }
   ],
-  "expressive-code.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
+  "draft.md": [
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
     }
   ],
-  "draft.md": [
+  "expressive-code.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
@@ -1156,6 +1156,11 @@
     }
   ],
   "msys.md": [
+    {
+      "hash": "856a622e9c2c47188ecfac90cd349f8c17f2bf63",
+      "date": "2026-05-10 23:46:52 +0800",
+      "message": "CMS:Update Posts “msys”"
+    },
     {
       "hash": "fb8ed18e28501af80064e9e13821ef48d4629603",
       "date": "2026-05-10 18:31:35 +0800",
