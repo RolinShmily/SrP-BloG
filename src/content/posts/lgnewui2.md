@@ -512,7 +512,7 @@ sudo chown -R 33:33 /var/www/
 ## MySQL数据库备份与恢复
 ```bash
 # 备份数据库
-docker exec <容器名mysql57> mysqldump -u <用户名root> -p<密码yourpassword> --single-transaction --hex-blob --default-character-set=utf8mb4 <数据库名LGnewUI2> > ~/backup.sql
+docker exec <容器名mysql57> mysqldump -u <用户名root> -p<密码yourpassword> --single-transaction --hex-blob --default-character-set=utf8mb4 --add-drop-table <数据库名LGnewUI2> > ~/backup.sql
 
 # 恢复数据库
 docker exec -i <容器名mysql57> mysql -u <用户名root> -p<密码yourpassword> --default-character-set=utf8mb4 <数据库名LGnewUI2> < ~/backup.sql
