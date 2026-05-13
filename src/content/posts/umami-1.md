@@ -79,7 +79,6 @@ networks:
 sudo docker pull postgres:17-alpine
 sudo docker pull docker.umami.is/umami-software/umami:latest
 
-
 # 拉取成功后启动容器
 cd ~/umami
 sudo docker compose up -d
@@ -88,12 +87,11 @@ sudo docker compose up -d
 # PostgreSQL数据库备份与恢复
 ```bash
 # 备份数据库
-docker exec -t <容器名umami-postgres> pg_dump -U <用户名umami> <数据库名umami_db> > ~/backup.sql
+docker exec -t <容器名umami-postgres> pg_dump -U <用户名umami> -c <数据库名umami_db> > ~/backup.sql
 
 # 恢复数据库
 cat ~/backup.sql | docker exec -i <容器名umami-postgres> psql -U <用户名umami> <数据库名umami_db>
 ```
-
 
 # Nginx+Certbot配置
 ```bash
@@ -103,23 +101,18 @@ systemctl enable nginx && systemctl start nginx
 apt-get install -y certbot
 apt-get install -y python3-certbot-nginx
 
-
 # 申请SSL证书
 # 将<your-domain>改为已在DNS处解析过的域名
 sudo certbot certonly --nginx -d <your-domain>
 
-
 # 编辑Nginx配置文件（参考下文）
 nano /etc/nginx/sites-available/default
-
 
 # 启用软链接
 ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
-
 # 测试文件格式
 nginx -t
-
 
 # 重载Nginx服务
 systemctl reload nginx
