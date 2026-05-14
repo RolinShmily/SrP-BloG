@@ -120,7 +120,7 @@
       var queryParams = { timezone: config.timezone || "Asia/Shanghai" };
 
       if (type === "pageviews" || type === "visitors") {
-        queryParams.path = "eq./posts/" + slug + "/";
+        queryParams.path = "/posts/" + slug + "/";
       }
       // site-pageviews / site-visitors 不需要 path 参数
 
