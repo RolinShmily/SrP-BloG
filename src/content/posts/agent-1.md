@@ -1,12 +1,16 @@
 ---
-title: Agent小心得 EP-1 | ClaudeCode | CC-Switch 
+title: ClaudeCode安装与使用 | Agent | CC-Switch
 published: 2026-05-09
-description: '分享使用agent工具时的一些小心得'
-image: '../assets/images/2025-0509-0012.png'
-tags: [ClaudeCode,Shell,Git,Node.js]
-category: ''
-draft: false 
-lang: ''
+description: 分享使用agent工具时的一些小心得
+image: ../assets/images/2025-0509-0012.png
+tags:
+  - ClaudeCode
+  - Shell
+  - Git
+  - Agent
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接
 - [Claude Code Docs 中文文档](https://code.claude.com/docs/zh-CN/overview)
@@ -16,7 +20,7 @@ lang: ''
 - [Git For Windows](https://git-scm.com/install/windows)
 - [Git Book中文版](https://git-scm.com/book/zh/v2)
 
-本系列基础平台以Windows操作系统为主。(WSL操作逻辑同Linux)
+本文基础平台为Windows操作系统。(WSL操作逻辑同Linux)
 # Windows终端
 按`win+x`组合键，点击**终端**会打开`Windows PowerShell`终端，但这是早期的`version5`版本，我们需要在[微软应用商店](https://apps.microsoft.com/)里下载`version7`版本，应用名称为`PowerShell`。
 
