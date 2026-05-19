@@ -6,6 +6,7 @@
 - [试试Cloudflare IP优选！让Cloudflare在国内再也不是减速器！ ── AcoFork](https://2x.nz/posts/cf-fastip/)
 - [SMTP 协议全过程：一封邮件从点击“发送”到抵达对方收件箱的旅程 ── 雪诺](https://blog.4365754.xyz/2026/03/smtp.html)
 - [跨平台的开源输入法Rime定制指南，打造强大的个性化输入法 ── Mintimate](https://www.mintimate.cn/2023/03/18/rimeQuickInit/)
+- [GitHub个人主页美化教程 ── 晓林的博客](https://www.peterjxl.com/Git/GitHub-Profile-Beautify)
 
 ### 交换信息
 
