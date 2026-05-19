@@ -354,8 +354,6 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 -allow_third_party_software -worldwide
 ```
 
-我所采用的游戏优化方案是`锁帧`，因此我在启动项中添加`-noreflex`禁用了游戏内的`NVIDIA低延迟策略`，并在`NVIDIA控制面板`中也禁用了`程序CS2`的`Reflex`功能。
-
 启动项设置位置已在前文提出，下面是位置图例：
 
 ![qidong](../assets/images/PixPin_2025-04-13_00-11-22.webp)
@@ -364,34 +362,19 @@ mp_weapons_glow_on_ground 1 // 开启地面武器的高亮显示功能
 
 > 本人的`CFG`预设文件已经在`GitHub仓库`[SrP-CFG_ForCS2](https://github.com/RolinShmily/SrP-CFG_ForCS2)中发布
 
-这是本人所使用的一套`CFG`预设文件，包含了多个场景的`CFG`使用需求，且长期维护更新，保证有效可用。
+这是本人所使用的一套`CFG`预设文件，包含了多个场景的`CFG`使用需求，另外还开发了该套`CFG`的官方网站和一键安装程序，且长期维护更新，保证有效可用。
 
 ::github{repo="RolinShmily/SrP-CFG_ForCS2"}
 
-![仓库活动](https://repobeats.axiom.co/api/embed/55700fe0f86a32b2418b023fa87c8ec214153ef0.svg "Repobeats analytics image")
-
 你会需要的链接：
 
-- [项目说明书](https://doc.srprolin.top/SrP-CFG_CS2/srpcfg-1.html) | 本项目的一些废话
-- [下载地址](https://doc.srprolin.top/SrP-CFG_CS2/srpcfg-2.html) | 顾名思义
-- [使用指南](https://doc.srprolin.top/SrP-CFG_CS2/srpcfg-3.html) | 按键、控制台命令功能表
+- [官方网站 | cfg.srprolin.top](https://cfg.srprolin.top/)
+- [下载地址 | cfg.srprolin.top](https://cfg.srprolin.top/download)
+- [文档指南 | cfg.srprolin.top](https://cfg.srprolin.top/docs)
 
----
+下面是一些SrP-CFG-Installer-V3版本的一些程序页面：
 
-为了更加无脑式的使用安装CFG，推荐使用SrP-CFG-Installer，下面是相关链接和页面展示：
-
-- [SrP-CFG安装器v2版本 | 使用指南 ](https://blog.srprolin.top/posts/2026-01-12-cfg_installer_v2/)
-
-![cfg_installer-1](../assets/images/2026-01-12_14-17-38.png)
-
----
-
-下面是一组图文教程，如何下载并使用该套`CFG`预设：
-
-1. 打包下载目标文件夹。
-
-![打包下载](../assets/images/20251014201509174.png)
-
-2. 进入`游戏全局CFG`文件夹，将压缩包解压。
-
-![解压](../assets/images/20251014202224977.png)
+![](../assets/images/Snipaste_2026-05-19_15-24-52.png)
+![](../assets/images/Snipaste_2026-05-19_15-25-28.png)
+![](../assets/images/Snipaste_2026-05-19_15-26-13.png)
+![](../assets/images/Snipaste_2026-05-19_15-27-34.png)
