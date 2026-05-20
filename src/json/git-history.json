@@ -58,6 +58,11 @@
   ],
   "2026-01-12-cfg_installer_v2.md": [
     {
+      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
+      "date": "2026-05-20 13:43:26 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
       "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
       "date": "2026-04-17 23:35:23 +0800",
       "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
@@ -282,28 +287,6 @@
       "message": "CMS:Create Posts “2026-02-24-s3-1”"
     }
   ],
-  "2026-02-26-astrbot-1.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
-      "date": "2026-02-26 21:58:17 +0800",
-      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
-    },
-    {
-      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
-      "date": "2026-02-26 21:57:19 +0800",
-      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
-    }
-  ],
   "2026-03-02-machinelearning-1.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -329,6 +312,28 @@
       "hash": "17247551cdef0c28c0adad9399d929a0f15042f5",
       "date": "2026-03-02 18:59:55 +0800",
       "message": "CMS:Create Posts “2026-03-02-machinelearning-1”"
+    }
+  ],
+  "2026-02-26-astrbot-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "0ff41e41e38a738d3491bfc60013f4c5f42a01c0",
+      "date": "2026-02-26 21:58:17 +0800",
+      "message": "CMS:Update Posts “2026-02-26-astrbot-1”"
+    },
+    {
+      "hash": "65eca99df6a81e9c17adb0ceed2f70615ce470b9",
+      "date": "2026-02-26 21:57:19 +0800",
+      "message": "CMS:Create Posts “2026-02-26-astrbot-1”"
     }
   ],
   "2026-03-07-pve-1.md": [
@@ -361,43 +366,6 @@
       "hash": "cc52220b2769570adf783b96fe977e9c08b7ea2a",
       "date": "2026-03-07 14:08:42 +0800",
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
-    }
-  ],
-  "2026-03-17-windows-1.md": [
-    {
-      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
-      "date": "2026-04-17 23:32:57 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
-      "date": "2026-04-04 23:03:03 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
-      "date": "2026-03-20 12:49:33 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
-      "date": "2026-03-18 19:28:35 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
-      "date": "2026-03-17 19:44:23 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
-      "date": "2026-03-17 19:43:34 +0800",
-      "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
   "2026-04-16-srp-scripts-2.md": [
@@ -442,6 +410,43 @@
       "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
     }
   ],
+  "2026-03-17-windows-1.md": [
+    {
+      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
+      "date": "2026-04-17 23:32:57 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
+      "date": "2026-04-04 23:03:03 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
+      "date": "2026-03-20 12:49:33 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
+      "date": "2026-03-18 19:28:35 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
+      "date": "2026-03-17 19:44:23 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
+      "date": "2026-03-17 19:43:34 +0800",
+      "message": "CMS:Create Posts “2026-03-17-windows-1”"
+    }
+  ],
   "2026-04-16-yt-dlp.md": [
     {
       "hash": "4ad269519fe062e105aa2b74570a4e66c4375f84",
@@ -481,6 +486,13 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
+    }
+  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -496,13 +508,6 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
-    }
-  ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "C_inVScode.md": [
@@ -804,6 +809,13 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
+  "crosshair_view.md": [
+    {
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
+    }
+  ],
   "davinci-smb.md": [
     {
       "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
@@ -824,13 +836,6 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
-    }
-  ],
-  "crosshair_view.md": [
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "docker-mc.md": [
@@ -926,6 +931,53 @@
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
+    }
+  ],
+  "mac-mc-1.md": [
+    {
+      "hash": "81a7b872a58a78782a087bd532fa0de5bc707d3f",
+      "date": "2026-04-17 23:38:41 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
+    },
+    {
+      "hash": "032be9cfc3590040ad33c4caa1cede095c9a4339",
+      "date": "2026-03-24 22:20:42 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
+    },
+    {
+      "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
+      "date": "2026-02-26 20:53:16 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
+      "date": "2026-01-05 14:45:19 +0800",
+      "message": "fix:修改封面"
+    },
+    {
+      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
+      "date": "2026-01-05 14:41:46 +0800",
+      "message": "fix:修复文章封面"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
+      "date": "2025-12-07 18:37:35 +0800",
+      "message": "docs(post):mac-mc-1发布"
     }
   ],
   "lgnewui2.md": [
@@ -1050,53 +1102,6 @@
       "message": "CMS:Update Posts \"lgnewui2\""
     }
   ],
-  "mac-mc-1.md": [
-    {
-      "hash": "81a7b872a58a78782a087bd532fa0de5bc707d3f",
-      "date": "2026-04-17 23:38:41 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
-    },
-    {
-      "hash": "032be9cfc3590040ad33c4caa1cede095c9a4339",
-      "date": "2026-03-24 22:20:42 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
-    },
-    {
-      "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
-      "date": "2026-02-26 20:53:16 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
-    },
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
-      "date": "2026-01-05 14:45:19 +0800",
-      "message": "fix:修改封面"
-    },
-    {
-      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
-      "date": "2026-01-05 14:41:46 +0800",
-      "message": "fix:修复文章封面"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
-      "date": "2025-12-07 18:37:35 +0800",
-      "message": "docs(post):mac-mc-1发布"
-    }
-  ],
   "markdown-extended.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
@@ -1158,6 +1163,23 @@
       "message": "docs(post):mac-mc-2发布"
     }
   ],
+  "pytorch-2.md": [
+    {
+      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
+      "date": "2026-04-03 01:53:04 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
+      "date": "2026-03-20 12:50:13 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
+      "date": "2026-03-20 12:41:16 +0800",
+      "message": "doc(post): 深度学习框架的安装"
+    }
+  ],
   "msys.md": [
     {
       "hash": "856a622e9c2c47188ecfac90cd349f8c17f2bf63",
@@ -1183,23 +1205,6 @@
       "hash": "5f4cfdf0b7814fa2202ab2a157ffcbb34d97db16",
       "date": "2026-05-10 14:14:30 +0800",
       "message": "CMS: New Posts \"msys\""
-    }
-  ],
-  "pytorch-2.md": [
-    {
-      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
-      "date": "2026-04-03 01:53:04 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
-      "date": "2026-03-20 12:50:13 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
-      "date": "2026-03-20 12:41:16 +0800",
-      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "script-1.md": [
@@ -1266,43 +1271,6 @@
       "message": "doc(post):如何投屏和串流？"
     }
   ],
-  "ssh-1.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "e741575d4d017db84e40f42f7a658941162e0957",
-      "date": "2026-01-24 21:32:52 +0800",
-      "message": "CMS:Update Posts “ssh-1”"
-    },
-    {
-      "hash": "97c730f2765638f183a697104f76046603968cf7",
-      "date": "2026-01-05 16:51:25 +0800",
-      "message": "CMS:Update Posts “ssh-1”"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "20cd62c5e3ff81fa8c05fd5aba995de21d0b8703",
-      "date": "2025-11-07 13:50:00 +0800",
-      "message": "ssh-1:修改错误"
-    },
-    {
-      "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
-      "date": "2025-11-07 13:44:15 +0800",
-      "message": "post:ssh-1发布"
-    }
-  ],
   "srp-img.md": [
     {
       "hash": "b8dd475ba0eb33b7deb1e7f5508d057c3ae3fd83",
@@ -1338,6 +1306,43 @@
       "hash": "7ecd6f1efa7125080044ad433d40a55d4d1b1087",
       "date": "2026-03-11 22:41:19 +0800",
       "message": "post: 发布Srp-img项目介绍文章"
+    }
+  ],
+  "ssh-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "e741575d4d017db84e40f42f7a658941162e0957",
+      "date": "2026-01-24 21:32:52 +0800",
+      "message": "CMS:Update Posts “ssh-1”"
+    },
+    {
+      "hash": "97c730f2765638f183a697104f76046603968cf7",
+      "date": "2026-01-05 16:51:25 +0800",
+      "message": "CMS:Update Posts “ssh-1”"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "20cd62c5e3ff81fa8c05fd5aba995de21d0b8703",
+      "date": "2025-11-07 13:50:00 +0800",
+      "message": "ssh-1:修改错误"
+    },
+    {
+      "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
+      "date": "2025-11-07 13:44:15 +0800",
+      "message": "post:ssh-1发布"
     }
   ],
   "video.md": [
