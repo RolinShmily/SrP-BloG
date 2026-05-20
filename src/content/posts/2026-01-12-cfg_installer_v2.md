@@ -7,7 +7,7 @@ image: ../assets/images/2026-01-12-14-18.png
 tags:
   - CFG
   - CS2
-draft: false
+draft: true
 lang: ""
 ---
 # 前言
