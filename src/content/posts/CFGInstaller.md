@@ -7,7 +7,7 @@ tags:
   - CFG
   - CS2
   - Steam
-draft: false
+draft: true
 lang: ""
 category: ""
 ---
