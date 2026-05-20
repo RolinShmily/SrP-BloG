@@ -11,7 +11,6 @@
     "https://blog.srprolin.top/archive/",
     "https://blog.srprolin.top/frlinks/",
     "https://blog.srprolin.top/navi/",
-    "https://blog.srprolin.top/posts/2026-01-12-cfg_installer_v2/",
     "https://blog.srprolin.top/posts/2026-02-05-switch_ams_1/",
     "https://blog.srprolin.top/posts/2026-02-06-cloudflare_1/",
     "https://blog.srprolin.top/posts/2026-02-08-switch_ams_2/",
@@ -32,7 +31,6 @@
     "https://blog.srprolin.top/posts/archlinux-1/",
     "https://blog.srprolin.top/posts/autoexec/",
     "https://blog.srprolin.top/posts/c_invscode/",
-    "https://blog.srprolin.top/posts/cfginstaller/",
     "https://blog.srprolin.top/posts/davinci-smb/",
     "https://blog.srprolin.top/posts/docker-mc/",
     "https://blog.srprolin.top/posts/frp-1/",
@@ -57,5 +55,5 @@
     "https://blog.srprolin.top/sponsors/",
     "https://blog.srprolin.top/web/"
   ],
-  "timestamp": 1778393898023
+  "timestamp": 1779255873725
 }
