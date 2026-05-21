@@ -10,4 +10,4 @@
 
 ::github{repo="RolinShmily/SrP-IMG"}
 
-**数据统计** - 本站使用自建的 [Umami 分析](https://umami.srprolin.top/share/GtKefwdonkOgToNA) 服务，数据匿名化处理，可实时查看。
+**数据统计** - 本站使用 Cloudflare D1 + Worker 实现访问量统计，数据存储于边缘数据库，访客信息匿名化哈希处理。

@@ -1,3 +1,7 @@
+/**
+ * @deprecated 已迁移至 D1 Worker 方案，此文件仅作归档保留。
+ * 新方案: stats-manager.js + /api/stats/* endpoints
+ */
 (function (global) {
   const cacheKey = "umami-share-cache";
   const cacheTTL = 3600_000; // 1h

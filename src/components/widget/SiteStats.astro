@@ -53,7 +53,7 @@ const style = Astro.props.style;
 				<span class="text-xs">访问量</span>
 			</div>
 			<div id="site-views" class="font-bold text-lg text-neutral-700 dark:text-neutral-300"
-		     data-umami-site data-umami-type="site-pageviews" data-umami-suffix="">--</div>
+		     data-stats-site data-stats-type="site-pageviews" data-stats-suffix="">--</div>
 		</div>
 
 		<!-- 访客数 -->
@@ -63,7 +63,7 @@ const style = Astro.props.style;
 				<span class="text-xs">访客数</span>
 			</div>
 			<div id="site-visitors" class="font-bold text-lg text-neutral-700 dark:text-neutral-300"
-		     data-umami-site data-umami-type="site-visitors" data-umami-suffix="">--</div>
+		     data-stats-site data-stats-type="site-visitors" data-stats-suffix="">--</div>
 		</div>
 	</div>
 </WidgetLayout>
@@ -88,11 +88,11 @@ const style = Astro.props.style;
 	// 标记是否正在swup跳转
 	let isSwupNavigating = false;
 
-	// umami site stats 动画：轮询等待值填充后从0滚动到目标值
-	function animateUmamiSiteStats() {
+	// site stats 动画：轮询等待值填充后从0滚动到目标值
+	function animateSiteStats() {
 		var targets = [
-			{ id: 'site-views', cacheKey: 'umami-site-pageviews' },
-			{ id: 'site-visitors', cacheKey: 'umami-site-visitors' }
+			{ id: 'site-views', cacheKey: 'stats-site-pageviews' },
+			{ id: 'site-visitors', cacheKey: 'stats-site-visitors' }
 		];
 
 		targets.forEach(function(target) {
@@ -111,7 +111,7 @@ const style = Astro.props.style;
 				return;
 			}
 
-			// 轮询等待 umami 填充值
+			// 轮询等待 stats 填充值
 			var timer = setInterval(function() {
 				var raw = el.dataset.rawValue;
 				var num = parseInt(raw, 10);
@@ -184,8 +184,8 @@ const style = Astro.props.style;
 			sessionStorage.setItem(totalWordsCacheKey, totalWords);
 		}
 
-		// umami site stats 动画
-		animateUmamiSiteStats();
+		// site stats 动画
+		animateSiteStats();
 	}
 
 	document.addEventListener('DOMContentLoaded', loadSiteStats);

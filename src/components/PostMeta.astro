@@ -5,7 +5,7 @@ import { i18n } from "../i18n/translation";
 import { formatDateToYYYYMMDD } from "../utils/date-utils";
 import { getCategoryUrl, getTagUrl } from "../utils/url-utils";
 
-// umami 逆向工程已由集中式管理器接管
+// 统计功能已迁移至 D1 Worker
 
 interface Props {
 	class: string;
@@ -27,7 +27,7 @@ const {
 	hideUpdateDate = false,
 	hideDate = false,
 	hideStats = false,
-    slug, // umami逆向工程所需的slug
+	slug,
 } = Astro.props;
 const className = Astro.props.class;
 ---
@@ -89,14 +89,14 @@ const className = Astro.props.class;
         </div>
     </div>
 
-    <!-- umami 逆向工程 -->
+    <!-- pageview stats -->
     {!hideStats && slug && (
         <div class="flex items-center">
             <div class="meta-icon">
                 <Icon name="material-symbols:visibility-outline-rounded" class="text-xl"></Icon>
             </div>
             <span class="text-50 text-sm font-medium" id={`page-views-${slug}`}
-                  data-umami-slug={slug} data-umami-type="pageviews" data-umami-suffix=" 次">--</span>
+                  data-stats-slug={`/posts/${slug}/`} data-stats-type="pageviews" data-stats-suffix=" 次">--</span>
         </div>
     )}
 

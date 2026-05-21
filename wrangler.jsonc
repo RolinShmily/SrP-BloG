@@ -1,9 +1,24 @@
 {
-  "name": "srp-blog",
-  "compatibility_flags": ["nodejs_compat"],
-  "compatibility_date": "2025-01-05",
-  "assets": {
-    "directory": "./dist",
-    "not_found_handling": "404-page"
-  }
+	"name": "srp-blog",
+	"main": "worker/index.ts",
+	"compatibility_flags": [
+		"nodejs_compat"
+	],
+	"compatibility_date": "2025-01-05",
+	"assets": {
+		"directory": "./dist",
+		"not_found_handling": "404-page",
+		"binding": "ASSETS",
+		"run_worker_first": [
+			"/api/*"
+		]
+	},
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "srp-blog-stats",
+			"database_id": "427d66da-2ae5-43ff-8680-83f9065a9e64"
+		}
+	]
 }
+

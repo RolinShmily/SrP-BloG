@@ -1,4 +1,7 @@
 /**
+ * @deprecated 已迁移至 D1 Worker 方案，此文件仅作归档保留。
+ * 新方案: stats-manager.js + /api/stats/* endpoints
+ *
  * Umami Stats Manager - 集中式统计管理器
  *
  * 核心设计:
