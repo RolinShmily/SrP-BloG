@@ -7,10 +7,10 @@ import MainGridLayout from "../layouts/MainGridLayout.astro";
 import naviData from "../data/navi.json";
 
 // 生成 headings 用于 TOC
-const headings = naviData.categories.map(cat => ({
+const headings = naviData.categories.map((cat) => ({
 	depth: 2,
-	slug: cat.name.toLowerCase().replace(/\s+/g, '-'),
-	text: cat.name
+	slug: cat.name.toLowerCase().replace(/\s+/g, "-"),
+	text: cat.name,
 }));
 
 // 定义导航项目类型

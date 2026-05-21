@@ -11,8 +11,7 @@ interface Props {
 const { published, updated, history } = Astro.props;
 const publishedStr =
 	published instanceof Date ? published.toISOString() : published;
-const updatedStr =
-	updated instanceof Date ? updated.toISOString() : updated;
+const updatedStr = updated instanceof Date ? updated.toISOString() : updated;
 
 // 使用 Git 历史中最新的提交日期作为最后修改时间
 let lastUpdatedStr;

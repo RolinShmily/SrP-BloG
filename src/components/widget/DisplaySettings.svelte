@@ -3,15 +3,15 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import {
-    getDefaultHue,
-    getHue,
-    setHue,
-    // 背景模糊
-    getBgBlur,
-    setBgBlur,
-    // 背景启用否
-    getHideBg,
-    setHideBg,
+	getDefaultHue,
+	getHue,
+	setHue,
+	// 背景模糊
+	getBgBlur,
+	setBgBlur,
+	// 背景启用否
+	getHideBg,
+	setHideBg,
 } from "@utils/setting-utils";
 
 let hue = getHue();
@@ -33,7 +33,7 @@ $: if (hue || hue === 0) {
 }
 
 $: {
-    setBgBlur(bgBlur);
+	setBgBlur(bgBlur);
 }
 
 // 背景启用否
@@ -41,7 +41,6 @@ function toggleHideBg() {
 	hideBg = !hideBg;
 	setHideBg(hideBg);
 }
-
 </script>
 
 <div id="display-setting" class="float-panel float-panel-closed absolute transition-all w-80 right-4 px-4 py-4">

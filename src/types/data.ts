@@ -1,8 +1,8 @@
 export interface FrlinkContent {
-  name: string;
-  avatar: string;
-  description: string;
-  url: string;
+	name: string;
+	avatar: string;
+	description: string;
+	url: string;
 }
 
 export interface Sponsor {

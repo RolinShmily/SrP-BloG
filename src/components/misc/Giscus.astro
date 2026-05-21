@@ -1,27 +1,27 @@
 ---
 // Giscus评论区组件
 interface Props {
-  repo: string;
-  repoId: string;
-  category: string;
-  categoryId: string;
-  mapping?: string;
-  reactionsEnabled?: boolean;
-  emitMetadata?: boolean;
-  inputPosition?: 'top' | 'bottom';
-  lang?: string;
+	repo: string;
+	repoId: string;
+	category: string;
+	categoryId: string;
+	mapping?: string;
+	reactionsEnabled?: boolean;
+	emitMetadata?: boolean;
+	inputPosition?: "top" | "bottom";
+	lang?: string;
 }
 
 const {
-  repo,
-  repoId,
-  category,
-  categoryId,
-  mapping = 'pathname',
-  reactionsEnabled = true,
-  emitMetadata = false,
-  inputPosition = 'bottom',
-  lang = 'zh-CN'
+	repo,
+	repoId,
+	category,
+	categoryId,
+	mapping = "pathname",
+	reactionsEnabled = true,
+	emitMetadata = false,
+	inputPosition = "bottom",
+	lang = "zh-CN",
 } = Astro.props;
 ---
 

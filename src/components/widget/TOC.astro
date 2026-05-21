@@ -37,9 +37,16 @@ function buildToc(headings: MarkdownHeading[]): TocItem[] {
 	const parentStack: TocItem[] = [];
 
 	headings.forEach((h) => {
-		const item: TocItem = { ...h, text: removeTailingHash(h.text), children: [] };
+		const item: TocItem = {
+			...h,
+			text: removeTailingHash(h.text),
+			children: [],
+		};
 
-		while (parentStack.length > 0 && parentStack[parentStack.length - 1].depth >= item.depth) {
+		while (
+			parentStack.length > 0 &&
+			parentStack[parentStack.length - 1].depth >= item.depth
+		) {
 			parentStack.pop();
 		}
 
