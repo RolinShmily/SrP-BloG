@@ -1,12 +1,15 @@
 ---
 title: 略知Zerotier | 搭建虚拟局域网
 published: 2025-07-18
-description: "简要介绍网络知识，拆解zerotier工作逻辑，为自建中转节点服务器、节点控制器提供教程"
-image: "../assets/images/2025-07-18-0.jpg"
-tags: [Zerotier, P2P, Network]
-category: ""
+description: 简要介绍网络知识，拆解zerotier工作逻辑，为自建中转节点服务器、节点控制器提供教程
+image: ../assets/images/2025-07-18-0.jpg
+tags:
+  - Zerotier
+  - P2P
+  - Network
 draft: false
 lang: ""
+category: ""
 ---
 
 # 使用场景与前言
@@ -85,45 +88,6 @@ lang: ""
 13. 等待创建者同意加入网络
 
 ![屏幕截图 2024-06-22 112920(1)(1)](../assets/images/2024_06_22-19.png)
-
-## Mac Mini 远程终端操作指南
-```zsh
-# 按 Cmd + Space，输入 Terminal，回车, 打开终端
-# 创建用户“remote”
-sudo dscl . -create /Users/remote
-sudo dscl . -create /Users/remote UserShell /bin/zsh
-# 用户名(展示)<Remote User>填入你的用户名
-sudo dscl . -create /Users/remote RealName "<Remote User>"
-sudo dscl . -create /Users/remote UniqueID 510
-sudo dscl . -create /Users/remote PrimaryGroupID 80
-sudo dscl . -create /Users/remote NFSHomeDirectory /Users/remote
-# <yourpassword>更改为你的密码
-sudo dscl . -passwd /Users/remote "<yourpassword>"
-sudo dscl . -append /Groups/admin GroupMembership remote
-sudo createhomedir -c -u remote
-
-# 配置USTC中科大镜像源(单shell环境)，并安装homebrew
-export HOMEBREW_BREW_GIT_REMOTE="https://mirrors.ustc.edu.cn/brew.git"
-export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.ustc.edu.cn/homebrew-core.git"
-export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
-export HOMEBREW_API_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles/api"
-/bin/bash -c "$(curl -fsSL https://github.com/Homebrew/install/raw/HEAD/install.sh)"
-
-# 将brew加入zsh环境变量
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# 安装zerotier
-brew install zerotier-one
-# 启动zerotier
-sudo brew services start zerotier-one
-# 检查cli运行情况
-sudo zerotier-cli status
-# 加入网络 (替换<network-id>)
-zerotier-cli join <network-id>
-# 加入moon服务器 (替换<moon-id>)
-zerotier-cli orbit <moon-id> <moon-id>
-```
 
 # Zerotier 的自托管服务
 
