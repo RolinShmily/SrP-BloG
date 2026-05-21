@@ -18,5 +18,11 @@ CREATE TABLE IF NOT EXISTS page_visitors (
   PRIMARY KEY (visitor_hash, path, visit_date)
 );
 
+CREATE TABLE IF NOT EXISTS site_visitors (
+  visitor_hash TEXT NOT NULL,
+  visit_date TEXT NOT NULL,
+  PRIMARY KEY (visitor_hash, visit_date)
+);
+
 INSERT OR IGNORE INTO site_stats (key, value) VALUES ('total_views', 0);
 INSERT OR IGNORE INTO site_stats (key, value) VALUES ('total_visitors', 0);

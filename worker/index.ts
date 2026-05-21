@@ -42,14 +42,13 @@ async function handleHit(request: Request, env: Env): Promise<Response> {
       "UPDATE site_stats SET value = value + 1 WHERE key = 'total_views'"
     ).run();
 
-    // Try to insert visitor record (only increments if new)
+    // Site-wide UV dedup: one count per visitor per day (not per path)
     const visitorResult = await env.DB.prepare(
-      "INSERT OR IGNORE INTO page_visitors (visitor_hash, path, visit_date) VALUES (?1, ?2, ?3)"
+      "INSERT OR IGNORE INTO site_visitors (visitor_hash, visit_date) VALUES (?1, ?2)"
     )
-      .bind(visitorHash, path, today)
+      .bind(visitorHash, today)
       .run();
 
-    // If a new row was inserted, increment total visitors
     const meta = visitorResult.meta as { changes?: number };
     if (meta?.changes && meta.changes > 0) {
       await env.DB.prepare(
