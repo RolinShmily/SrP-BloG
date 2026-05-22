@@ -49,6 +49,9 @@ npx -v
 ```
 # ClaudeCode安装
 ![](../assets/images/Snipaste_2026-05-08_20-54-41.png)
+众所周知，因为`npm`版ClaudeCode源码泄露的问题，官方已经不再更新`npm`包了，因此这里推荐使用`native`原生安装方式。
+
+## Native原生安装解耦
 在官方文档中，推荐的原生安装命令为：
 ```bash
 irm https://claude.ai/install.ps1 | iex
@@ -157,10 +160,6 @@ Write-Output ""
 
 然后获取`claude.exe`本体，下载链接(以x64平台为例)为`https://downloads.claude.ai/claude-code-releases/2.1.133/win32-x64/claude.exe`，如果后有更新，可以更改这里的版本号获取最新版。
 
-这里我提供一个国内加速地址(下载2.1.133安装程序):
-
-<a href="https://drive.srprolin.top/claude-install-2.1.133/claude.exe">点击下载claude.exe</a>
-
 随后指定版本号并执行程序即可(这一步仍需要科学上网TUN模式)：`.\claude.exe install 2.1.133`
 
 ![](../assets/images/Snipaste_2026-05-08_21-03-24.png)
@@ -168,6 +167,14 @@ Write-Output ""
 这时，我们需要将Claude的程序目录`C:\Users\<yourname>\.local\bin\`添加进系统环境变量，以便于直接`claude`命令启动。
 
 ![](../assets/images/Snipaste_2026-05-08_23-10-44.png)
+
+## ClaudeCode镜像安装脚本
+
+根据上文解耦的内容，并结合[mitmproxy](https://www.mitmproxy.org/)分析，我制作了如下的镜像安装脚本，你只需要在`powershell7`中运行命令即可：
+
+```bash
+irm https://blog.srprolin.top/install-claude-mirror.ps1 | iex
+```
 
 # CC-Switch应用
 前往[CC-Switch](https://ccswitch.ai/)官网下载该应用，下面是该项目的简介：
