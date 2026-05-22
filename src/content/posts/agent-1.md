@@ -157,7 +157,11 @@ Write-Output ""
 
 然后获取`claude.exe`本体，下载链接(以x64平台为例)为`https://downloads.claude.ai/claude-code-releases/2.1.133/win32-x64/claude.exe`，如果后有更新，可以更改这里的版本号获取最新版。
 
-随后指定版本号并执行程序即可：`.\claude.exe install 2.1.133`
+这里我提供一个国内加速地址(下载2.1.133安装程序):
+
+<a href="https://drive.srprolin.top/claude-install-2.1.133/claude.exe">点击下载claude.exe</a>
+
+随后指定版本号并执行程序即可(这一步仍需要科学上网TUN模式)：`.\claude.exe install 2.1.133`
 
 ![](../assets/images/Snipaste_2026-05-08_21-03-24.png)
 
