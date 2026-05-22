@@ -304,7 +304,6 @@ services:
       PRUNE_BACKUPS_COUNT: 8                 # 最大备份文件数量
       BACKUP_ON_STARTUP: true                # 是否在启动时进行备份
       RCON_HOST: mc_bmp                      # Rcon所连接的(服务器)容器名(Services名称)
-      RCON_PASSWORD: "yourpassword"          # Rcon密码
       INITIAL_DELAY: 30m                     # 在启动后30min才执行计时/备份
       PAUSE_IF_NO_PLAYERS: false             # 是否在无玩家时暂停计时/备份
       PLAYERS_ONLINE_CHECK_INTERVAL: 5m      # 间隔5分钟检查服务器中是否有玩家
@@ -376,7 +375,6 @@ services:
       PRUNE_BACKUPS_COUNT: 8
       BACKUP_ON_STARTUP: true
       RCON_HOST: mc_paper                   # 这里也是服务名
-      RCON_PASSWORD: "yourpassword"
       INITIAL_DELAY: 30m
       PAUSE_IF_NO_PLAYERS: false
       PLAYERS_ONLINE_CHECK_INTERVAL: 5m
