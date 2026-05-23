@@ -1,0 +1,363 @@
+---
+title: Claude Code Hub 部署 | Docker | Nginx
+published: 2026-05-20
+description: 'ClaudeCodeHub是一个CC-Switch的团队加强版，能够统一管理API上游来源，并实现具体到Session的指标监控与API权限分发。'
+image: '../assets/images/2026-0523-1817.png'
+tags: [Docker,Nginx,API]
+category: ''
+draft: false 
+lang: ''
+---
+# 相关链接
+- [Claude Code Hub官网](https://claude-code-hub.app/)
+- [Claude Code Hub代码仓库](https://github.com/ding113/claude-code-hub)
+# Docker部署
+在官方GitHub仓库中，为我们提供了`docker-compose.yml`和`.env.example`文件，首先来看compose：
+```yml
+name: ${COMPOSE_PROJECT_NAME:-claude-code-hub}
+
+services:
+  postgres:
+    image: postgres:18
+    restart: unless-stopped
+    # 不对外暴露数据库端口，仅允许容器内部网络访问
+    # 如需调试，可取消注释下行（仅绑定本机）：
+    # ports:
+    #   - "127.0.0.1:35432:5432"
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-claude_code_hub}
+      # 使用自定义数据目录
+      PGDATA: /data/pgdata
+      # 设置时区为上海
+      TZ: Asia/Shanghai
+      PGTZ: Asia/Shanghai
+    volumes:
+      # 持久化数据库数据到本地 ./data/postgres 目录
+      # 挂载到 /data 而不是 /var/lib/postgresql/data 避免权限冲突
+      - ./data/postgres:/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres} -d ${DB_NAME:-claude_code_hub}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    volumes:
+      # 持久化 Redis 数据到本地 ./data/redis 目录
+      # 使用 AOF 持久化模式,确保数据不丢失
+      - ./data/redis:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+
+  app:
+    image: ghcr.io/ding113/claude-code-hub:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - ./.env
+    environment:
+      NODE_ENV: production
+      # 容器内使用 Dockerfile 默认端口 3000，对外通过 APP_PORT 暴露（默认 23000）
+      DSN: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-postgres}@postgres:5432/${DB_NAME:-claude_code_hub}
+      REDIS_URL: redis://redis:6379
+      AUTO_MIGRATE: ${AUTO_MIGRATE:-true}
+      ENABLE_RATE_LIMIT: ${ENABLE_RATE_LIMIT:-true}
+      SESSION_TTL: ${SESSION_TTL:-300}
+      DB_POOL_IDLE_TIMEOUT: ${DB_POOL_IDLE_TIMEOUT:-20}
+      DB_POOL_CONNECT_TIMEOUT: ${DB_POOL_CONNECT_TIMEOUT:-10}
+      MAX_RETRY_ATTEMPTS_DEFAULT: ${MAX_RETRY_ATTEMPTS_DEFAULT:-2}
+      LANGFUSE_SAMPLE_RATE: ${LANGFUSE_SAMPLE_RATE:-1.0}
+      # 设置时区为上海
+      TZ: Asia/Shanghai
+    ports:
+      - "${APP_PORT:-23000}:3000"
+    volumes:
+      # Node 诊断报告（report.*.json）持久化到宿主机，便于事后排查 SIGSEGV 等
+      # native 崩溃。配合 Dockerfile 中 --report-* 启动参数生效（issue #1147）
+      - ./data/reports:/app/reports
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://' + (process.env.HOSTNAME || '127.0.0.1') + ':3000/api/actions/health').then((r)=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+```
+可以看到这里用了大量的`${}`环境变量，这要求我们要搭配`.env`文件来使用，来看官方的样例(重点更改)：
+- `ADMIN_TOKEN`:用于登录面板后台的密码
+- `DB_PASSWORD`:postgreSQL数据库密码
+```ini
+# 管理员令牌（请务必更改此值以确保安全性）
+ADMIN_TOKEN=change-me
+
+# API 域名（分域部署时配置，Web UI 与 API 使用不同域名时需要设置）
+# 用于 usage-doc 页面生成正确的客户端配置示例
+# 单域名部署无需设置，留空则自动使用当前站点域名
+# NEXT_PUBLIC_API_BASE_URL=https://api.example.com
+
+# 自动迁移控制（生产环境默认开启）
+# 设置为 false 可禁用自动迁移
+AUTO_MIGRATE=true
+
+# 数据库连接字符串（仅用于本地开发或非 Docker Compose 部署）
+DSN="postgres://user:password@host:port/db_name"
+
+# API Key Vacuum Filter（真空过滤器）
+# - true (默认)：启用。用于在访问 DB 前“负向短路”无效 key，降低 DB 压力、抵御爆破
+# - false：禁用（例如：需要排查问题或节省内存时）
+ENABLE_API_KEY_VACUUM_FILTER="true"
+
+# PostgreSQL 连接池配置（postgres.js）
+# 说明：
+# - 这些值是“每个应用进程”的连接池上限；k8s 多副本时需要按副本数分摊
+# - 默认值：生产环境 20，开发环境 10（可按需覆盖）
+DB_POOL_MAX=20
+DB_POOL_IDLE_TIMEOUT=20                  # 空闲连接回收（秒）
+DB_POOL_CONNECT_TIMEOUT=10               # 建立连接超时（秒）
+
+# message_request 写入模式
+# - async：异步批量写入（默认，降低 DB 写放大与连接占用）
+# - sync：同步写入（兼容旧行为，但高并发下会增加请求尾部阻塞）
+MESSAGE_REQUEST_WRITE_MODE=async
+
+# message_request 异步批量参数（可选）
+MESSAGE_REQUEST_ASYNC_FLUSH_INTERVAL_MS=250
+MESSAGE_REQUEST_ASYNC_BATCH_SIZE=200
+MESSAGE_REQUEST_ASYNC_MAX_PENDING=5000
+
+# 数据库配置（Docker Compose 部署时使用）
+DB_USER=postgres
+DB_PASSWORD=your-secure-password_change-me
+DB_NAME=claude_code_hub
+
+# 应用配置
+APP_PORT=23000
+APP_URL=                                   # 应用访问地址（留空自动检测，生产环境建议显式配置）
+                                           # 示例：https://your-domain.com 或 http://192.168.1.100:23000
+
+# API 测试配置
+# API 测试请求超时时间（毫秒），范围 5000-120000。未设置时默认 15000。
+API_TEST_TIMEOUT_MS=15000
+
+# Cookie 安全策略
+# 功能说明：控制是否强制 HTTPS Cookie（设置 cookie 的 secure 属性）
+# - true (默认)：仅允许 HTTPS 传输 Cookie，浏览器会自动放行 localhost 的 HTTP
+# - false：允许 HTTP 传输 Cookie（会降低安全性，仅推荐用于内网部署）
+# 警告：若设置为 true 且使用远程 HTTP 访问，浏览器将拒绝设置 Cookie 导致无法登录
+ENABLE_SECURE_COOKIES=true
+
+# Management REST API / legacy actions API
+# - ENABLE_LEGACY_ACTIONS_API=false returns 410 Gone for legacy /api/actions execution.
+# - LEGACY_ACTIONS_DOCS_MODE=hidden returns 410 for legacy docs even when execution stays enabled.
+# - ENABLE_API_KEY_ADMIN_ACCESS=true allows admin-role DB API keys to call admin /api/v1 routes.
+# - CSRF_SECRET signs cookie-authenticated management mutations; set the same value on all replicas.
+ENABLE_LEGACY_ACTIONS_API=true
+LEGACY_ACTIONS_DOCS_MODE=deprecated
+LEGACY_ACTIONS_SUNSET_DATE=2026-12-31
+ENABLE_API_KEY_ADMIN_ACCESS=false
+CSRF_SECRET=
+
+# Redis 配置（用于限流和 Session 追踪）
+# 功能说明：
+# - 限流功能：金额限制（5小时/周/月）+ Session 并发限制
+# - Session 追踪：5 分钟上下文缓存优化（避免频繁切换供应商）
+# - Fail Open 策略：Redis 不可用时自动降级，不影响服务可用性
+ENABLE_RATE_LIMIT=true                  # 是否启用限流功能（默认：true）
+REDIS_URL=redis://localhost:6379        # Redis 连接地址（Docker 部署使用 redis://redis:6379，支持 rediss:// TLS）
+REDIS_TLS_REJECT_UNAUTHORIZED=true      # 是否验证 Redis TLS 证书（默认：true）
+                                        # 设置为 false 可跳过证书验证，用于自签证书或共享证书场景
+                                        # 仅在 rediss:// 协议时生效
+
+# API Key 鉴权缓存（Vacuum Filter -> Redis -> DB）
+# 说明：需要 ENABLE_RATE_LIMIT=true 且配置 REDIS_URL 才会启用 Redis 缓存；否则自动回落到 DB。
+API_KEY_AUTH_CACHE_TTL_SECONDS="60"      # 鉴权缓存 TTL（秒，默认 60，最大 3600）
+ENABLE_API_KEY_REDIS_CACHE="true"        # 是否启用 API Key Redis 缓存（默认：true）
+
+# Session 配置
+# 降低该值会按签发时间收紧已签发 ADMIN_TOKEN 签名 cookie 的剩余寿命，且不会延长其原始 exp。
+AUTH_SESSION_TTL_SECONDS=604800         # Web UI 登录态过期时间（秒，默认 604800 = 7 天，范围 60-31536000）
+SESSION_TTL=300                         # 代理请求上下文缓存时间（秒，默认 300 = 5 分钟；不控制 Web UI 登录态）
+STORE_SESSION_MESSAGES=false            # 会话消息存储模式（默认：false）
+                                        # - false：存储请求/响应体但对 message 内容脱敏 [REDACTED]
+                                        # - true：原样存储 message 内容（注意隐私和存储空间影响）
+                                        # 警告：启用后会增加 Redis/DB 存储空间，且包含敏感信息
+STORE_SESSION_RESPONSE_BODY=true        # 是否在 Redis 中存储会话响应体（默认：true）
+                                        # - true：存储（SSE/JSON），用于调试/定位问题（Redis 临时缓存）
+                                        # - false：不存储响应体（注意：不影响本次请求处理；仅影响后续查看 response body）
+                                        # 说明：该开关不影响内部统计读取响应体（tokens/费用统计、SSE 假 200 检测仍会进行）
+
+# Dashboard 配置
+DASHBOARD_LOGS_POLL_INTERVAL_MS=5000    # 日志页自动刷新轮询间隔（毫秒，默认 5000，范围 250-60000）
+
+# 熔断器配置
+# 功能说明：控制网络错误是否计入熔断器失败计数
+# - false (默认)：网络错误（DNS 解析失败、连接超时、代理连接失败等）不计入熔断器，仅供应商错误（4xx/5xx HTTP 响应）计入
+# - true：所有错误（包括网络错误）都计入熔断器失败计数
+# 使用场景：
+# - 默认关闭：适用于网络不稳定环境（如使用代理），避免因临时网络抖动触发熔断器
+# - 启用：适用于网络稳定环境，连续网络错误也应触发熔断保护，避免持续请求不可达的供应商
+ENABLE_CIRCUIT_BREAKER_ON_NETWORK_ERRORS=false
+
+# 端点级别熔断器
+# 功能说明：控制是否启用端点级别的熔断器
+# - false (默认)：禁用端点熔断器，所有启用的端点均可使用
+# - true：启用端点熔断器，连续失败的端点会被临时屏蔽（默认 3 次失败后熔断 5 分钟）
+ENABLE_ENDPOINT_CIRCUIT_BREAKER=false
+
+# 供应商缓存配置
+# 功能说明：控制是否启用供应商进程级缓存
+# - true (默认)：启用缓存，30s TTL + Redis Pub/Sub 跨实例即时失效，提升供应商查询性能
+# - false：禁用缓存，每次请求直接查询数据库（适用于调试或单机低并发场景）
+ENABLE_PROVIDER_CACHE=true
+
+# Fetch 连接超时配置
+# 功能说明：控制 TCP 连接建立超时时间（包括 DNS 查询、TCP 握手、TLS 握手）
+# - 默认值：30000 毫秒（30 秒）
+# - 取值范围：建议 5000-120000 毫秒（5-120 秒）
+# 使用场景：
+# - 缩短此值可快速切换到备用供应商，当供应商被攻击或无响应时
+# - 增加此值适用于网络不稳定环境，避免因网络抖动导致连接失败
+FETCH_CONNECT_TIMEOUT=30000
+
+# Fetch 响应头超时配置
+# 功能说明：控制等待响应头的超时时间（通常可近似理解为“等待首字节/首包”的上限）
+# - 默认值：600000 毫秒（600 秒）
+# - 取值范围：建议 10000-600000 毫秒（10-600 秒）
+# 使用场景：
+# - 需要支持长时间首字节等待（例如某些模型/代理的排队或冷启动）时，可适当增大
+# - 希望更快失败并切换供应商时，可适当减小
+FETCH_HEADERS_TIMEOUT=600000
+
+# Fetch 响应体超时配置
+# 功能说明：控制请求/响应体传输超时（undici 会监控 body 数据接收间隔，超时则中断请求）
+# - 默认值：600000 毫秒（600 秒）
+# - 取值范围：建议 10000-600000 毫秒（10-600 秒）
+# 使用场景：
+# - 流式响应或长推理模型：建议保留较大值，避免被 undici 默认 300s 先行终止
+# - 希望快速失败并切换供应商：可适当减小
+FETCH_BODY_TIMEOUT=600000
+MAX_RETRY_ATTEMPTS_DEFAULT=2                # 单供应商最大尝试次数（含首次调用），范围 1-10，留空使用默认值 2
+
+# Langfuse Observability (optional, auto-enabled when keys are set)
+# 功能说明：企业级 LLM 可观测性集成，自动追踪所有代理请求的完整生命周期
+# - 配置 PUBLIC_KEY 和 SECRET_KEY 后自动启用
+# - 支持 Langfuse Cloud 和自托管实例
+LANGFUSE_PUBLIC_KEY=                        # Langfuse project public key (pk-lf-...)
+LANGFUSE_SECRET_KEY=                        # Langfuse project secret key (sk-lf-...)
+LANGFUSE_BASE_URL=https://cloud.langfuse.com  # Langfuse server URL (self-hosted or cloud)
+LANGFUSE_SAMPLE_RATE=1.0                    # Trace sampling rate (0.0-1.0, default: 1.0 = 100%)
+LANGFUSE_DEBUG=false                        # Enable Langfuse debug logging
+
+# 智能探测配置
+# 功能说明：当熔断器处于 OPEN 状态时，定期探测供应商以实现更快恢复
+# - ENABLE_SMART_PROBING：是否启用智能探测（默认：false）
+# - PROBE_INTERVAL_MS：探测周期间隔（毫秒，默认：30000 = 30秒）
+# - PROBE_TIMEOUT_MS：单次探测超时时间（毫秒，默认：5000 = 5秒）
+# 工作原理：
+# - 定期检查处于 OPEN 状态的熔断器
+# - 使用轻量级测试请求探测供应商
+# - 探测成功则提前将熔断器转为 HALF_OPEN 状态
+ENABLE_SMART_PROBING=false
+PROBE_INTERVAL_MS=30000
+PROBE_TIMEOUT_MS=5000
+
+# Provider Endpoint Probing (always enabled)
+# Probes all enabled endpoints based on dynamic intervals and refreshes endpoint selection ranking.
+# Note: No ENABLE switch, enabled by default; tune via parameters below.
+#
+# Dynamic Interval Rules (in priority order):
+# 1. Timeout Override (10s): If endpoint's lastProbeErrorType === "timeout" and not recovered (lastProbeOk !== true)
+# 2. Single-Vendor (10min): If vendor has only 1 enabled endpoint
+# 3. Base Interval (default): All other endpoints
+#
+# ENDPOINT_PROBE_INTERVAL_MS controls the base interval. Single-vendor and timeout intervals are fixed.
+ENDPOINT_PROBE_INTERVAL_MS=60000
+# When no endpoints are due, scheduler will still poll DB periodically to pick up config changes.
+# Default: min(ENDPOINT_PROBE_INTERVAL_MS, 30000)
+ENDPOINT_PROBE_IDLE_DB_POLL_INTERVAL_MS=30000
+ENDPOINT_PROBE_TIMEOUT_MS=5000
+ENDPOINT_PROBE_CONCURRENCY=10
+ENDPOINT_PROBE_CYCLE_JITTER_MS=1000
+ENDPOINT_PROBE_LOCK_TTL_MS=30000
+# Probe method: TCP (default, no HTTP request / no access log), HEAD, GET
+ENDPOINT_PROBE_METHOD=TCP
+
+# 探测日志保留与清理
+# - 所有探测结果（成功/失败）均记录到历史表
+# - 自动清理任务每 24 小时运行，删除过期记录
+ENDPOINT_PROBE_LOG_RETENTION_DAYS=1
+ENDPOINT_PROBE_LOG_CLEANUP_BATCH_SIZE=10000
+```
+更改过后，只需要按如下操作在VPS里执行命令即可：
+```bash
+mkdir -p ~/cch
+cd ~/cch
+# 创建编辑compose文件
+nano docker-compose.yml
+# 创建编辑环境变量文件
+nano .env
+# 启动容器
+sudo docker compose up -d
+```
+# Nginx配置
+关于SSL证书的申请和Nginx配置文件编辑，在笔者过往文章中提到很多了，这里只贴一下`server`配置：
+```ini
+# ==================== Claude-Code-Hub - HTTP ====================
+server {
+    listen 80;
+    server_name <your-domain>;
+
+    # HTTP自动跳转HTTPS
+    return 301 https://$host$request_uri;
+}
+
+# ==================== Claude-Code-Hub - HTTPS ====================
+server {
+    listen 443 ssl http2;
+    server_name <your-domain>;
+
+    ssl_certificate /etc/letsencrypt/live/<your-domain>/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/<your-domain>/privkey.pem;
+
+    location / {
+        proxy_pass http://127.0.0.1:23000;
+        proxy_http_version 1.1;
+
+        # WebSocket 支持
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        # 传递真实客户端信息
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # 超时设置
+        proxy_connect_timeout 60s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+      }
+}
+```
