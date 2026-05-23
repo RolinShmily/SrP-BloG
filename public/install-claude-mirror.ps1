@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $ProgressPreference = 'SilentlyContinue'
 
-$DOWNLOAD_URL = "https://drive.srprolin.top/claude-install-mirror/claude.exe"
+$DOWNLOAD_URL = "https://download.srprolin.top/claude-install-mirror/claude.exe"
 $REFERER = "https://blog.srprolin.top"
 
 if (-not [Environment]::Is64BitProcess) {
