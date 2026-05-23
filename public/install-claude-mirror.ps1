@@ -16,6 +16,19 @@ if (-not [Environment]::Is64BitProcess) {
 $installDir = "$env:USERPROFILE\.local\bin"
 $binaryPath = "$installDir\claude.exe"
 
+# ─── 检测已安装 ───
+$existingClaude = Get-Command claude -ErrorAction SilentlyContinue
+if ($existingClaude) {
+    $version = & $existingClaude.Source --version 2>&1
+    Write-Host ""
+    Write-Host "⚠ Claude Code 已安装" -ForegroundColor Yellow
+    Write-Host "   版本: $version" -ForegroundColor DarkGray
+    Write-Host "   路径: $($existingClaude.Source)" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "如需重新安装，请先卸载现有版本。" -ForegroundColor Cyan
+    exit 0
+}
+
 # ─── 下载 ───
 Write-Host "==> 正在下载 Claude Code v2.1.133 ..." -ForegroundColor Cyan
 $tempPath = "$env:TEMP\claude-code-install.exe"
@@ -28,11 +41,16 @@ try {
         $pct = $EventArgs.ProgressPercentage
         $received = [math]::Round($EventArgs.BytesReceived / 1MB, 1)
         $total = [math]::Round($EventArgs.TotalBytesToReceive / 1MB, 1)
-        Write-Host "`r    [$pct%] $received / $total MB" -NoNewline -ForegroundColor Yellow
+        $barLen = 30
+        $filled = [math]::Floor($barLen * $pct / 100)
+        $empty = $barLen - $filled
+        $bar = ("█" * $filled) + ("░" * $empty)
+        Write-Host "`r    [$bar] $pct%  $received/$total MB" -NoNewline -ForegroundColor Yellow
     } | Out-Null
 
     $webClient.DownloadFile($DOWNLOAD_URL, $tempPath)
-    Write-Host "`r    下载完成                                     " -ForegroundColor Green
+    Write-Host ""
+    Write-Host "    下载完成 ✓" -ForegroundColor Green
 }
 catch {
     Write-Error "下载失败: $_"
