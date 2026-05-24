@@ -1,12 +1,15 @@
 ---
 title: Claude Code Hub 部署 | Docker | Nginx
 published: 2026-05-20
-description: 'ClaudeCodeHub是一个CC-Switch的团队加强版，能够统一管理API上游来源，并实现具体到Session的指标监控与API权限分发。'
-image: '../assets/images/2026-0523-1817.png'
-tags: [Docker,Nginx,API]
-category: ''
-draft: false 
-lang: ''
+description: ClaudeCodeHub是一个CC-Switch的团队加强版，能够统一管理API上游来源，并实现具体到Session的指标监控与API权限分发。
+image: ../assets/images/2026-0523-1817.png
+tags:
+  - Docker
+  - Nginx
+  - API
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接
 - [Claude Code Hub官网](https://claude-code-hub.app/)
@@ -340,6 +343,10 @@ server {
     ssl_certificate /etc/letsencrypt/live/<your-domain>/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/<your-domain>/privkey.pem;
 
+    proxy_buffering off;
+    proxy_request_buffering off;
+    proxy_cache off;
+
     location / {
         proxy_pass http://127.0.0.1:23000;
         proxy_http_version 1.1;
@@ -356,8 +363,10 @@ server {
 
         # 超时设置
         proxy_connect_timeout 60s;
-        proxy_send_timeout 60s;
-        proxy_read_timeout 60s;
+        proxy_send_timeout 600s;
+        proxy_read_timeout 600s;
+        
+        gzip off;
       }
 }
 ```
