@@ -15,7 +15,6 @@ category: ""
 # 相关链接
 - [Claude Code Docs 中文文档](https://code.claude.com/docs/zh-CN/overview)
 - [Powershell - Microsoft Store](https://apps.microsoft.com/detail/9mz1snwt0n5d?hl=zh-CN&gl=SG)
-- [Node.js](https://nodejs.org/zh-cn)
 - [CC-Switch](https://ccswitch.ai/)
 - [Git For Windows](https://git-scm.com/install/windows)
 - [Git Book中文版](https://git-scm.com/book/zh/v2)
@@ -31,21 +30,6 @@ category: ""
 ```bash
 # 检查PowerShell版本
 $PSVersionTable.PSVersion
-```
-# Node环境
-前往[Node.js](https://nodejs.org/zh-cn)官网安装，此步会同步安装`npm`包管理器和`npx`快捷运行工具。
-
-![](../assets/images/Snipaste_2026-05-08_20-49-05.png)
-
-随后呼出终端，输入如下命令：
-```bash
-# 允许PowerShell运行本地脚本
-Set-ExecutionPolicy RemoteSigned
-
-# 检查node、npm是否安装成功
-node -v
-npm -v
-npx -v
 ```
 # ClaudeCode安装
 ![](../assets/images/Snipaste_2026-05-08_20-54-41.png)

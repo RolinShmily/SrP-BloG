@@ -5,12 +5,21 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $ProgressPreference = 'SilentlyContinue'
 
+$VERSION = "2.1.133"
 $DOWNLOAD_URL = "https://download.srprolin.top/claude-install-mirror/claude.exe"
 $REFERER = "https://blog.srprolin.top"
 
 if (-not [Environment]::Is64BitProcess) {
-    Write-Error "Claude Code 不支持 32 位 Windows。"
+    Write-Error "Claude Code does not support 32-bit Windows."
     exit 1
+}
+
+# ─── 检测 PowerShell 版本 ───
+if ($PSVersionTable.PSVersion.Major -lt 7) {
+    Write-Host ""
+    Write-Host "Warning: Windows PowerShell 5 CANNOT display Chinese characters." -ForegroundColor Yellow
+    Write-Host "  PowerShell 7 is recommended: https://apps.microsoft.com/detail/9mz1snwt0n5d?hl=zh-CN&gl=SG" -ForegroundColor Cyan
+    Write-Host ""
 }
 
 $installDir = "$env:USERPROFILE\.local\bin"
@@ -25,12 +34,79 @@ if ($existingClaude) {
     Write-Host "   版本: $version" -ForegroundColor DarkGray
     Write-Host "   路径: $($existingClaude.Source)" -ForegroundColor DarkGray
     Write-Host ""
-    Write-Host "如需重新安装，请先卸载现有版本。" -ForegroundColor Cyan
-    exit 0
+    Write-Host "    [1] 升级 (卸载后重新安装)" -ForegroundColor White
+    Write-Host "    [2] 卸载" -ForegroundColor White
+    Write-Host "    [3] 取消" -ForegroundColor White
+    Write-Host ""
+    $action = Read-Host "    请选择操作 [1/2/3] (默认 1)"
+    if ($action -eq "3") { exit 0 }
+
+    # 卸载：同时处理 npm 安装和原生安装
+    $uninstalled = $false
+
+    # npm 安装方式
+    $npmExe = Get-Command npm -ErrorAction SilentlyContinue
+    if ($npmExe) {
+        $npmList = & npm list -g @anthropic-ai/claude-code 2>&1
+        if ($npmList -match "@anthropic-ai/claude-code") {
+            Write-Host "==> 检测到 npm 安装，正在卸载 ..." -ForegroundColor Cyan
+            & npm uninstall -g @anthropic-ai/claude-code
+            $uninstalled = $true
+        }
+    }
+
+    # 原生安装方式
+    if (Test-Path $binaryPath) {
+        Write-Host "==> 检测到原生安装，正在删除 ..." -ForegroundColor Cyan
+        Remove-Item -Force $binaryPath
+        $uninstalled = $true
+    }
+
+    if ($uninstalled) {
+        Write-Host "    已卸载 ✓" -ForegroundColor Green
+    }
+    else {
+        Write-Host "    未检测到安装文件，跳过卸载" -ForegroundColor DarkGray
+    }
+
+    if ($action -eq "2") { exit 0 }
+    Write-Host ""
+}
+
+# ─── 检测 Node.js ───
+$nodeExe = Get-Command node -ErrorAction SilentlyContinue
+if ($nodeExe) {
+    $nodeVersion = & $nodeExe.Source --version 2>&1
+    Write-Host "    Node.js $nodeVersion 已就绪" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "    检测到 Node.js，可通过 npm 安装官方原版 Claude Code。" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "    [1] npm 安装 (官方原版)" -ForegroundColor White
+    Write-Host "    [2] 原生安装 (镜像)" -ForegroundColor White
+    Write-Host ""
+    $choice = Read-Host "    请选择安装方式 [1/2] (默认 1)"
+    if ($choice -ne "2") {
+        Write-Host ""
+        Write-Host "==> 正在通过 npm 安装 Claude Code ..." -ForegroundColor Cyan
+        try {
+            & npm install -g @anthropic-ai/claude-code
+            $npmClaude = Get-Command claude -ErrorAction SilentlyContinue
+            if ($npmClaude) {
+                Write-Host ""
+                Write-Host "✅ 安装完成!" -ForegroundColor Green
+                Write-Host "   $(& $npmClaude.Source --version 2>&1)" -ForegroundColor DarkGray
+            }
+        }
+        catch {
+            Write-Error "npm 安装失败: $_"
+            exit 1
+        }
+        exit 0
+    }
 }
 
 # ─── 下载 ───
-Write-Host "==> 正在下载 Claude Code v2.1.133 ..." -ForegroundColor Cyan
+Write-Host "==> 正在下载 Claude Code v$VERSION ..." -ForegroundColor Cyan
 $tempPath = "$env:TEMP\claude-code-install.exe"
 
 try {
@@ -85,43 +161,74 @@ if ($size -lt 100MB) {
 # ─── 部署 ───
 Write-Host "==> 正在部署到 $installDir ..." -ForegroundColor Cyan
 New-Item -ItemType Directory -Force -Path $installDir | Out-Null
-
-if (Test-Path $binaryPath) {
-    $running = Get-Process -Name "claude" -ErrorAction SilentlyContinue |
-               Where-Object { $_.Path -eq $binaryPath }
-    if ($running) {
-        $staged = "$installDir\claude-new.exe"
-        Copy-Item -Path $tempPath -Destination $staged -Force
-        Remove-Item -Force $tempPath
-        Write-Host ""
-        Write-Host "✅ 下载完成! Claude Code 正在运行，请关闭后执行:" -ForegroundColor Green
-        Write-Host "   Remove-Item '$binaryPath'" -ForegroundColor Yellow
-        Write-Host "   Rename-Item '$staged' 'claude.exe'" -ForegroundColor Yellow
-        exit 0
-    }
-    Remove-Item -Force $binaryPath
-}
-
+if (Test-Path $binaryPath) { Remove-Item -Force $binaryPath }
 Copy-Item -Path $tempPath -Destination $binaryPath -Force
 Remove-Item -Force $tempPath -ErrorAction SilentlyContinue
 
-# ─── PATH (系统级) ───
+# ─── PATH ───
 $machinePath = [Environment]::GetEnvironmentVariable("Path", "Machine")
-if ($machinePath -notlike "*$installDir*") {
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+$inMachine = $machinePath -like "*$installDir*"
+$inUser = $userPath -like "*$installDir*"
+
+if ($inMachine -or $inUser) {
+    Write-Host "    PATH 已配置" -ForegroundColor DarkGray
+}
+else {
+    $pathSet = $false
     try {
         [Environment]::SetEnvironmentVariable("Path", "$machinePath;$installDir", "Machine")
-        $env:Path = "$env:Path;$installDir"
-        Write-Host "    系统 PATH 已更新 (新终端生效)" -ForegroundColor Yellow
+        Write-Host "    系统 PATH 已更新 (新终端生效)" -ForegroundColor DarkGray
+        $pathSet = $true
     }
     catch {
-        Write-Warning "设置系统 PATH 失败 (需要管理员权限)，回退为用户 PATH"
-        $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
-        if ($userPath -notlike "*$installDir*") {
+        try {
             [Environment]::SetEnvironmentVariable("Path", "$userPath;$installDir", "User")
-            $env:Path = "$env:Path;$installDir"
-            Write-Host "    用户 PATH 已更新 (新终端生效)" -ForegroundColor Yellow
+            Write-Host "    用户 PATH 已更新 (新终端生效)" -ForegroundColor DarkGray
+            $pathSet = $true
         }
+        catch { }
     }
+    if ($pathSet) {
+        $env:Path = "$env:Path;$installDir"
+    }
+    else {
+        Write-Host "    ⚠ 自动设置 PATH 失败，请手动将以下路径添加到系统 PATH:" -ForegroundColor Yellow
+        Write-Host "      $installDir" -ForegroundColor White
+    }
+}
+
+# ─── 配置 .claude 目录 ───
+$claudeDir = "$env:USERPROFILE\.claude"
+$settingsPath = "$claudeDir\settings.json"
+
+if (-not (Test-Path $claudeDir)) {
+    New-Item -ItemType Directory -Force -Path $claudeDir | Out-Null
+    Write-Host "    已创建 .claude 配置目录" -ForegroundColor DarkGray
+}
+
+if (Test-Path $settingsPath) {
+    Write-Host "    settings.json 已存在，跳过配置" -ForegroundColor DarkGray
+}
+else {
+    $settingsContent = @'
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your-api-key-here",
+    "ANTHROPIC_BASE_URL": "your-api-request-url",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "permissions": {
+    "allow": [],
+    "deny": []
+  }
+}
+'@
+    Set-Content -Path $settingsPath -Value $settingsContent -Encoding UTF8
+    Write-Host "    已生成默认 settings.json" -ForegroundColor DarkGray
+    Write-Host ""
+    Write-Host "    ⚠ 请编辑 $settingsPath" -ForegroundColor Yellow
+    Write-Host "      填入你的 API Key 和请求地址后即可使用。" -ForegroundColor Yellow
 }
 
 Write-Host ""
