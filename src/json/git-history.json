@@ -1,4 +1,51 @@
 {
+  "2026-01-12-cfg_installer_v2.md": [
+    {
+      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
+      "date": "2026-05-20 13:43:26 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
+      "date": "2026-04-17 23:35:23 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
+      "date": "2026-02-06 22:11:48 +0800",
+      "message": "docs:文章格式修改"
+    },
+    {
+      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
+      "date": "2026-02-06 10:30:32 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
+      "date": "2026-01-12 15:17:08 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
+      "date": "2026-01-12 15:09:27 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
+      "date": "2026-01-12 15:02:46 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
+      "date": "2026-01-12 15:02:13 +0800",
+      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
+    }
+  ],
   "2026-01-03-todo-list.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -56,53 +103,6 @@
       "message": "CMS:Create Posts “2026-01-03-todo-list”"
     }
   ],
-  "2026-01-12-cfg_installer_v2.md": [
-    {
-      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
-      "date": "2026-05-20 13:43:26 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
-      "date": "2026-04-17 23:35:23 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
-      "date": "2026-02-06 22:11:48 +0800",
-      "message": "docs:文章格式修改"
-    },
-    {
-      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
-      "date": "2026-02-06 10:30:32 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
-      "date": "2026-01-12 15:17:08 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
-      "date": "2026-01-12 15:09:27 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
-      "date": "2026-01-12 15:02:46 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
-      "date": "2026-01-12 15:02:13 +0800",
-      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
-    }
-  ],
   "2026-02-05-switch_ams_1.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -135,6 +135,23 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
+    }
+  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -160,23 +177,6 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
-    }
-  ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -486,6 +486,13 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
+    }
+  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -501,13 +508,6 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
-    }
-  ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "CFGInstaller.md": [
@@ -749,6 +749,11 @@
     }
   ],
   "agent-1.md": [
+    {
+      "hash": "684d9453ba3ea7efda33c2a20585b65c2cad30b1",
+      "date": "2026-05-24 18:26:23 +0800",
+      "message": "feat: 完善安装脚本交互流程"
+    },
     {
       "hash": "e745f384f6a5dde1d3ca82efb6412e2843614923",
       "date": "2026-05-22 18:14:43 +0800",
@@ -1109,43 +1114,6 @@
       "message": "initblog"
     }
   ],
-  "mac-mc-2.md": [
-    {
-      "hash": "7966ba794b42c76f6714c2d2d28051bbd056ee80",
-      "date": "2026-04-17 23:38:13 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
-      "date": "2026-03-24 22:19:58 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "1476509546a384379a28e5c82d55431677c65a62",
-      "date": "2026-02-26 20:50:10 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
-      "date": "2026-01-05 14:21:52 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
-      "date": "2026-01-05 14:20:56 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
-      "date": "2025-12-20 13:06:34 +0800",
-      "message": "docs(post):mac-mc-2发布"
-    }
-  ],
   "mac-mc-1.md": [
     {
       "hash": "81a7b872a58a78782a087bd532fa0de5bc707d3f",
@@ -1193,6 +1161,43 @@
       "message": "docs(post):mac-mc-1发布"
     }
   ],
+  "mac-mc-2.md": [
+    {
+      "hash": "7966ba794b42c76f6714c2d2d28051bbd056ee80",
+      "date": "2026-04-17 23:38:13 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
+      "date": "2026-03-24 22:19:58 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "1476509546a384379a28e5c82d55431677c65a62",
+      "date": "2026-02-26 20:50:10 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
+      "date": "2026-01-05 14:21:52 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
+      "date": "2026-01-05 14:20:56 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
+      "date": "2025-12-20 13:06:34 +0800",
+      "message": "docs(post):mac-mc-2发布"
+    }
+  ],
   "markdown.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
@@ -1203,6 +1208,23 @@
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
+    }
+  ],
+  "pytorch-2.md": [
+    {
+      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
+      "date": "2026-04-03 01:53:04 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
+      "date": "2026-03-20 12:50:13 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
+      "date": "2026-03-20 12:41:16 +0800",
+      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "msys.md": [
@@ -1230,23 +1252,6 @@
       "hash": "5f4cfdf0b7814fa2202ab2a157ffcbb34d97db16",
       "date": "2026-05-10 14:14:30 +0800",
       "message": "CMS: New Posts \"msys\""
-    }
-  ],
-  "pytorch-2.md": [
-    {
-      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
-      "date": "2026-04-03 01:53:04 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
-      "date": "2026-03-20 12:50:13 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
-      "date": "2026-03-20 12:41:16 +0800",
-      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "script-1.md": [
