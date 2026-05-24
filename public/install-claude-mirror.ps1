@@ -37,19 +37,35 @@ try {
     $webClient = New-Object System.Net.WebClient
     $webClient.Headers.Add("Referer", $REFERER)
 
-    Register-ObjectEvent $webClient DownloadProgressChanged -Action {
-        $pct = $EventArgs.ProgressPercentage
-        $received = [math]::Round($EventArgs.BytesReceived / 1MB, 1)
-        $total = [math]::Round($EventArgs.TotalBytesToReceive / 1MB, 1)
+    $script:done = $false
+    $script:err = $null
+
+    $webClient.add_DownloadFileCompleted({
+        param($sender, $e)
+        if ($e.Error) { $script:err = $e.Error }
+        $script:done = $true
+    })
+
+    $webClient.add_DownloadProgressChanged({
+        param($sender, $e)
+        $pct = $e.ProgressPercentage
+        $received = [math]::Round($e.BytesReceived / 1MB, 1)
+        $total = [math]::Round($e.TotalBytesToReceive / 1MB, 1)
         $barLen = 30
         $filled = [math]::Floor($barLen * $pct / 100)
         $empty = $barLen - $filled
         $bar = ("█" * $filled) + ("░" * $empty)
         Write-Host "`r    [$bar] $pct%  $received/$total MB" -NoNewline -ForegroundColor Yellow
-    } | Out-Null
+    })
 
-    $webClient.DownloadFile($DOWNLOAD_URL, $tempPath)
+    $webClient.DownloadFileAsync($DOWNLOAD_URL, $tempPath)
+
+    while (-not $script:done) {
+        Start-Sleep -Milliseconds 300
+    }
+
     Write-Host ""
+    if ($script:err) { throw $script:err }
     Write-Host "    下载完成 ✓" -ForegroundColor Green
 }
 catch {
