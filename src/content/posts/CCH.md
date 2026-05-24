@@ -363,9 +363,10 @@ server {
 
         # 超时设置
         proxy_connect_timeout 60s;
-        proxy_send_timeout 600s;
-        proxy_read_timeout 600s;
+        proxy_send_timeout 7200s;
+        proxy_read_timeout 7200s;
         
+        chunked_transfer_encoding on;
         gzip off;
       }
 }
