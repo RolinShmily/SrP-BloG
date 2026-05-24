@@ -113,35 +113,43 @@ try {
     $webClient = New-Object System.Net.WebClient
     $webClient.Headers.Add("Referer", $REFERER)
 
-    $script:done = $false
-    $script:err = $null
+    # Get total size via HEAD request
+    $totalBytes = 0
+    $totalMB = "?"
+    try {
+        $headRequest = [System.Net.WebRequest]::Create($DOWNLOAD_URL)
+        $headRequest.Method = "HEAD"
+        $headRequest.Headers.Add("Referer", $REFERER)
+        $headResponse = $headRequest.GetResponse()
+        $totalBytes = $headResponse.ContentLength
+        $headResponse.Close()
+        if ($totalBytes -gt 0) { $totalMB = [math]::Round($totalBytes / 1MB, 1) }
+    }
+    catch { }
 
-    $webClient.add_DownloadFileCompleted({
-        param($sender, $e)
-        if ($e.Error) { $script:err = $e.Error }
-        $script:done = $true
-    })
-
-    $webClient.add_DownloadProgressChanged({
-        param($sender, $e)
-        $pct = $e.ProgressPercentage
-        $received = [math]::Round($e.BytesReceived / 1MB, 1)
-        $total = [math]::Round($e.TotalBytesToReceive / 1MB, 1)
-        $barLen = 30
-        $filled = [math]::Floor($barLen * $pct / 100)
-        $empty = $barLen - $filled
-        $bar = ("█" * $filled) + ("░" * $empty)
-        Write-Host "`r    [$bar] $pct%  $received/$total MB" -NoNewline -ForegroundColor Yellow
-    })
-
+    # Download asynchronously without event handlers (avoids runspace threading issues)
     $webClient.DownloadFileAsync($DOWNLOAD_URL, $tempPath)
 
-    while (-not $script:done) {
+    $barLen = 30
+    while ($webClient.IsBusy) {
         Start-Sleep -Milliseconds 300
+        if (-not (Test-Path $tempPath)) { continue }
+        $currentSize = (Get-Item $tempPath).Length
+        $received = [math]::Round($currentSize / 1MB, 1)
+        if ($totalBytes -gt 0) {
+            $pct = [math]::Floor($currentSize / $totalBytes * 100)
+            $filled = [math]::Floor($barLen * $pct / 100)
+            $empty = $barLen - $filled
+            $bar = ("█" * $filled) + ("░" * $empty)
+            Write-Host "`r    [$bar] $pct%  $received/$totalMB MB" -NoNewline -ForegroundColor Yellow
+        }
+        else {
+            Write-Host "`r    下载中 ... $received MB" -NoNewline -ForegroundColor Yellow
+        }
     }
 
     Write-Host ""
-    if ($script:err) { throw $script:err }
+    if (-not (Test-Path $tempPath)) { throw "下载完成但文件不存在" }
     Write-Host "    下载完成 ✓" -ForegroundColor Green
 }
 catch {
