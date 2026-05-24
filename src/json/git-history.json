@@ -1,51 +1,4 @@
 {
-  "2026-01-12-cfg_installer_v2.md": [
-    {
-      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
-      "date": "2026-05-20 13:43:26 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
-      "date": "2026-04-17 23:35:23 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
-      "date": "2026-02-06 22:11:48 +0800",
-      "message": "docs:文章格式修改"
-    },
-    {
-      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
-      "date": "2026-02-06 10:30:32 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
-      "date": "2026-01-12 15:17:08 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
-      "date": "2026-01-12 15:09:27 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
-      "date": "2026-01-12 15:02:46 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
-      "date": "2026-01-12 15:02:13 +0800",
-      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
-    }
-  ],
   "2026-01-03-todo-list.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -101,6 +54,53 @@
       "hash": "f049aab6b9b56e9afc4ba3ecd7ffcbbb88f915d8",
       "date": "2026-01-04 00:11:20 +0800",
       "message": "CMS:Create Posts “2026-01-03-todo-list”"
+    }
+  ],
+  "2026-01-12-cfg_installer_v2.md": [
+    {
+      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
+      "date": "2026-05-20 13:43:26 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
+      "date": "2026-04-17 23:35:23 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
+      "date": "2026-02-06 22:11:48 +0800",
+      "message": "docs:文章格式修改"
+    },
+    {
+      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
+      "date": "2026-02-06 10:30:32 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
+      "date": "2026-01-12 15:17:08 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
+      "date": "2026-01-12 15:09:27 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
+      "date": "2026-01-12 15:02:46 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
+      "date": "2026-01-12 15:02:13 +0800",
+      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
     }
   ],
   "2026-02-05-switch_ams_1.md": [
@@ -486,13 +486,6 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
-    }
-  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -508,6 +501,13 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
+    }
+  ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "CFGInstaller.md": [
@@ -550,6 +550,11 @@
     }
   ],
   "CCH.md": [
+    {
+      "hash": "319dd3c557b6c9932d34bb757513acf5cc44ac43",
+      "date": "2026-05-24 23:10:35 +0800",
+      "message": "CMS:Update Posts “CCH”"
+    },
     {
       "hash": "d1aeab4cbd182116b8d0b02f0d489ff3763f0968",
       "date": "2026-05-24 17:52:16 +0800",
@@ -748,33 +753,6 @@
       "message": "post:Minecraft-2"
     }
   ],
-  "agent-1.md": [
-    {
-      "hash": "684d9453ba3ea7efda33c2a20585b65c2cad30b1",
-      "date": "2026-05-24 18:26:23 +0800",
-      "message": "feat: 完善安装脚本交互流程"
-    },
-    {
-      "hash": "e745f384f6a5dde1d3ca82efb6412e2843614923",
-      "date": "2026-05-22 18:14:43 +0800",
-      "message": "docs: 更新 ClaudeCode 安装指南，新增镜像安装脚本"
-    },
-    {
-      "hash": "85ae569ec9bca254c17d021269d57920d7cd626b",
-      "date": "2026-05-22 16:20:07 +0800",
-      "message": "CMS:Update Posts “agent-1”"
-    },
-    {
-      "hash": "dc082209391ac3a9a472bbe0a19b5f815ca3fb18",
-      "date": "2026-05-15 23:36:49 +0800",
-      "message": "CMS:Update Posts “agent-1”"
-    },
-    {
-      "hash": "8f6043a8bacada850def6e8a5b6bc108d127650d",
-      "date": "2026-05-09 00:29:10 +0800",
-      "message": "posts: 发布文章"
-    }
-  ],
   "Zerotier-1.md": [
     {
       "hash": "c557b2ea9538523a515e11c217553afc07b9669d",
@@ -800,6 +778,33 @@
       "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
       "date": "2025-10-26 20:48:12 +0800",
       "message": "post:Zerotier-1"
+    }
+  ],
+  "agent-1.md": [
+    {
+      "hash": "684d9453ba3ea7efda33c2a20585b65c2cad30b1",
+      "date": "2026-05-24 18:26:23 +0800",
+      "message": "feat: 完善安装脚本交互流程"
+    },
+    {
+      "hash": "e745f384f6a5dde1d3ca82efb6412e2843614923",
+      "date": "2026-05-22 18:14:43 +0800",
+      "message": "docs: 更新 ClaudeCode 安装指南，新增镜像安装脚本"
+    },
+    {
+      "hash": "85ae569ec9bca254c17d021269d57920d7cd626b",
+      "date": "2026-05-22 16:20:07 +0800",
+      "message": "CMS:Update Posts “agent-1”"
+    },
+    {
+      "hash": "dc082209391ac3a9a472bbe0a19b5f815ca3fb18",
+      "date": "2026-05-15 23:36:49 +0800",
+      "message": "CMS:Update Posts “agent-1”"
+    },
+    {
+      "hash": "8f6043a8bacada850def6e8a5b6bc108d127650d",
+      "date": "2026-05-09 00:29:10 +0800",
+      "message": "posts: 发布文章"
     }
   ],
   "archlinux-1.md": [
