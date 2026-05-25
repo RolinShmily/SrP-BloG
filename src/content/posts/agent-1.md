@@ -1,5 +1,5 @@
 ---
-title: ClaudeCode安装与使用 | Agent | CC-Switch
+title: ClaudeCode原生安装与使用 | Agent | CC-Switch
 published: 2026-05-09
 description: 分享使用agent工具时的一些小心得
 image: ../assets/images/2025-0509-0012.png
@@ -33,7 +33,6 @@ $PSVersionTable.PSVersion
 ```
 # ClaudeCode安装
 ![](../assets/images/Snipaste_2026-05-08_20-54-41.png)
-众所周知，因为`npm`版ClaudeCode源码泄露的问题，官方已经不再更新`npm`包了，因此这里推荐使用`native`原生安装方式。
 
 ## Native原生安装解耦
 在官方文档中，推荐的原生安装命令为：
