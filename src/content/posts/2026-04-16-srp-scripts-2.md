@@ -173,6 +173,6 @@ if __name__ == "__main__":
 
 # 个人脚本仓库
 
-::github{repo="RolinShmily/SrP-Scripts"}
+::github{repo="RolinShmily/SrP-Skills"}
 
 如果觉得有用，欢迎给个 Star！如果有问题或建议，欢迎提 Issue 或 PR。
