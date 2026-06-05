@@ -1220,6 +1220,13 @@
       "message": "initblog"
     }
   ],
+  "nginx-download.md": [
+    {
+      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
+      "date": "2026-06-01 14:03:11 +0800",
+      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
+    }
+  ],
   "msys.md": [
     {
       "hash": "856a622e9c2c47188ecfac90cd349f8c17f2bf63",
@@ -1247,13 +1254,6 @@
       "message": "CMS: New Posts \"msys\""
     }
   ],
-  "nginx-download.md": [
-    {
-      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
-      "date": "2026-06-01 14:03:11 +0800",
-      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
-    }
-  ],
   "pytorch-2.md": [
     {
       "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
@@ -1272,6 +1272,11 @@
     }
   ],
   "script-1.md": [
+    {
+      "hash": "19835cd2687f0fb4304e7bd456cb4a76e65c128f",
+      "date": "2026-06-05 19:23:29 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
     {
       "hash": "ec891d9941d194c0292232b671be3b705c96f2f5",
       "date": "2026-04-18 15:58:46 +0800",
