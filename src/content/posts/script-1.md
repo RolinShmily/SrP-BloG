@@ -518,6 +518,6 @@ pause
 ```
 # 个人脚本仓库
 
-::github{repo="RolinShmily/SrP-Scripts"}
+::github{repo="RolinShmily/SrP-Skills"}
 
 这个脚本是我根据实际需求开发的，主要用于处理录播文件的音轨合并和格式统一。如果觉得有用，欢迎给个 Star！如果有问题或建议，欢迎提 Issue 或 PR。
