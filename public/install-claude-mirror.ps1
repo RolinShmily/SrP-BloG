@@ -24,6 +24,16 @@ if ($PSVersionTable.PSVersion.Major -lt 7) {
 
 $installDir = "$env:USERPROFILE\.local\bin"
 $binaryPath = "$installDir\claude.exe"
+$settingsPath = "$env:USERPROFILE\.claude\settings.json"
+
+function Prompt-OpenSettings {
+    if (-not (Test-Path $settingsPath)) { return }
+    Write-Host ""
+    $open = Read-Host "    是否用记事本打开 settings.json 进行编辑？ [Y/n]"
+    if ($open -ne "n" -and $open -ne "N") {
+        Notepad.exe $settingsPath
+    }
+}
 
 # ─── 检测已安装 ───
 $existingClaude = Get-Command claude -ErrorAction SilentlyContinue
@@ -31,7 +41,8 @@ if ($existingClaude) {
     $version = & $existingClaude.Source --version 2>&1
     Write-Host ""
     Write-Host "⚠ Claude Code 已安装" -ForegroundColor Yellow
-    Write-Host "   版本: $version" -ForegroundColor DarkGray
+    Write-Host "   当前版本: $version" -ForegroundColor DarkGray
+    Write-Host "   最新版本: $VERSION" -ForegroundColor Cyan
     Write-Host "   路径: $($existingClaude.Source)" -ForegroundColor DarkGray
     Write-Host ""
     Write-Host "    [1] 升级 (卸载后重新安装)" -ForegroundColor White
@@ -39,7 +50,10 @@ if ($existingClaude) {
     Write-Host "    [3] 取消" -ForegroundColor White
     Write-Host ""
     $action = Read-Host "    请选择操作 [1/2/3] (默认 1)"
-    if ($action -eq "3") { exit 0 }
+    if ($action -eq "3") {
+        Prompt-OpenSettings
+        exit 0
+    }
 
     # 卸载：同时处理 npm 安装和原生安装
     $uninstalled = $false
@@ -101,6 +115,7 @@ if ($nodeExe) {
             Write-Error "npm 安装失败: $_"
             exit 1
         }
+        Prompt-OpenSettings
         exit 0
     }
 }
@@ -208,7 +223,6 @@ else {
 
 # ─── 配置 .claude 目录 ───
 $claudeDir = "$env:USERPROFILE\.claude"
-$settingsPath = "$claudeDir\settings.json"
 
 if (-not (Test-Path $claudeDir)) {
     New-Item -ItemType Directory -Force -Path $claudeDir | Out-Null
@@ -234,12 +248,12 @@ else {
 '@
     Set-Content -Path $settingsPath -Value $settingsContent -Encoding UTF8
     Write-Host "    已生成默认 settings.json" -ForegroundColor DarkGray
-    Write-Host ""
-    Write-Host "    ⚠ 请编辑 $settingsPath" -ForegroundColor Yellow
-    Write-Host "      填入你的 API Key 和请求地址后即可使用。" -ForegroundColor Yellow
+    Write-Host "    ⚠ 填入 API Key 和请求地址后即可使用，脚本末尾可打开编辑。" -ForegroundColor Yellow
 }
 
 Write-Host ""
 Write-Host "✅ 安装完成!" -ForegroundColor Green
 Write-Host "   $(& $binaryPath --version 2>&1)" -ForegroundColor DarkGray
 Write-Host "   $binaryPath" -ForegroundColor DarkGray
+
+Prompt-OpenSettings
