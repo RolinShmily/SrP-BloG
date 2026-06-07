@@ -38,16 +38,16 @@ function Prompt-OpenSettings {
 # ─── 检测已安装 ───
 $existingClaude = Get-Command claude -ErrorAction SilentlyContinue
 if ($existingClaude) {
-    $version = & $existingClaude.Source --version 2>&1
+    $installedVersion = & $existingClaude.Source --version 2>&1
     Write-Host ""
     Write-Host "⚠ Claude Code 已安装" -ForegroundColor Yellow
-    Write-Host "   当前版本: $version" -ForegroundColor DarkGray
-    Write-Host "   最新版本: $VERSION" -ForegroundColor Cyan
+    Write-Host "   当前版本: $installedVersion" -ForegroundColor DarkGray
+    Write-Host "   最新镜像版本: $VERSION" -ForegroundColor Cyan
     Write-Host "   路径: $($existingClaude.Source)" -ForegroundColor DarkGray
     Write-Host ""
     Write-Host "    [1] 升级 (卸载后重新安装)" -ForegroundColor White
     Write-Host "    [2] 卸载" -ForegroundColor White
-    Write-Host "    [3] 取消" -ForegroundColor White
+    Write-Host "    [3] 编辑配置文件" -ForegroundColor White
     Write-Host ""
     $action = Read-Host "    请选择操作 [1/2/3] (默认 1)"
     if ($action -eq "3") {
