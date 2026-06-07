@@ -41,3 +41,6 @@ acofork/
 # ide
 .idea
 *.iml
+
+skills-lock.json
+.agents
