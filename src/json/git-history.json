@@ -368,43 +368,6 @@
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
     }
   ],
-  "2026-03-17-windows-1.md": [
-    {
-      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
-      "date": "2026-04-17 23:32:57 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
-      "date": "2026-04-04 23:03:03 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
-      "date": "2026-03-20 12:49:33 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
-      "date": "2026-03-18 19:28:35 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
-      "date": "2026-03-17 19:44:23 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
-      "date": "2026-03-17 19:43:34 +0800",
-      "message": "CMS:Create Posts “2026-03-17-windows-1”"
-    }
-  ],
   "2026-04-16-srp-scripts-2.md": [
     {
       "hash": "c1bef12781097ec1982dd293f8ae941a350f6bae",
@@ -450,6 +413,43 @@
       "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
       "date": "2026-04-16 17:51:28 +0800",
       "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
+    }
+  ],
+  "2026-03-17-windows-1.md": [
+    {
+      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
+      "date": "2026-04-17 23:32:57 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
+      "date": "2026-04-04 23:03:03 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
+      "date": "2026-03-20 12:49:33 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
+      "date": "2026-03-18 19:28:35 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
+      "date": "2026-03-17 19:44:23 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
+      "date": "2026-03-17 19:43:34 +0800",
+      "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
   "2026-04-16-yt-dlp.md": [
@@ -501,6 +501,13 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
+    }
+  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -516,13 +523,6 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
-    }
-  ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "CFGInstaller.md": [
@@ -1235,6 +1235,13 @@
       "message": "initblog"
     }
   ],
+  "nginx-download.md": [
+    {
+      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
+      "date": "2026-06-01 14:03:11 +0800",
+      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
+    }
+  ],
   "msys.md": [
     {
       "hash": "856a622e9c2c47188ecfac90cd349f8c17f2bf63",
@@ -1262,13 +1269,6 @@
       "message": "CMS: New Posts \"msys\""
     }
   ],
-  "nginx-download.md": [
-    {
-      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
-      "date": "2026-06-01 14:03:11 +0800",
-      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
-    }
-  ],
   "pytorch-2.md": [
     {
       "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
@@ -1287,6 +1287,11 @@
     }
   ],
   "script-1.md": [
+    {
+      "hash": "32398ff2a3aa4cd2213cd05866c8183d180057ff",
+      "date": "2026-06-09 15:06:22 +0800",
+      "message": "CMS:Update Posts “script-1”"
+    },
     {
       "hash": "19835cd2687f0fb4304e7bd456cb4a76e65c128f",
       "date": "2026-06-05 19:23:29 +0800",
