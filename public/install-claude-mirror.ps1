@@ -26,6 +26,34 @@ $installDir = "$env:USERPROFILE\.local\bin"
 $binaryPath = "$installDir\claude.exe"
 $settingsPath = "$env:USERPROFILE\.claude\settings.json"
 
+function Ensure-Settings {
+    $claudeDir = "$env:USERPROFILE\.claude"
+    if (-not (Test-Path $claudeDir)) {
+        New-Item -ItemType Directory -Force -Path $claudeDir | Out-Null
+        Write-Host "    已创建 .claude 配置目录" -ForegroundColor DarkGray
+    }
+    if (Test-Path $settingsPath) {
+        Write-Host "    settings.json 已存在，跳过配置" -ForegroundColor DarkGray
+    }
+    else {
+        $settingsContent = @'
+{
+  "env": {
+    "ANTHROPIC_AUTH_TOKEN": "your-api-key-here",
+    "ANTHROPIC_BASE_URL": "your-api-request-url",
+    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+  },
+  "permissions": {
+    "allow": [],
+    "deny": []
+  }
+}
+'@
+        Set-Content -Path $settingsPath -Value $settingsContent -Encoding UTF8
+        Write-Host "    已生成默认 settings.json" -ForegroundColor DarkGray
+        Write-Host "    ⚠ 填入 API Key 和请求地址后即可使用，脚本末尾可打开编辑。" -ForegroundColor Yellow
+    }
+}
 function Prompt-OpenSettings {
     if (-not (Test-Path $settingsPath)) { return }
     Write-Host ""
@@ -115,6 +143,7 @@ if ($nodeExe) {
             Write-Error "npm 安装失败: $_"
             exit 1
         }
+        Ensure-Settings
         Prompt-OpenSettings
         exit 0
     }
@@ -221,35 +250,7 @@ else {
     }
 }
 
-# ─── 配置 .claude 目录 ───
-$claudeDir = "$env:USERPROFILE\.claude"
-
-if (-not (Test-Path $claudeDir)) {
-    New-Item -ItemType Directory -Force -Path $claudeDir | Out-Null
-    Write-Host "    已创建 .claude 配置目录" -ForegroundColor DarkGray
-}
-
-if (Test-Path $settingsPath) {
-    Write-Host "    settings.json 已存在，跳过配置" -ForegroundColor DarkGray
-}
-else {
-    $settingsContent = @'
-{
-  "env": {
-    "ANTHROPIC_AUTH_TOKEN": "your-api-key-here",
-    "ANTHROPIC_BASE_URL": "your-api-request-url",
-    "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
-  },
-  "permissions": {
-    "allow": [],
-    "deny": []
-  }
-}
-'@
-    Set-Content -Path $settingsPath -Value $settingsContent -Encoding UTF8
-    Write-Host "    已生成默认 settings.json" -ForegroundColor DarkGray
-    Write-Host "    ⚠ 填入 API Key 和请求地址后即可使用，脚本末尾可打开编辑。" -ForegroundColor Yellow
-}
+Ensure-Settings
 
 Write-Host ""
 Write-Host "✅ 安装完成!" -ForegroundColor Green
