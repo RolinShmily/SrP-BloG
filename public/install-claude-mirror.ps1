@@ -39,8 +39,13 @@ function Ensure-Settings {
         $settingsContent = @'
 {
   "env": {
-    "ANTHROPIC_AUTH_TOKEN": "your-api-key-here",
-    "ANTHROPIC_BASE_URL": "your-api-request-url",
+    "ANTHROPIC_BASE_URL": "",
+    "ANTHROPIC_AUTH_TOKEN": "",
+    "ANTHROPIC_MODEL": "claude-opus-4-8",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
+    "CLAUDE_CODE_MODEL_CONTEXT_WINDOWS": "{\"claude-opus-4-8\":1000000,\"claude-sonnet-4-6\":1000000,\"claude-haiku-4-5\":200000}",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
   "permissions": {
