@@ -28,8 +28,8 @@ $settingsPath = "$claudeDir\settings.json"
 # ─── 配置模板 (受保护字段除外，按此覆盖) ───
 $template = [ordered]@{
     env = [ordered]@{
-        ANTHROPIC_AUTH_TOKEN                      = "sk-4cf8aabe01a57a05b3ba279f55af9b4b"
-        ANTHROPIC_BASE_URL                        = "https://code.srprolin.top"
+        ANTHROPIC_AUTH_TOKEN                      = ""
+        ANTHROPIC_BASE_URL                        = ""
         ANTHROPIC_MODEL                           = "glm-5.2[1m]"
         ANTHROPIC_DEFAULT_OPUS_MODEL              = "glm-5-turbo"
         ANTHROPIC_DEFAULT_SONNET_MODEL            = "mimo-v2.5-pro[1m]"
