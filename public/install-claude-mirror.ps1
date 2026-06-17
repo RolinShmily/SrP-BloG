@@ -41,11 +41,11 @@ function Ensure-Settings {
   "env": {
     "ANTHROPIC_BASE_URL": "",
     "ANTHROPIC_AUTH_TOKEN": "",
-    "ANTHROPIC_MODEL": "claude-opus-4-8",
-    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8",
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6",
+    "ANTHROPIC_MODEL": "claude-opus-4-8[1m]",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "claude-opus-4-8[1m]",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "claude-sonnet-4-6[1m]",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL": "claude-haiku-4-5",
-    "CLAUDE_CODE_MODEL_CONTEXT_WINDOWS": "{\"claude-opus-4-8\":1000000,\"claude-sonnet-4-6\":1000000,\"claude-haiku-4-5\":200000,\"glm-5.2\":1000000,\"glm-5-turbo\":200000}",
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "1000000",
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
   "permissions": {
