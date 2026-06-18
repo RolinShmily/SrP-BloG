@@ -94,3 +94,14 @@ else {
         Notepad.exe $settingsPath
     }
 }
+
+# ─── 输出全量配置内容，便于复查与复制 ───
+Write-Host ""
+Write-Host "========== settings.json 全量内容 ==========" -ForegroundColor Cyan
+Write-Host "(路径: $settingsPath)" -ForegroundColor DarkGray
+Write-Host "--------------------------------------------" -ForegroundColor DarkGray
+$content = Get-Content $settingsPath -Raw -Encoding UTF8
+Write-Output $content
+Write-Host "--------------------------------------------" -ForegroundColor DarkGray
+Write-Host "如需复制：右键标题栏 → 编辑 → 标记，框选上方 JSON 后回车复制。" -ForegroundColor DarkGray
+Write-Host "============================================" -ForegroundColor Cyan
