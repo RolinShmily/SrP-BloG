@@ -5,7 +5,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 $ProgressPreference = 'SilentlyContinue'
 
-$VERSION = "2.1.168"
+$VERSION = "2.1.181"
 $DOWNLOAD_URL = "https://download.srprolin.top/claude-install-mirror/claude.exe"
 $REFERER = "https://blog.srprolin.top"
 
