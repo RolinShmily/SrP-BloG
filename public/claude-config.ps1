@@ -2,12 +2,14 @@
 # 用法:
 #   irm https://blog.srprolin.top/claude-config.ps1 | iex
 #   # 或本地运行:
-#   .\claude-config.ps1            # 先写入默认模板, 再询问是否自定义模型
-#   .\claude-config.ps1 -Force     # 按模板原文整体覆盖 (含密钥与请求地址, 非交互)
+#   .\claude-config.ps1            # 仅更新 env 字段 (其余字段原样保留), 再询问是否自定义模型
+#   .\claude-config.ps1 -Force     # 非交互: 按默认模型更新 env, 其余字段保持原样
 #
-# 设计: 除模型外的一切字段恒为默认模板 (并保留已有密钥与请求地址);
-#       模型是唯一的可交互项。自定义时, 先把默认模板落盘,
-#       再仅覆盖 4 个模型字段 (回车=保持该角色的默认模型)。
+# 设计: 脚本只动 settings.json 的 env 字段 (中转站配置所在);
+#       其余顶层字段 (permissions / model / ...) 一律保持用户原有内容不变;
+#       env 内的 ANTHROPIC_AUTH_TOKEN / ANTHROPIC_BASE_URL 始终保留现有值;
+#       env 内的额外键同样保留, 仅更新/补齐受管理键。
+#       模型是唯一可交互项, 回车=保持该角色默认模型。
 
 param(
     [switch]$Force
@@ -153,9 +155,9 @@ for ($i = 0; $i -lt $Models.Count; $i++) {
     Write-ModelLine $i $Models[$i]
 }
 
-# ─── 展示各角色默认模型 (= 即将写入的默认模板) ───
+# ─── 展示各角色默认模型 (= 即将写入 env 的默认值) ───
 Write-Host ""
-Write-Host "默认模板中的模型配置:" -ForegroundColor White
+Write-Host "默认模型配置:" -ForegroundColor White
 foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
     Write-RoleSummary $role $DefaultRoles[$role]
 }
@@ -164,47 +166,63 @@ foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
 $claudeDir    = "$env:USERPROFILE\.claude"
 $settingsPath = "$claudeDir\settings.json"
 
-# ─── 读取现有 settings.json 中的受保护字段 ───
+# ─── 读取现有 settings.json (保留其余顶层字段, 仅在 env 内合并) ───
+$existingObj     = $null
 $existingToken   = ""
 $existingBaseUrl = ""
 if (Test-Path $settingsPath) {
     try {
-        $existing = Get-Content $settingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
-        if ($existing.env -and $existing.env.ANTHROPIC_AUTH_TOKEN) {
-            $existingToken = [string]$existing.env.ANTHROPIC_AUTH_TOKEN
-        }
-        if ($existing.env -and $existing.env.ANTHROPIC_BASE_URL) {
-            $existingBaseUrl = [string]$existing.env.ANTHROPIC_BASE_URL
+        $existingObj = Get-Content $settingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        if ($existingObj.env) {
+            $tok = $existingObj.env.PSObject.Properties['ANTHROPIC_AUTH_TOKEN']
+            if ($tok) { $existingToken   = [string]$tok.Value }
+            $url = $existingObj.env.PSObject.Properties['ANTHROPIC_BASE_URL']
+            if ($url) { $existingBaseUrl = [string]$url.Value }
         }
     }
     catch {
-        Write-Host "⚠ 现有 settings.json 解析失败，受保护字段将以模板默认值写入" -ForegroundColor Yellow
+        Write-Host "⚠ 现有 settings.json 解析失败, 将以仅 env 内容新建" -ForegroundColor Yellow
     }
 }
 
-# ─── 构建默认模板 (模型字段使用 $DefaultRoles) ───
-$template = [ordered]@{
-    env = [ordered]@{
-        ANTHROPIC_AUTH_TOKEN                      = ""
-        ANTHROPIC_BASE_URL                        = ""
-        ANTHROPIC_MODEL                           = $DefaultRoles.Main
-        ANTHROPIC_DEFAULT_OPUS_MODEL              = $DefaultRoles.Opus
-        ANTHROPIC_DEFAULT_SONNET_MODEL            = $DefaultRoles.Sonnet
-        ANTHROPIC_DEFAULT_HAIKU_MODEL             = $DefaultRoles.Haiku
-        CLAUDE_CODE_AUTO_COMPACT_WINDOW           = "1000000"
-        CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC  = "1"
-    }
-    permissions = [ordered]@{
-        allow = @()
-        deny  = @()
-    }
+# ─── 受管理的 env 键及其默认值 (token/url 始终取现有值) ───
+$managedKeys = [ordered]@{
+    ANTHROPIC_AUTH_TOKEN                      = $existingToken
+    ANTHROPIC_BASE_URL                        = $existingBaseUrl
+    ANTHROPIC_MODEL                           = $DefaultRoles.Main
+    ANTHROPIC_DEFAULT_OPUS_MODEL              = $DefaultRoles.Opus
+    ANTHROPIC_DEFAULT_SONNET_MODEL            = $DefaultRoles.Sonnet
+    ANTHROPIC_DEFAULT_HAIKU_MODEL             = $DefaultRoles.Haiku
+    CLAUDE_CODE_AUTO_COMPACT_WINDOW           = "1000000"
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC  = "1"
 }
 
-# ─── 应用受保护字段 (默认模式优先用现有值, 否则留空待用户填写) ───
-if (-not $Force) {
-    $template.env.ANTHROPIC_AUTH_TOKEN = $existingToken
-    $template.env.ANTHROPIC_BASE_URL   = $existingBaseUrl
+# ─── 合并 env: 保留现有 env 的额外键与顺序, 仅更新/补齐受管理键 ───
+$envBlock = [ordered]@{}
+if ($existingObj -and $existingObj.env) {
+    foreach ($p in $existingObj.env.PSObject.Properties) {
+        if ($managedKeys.Contains($p.Name)) {
+            $envBlock[$p.Name] = $managedKeys[$p.Name]
+        }
+        else {
+            $envBlock[$p.Name] = $p.Value
+        }
+    }
 }
+foreach ($k in $managedKeys.Keys) {
+    if (-not $envBlock.Contains($k)) { $envBlock[$k] = $managedKeys[$k] }
+}
+
+# ─── 组装结果: 保留现有所有顶层字段, 仅替换 env ───
+$result = [ordered]@{}
+$hasEnv = $false
+if ($existingObj) {
+    foreach ($p in $existingObj.PSObject.Properties) {
+        if ($p.Name -eq "env") { $result["env"] = $envBlock; $hasEnv = $true }
+        else                   { $result[$p.Name] = $p.Value }
+    }
+}
+if (-not $hasEnv) { $result["env"] = $envBlock }
 
 # ─── 确保 .claude 目录存在 ───
 if (-not (Test-Path $claudeDir)) {
@@ -213,8 +231,8 @@ if (-not (Test-Path $claudeDir)) {
 }
 
 # ─── 写入函数 (UTF-8 无 BOM) ───
-function Write-Settings([object]$tpl) {
-    $json = $tpl | ConvertTo-Json -Depth 10
+function Write-Settings([object]$obj) {
+    $json = $obj | ConvertTo-Json -Depth 10
     $utf8NoBom = New-Object System.Text.UTF8Encoding $false
     [System.IO.File]::WriteAllText($settingsPath, $json, $utf8NoBom)
 }
@@ -227,14 +245,14 @@ if (Test-Path $settingsPath) {
     Write-Host "==> 原配置已备份: $backupPath" -ForegroundColor Cyan
 }
 
-# ─── 第一步: 先用默认模板落盘 ───
-Write-Settings $template
+# ─── 写入 (仅更新 env, 其余顶层字段保持用户原值) ───
+Write-Settings $result
 Write-Host ""
-Write-Host "==> 默认模板已写入: $settingsPath" -ForegroundColor Green
+Write-Host "==> 已更新 env 配置: $settingsPath" -ForegroundColor Green
 if ($Force) {
-    Write-Host "    ⚠ -Force: 全部字段已按模板原文覆盖 (含密钥与请求地址)" -ForegroundColor Yellow
+    Write-Host "    -Force: 非交互模式, 已按默认模型更新 env (其余字段与密钥保持原样)" -ForegroundColor DarkGray
 }
-elseif ($existingToken -or $existingBaseUrl) {
+if ($existingToken -or $existingBaseUrl) {
     Write-Host "    ✓ 已保留现有 ANTHROPIC_AUTH_TOKEN / ANTHROPIC_BASE_URL" -ForegroundColor DarkGray
 }
 else {
@@ -244,7 +262,7 @@ else {
 # ─── 第二步: 模型是唯一可交互项, 询问是否覆盖模型字段 ───
 if (-not $Force) {
     Write-Host ""
-    Write-Host "其余字段均已使用默认模板。是否自定义模型? [y/N]" -ForegroundColor Yellow
+    Write-Host "其余顶层字段保持原样。是否自定义模型? [y/N]" -ForegroundColor Yellow
     $ans = Read-Host "您的选择"
     if ("$ans".Trim() -match '^[yY]') {
         Write-Host ""
@@ -276,22 +294,22 @@ if (-not $Force) {
                 }
             }
             $newId = $Models[$idx].Id
-            $template.env.$field = $newId
+            $envBlock.$field = $newId
             if ($newId -ne $defId) { $changed = $true }
         }
 
-        # 仅覆盖模型字段后重新落盘 (其余字段保持上一步的默认模板)
-        Write-Settings $template
+        # 仅更新 env 内的模型字段后重新落盘 (其余顶层字段保持原样)
+        Write-Settings $result
         Write-Host ""
         if ($changed) {
-            Write-Host "==> 已覆盖模型字段并重新写入: $settingsPath" -ForegroundColor Green
+            Write-Host "==> 已更新 env 模型字段并重新写入: $settingsPath" -ForegroundColor Green
         }
         else {
             Write-Host "==> 所选模型与默认一致, 无需改动" -ForegroundColor DarkGray
         }
         Write-Host "当前模型配置:" -ForegroundColor White
         foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
-            Write-RoleSummary $role $template.env.($RoleFields[$role])
+            Write-RoleSummary $role $envBlock.($RoleFields[$role])
         }
     }
 }
