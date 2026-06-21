@@ -1,4 +1,4 @@
-﻿# Claude Code 配置同步脚本 (CC-SrP 中转站)
+# Claude Code 配置同步脚本 (CC-SrP 中转站)
 # 用法:
 #   irm https://blog.srprolin.top/claude-config.ps1 | iex
 #   # 或本地运行:
