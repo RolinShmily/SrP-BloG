@@ -1,12 +1,13 @@
-# Claude Code 配置同步脚本
+﻿# Claude Code 配置同步脚本 (CC-SrP 中转站)
 # 用法:
 #   irm https://blog.srprolin.top/claude-config.ps1 | iex
 #   # 或本地运行:
-#   .\claude-config.ps1            # 默认保留现有密钥与请求地址
-#   .\claude-config.ps1 -Force     # 按模板原文整体覆盖 (含密钥与请求地址)
+#   .\claude-config.ps1            # 先写入默认模板, 再询问是否自定义模型
+#   .\claude-config.ps1 -Force     # 按模板原文整体覆盖 (含密钥与请求地址, 非交互)
 #
-# 默认行为: 保留用户已有的 ANTHROPIC_AUTH_TOKEN 与 ANTHROPIC_BASE_URL,
-#           其余字段用下方模板覆盖。
+# 设计: 除模型外的一切字段恒为默认模板 (并保留已有密钥与请求地址);
+#       模型是唯一的可交互项。自定义时, 先把默认模板落盘,
+#       再仅覆盖 4 个模型字段 (回车=保持该角色的默认模型)。
 
 param(
     [switch]$Force
@@ -15,33 +16,86 @@ param(
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
+# ─── 中转站标识 ───
+$RelayName = "CC-SrP"
+
+# ─── 可选模型列表 (在此自行增删即可) ──────────────────────────────────────────
+# Name: 菜单展示名 ; Id: 实际写入 settings.json 的模型标识
+$Models = @(
+    [ordered]@{ Name = "GLM-5.2 (1M)";       Id = "glm-5.2[1m]" },
+    [ordered]@{ Name = "GLM-5.2";            Id = "glm-5.2" },
+    [ordered]@{ Name = "GLM-5-Turbo";        Id = "glm-5-turbo" },
+    [ordered]@{ Name = "MIMO v2.5 Pro (1M)"; Id = "mimo-v2.5-pro[1m]" },
+    [ordered]@{ Name = "MIMO v2.5 Pro";      Id = "mimo-v2.5-pro" },
+    [ordered]@{ Name = "MIMO v2.5 (1M)";     Id = "mimo-v2.5[1m]" },
+    [ordered]@{ Name = "MIMO v2.5";          Id = "mimo-v2.5" }
+)
+
+# ─── 各角色默认模型 (使用上方 $Models 中的 Id) ─────────────────────────────────
+# Main   -> ANTHROPIC_MODEL
+# Opus   -> ANTHROPIC_DEFAULT_OPUS_MODEL
+# Sonnet -> ANTHROPIC_DEFAULT_SONNET_MODEL
+# Haiku  -> ANTHROPIC_DEFAULT_HAIKU_MODEL
+$DefaultRoles = [ordered]@{
+    Main   = "glm-5.2[1m]"
+    Opus   = "glm-5-turbo"
+    Sonnet = "mimo-v2.5-pro[1m]"
+    Haiku  = "mimo-v2.5[1m]"
+}
+
+# ─── 角色与 settings.json 字段的对应 ───
+$RoleFields = [ordered]@{
+    Main   = "ANTHROPIC_MODEL"
+    Opus   = "ANTHROPIC_DEFAULT_OPUS_MODEL"
+    Sonnet = "ANTHROPIC_DEFAULT_SONNET_MODEL"
+    Haiku  = "ANTHROPIC_DEFAULT_HAIKU_MODEL"
+}
+
+# ─── 辅助函数 ───
+function Get-ModelIndex([string]$id) {
+    for ($i = 0; $i -lt $Models.Count; $i++) {
+        if ($Models[$i].Id -eq $id) { return $i }
+    }
+    return -1
+}
+
+function Get-ModelName([string]$id) {
+    foreach ($m in $Models) {
+        if ($m.Id -eq $id) { return $m.Name }
+    }
+    return $id
+}
+
+# ─── 横幅 ───
+Write-Host ""
+Write-Host "============================================" -ForegroundColor Cyan
+Write-Host "  $RelayName 中转站 · Claude Code 配置工具" -ForegroundColor Cyan
+Write-Host "============================================" -ForegroundColor Cyan
+
 if ($PSVersionTable.PSVersion.Major -lt 7) {
     Write-Host ""
     Write-Host "Warning: Windows PowerShell 5 CANNOT display Chinese characters." -ForegroundColor Yellow
     Write-Host "  PowerShell 7 is recommended: https://apps.microsoft.com/detail/9mz1snwt0n5d?hl=zh-CN&gl=SG" -ForegroundColor Cyan
-    Write-Host ""
 }
 
+# ─── 展示可用模型列表 ───
+Write-Host ""
+Write-Host "可用模型列表:" -ForegroundColor White
+for ($i = 0; $i -lt $Models.Count; $i++) {
+    Write-Host ("  [{0}] {1}    ({2})" -f ($i + 1), $Models[$i].Name, $Models[$i].Id) -ForegroundColor DarkGray
+}
+
+# ─── 展示各角色默认模型 (= 即将写入的默认模板) ───
+Write-Host ""
+Write-Host "默认模板中的模型配置:" -ForegroundColor White
+foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
+    $id = $DefaultRoles[$role]
+    Write-Host ("  {0,-9}: {1}    ({2})" -f $role, (Get-ModelName $id), $id) -ForegroundColor DarkGray
+}
+
+# ─── 路径 ───
 $claudeDir    = "$env:USERPROFILE\.claude"
 $settingsPath = "$claudeDir\settings.json"
-
-# ─── 配置模板 (受保护字段除外，按此覆盖) ───
-$template = [ordered]@{
-    env = [ordered]@{
-        ANTHROPIC_AUTH_TOKEN                      = ""
-        ANTHROPIC_BASE_URL                        = ""
-        ANTHROPIC_MODEL                           = "glm-5.2[1m]"
-        ANTHROPIC_DEFAULT_OPUS_MODEL              = "glm-5-turbo"
-        ANTHROPIC_DEFAULT_SONNET_MODEL            = "mimo-v2.5-pro[1m]"
-        ANTHROPIC_DEFAULT_HAIKU_MODEL             = "mimo-v2.5[1m]"
-        CLAUDE_CODE_AUTO_COMPACT_WINDOW           = "1000000"
-        CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC  = "1"
-    }
-    permissions = [ordered]@{
-        allow = @()
-        deny  = @()
-    }
-}
 
 # ─── 读取现有 settings.json 中的受保护字段 ───
 $existingToken   = ""
@@ -61,7 +115,25 @@ if (Test-Path $settingsPath) {
     }
 }
 
-# ─── 应用受保护字段 (默认模式优先用现有值，否则留空待用户填写) ───
+# ─── 构建默认模板 (模型字段使用 $DefaultRoles) ───
+$template = [ordered]@{
+    env = [ordered]@{
+        ANTHROPIC_AUTH_TOKEN                      = ""
+        ANTHROPIC_BASE_URL                        = ""
+        ANTHROPIC_MODEL                           = $DefaultRoles.Main
+        ANTHROPIC_DEFAULT_OPUS_MODEL              = $DefaultRoles.Opus
+        ANTHROPIC_DEFAULT_SONNET_MODEL            = $DefaultRoles.Sonnet
+        ANTHROPIC_DEFAULT_HAIKU_MODEL             = $DefaultRoles.Haiku
+        CLAUDE_CODE_AUTO_COMPACT_WINDOW           = "1000000"
+        CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC  = "1"
+    }
+    permissions = [ordered]@{
+        allow = @()
+        deny  = @()
+    }
+}
+
+# ─── 应用受保护字段 (默认模式优先用现有值, 否则留空待用户填写) ───
 if (-not $Force) {
     $template.env.ANTHROPIC_AUTH_TOKEN = $existingToken
     $template.env.ANTHROPIC_BASE_URL   = $existingBaseUrl
@@ -73,13 +145,17 @@ if (-not (Test-Path $claudeDir)) {
     Write-Host "==> 已创建 .claude 配置目录" -ForegroundColor DarkGray
 }
 
-# ─── 写入 (UTF-8 无 BOM) ───
-$json = $template | ConvertTo-Json -Depth 10
-$utf8NoBom = New-Object System.Text.UTF8Encoding $false
-[System.IO.File]::WriteAllText($settingsPath, $json, $utf8NoBom)
+# ─── 写入函数 (UTF-8 无 BOM) ───
+function Write-Settings([object]$tpl) {
+    $json = $tpl | ConvertTo-Json -Depth 10
+    $utf8NoBom = New-Object System.Text.UTF8Encoding $false
+    [System.IO.File]::WriteAllText($settingsPath, $json, $utf8NoBom)
+}
 
-# ─── 报告 ───
-Write-Host "==> 配置已写入: $settingsPath" -ForegroundColor Green
+# ─── 第一步: 先用默认模板落盘 ───
+Write-Settings $template
+Write-Host ""
+Write-Host "==> 默认模板已写入: $settingsPath" -ForegroundColor Green
 if ($Force) {
     Write-Host "    ⚠ -Force: 全部字段已按模板原文覆盖 (含密钥与请求地址)" -ForegroundColor Yellow
 }
@@ -87,10 +163,72 @@ elseif ($existingToken -or $existingBaseUrl) {
     Write-Host "    ✓ 已保留现有 ANTHROPIC_AUTH_TOKEN / ANTHROPIC_BASE_URL" -ForegroundColor DarkGray
 }
 else {
-    Write-Host "    ⚠ 未检测到现有密钥，请手动填写 ANTHROPIC_AUTH_TOKEN 与 ANTHROPIC_BASE_URL" -ForegroundColor Yellow
-    Write-Host "    是否用记事本打开 settings.json 进行编辑？ [Y/n]" -ForegroundColor White
+    Write-Host "    ⚠ 未检测到现有密钥 (稍后可手动填写 ANTHROPIC_AUTH_TOKEN / ANTHROPIC_BASE_URL)" -ForegroundColor Yellow
+}
+
+# ─── 第二步: 模型是唯一可交互项, 询问是否覆盖模型字段 ───
+if (-not $Force) {
+    Write-Host ""
+    Write-Host "其余字段均已使用默认模板。是否自定义模型? [y/N]" -ForegroundColor Yellow
+    $ans = Read-Host "您的选择"
+    if ("$ans".Trim() -match '^[yY]') {
+        Write-Host ""
+        Write-Host "进入模型自定义 (回车=保持该角色默认模型):" -ForegroundColor Cyan
+
+        $changed = $false
+        foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
+            $field  = $RoleFields[$role]
+            $defId  = $DefaultRoles[$role]
+            $defIdx = Get-ModelIndex $defId
+            if ($defIdx -lt 0) { $defIdx = 0 }
+
+            Write-Host ""
+            Write-Host ("── {0} ({1}) ──" -f $role, $field) -ForegroundColor Cyan
+            for ($i = 0; $i -lt $Models.Count; $i++) {
+                $tag = if ($i -eq $defIdx) { "  <默认>" } else { "" }
+                Write-Host ("  [{0}] {1}    ({2}){3}" -f ($i + 1), $Models[$i].Name, $Models[$i].Id, $tag) -ForegroundColor DarkGray
+            }
+
+            $pick = Read-Host "输入序号 (回车=默认)"
+            $pick = "$pick".Trim()
+            $idx = $defIdx
+            if ($pick -ne "") {
+                $n = 0
+                if ([int]::TryParse($pick, [ref]$n) -and $n -ge 1 -and $n -le $Models.Count) {
+                    $idx = $n - 1
+                }
+                else {
+                    Write-Host "  无效输入, 已回退到默认" -ForegroundColor Yellow
+                }
+            }
+            $newId = $Models[$idx].Id
+            $template.env.$field = $newId
+            if ($newId -ne $defId) { $changed = $true }
+        }
+
+        # 仅覆盖模型字段后重新落盘 (其余字段保持上一步的默认模板)
+        Write-Settings $template
+        Write-Host ""
+        if ($changed) {
+            Write-Host "==> 已覆盖模型字段并重新写入: $settingsPath" -ForegroundColor Green
+        }
+        else {
+            Write-Host "==> 所选模型与默认一致, 无需改动" -ForegroundColor DarkGray
+        }
+        Write-Host "当前模型配置:" -ForegroundColor White
+        foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
+            $id = $template.env.($RoleFields[$role])
+            Write-Host ("  {0,-9}: {1}    ({2})" -f $role, (Get-ModelName $id), $id) -ForegroundColor DarkGray
+        }
+    }
+}
+
+# ─── 无密钥时提示用记事本编辑 ───
+if (-not $Force -and -not $existingToken -and -not $existingBaseUrl) {
+    Write-Host ""
+    Write-Host "是否用记事本打开 settings.json 填写密钥? [Y/n]" -ForegroundColor White
     $open = Read-Host
-    if ($open -ne "n" -and $open -ne "N") {
+    if ("$open".Trim() -notmatch '^[nN]') {
         Notepad.exe $settingsPath
     }
 }
