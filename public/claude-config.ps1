@@ -19,16 +19,21 @@ $ErrorActionPreference = "Stop"
 # ─── 中转站标识 ───
 $RelayName = "CC-SrP"
 
+# ─── CC-SrP 中转站计费倍率 ───
+$RelayMultiplier = "0.5x (半价)"   # 实际计费 = 官方定价 × 0.5
+
+# ─── 官方定价参考链接 (自行补上各供应商官网定价页 URL, 留空则显示“待补充”) ────
+$PricingLinks = @(
+    [ordered]@{ Provider = "GLM (智谱)";   URL = "https://bigmodel.cn/pricing" },
+    [ordered]@{ Provider = "DeepSeek (深度求索)";  URL = "https://api-docs.deepseek.com/zh-cn/quick_start/pricing/" }
+)
+
 # ─── 可选模型列表 (在此自行增删即可) ──────────────────────────────────────────
-# Name: 菜单展示名 ; Id: 实际写入 settings.json 的模型标识
+# Name: 菜单展示名 ; Id: 实际写入 settings.json 的模型标识 ; Cap: 能力 (纯文本 / 识图)
 $Models = @(
-    [ordered]@{ Name = "GLM-5.2 (1M)";       Id = "glm-5.2[1m]" },
-    [ordered]@{ Name = "GLM-5.2";            Id = "glm-5.2" },
-    [ordered]@{ Name = "GLM-5-Turbo";        Id = "glm-5-turbo" },
-    [ordered]@{ Name = "MIMO v2.5 Pro (1M)"; Id = "mimo-v2.5-pro[1m]" },
-    [ordered]@{ Name = "MIMO v2.5 Pro";      Id = "mimo-v2.5-pro" },
-    [ordered]@{ Name = "MIMO v2.5 (1M)";     Id = "mimo-v2.5[1m]" },
-    [ordered]@{ Name = "MIMO v2.5";          Id = "mimo-v2.5" }
+    [ordered]@{ Name = "GLM-5.2 (1M)";       Id = "glm-5.2[1m]";       Cap = "纯文本" },
+    [ordered]@{ Name = "GLM-5.2";            Id = "glm-5.2";           Cap = "纯文本" },
+    [ordered]@{ Name = "GLM-5-Turbo";        Id = "glm-5-turbo";       Cap = "文本+识图MCP" }
 )
 
 # ─── 各角色默认模型 (使用上方 $Models 中的 Id) ─────────────────────────────────
@@ -38,9 +43,9 @@ $Models = @(
 # Haiku  -> ANTHROPIC_DEFAULT_HAIKU_MODEL
 $DefaultRoles = [ordered]@{
     Main   = "glm-5.2[1m]"
-    Opus   = "glm-5-turbo"
-    Sonnet = "mimo-v2.5-pro[1m]"
-    Haiku  = "mimo-v2.5[1m]"
+    Opus   = "glm-5.2"
+    Sonnet = "glm-5-turbo"
+    Haiku  = "glm-5-turbo"
 }
 
 # ─── 角色与 settings.json 字段的对应 ───
@@ -66,6 +71,66 @@ function Get-ModelName([string]$id) {
     return $id
 }
 
+function Get-ModelCap([string]$id) {
+    foreach ($m in $Models) {
+        if ($m.Id -eq $id) { return $m.Cap }
+    }
+    return ""
+}
+
+# 渲染单条模型行: 序号 / 名称 / 能力标签(着色) / Id, 可选 <默认> 标记
+function Write-ModelLine([int]$idx, [object]$model, [switch]$IsDefault) {
+    Write-Host ("  [{0}] {1,-18} " -f ($idx + 1), $model.Name) -NoNewline -ForegroundColor White
+    if ($model.Cap -match "识图") {
+        Write-Host ("[{0}] " -f $model.Cap) -NoNewline -ForegroundColor Green
+    }
+    else {
+        Write-Host ("[{0}] " -f $model.Cap) -NoNewline -ForegroundColor Cyan
+    }
+    Write-Host ("({0})" -f $model.Id) -NoNewline -ForegroundColor Gray
+    if ($IsDefault) {
+        Write-Host "  <默认>" -ForegroundColor Yellow
+    }
+    else {
+        Write-Host ""
+    }
+}
+
+# 渲染角色摘要行: 角色 : 名称 [能力] (Id)
+function Write-RoleSummary([string]$role, [string]$id) {
+    $cap = Get-ModelCap $id
+    Write-Host ("  {0,-9}: {1,-18} " -f $role, (Get-ModelName $id)) -NoNewline -ForegroundColor White
+    if ($cap -match "识图") {
+        Write-Host ("[{0}] " -f $cap) -NoNewline -ForegroundColor Green
+    }
+    else {
+        Write-Host ("[{0}] " -f $cap) -NoNewline -ForegroundColor Cyan
+    }
+    Write-Host ("({0})" -f $id) -ForegroundColor Gray
+}
+
+# 渲染官方定价参考 + CC-SrP 中转倍率说明
+function Write-PricingInfo {
+    Write-Host ""
+    Write-Host "官方定价参考 (官网原价, 供查询):" -ForegroundColor White
+    for ($i = 0; $i -lt $PricingLinks.Count; $i++) {
+        $p   = $PricingLinks[$i]
+        $url = "$($p.URL)".Trim()
+        if ([string]::IsNullOrEmpty($url)) {
+            Write-Host ("  [{0}] {1,-14}: " -f ($i + 1), $p.Provider) -NoNewline -ForegroundColor DarkGray
+            Write-Host "待补充" -ForegroundColor Yellow
+        }
+        else {
+            Write-Host ("  [{0}] {1,-14}: " -f ($i + 1), $p.Provider) -NoNewline -ForegroundColor DarkGray
+            Write-Host $url -ForegroundColor Cyan
+        }
+    }
+    Write-Host ""
+    Write-Host ("  $RelayName 中转站倍率: ") -NoNewline -ForegroundColor White
+    Write-Host $RelayMultiplier -NoNewline -ForegroundColor Green
+    Write-Host "  (实际计费 = 官方定价 × 0.5)" -ForegroundColor DarkGray
+}
+
 # ─── 横幅 ───
 Write-Host ""
 Write-Host "============================================" -ForegroundColor Cyan
@@ -78,19 +143,21 @@ if ($PSVersionTable.PSVersion.Major -lt 7) {
     Write-Host "  PowerShell 7 is recommended: https://apps.microsoft.com/detail/9mz1snwt0n5d?hl=zh-CN&gl=SG" -ForegroundColor Cyan
 }
 
+# ─── 官方定价参考 + CC-SrP 中转倍率 ───
+Write-PricingInfo
+
 # ─── 展示可用模型列表 ───
 Write-Host ""
 Write-Host "可用模型列表:" -ForegroundColor White
 for ($i = 0; $i -lt $Models.Count; $i++) {
-    Write-Host ("  [{0}] {1}    ({2})" -f ($i + 1), $Models[$i].Name, $Models[$i].Id) -ForegroundColor DarkGray
+    Write-ModelLine $i $Models[$i]
 }
 
 # ─── 展示各角色默认模型 (= 即将写入的默认模板) ───
 Write-Host ""
 Write-Host "默认模板中的模型配置:" -ForegroundColor White
 foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
-    $id = $DefaultRoles[$role]
-    Write-Host ("  {0,-9}: {1}    ({2})" -f $role, (Get-ModelName $id), $id) -ForegroundColor DarkGray
+    Write-RoleSummary $role $DefaultRoles[$role]
 }
 
 # ─── 路径 ───
@@ -152,6 +219,14 @@ function Write-Settings([object]$tpl) {
     [System.IO.File]::WriteAllText($settingsPath, $json, $utf8NoBom)
 }
 
+# ─── 备份原 settings.json (若存在), 同名覆盖旧备份 ───
+$backupPath = "$claudeDir\setting-save.json"
+if (Test-Path $settingsPath) {
+    Copy-Item -LiteralPath $settingsPath -Destination $backupPath -Force
+    Write-Host ""
+    Write-Host "==> 原配置已备份: $backupPath" -ForegroundColor Cyan
+}
+
 # ─── 第一步: 先用默认模板落盘 ───
 Write-Settings $template
 Write-Host ""
@@ -185,8 +260,7 @@ if (-not $Force) {
             Write-Host ""
             Write-Host ("── {0} ({1}) ──" -f $role, $field) -ForegroundColor Cyan
             for ($i = 0; $i -lt $Models.Count; $i++) {
-                $tag = if ($i -eq $defIdx) { "  <默认>" } else { "" }
-                Write-Host ("  [{0}] {1}    ({2}){3}" -f ($i + 1), $Models[$i].Name, $Models[$i].Id, $tag) -ForegroundColor DarkGray
+                Write-ModelLine $i $Models[$i] -IsDefault:($i -eq $defIdx)
             }
 
             $pick = Read-Host "输入序号 (回车=默认)"
@@ -217,8 +291,7 @@ if (-not $Force) {
         }
         Write-Host "当前模型配置:" -ForegroundColor White
         foreach ($role in @("Main", "Opus", "Sonnet", "Haiku")) {
-            $id = $template.env.($RoleFields[$role])
-            Write-Host ("  {0,-9}: {1}    ({2})" -f $role, (Get-ModelName $id), $id) -ForegroundColor DarkGray
+            Write-RoleSummary $role $template.env.($RoleFields[$role])
         }
     }
 }
