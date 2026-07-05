@@ -273,6 +273,7 @@ services:
       
       TZ: "Asia/Shanghai"                    # 时区
       OVERRIDE_SERVER_PROPERTIES: "false"    # 是否覆盖Server_properties文件
+      ENABLE_RCON: "true"                    # 是否开启RCON
       DIFFICULTY: "normal"                   # 游戏难度
       MAX_TICK_TIME: "-1"                       
       VIEW_DISTANCE: "6"                     # 视距
@@ -343,6 +344,7 @@ services:
     environment:
       EULA: "TRUE"
       ENABLE_SSH: true
+      ENABLE_RCON: "true"
       TYPE: "PAPER"                         # 游戏类型为 Paper
       VERSION: "1.21.4"                     # 游戏版本
       VIEW_DISTANCE: 8         
