@@ -506,6 +506,13 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
+    }
+  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -521,13 +528,6 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
-    }
-  ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
@@ -583,16 +583,11 @@
       "message": "docs(post):CFGinstaller文章发布"
     }
   ],
-  "C_inVScode.md": [
+  "2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却.md": [
     {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
-      "date": "2025-10-26 19:10:44 +0800",
-      "message": "post:在VSCode中搭建C语言环境"
+      "hash": "0a2851ff7bb7e2288dcd3ce9abba1bebf84d461f",
+      "date": "2026-07-12 19:36:55 +0800",
+      "message": "CMS:Create Posts “2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却”"
     }
   ],
   "CCH.md": [
@@ -610,6 +605,18 @@
       "hash": "85db43475c120480efac7980a1ef4bd4df18faaf",
       "date": "2026-05-23 18:32:00 +0800",
       "message": "posts: 发布文章Claude Code Hub 部署"
+    }
+  ],
+  "C_inVScode.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
+      "date": "2025-10-26 19:10:44 +0800",
+      "message": "post:在VSCode中搭建C语言环境"
     }
   ],
   "Minecraft-1.md": [
@@ -656,23 +663,6 @@
       "message": "post:Markdown-1"
     }
   ],
-  "OBS-1.md": [
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
-      "date": "2025-10-26 21:09:00 +0800",
-      "message": "post:OBS-1"
-    }
-  ],
   "Python-1.md": [
     {
       "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
@@ -688,6 +678,23 @@
       "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
       "date": "2025-10-26 19:45:47 +0800",
       "message": "post:PyTorch环境搭建"
+    }
+  ],
+  "OBS-1.md": [
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
+      "date": "2025-10-26 21:09:00 +0800",
+      "message": "post:OBS-1"
     }
   ],
   "SrP-CFG.md": [
@@ -767,6 +774,33 @@
       "message": "post:SrP-CFG"
     }
   ],
+  "Zerotier-1.md": [
+    {
+      "hash": "c557b2ea9538523a515e11c217553afc07b9669d",
+      "date": "2026-05-21 22:02:33 +0800",
+      "message": "CMS:Update Posts “Zerotier-1”"
+    },
+    {
+      "hash": "f44e8449cdd7bf602c939aedc8d8474cd41be608",
+      "date": "2026-05-21 19:48:56 +0800",
+      "message": "docs: add Mac Mini remote terminal setup guide to Zerotier post"
+    },
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
+      "date": "2025-10-26 20:48:12 +0800",
+      "message": "post:Zerotier-1"
+    }
+  ],
   "SrP-Sakura_Minecraft.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -797,33 +831,6 @@
       "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
       "date": "2025-10-26 21:21:31 +0800",
       "message": "post:Minecraft-2"
-    }
-  ],
-  "Zerotier-1.md": [
-    {
-      "hash": "c557b2ea9538523a515e11c217553afc07b9669d",
-      "date": "2026-05-21 22:02:33 +0800",
-      "message": "CMS:Update Posts “Zerotier-1”"
-    },
-    {
-      "hash": "f44e8449cdd7bf602c939aedc8d8474cd41be608",
-      "date": "2026-05-21 19:48:56 +0800",
-      "message": "docs: add Mac Mini remote terminal setup guide to Zerotier post"
-    },
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
-      "date": "2025-10-26 20:48:12 +0800",
-      "message": "post:Zerotier-1"
     }
   ],
   "agent-1.md": [
@@ -858,6 +865,13 @@
       "message": "posts: 发布文章"
     }
   ],
+  "ax101.md": [
+    {
+      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
+      "date": "2026-07-09 14:33:57 +0800",
+      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
+    }
+  ],
   "archlinux-1.md": [
     {
       "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
@@ -878,20 +892,6 @@
       "hash": "550ebcd1e51746ea4ff63cbe0fed86df345b7076",
       "date": "2026-03-08 11:50:47 +0800",
       "message": "post: 发布文章archlinux"
-    }
-  ],
-  "ax101.md": [
-    {
-      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
-      "date": "2026-07-09 14:33:57 +0800",
-      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
-    }
-  ],
-  "crosshair_view.md": [
-    {
-      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
-      "date": "2025-11-25 14:12:38 +0800",
-      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "autoexec.md": [
@@ -916,11 +916,11 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
-  "draft.md": [
+  "crosshair_view.md": [
     {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
+      "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
+      "date": "2025-11-25 14:12:38 +0800",
+      "message": "docs(post):CFGinstaller文章发布"
     }
   ],
   "davinci-smb.md": [
@@ -997,23 +997,18 @@
       "message": "posts: 发布文章docker-mc"
     }
   ],
-  "expressive-code.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
+  "draft.md": [
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
       "date": "2025-10-25 20:16:42 +0800",
       "message": "initblog"
     }
   ],
-  "guide/index.md": [
+  "expressive-code.md": [
     {
-      "hash": "0e3e38eceff44af8728723ad71567acd05d78370",
-      "date": "2025-10-26 16:11:23 +0800",
-      "message": "about:上线Netlify托管服务"
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
     },
     {
       "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
@@ -1046,6 +1041,25 @@
       "hash": "29b17d0b2e0c483178183f976c08e50b87ad0db2",
       "date": "2025-12-05 16:38:24 +0800",
       "message": "docs(post):frp-1发布"
+    }
+  ],
+  "guide/index.md": [
+    {
+      "hash": "0e3e38eceff44af8728723ad71567acd05d78370",
+      "date": "2025-10-26 16:11:23 +0800",
+      "message": "about:上线Netlify托管服务"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
+  "immortalwrt-build.md": [
+    {
+      "hash": "56014cbf7393f7023951962cb0e69909ccf88f7e",
+      "date": "2026-07-09 13:47:48 +0800",
+      "message": "post: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL"
     }
   ],
   "lgnewui2.md": [
@@ -1170,11 +1184,16 @@
       "message": "CMS:Update Posts \"lgnewui2\""
     }
   ],
-  "immortalwrt-build.md": [
+  "markdown-extended.md": [
     {
-      "hash": "56014cbf7393f7023951962cb0e69909ccf88f7e",
-      "date": "2026-07-09 13:47:48 +0800",
-      "message": "post: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL"
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
     }
   ],
   "mac-mc-1.md": [
@@ -1224,30 +1243,6 @@
       "message": "docs(post):mac-mc-1发布"
     }
   ],
-  "markdown-extended.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "markdown.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
   "mac-mc-2.md": [
     {
       "hash": "7966ba794b42c76f6714c2d2d28051bbd056ee80",
@@ -1285,11 +1280,16 @@
       "message": "docs(post):mac-mc-2发布"
     }
   ],
-  "nginx-download.md": [
+  "markdown.md": [
     {
-      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
-      "date": "2026-06-01 14:03:11 +0800",
-      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
     }
   ],
   "msys.md": [
@@ -1317,6 +1317,13 @@
       "hash": "5f4cfdf0b7814fa2202ab2a157ffcbb34d97db16",
       "date": "2026-05-10 14:14:30 +0800",
       "message": "CMS: New Posts \"msys\""
+    }
+  ],
+  "nginx-download.md": [
+    {
+      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
+      "date": "2026-06-01 14:03:11 +0800",
+      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
     }
   ],
   "pytorch-2.md": [
@@ -1388,43 +1395,6 @@
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
     }
   ],
-  "ssh-1.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "e741575d4d017db84e40f42f7a658941162e0957",
-      "date": "2026-01-24 21:32:52 +0800",
-      "message": "CMS:Update Posts “ssh-1”"
-    },
-    {
-      "hash": "97c730f2765638f183a697104f76046603968cf7",
-      "date": "2026-01-05 16:51:25 +0800",
-      "message": "CMS:Update Posts “ssh-1”"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "20cd62c5e3ff81fa8c05fd5aba995de21d0b8703",
-      "date": "2025-11-07 13:50:00 +0800",
-      "message": "ssh-1:修改错误"
-    },
-    {
-      "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
-      "date": "2025-11-07 13:44:15 +0800",
-      "message": "post:ssh-1发布"
-    }
-  ],
   "srp-img.md": [
     {
       "hash": "b8dd475ba0eb33b7deb1e7f5508d057c3ae3fd83",
@@ -1462,35 +1432,6 @@
       "message": "post: 发布Srp-img项目介绍文章"
     }
   ],
-  "video.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "umami-1.md": [
-    {
-      "hash": "e72aa475aeab18b5c6800efb9a926e25c747c4f3",
-      "date": "2026-05-13 13:21:08 +0800",
-      "message": "CMS:Update Posts “umami-1”"
-    },
-    {
-      "hash": "5b7959c39ad85e00290830d87e95fa67b9e2da62",
-      "date": "2026-05-09 15:01:28 +0800",
-      "message": "CMS:Update Posts “umami-1”"
-    },
-    {
-      "hash": "07b351ecb249b71063789627a506dcb6f20c4103",
-      "date": "2026-04-19 22:50:51 +0800",
-      "message": "post: 发布文章"
-    }
-  ],
   "sunmoon-scrcpy.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -1511,6 +1452,72 @@
       "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
       "date": "2025-11-10 12:16:55 +0800",
       "message": "doc(post):如何投屏和串流？"
+    }
+  ],
+  "ssh-1.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "e741575d4d017db84e40f42f7a658941162e0957",
+      "date": "2026-01-24 21:32:52 +0800",
+      "message": "CMS:Update Posts “ssh-1”"
+    },
+    {
+      "hash": "97c730f2765638f183a697104f76046603968cf7",
+      "date": "2026-01-05 16:51:25 +0800",
+      "message": "CMS:Update Posts “ssh-1”"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "20cd62c5e3ff81fa8c05fd5aba995de21d0b8703",
+      "date": "2025-11-07 13:50:00 +0800",
+      "message": "ssh-1:修改错误"
+    },
+    {
+      "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
+      "date": "2025-11-07 13:44:15 +0800",
+      "message": "post:ssh-1发布"
+    }
+  ],
+  "umami-1.md": [
+    {
+      "hash": "e72aa475aeab18b5c6800efb9a926e25c747c4f3",
+      "date": "2026-05-13 13:21:08 +0800",
+      "message": "CMS:Update Posts “umami-1”"
+    },
+    {
+      "hash": "5b7959c39ad85e00290830d87e95fa67b9e2da62",
+      "date": "2026-05-09 15:01:28 +0800",
+      "message": "CMS:Update Posts “umami-1”"
+    },
+    {
+      "hash": "07b351ecb249b71063789627a506dcb6f20c4103",
+      "date": "2026-04-19 22:50:51 +0800",
+      "message": "post: 发布文章"
+    }
+  ],
+  "video.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
     }
   ],
   "webDAV-1.md": [
