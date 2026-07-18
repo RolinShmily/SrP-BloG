@@ -22,7 +22,7 @@ lang: ""
 # 更新系统软件源
 sudo apt update && sudo apt upgrade -y
 # 安装基础依赖库
-sudo apt install python3 git git-lfs curl wget build-essential ffmpeg -y
+sudo apt install python3 git git-lfs curl wget build-essential nvidia-cuda-toolkit ffmpeg -y
 # 启用lfs
 git lfs install
 
@@ -113,9 +113,9 @@ def main():
         cfg_path="checkpoints/config.yaml", 
         model_dir="checkpoints", 
         use_fp16=True, 
-        use_cuda_kernel=False,
-        use_accel=False,        # 不想折腾编译的话，全部关掉即可
-        use_deepspeed=False
+        use_cuda_kernel=True,
+        use_accel=True,
+        use_deepspeed=True
     )
     print("模型加载完成！")
 
