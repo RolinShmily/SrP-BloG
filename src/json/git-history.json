@@ -558,6 +558,11 @@
   ],
   "2026-07-18-在wsl中快速使用indextts推理-python-tts.md": [
     {
+      "hash": "065a5d069a4dc5a2105506b60235d52697a903ad",
+      "date": "2026-07-18 21:46:39 +0800",
+      "message": "CMS:Update Posts “2026-07-18-在wsl中快速使用indextts推理-python-tts”"
+    },
+    {
       "hash": "c5d656ab06e8134b88592e06036ff88c2b7cb6e0",
       "date": "2026-07-18 21:44:52 +0800",
       "message": "CMS:Update Posts “2026-07-18-在wsl中快速使用indextts推理-python-tts”"
@@ -928,6 +933,13 @@
       "message": "docs(post):CFGinstaller文章发布"
     }
   ],
+  "ax101.md": [
+    {
+      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
+      "date": "2026-07-09 14:33:57 +0800",
+      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
+    }
+  ],
   "davinci-smb.md": [
     {
       "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
@@ -948,13 +960,6 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
-    }
-  ],
-  "ax101.md": [
-    {
-      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
-      "date": "2026-07-09 14:33:57 +0800",
-      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
     }
   ],
   "draft.md": [
@@ -1338,6 +1343,23 @@
       "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
     }
   ],
+  "pytorch-2.md": [
+    {
+      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
+      "date": "2026-04-03 01:53:04 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
+      "date": "2026-03-20 12:50:13 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
+      "date": "2026-03-20 12:41:16 +0800",
+      "message": "doc(post): 深度学习框架的安装"
+    }
+  ],
   "script-1.md": [
     {
       "hash": "32398ff2a3aa4cd2213cd05866c8183d180057ff",
@@ -1388,23 +1410,6 @@
       "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
       "date": "2026-03-12 22:57:02 +0800",
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
-    }
-  ],
-  "pytorch-2.md": [
-    {
-      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
-      "date": "2026-04-03 01:53:04 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
-      "date": "2026-03-20 12:50:13 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
-      "date": "2026-03-20 12:41:16 +0800",
-      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "sunmoon-scrcpy.md": [
