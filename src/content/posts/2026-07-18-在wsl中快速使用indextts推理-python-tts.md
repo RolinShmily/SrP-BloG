@@ -113,9 +113,7 @@ def main():
         cfg_path="checkpoints/config.yaml", 
         model_dir="checkpoints", 
         use_fp16=True, 
-        use_cuda_kernel=True,
-        use_accel=True,
-        use_deepspeed=True
+        use_accel=True
     )
     print("模型加载完成！")
 
