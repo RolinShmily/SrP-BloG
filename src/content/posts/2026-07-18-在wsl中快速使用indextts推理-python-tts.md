@@ -13,9 +13,8 @@ lang: ""
 # 相关链接
 - [Bilibili IndexTTS 项目地址](https://github.com/index-tts/index-tts)
 
-<div style="width: 100%; aspect-ratio: 16/9;">
+
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115167165677807&bvid=BV136a9zqEk5&cid=32241026475&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
-</div>
 
 # 前置环境
 推荐使用WSL配合NVIDIA显卡。
