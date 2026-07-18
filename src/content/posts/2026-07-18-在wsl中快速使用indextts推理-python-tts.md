@@ -113,7 +113,9 @@ def main():
         cfg_path="checkpoints/config.yaml", 
         model_dir="checkpoints", 
         use_fp16=True, 
-        use_accel=True
+        use_accel=True,
+        use_cuda_kernel=False,
+        use_deepspeed=False
     )
     print("模型加载完成！")
 
@@ -147,7 +149,9 @@ def main():
             spk_audio_prompt=REF_AUDIO, 
             text=text, 
             output_path=output_path, 
-            verbose=False
+            verbose=False,
+            max_mel_tokens=3000,             
+            max_text_tokens_per_segment=50
         )
         
         print(f"生成成功 -> {output_path}\n")
