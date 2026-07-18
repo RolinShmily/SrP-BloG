@@ -177,3 +177,8 @@ Hello,world!
 ```bash
 uv run batch_tts.py
 ```
+
+当然也可以运行官方默认的webui：
+```bash
+uv run webui.py --accel --torch_compile --fp16
+```
