@@ -135,6 +135,23 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
+    }
+  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -160,23 +177,6 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
-    }
-  ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -530,6 +530,13 @@
       "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
+  "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
+    {
+      "hash": "519e6426b454118912c8cb16c92835deb4f62bed",
+      "date": "2026-06-26 21:13:48 +0800",
+      "message": "CMS:Create Posts “2026-06-26-antigravity-proxy-解决系统代理的不可达性”"
+    }
+  ],
   "2026-06-15-steam302-1.md": [
     {
       "hash": "5cce02218c27dad173369c1b490acf9fe8e4961c",
@@ -542,13 +549,6 @@
       "message": "feat: add SteamCommunity 302 post and update claude mirror settings template"
     }
   ],
-  "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
-    {
-      "hash": "519e6426b454118912c8cb16c92835deb4f62bed",
-      "date": "2026-06-26 21:13:48 +0800",
-      "message": "CMS:Create Posts “2026-06-26-antigravity-proxy-解决系统代理的不可达性”"
-    }
-  ],
   "2026-06-28-nvidiaprofileinspector-一个高级的n卡控制面板.md": [
     {
       "hash": "f1882297e84bd1278452d8fd5a17f3c5a2c00786",
@@ -557,6 +557,11 @@
     }
   ],
   "2026-07-18-在wsl中快速使用indextts推理-python-tts.md": [
+    {
+      "hash": "ae92a7dfb5810cff1a2e43f275810f363e5c1144",
+      "date": "2026-07-18 23:37:50 +0800",
+      "message": "CMS:Update Posts “2026-07-18-在wsl中快速使用indextts推理-python-tts”"
+    },
     {
       "hash": "ef79680e0ebe4aead68e9931f99b59f0fe06997a",
       "date": "2026-07-18 23:25:03 +0800",
@@ -700,23 +705,6 @@
       "message": "移植文章Minecraft-1"
     }
   ],
-  "OBS-1.md": [
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
-      "date": "2025-10-26 21:09:00 +0800",
-      "message": "post:OBS-1"
-    }
-  ],
   "Python-1.md": [
     {
       "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
@@ -734,16 +722,11 @@
       "message": "post:PyTorch环境搭建"
     }
   ],
-  "SrP-Sakura_Minecraft.md": [
+  "OBS-1.md": [
     {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
-      "date": "2025-12-21 23:16:19 +0800",
-      "message": "docs(ssmc):修复文章外链错误，归档该文章"
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
     },
     {
       "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
@@ -751,19 +734,9 @@
       "message": "docs(posts):标签量缩减至3个;feat++"
     },
     {
-      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
-      "date": "2025-11-06 21:41:52 +0800",
-      "message": "post:在文章中引入文档页"
-    },
-    {
-      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
-      "date": "2025-10-27 23:55:19 +0800",
-      "message": "post:添加百度网盘链接，删除SrP-Cloud"
-    },
-    {
-      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
-      "date": "2025-10-26 21:21:31 +0800",
-      "message": "post:Minecraft-2"
+      "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
+      "date": "2025-10-26 21:09:00 +0800",
+      "message": "post:OBS-1"
     }
   ],
   "SrP-CFG.md": [
@@ -870,6 +843,38 @@
       "message": "post:Zerotier-1"
     }
   ],
+  "SrP-Sakura_Minecraft.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "4114a8394a2f094cae6f226ae420a30cbd146fc4",
+      "date": "2025-12-21 23:16:19 +0800",
+      "message": "docs(ssmc):修复文章外链错误，归档该文章"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a70cf2215bec3840a4c2ab530cb43926ede0929a",
+      "date": "2025-11-06 21:41:52 +0800",
+      "message": "post:在文章中引入文档页"
+    },
+    {
+      "hash": "b9e0126d9ed7ac26fde1ed3a7dad36edca135c55",
+      "date": "2025-10-27 23:55:19 +0800",
+      "message": "post:添加百度网盘链接，删除SrP-Cloud"
+    },
+    {
+      "hash": "61c4f2dd83dfcca0a81221fb5bfa0d586fba9851",
+      "date": "2025-10-26 21:21:31 +0800",
+      "message": "post:Minecraft-2"
+    }
+  ],
   "agent-1.md": [
     {
       "hash": "7d919fca102349e5fe55cee98f7d7de5ddb96fe2",
@@ -902,28 +907,6 @@
       "message": "posts: 发布文章"
     }
   ],
-  "archlinux-1.md": [
-    {
-      "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
-      "date": "2026-04-03 01:52:00 +0800",
-      "message": "CMS:Update Posts “archlinux-1”"
-    },
-    {
-      "hash": "526973791be6e696a4e207c82a79fc0a3839b296",
-      "date": "2026-03-24 18:14:43 +0800",
-      "message": "CMS:Update Posts “archlinux-1”"
-    },
-    {
-      "hash": "b757ad40050b710578890ecd76cda3e51f0a1e80",
-      "date": "2026-03-08 11:50:59 +0800",
-      "message": "chore: 修改标题"
-    },
-    {
-      "hash": "550ebcd1e51746ea4ff63cbe0fed86df345b7076",
-      "date": "2026-03-08 11:50:47 +0800",
-      "message": "post: 发布文章archlinux"
-    }
-  ],
   "autoexec.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -946,11 +929,26 @@
       "message": "docs(post):发布autoexec文件详解"
     }
   ],
-  "ax101.md": [
+  "archlinux-1.md": [
     {
-      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
-      "date": "2026-07-09 14:33:57 +0800",
-      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
+      "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
+      "date": "2026-04-03 01:52:00 +0800",
+      "message": "CMS:Update Posts “archlinux-1”"
+    },
+    {
+      "hash": "526973791be6e696a4e207c82a79fc0a3839b296",
+      "date": "2026-03-24 18:14:43 +0800",
+      "message": "CMS:Update Posts “archlinux-1”"
+    },
+    {
+      "hash": "b757ad40050b710578890ecd76cda3e51f0a1e80",
+      "date": "2026-03-08 11:50:59 +0800",
+      "message": "chore: 修改标题"
+    },
+    {
+      "hash": "550ebcd1e51746ea4ff63cbe0fed86df345b7076",
+      "date": "2026-03-08 11:50:47 +0800",
+      "message": "post: 发布文章archlinux"
     }
   ],
   "crosshair_view.md": [
@@ -980,6 +978,13 @@
       "hash": "729f69a1c7936a4b95a90aa75d18af54c878d94b",
       "date": "2025-12-21 19:54:10 +0800",
       "message": "docs(post):达芬奇协作发布"
+    }
+  ],
+  "ax101.md": [
+    {
+      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
+      "date": "2026-07-09 14:33:57 +0800",
+      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
     }
   ],
   "draft.md": [
@@ -1305,7 +1310,7 @@
       "message": "docs(post):mac-mc-1发布"
     }
   ],
-  "markdown.md": [
+  "markdown-extended.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -1317,7 +1322,7 @@
       "message": "initblog"
     }
   ],
-  "markdown-extended.md": [
+  "markdown.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -1356,6 +1361,13 @@
       "message": "CMS: New Posts \"msys\""
     }
   ],
+  "nginx-download.md": [
+    {
+      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
+      "date": "2026-06-01 14:03:11 +0800",
+      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
+    }
+  ],
   "pytorch-2.md": [
     {
       "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
@@ -1371,13 +1383,6 @@
       "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
       "date": "2026-03-20 12:41:16 +0800",
       "message": "doc(post): 深度学习框架的安装"
-    }
-  ],
-  "nginx-download.md": [
-    {
-      "hash": "4573f6963993f7c157f3dbbb71231557181a14a2",
-      "date": "2026-06-01 14:03:11 +0800",
-      "message": "docs: 新增博文《在Nginx中快速建立一个下载站》"
     }
   ],
   "script-1.md": [
