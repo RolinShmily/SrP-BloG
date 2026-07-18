@@ -13,7 +13,9 @@ lang: ""
 # 相关链接
 - [Bilibili IndexTTS 项目地址](https://github.com/index-tts/index-tts)
 
+<div style="width: 100%; aspect-ratio: 16/9;">
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115167165677807&bvid=BV136a9zqEk5&cid=32241026475&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
+</div>
 
 # 前置环境
 推荐使用WSL配合NVIDIA显卡。
@@ -21,25 +23,45 @@ lang: ""
 # 更新系统软件源
 sudo apt update && sudo apt upgrade -y
 # 安装基础依赖库
-sudo apt install git curl wget build-essential ffmpeg -y
-# 安装lfs
+sudo apt install python3 git git-lfs curl wget build-essential ffmpeg -y
+# 启用lfs
 git lfs install
+
 # 安装Python管理器uv
+# curl方式
 curl -LsSf https://astral.sh/uv/install.sh | sh
+# pip方式
+pip install -U uv
+
 # 刷新环境变量
 source $HOME/.local/bin/env
 # 拉取源代码
 git clone https://github.com/index-tts/index-tts.git
+git lfs pull  # 下载大文件
 # 进入目录，创建必要的文件夹
 cd index-tts
 mkdir -p checkpoints inputs outputs
 ```
-现在需要去[魔搭社区](https://modelscope.cn/models/IndexTeam/IndexTTS-2)或者[HuggingFace](https://huggingface.co/IndexTeam/IndexTTS-2)中下载模型权重和配置文件，也即 `config.yaml` 和`.pth / .pt`到目录`checkpoints`中(以huggingface为例)：
+
+# 模型下载
+现在需要去[魔搭社区](https://modelscope.cn/models/IndexTeam/IndexTTS-2)或者[HuggingFace](https://huggingface.co/IndexTeam/IndexTTS-2)中下载模型权重和配置文件，也即 `config.yaml` 和`.pth / .pt`到目录`checkpoints`中：
 ```bash
+# huggingface
 # 设置镜像地址环境变量
 export HF_ENDPOINT=https://hf-mirror.com
-# 使用uvx调用huggingface-cli下载模型到checkpoints目录
-uvx --from huggingface_hub hf download IndexTeam/IndexTTS-2 --local-dir checkpoints
+# 使用uv安装huggingface-cli下载模型到checkpoints目录
+uv tool install "huggingface-hub[cli,hf_xet]"
+hf download IndexTeam/IndexTTS-2 --local-dir=checkpoints
+
+# ModelScope
+uv tool install "modelscope"
+modelscope download --model IndexTeam/IndexTTS-2 --local_dir checkpoints
+```
+
+# 安装依赖
+```bash
+# 安装全部依赖(`--all-extras`)(按需配置国内镜像源)
+uv sync --all-extras --default-index "https://mirrors.aliyun.com/pypi/simple"
 ```
 
 # 推理脚本
@@ -152,11 +174,6 @@ if __name__ == "__main__":
 Hello,world!
 ```
 
-接着加载项目依赖：
-```bash
-# 安装全部依赖(`--all-extras`)(按需配置镜像源)
-uv sync --all-extras
-```
 在确保`text.txt`和`furina.wav`参考音频都配置好之后，输入运行命令即可：
 ```bash
 uv run batch_tts.py
