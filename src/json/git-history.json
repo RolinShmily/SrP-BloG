@@ -556,18 +556,23 @@
       "message": "CMS:Create Posts “2026-06-28-nvidiaprofileinspector-一个高级的n卡控制面板”"
     }
   ],
+  "2026-07-18-在wsl中快速使用indextts推理-python-tts.md": [
+    {
+      "hash": "c5d656ab06e8134b88592e06036ff88c2b7cb6e0",
+      "date": "2026-07-18 21:44:52 +0800",
+      "message": "CMS:Update Posts “2026-07-18-在wsl中快速使用indextts推理-python-tts”"
+    },
+    {
+      "hash": "8edf112e3132275eb2da9de2fa32ab306a8532e4",
+      "date": "2026-07-18 21:20:07 +0800",
+      "message": "CMS:Create Posts “2026-07-18-在wsl中快速使用indextts推理-python-tts”"
+    }
+  ],
   "2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却.md": [
     {
       "hash": "0a2851ff7bb7e2288dcd3ce9abba1bebf84d461f",
       "date": "2026-07-12 19:36:55 +0800",
       "message": "CMS:Create Posts “2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却”"
-    }
-  ],
-  "2026-07-18-在wsl中快速使用indextts推理-python-tts.md": [
-    {
-      "hash": "8edf112e3132275eb2da9de2fa32ab306a8532e4",
-      "date": "2026-07-18 21:20:07 +0800",
-      "message": "CMS:Create Posts “2026-07-18-在wsl中快速使用indextts推理-python-tts”"
     }
   ],
   "CCH.md": [
@@ -1069,43 +1074,6 @@
       "message": "post: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL"
     }
   ],
-  "mac-mc-2.md": [
-    {
-      "hash": "7966ba794b42c76f6714c2d2d28051bbd056ee80",
-      "date": "2026-04-17 23:38:13 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
-      "date": "2026-03-24 22:19:58 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "1476509546a384379a28e5c82d55431677c65a62",
-      "date": "2026-02-26 20:50:10 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
-      "date": "2026-01-05 14:21:52 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
-      "date": "2026-01-05 14:20:56 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
-    },
-    {
-      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
-      "date": "2025-12-20 13:06:34 +0800",
-      "message": "docs(post):mac-mc-2发布"
-    }
-  ],
   "lgnewui2.md": [
     {
       "hash": "a6394f9cd80772a7330e0fd9635cba1f090c2dcd",
@@ -1275,6 +1243,43 @@
       "message": "docs(post):mac-mc-1发布"
     }
   ],
+  "mac-mc-2.md": [
+    {
+      "hash": "7966ba794b42c76f6714c2d2d28051bbd056ee80",
+      "date": "2026-04-17 23:38:13 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
+      "date": "2026-03-24 22:19:58 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "1476509546a384379a28e5c82d55431677c65a62",
+      "date": "2026-02-26 20:50:10 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
+      "date": "2026-01-05 14:21:52 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
+      "date": "2026-01-05 14:20:56 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
+    },
+    {
+      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
+      "date": "2025-12-20 13:06:34 +0800",
+      "message": "docs(post):mac-mc-2发布"
+    }
+  ],
   "markdown-extended.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
@@ -1324,23 +1329,6 @@
       "hash": "5f4cfdf0b7814fa2202ab2a157ffcbb34d97db16",
       "date": "2026-05-10 14:14:30 +0800",
       "message": "CMS: New Posts \"msys\""
-    }
-  ],
-  "pytorch-2.md": [
-    {
-      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
-      "date": "2026-04-03 01:53:04 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
-      "date": "2026-03-20 12:50:13 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
-      "date": "2026-03-20 12:41:16 +0800",
-      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "nginx-download.md": [
@@ -1402,6 +1390,45 @@
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
     }
   ],
+  "pytorch-2.md": [
+    {
+      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
+      "date": "2026-04-03 01:53:04 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
+      "date": "2026-03-20 12:50:13 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
+      "date": "2026-03-20 12:41:16 +0800",
+      "message": "doc(post): 深度学习框架的安装"
+    }
+  ],
+  "sunmoon-scrcpy.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
+      "date": "2025-11-10 12:16:55 +0800",
+      "message": "doc(post):如何投屏和串流？"
+    }
+  ],
   "ssh-1.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -1437,28 +1464,6 @@
       "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
       "date": "2025-11-07 13:44:15 +0800",
       "message": "post:ssh-1发布"
-    }
-  ],
-  "sunmoon-scrcpy.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
-      "date": "2025-11-10 12:16:55 +0800",
-      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "srp-img.md": [
