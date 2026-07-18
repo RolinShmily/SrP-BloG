@@ -149,9 +149,7 @@ def main():
             spk_audio_prompt=REF_AUDIO, 
             text=text, 
             output_path=output_path, 
-            verbose=False,
-            max_mel_tokens=3000,             
-            max_text_tokens_per_segment=50
+            verbose=False
         )
         
         print(f"生成成功 -> {output_path}\n")
