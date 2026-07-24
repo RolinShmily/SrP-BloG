@@ -1,51 +1,4 @@
 {
-  "2026-01-12-cfg_installer_v2.md": [
-    {
-      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
-      "date": "2026-05-20 13:43:26 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
-      "date": "2026-04-17 23:35:23 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
-      "date": "2026-02-06 22:11:48 +0800",
-      "message": "docs:文章格式修改"
-    },
-    {
-      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
-      "date": "2026-02-06 10:30:32 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
-      "date": "2026-01-12 15:17:08 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
-      "date": "2026-01-12 15:09:27 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
-      "date": "2026-01-12 15:02:46 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
-      "date": "2026-01-12 15:02:13 +0800",
-      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
-    }
-  ],
   "2026-01-03-todo-list.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -103,6 +56,53 @@
       "message": "CMS:Create Posts “2026-01-03-todo-list”"
     }
   ],
+  "2026-01-12-cfg_installer_v2.md": [
+    {
+      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
+      "date": "2026-05-20 13:43:26 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
+      "date": "2026-04-17 23:35:23 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
+      "date": "2026-02-06 22:11:48 +0800",
+      "message": "docs:文章格式修改"
+    },
+    {
+      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
+      "date": "2026-02-06 10:30:32 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
+      "date": "2026-01-12 15:17:08 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
+      "date": "2026-01-12 15:09:27 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
+      "date": "2026-01-12 15:02:46 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
+      "date": "2026-01-12 15:02:13 +0800",
+      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
+    }
+  ],
   "2026-02-05-switch_ams_1.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -135,6 +135,23 @@
       "message": "CMS:Create Posts “2026-02-05-switch_ams_1”"
     }
   ],
+  "2026-02-08-switch_ams_2.md": [
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
+      "date": "2026-02-08 20:20:15 +0800",
+      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
+    },
+    {
+      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
+      "date": "2026-02-08 20:18:59 +0800",
+      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
+    }
+  ],
   "2026-02-06-cloudflare_1.md": [
     {
       "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
@@ -160,23 +177,6 @@
       "hash": "9d1f650bdc5c9b616c9b2e58220e41b8e118b8b2",
       "date": "2026-02-06 13:34:38 +0800",
       "message": "CMS:Create Posts “2026-02-06-cloudflare_1”"
-    }
-  ],
-  "2026-02-08-switch_ams_2.md": [
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "1fabadff014f2b90fc9010238f959174fcdeac94",
-      "date": "2026-02-08 20:20:15 +0800",
-      "message": "CMS:Update Posts “2026-02-08-switch_ams_2”"
-    },
-    {
-      "hash": "262018add967fcd06dde53f54451273d3b07a10c",
-      "date": "2026-02-08 20:18:59 +0800",
-      "message": "CMS:Create Posts “2026-02-08-switch_ams_2”"
     }
   ],
   "2026-02-09-cms_1.md": [
@@ -373,6 +373,43 @@
       "message": "CMS:Create Posts “2026-03-07-pve-1”"
     }
   ],
+  "2026-03-17-windows-1.md": [
+    {
+      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
+      "date": "2026-04-17 23:32:57 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
+      "date": "2026-04-04 23:03:03 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
+      "date": "2026-03-20 12:49:33 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
+      "date": "2026-03-18 19:28:35 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
+      "date": "2026-03-17 19:44:23 +0800",
+      "message": "CMS:Update Posts “2026-03-17-windows-1”"
+    },
+    {
+      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
+      "date": "2026-03-17 19:43:34 +0800",
+      "message": "CMS:Create Posts “2026-03-17-windows-1”"
+    }
+  ],
   "2026-04-16-srp-scripts-2.md": [
     {
       "hash": "c1bef12781097ec1982dd293f8ae941a350f6bae",
@@ -418,43 +455,6 @@
       "hash": "f8d2fa528b5f2ed9e674d9239fe45e6f181c1de0",
       "date": "2026-04-16 17:51:28 +0800",
       "message": "CMS:Create Posts “2026-04-16-srp-scripts-2”"
-    }
-  ],
-  "2026-03-17-windows-1.md": [
-    {
-      "hash": "7db014366ff5cbbcf58a1d4172ad4eb26af1bb7d",
-      "date": "2026-04-17 23:32:57 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "a7bb94595be2693c6151fb4a0c6cf87908429e3c",
-      "date": "2026-04-04 23:03:03 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "c807b35bf7c705bbf7ab73dc3dd61ad3bd37f58a",
-      "date": "2026-03-20 12:49:33 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "d6f64153c3bba29f1f33eb9e8d9791bcf6028b2c",
-      "date": "2026-03-18 19:28:35 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "e7d02b50b5d694caa62a70cdb6d496fb8e167cd4",
-      "date": "2026-03-17 19:44:23 +0800",
-      "message": "CMS:Update Posts “2026-03-17-windows-1”"
-    },
-    {
-      "hash": "8b455a66de005d1ea5eb2cea46c6ff16743c8635",
-      "date": "2026-03-17 19:43:34 +0800",
-      "message": "CMS:Create Posts “2026-03-17-windows-1”"
     }
   ],
   "2026-04-16-yt-dlp.md": [
@@ -506,6 +506,13 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
+    }
+  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -521,13 +528,6 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
-    }
-  ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
@@ -744,6 +744,33 @@
       "message": "post:OBS-1"
     }
   ],
+  "Zerotier-1.md": [
+    {
+      "hash": "c557b2ea9538523a515e11c217553afc07b9669d",
+      "date": "2026-05-21 22:02:33 +0800",
+      "message": "CMS:Update Posts “Zerotier-1”"
+    },
+    {
+      "hash": "f44e8449cdd7bf602c939aedc8d8474cd41be608",
+      "date": "2026-05-21 19:48:56 +0800",
+      "message": "docs: add Mac Mini remote terminal setup guide to Zerotier post"
+    },
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
+      "date": "2025-10-26 20:48:12 +0800",
+      "message": "post:Zerotier-1"
+    }
+  ],
   "SrP-CFG.md": [
     {
       "hash": "d7069191a188f6d028d6f45d8dfe39c21db33321",
@@ -821,33 +848,6 @@
       "message": "post:SrP-CFG"
     }
   ],
-  "Zerotier-1.md": [
-    {
-      "hash": "c557b2ea9538523a515e11c217553afc07b9669d",
-      "date": "2026-05-21 22:02:33 +0800",
-      "message": "CMS:Update Posts “Zerotier-1”"
-    },
-    {
-      "hash": "f44e8449cdd7bf602c939aedc8d8474cd41be608",
-      "date": "2026-05-21 19:48:56 +0800",
-      "message": "docs: add Mac Mini remote terminal setup guide to Zerotier post"
-    },
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "a13d459d19fb35f01ef229af223725ad14caea99",
-      "date": "2025-10-26 20:48:12 +0800",
-      "message": "post:Zerotier-1"
-    }
-  ],
   "SrP-Sakura_Minecraft.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -912,28 +912,6 @@
       "message": "posts: 发布文章"
     }
   ],
-  "autoexec.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
-      "date": "2026-01-05 16:53:59 +0800",
-      "message": "CMS:Update Posts “autoexec”"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
-      "date": "2025-11-18 21:40:11 +0800",
-      "message": "docs(post):发布autoexec文件详解"
-    }
-  ],
   "archlinux-1.md": [
     {
       "hash": "1a66cec49b2f2af5e46a22c6625beb22d2b0df49",
@@ -954,6 +932,28 @@
       "hash": "550ebcd1e51746ea4ff63cbe0fed86df345b7076",
       "date": "2026-03-08 11:50:47 +0800",
       "message": "post: 发布文章archlinux"
+    }
+  ],
+  "autoexec.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "7a9d87d08700d4b6c802608af71dfcc4ddfb0552",
+      "date": "2026-01-05 16:53:59 +0800",
+      "message": "CMS:Update Posts “autoexec”"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "1b64e8dae63912f63ddcfbfd70d14eeaa4d9f261",
+      "date": "2025-11-18 21:40:11 +0800",
+      "message": "docs(post):发布autoexec文件详解"
     }
   ],
   "crosshair_view.md": [
@@ -1063,18 +1063,6 @@
       "message": "posts: 发布文章docker-mc"
     }
   ],
-  "guide/index.md": [
-    {
-      "hash": "0e3e38eceff44af8728723ad71567acd05d78370",
-      "date": "2025-10-26 16:11:23 +0800",
-      "message": "about:上线Netlify托管服务"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
   "frp-1.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -1102,7 +1090,24 @@
       "message": "docs(post):frp-1发布"
     }
   ],
+  "guide/index.md": [
+    {
+      "hash": "0e3e38eceff44af8728723ad71567acd05d78370",
+      "date": "2025-10-26 16:11:23 +0800",
+      "message": "about:上线Netlify托管服务"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
   "immortalwrt-build.md": [
+    {
+      "hash": "ca294ef53b25751de05c1652cb6ceb4693f016f7",
+      "date": "2026-07-24 16:03:16 +0800",
+      "message": "CMS:Update Posts “immortalwrt-build”"
+    },
     {
       "hash": "c21c04bf1d3ebcb8982b4a69f6fa2142b9b6484a",
       "date": "2026-07-24 15:59:45 +0800",
@@ -1112,6 +1117,53 @@
       "hash": "56014cbf7393f7023951962cb0e69909ccf88f7e",
       "date": "2026-07-09 13:47:48 +0800",
       "message": "post: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL"
+    }
+  ],
+  "mac-mc-1.md": [
+    {
+      "hash": "81a7b872a58a78782a087bd532fa0de5bc707d3f",
+      "date": "2026-04-17 23:38:41 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
+    },
+    {
+      "hash": "032be9cfc3590040ad33c4caa1cede095c9a4339",
+      "date": "2026-03-24 22:20:42 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
+    },
+    {
+      "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
+      "date": "2026-02-26 20:53:16 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
+    },
+    {
+      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
+      "date": "2026-01-05 16:18:02 +0800",
+      "message": "fix:修复文章背景路径"
+    },
+    {
+      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
+      "date": "2026-01-05 14:45:19 +0800",
+      "message": "fix:修改封面"
+    },
+    {
+      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
+      "date": "2026-01-05 14:41:46 +0800",
+      "message": "fix:修复文章封面"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
+      "date": "2025-12-07 18:37:35 +0800",
+      "message": "docs(post):mac-mc-1发布"
     }
   ],
   "lgnewui2.md": [
@@ -1273,53 +1325,6 @@
       "message": "docs(post):mac-mc-2发布"
     }
   ],
-  "mac-mc-1.md": [
-    {
-      "hash": "81a7b872a58a78782a087bd532fa0de5bc707d3f",
-      "date": "2026-04-17 23:38:41 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
-    },
-    {
-      "hash": "032be9cfc3590040ad33c4caa1cede095c9a4339",
-      "date": "2026-03-24 22:20:42 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
-    },
-    {
-      "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
-      "date": "2026-02-26 20:53:16 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
-    },
-    {
-      "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
-      "date": "2026-01-05 16:18:02 +0800",
-      "message": "fix:修复文章背景路径"
-    },
-    {
-      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
-      "date": "2026-01-05 14:45:19 +0800",
-      "message": "fix:修改封面"
-    },
-    {
-      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
-      "date": "2026-01-05 14:41:46 +0800",
-      "message": "fix:修复文章封面"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
-      "date": "2025-12-07 18:37:35 +0800",
-      "message": "docs(post):mac-mc-1发布"
-    }
-  ],
   "markdown-extended.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
@@ -1447,28 +1452,6 @@
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
     }
   ],
-  "sunmoon-scrcpy.md": [
-    {
-      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
-      "date": "2026-04-17 23:45:17 +0800",
-      "message": "chore: tags rebuild"
-    },
-    {
-      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
-      "date": "2025-12-31 19:18:55 +0800",
-      "message": "docs(posts):修复图片空格命名导致的URL混乱"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
-      "date": "2025-11-10 12:16:55 +0800",
-      "message": "doc(post):如何投屏和串流？"
-    }
-  ],
   "ssh-1.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -1504,6 +1487,28 @@
       "hash": "ef7980d6427465e0346633ba3695fbdd6ffa4809",
       "date": "2025-11-07 13:44:15 +0800",
       "message": "post:ssh-1发布"
+    }
+  ],
+  "sunmoon-scrcpy.md": [
+    {
+      "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
+      "date": "2026-04-17 23:45:17 +0800",
+      "message": "chore: tags rebuild"
+    },
+    {
+      "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
+      "date": "2025-12-31 19:18:55 +0800",
+      "message": "docs(posts):修复图片空格命名导致的URL混乱"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
+      "date": "2025-11-10 12:16:55 +0800",
+      "message": "doc(post):如何投屏和串流？"
     }
   ],
   "srp-img.md": [
