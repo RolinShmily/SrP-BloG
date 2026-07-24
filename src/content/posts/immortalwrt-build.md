@@ -44,6 +44,7 @@ wsl --list -v
 # 查看WSL可安装的网络子系统
 wsl --list -online
 # 安装Debian，这里的名称就是online展示的,可选安装方式如下两种
+# 默认不加路径会安装在C:\Users\<你的用户名>\AppData\Local\Packages\<发行版包名>\LocalState\ext4.vhdx
 wsl --install Debian
 wsl --install -d Debian --location D:\WSL
 # 切换默认子系统
@@ -54,6 +55,8 @@ wsl --unregister Debian
 wsl --export Debian debian.tar
 # 导入子系统
 wsl --import <系统名称> <Windows存放系统目录> <备份文件> 
+# 验证已安装
+wsl --list --verbose
 ```
 
 按照指令安装Debian即可。
