@@ -17,6 +17,8 @@ lang: ""
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115167165677807&bvid=BV136a9zqEk5&cid=32241026475&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
 # 前置环境
+本篇WSL环境默认为Debian系。
+
 推荐使用WSL配合NVIDIA显卡。
 ```bash
 # 更新系统软件源
