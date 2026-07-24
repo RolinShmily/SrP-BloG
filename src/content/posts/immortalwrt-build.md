@@ -1,12 +1,15 @@
 ---
 title: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL
 published: 2026-07-09
-description: '手把手在Windows上安装WSL，并编译一组全面基础可用的ImmortalWrt(OpenWrt)固件，包含基础包(Luci、Opkg)+拓展插件(Frp、Zerotier、V2ray)'
-image: ''
-tags: [WSL,OpenWrt,ImmortalWrt]
-category: ''
-draft: false 
-lang: ''
+description: 手把手在Windows上安装WSL，并编译一组全面基础可用的ImmortalWrt(OpenWrt)固件，包含基础包(Luci、Opkg)+拓展插件(Frp、Zerotier、V2ray)
+image: ""
+tags:
+  - WSL
+  - OpenWrt
+  - ImmortalWrt
+draft: false
+lang: ""
+category: ""
 ---
 # 相关链接
 - [如何使用 WSL 在 Windows 上安装 Linux](https://learn.microsoft.com/zh-cn/windows/wsl/install)
@@ -23,16 +26,26 @@ lang: ''
 `Win+R`打开运行窗，输入`optionalfeatures`，打开Windows功能，确保勾选了这两项(一般安装过Docker的机器都已经开启了)：
 ![](../assets/images/2026-07-09-124019.png)
 
+也可以用以下指令，在powershell管理员中运行：
+```bash
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+```
+
 ## 管理Linux发行版
 `Win+X`打开终端(管理员)，这里需要确保打开的是`PowerShell`：
 
 ```bash
+# 更新WSL，并把wsl版本设置为2
+wsl --update
+wsl --set-default-version 2
 # 查看当前WSL已安装的子系统
 wsl --list -v
 # 查看WSL可安装的网络子系统
 wsl --list -online
-# 安装Debian，这里的名称就是online展示的
+# 安装Debian，这里的名称就是online展示的,可选安装方式如下两种
 wsl --install Debian
+wsl --install -d Debian --location D:\WSL
 # 切换默认子系统
 wsl --set-default Debian
 # 卸载子系统
