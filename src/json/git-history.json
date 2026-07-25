@@ -1,4 +1,51 @@
 {
+  "2026-01-12-cfg_installer_v2.md": [
+    {
+      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
+      "date": "2026-05-20 13:43:26 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
+      "date": "2026-04-17 23:35:23 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
+      "date": "2026-04-01 00:28:07 +0800",
+      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
+    },
+    {
+      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
+      "date": "2026-02-06 22:11:48 +0800",
+      "message": "docs:文章格式修改"
+    },
+    {
+      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
+      "date": "2026-02-06 10:30:32 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
+      "date": "2026-01-12 15:17:08 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
+      "date": "2026-01-12 15:09:27 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
+      "date": "2026-01-12 15:02:46 +0800",
+      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
+    },
+    {
+      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
+      "date": "2026-01-12 15:02:13 +0800",
+      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
+    }
+  ],
   "2026-01-03-todo-list.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -54,53 +101,6 @@
       "hash": "f049aab6b9b56e9afc4ba3ecd7ffcbbb88f915d8",
       "date": "2026-01-04 00:11:20 +0800",
       "message": "CMS:Create Posts “2026-01-03-todo-list”"
-    }
-  ],
-  "2026-01-12-cfg_installer_v2.md": [
-    {
-      "hash": "f720cc703cb65cbedc31864bb286e0e872afd11b",
-      "date": "2026-05-20 13:43:26 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e8c79cfb2835c168b1bcfd7966e3690a7ffcf951",
-      "date": "2026-04-17 23:35:23 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "d17a8fe697f30da74088cbe0458ccc6afc4268f5",
-      "date": "2026-04-01 00:28:07 +0800",
-      "message": "feat: 首页卡片标签化 + 归档页标签过滤UI改造"
-    },
-    {
-      "hash": "7644a5385b20608633de4ffe9da9c3af9bf48d81",
-      "date": "2026-02-06 22:11:48 +0800",
-      "message": "docs:文章格式修改"
-    },
-    {
-      "hash": "6e2662d2b7c7be3e2e58bf3719213d3ea614e68f",
-      "date": "2026-02-06 10:30:32 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "3f8d256a740455947216af46a2f199741d7a7f79",
-      "date": "2026-01-12 15:17:08 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e1d46b0c5a5b44c20f550d9c441483416ecefc4e",
-      "date": "2026-01-12 15:09:27 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "e56855d7fb09409846ee6b167dc3289c4632b6d3",
-      "date": "2026-01-12 15:02:46 +0800",
-      "message": "CMS:Update Posts “2026-01-12-cfg_installer_v2”"
-    },
-    {
-      "hash": "17ce6aafe0b269da1e97472b3cd892a319c87f89",
-      "date": "2026-01-12 15:02:13 +0800",
-      "message": "CMS:Create Posts “2026-01-12-cfg_installer_v2”"
     }
   ],
   "2026-02-05-switch_ams_1.md": [
@@ -511,13 +511,6 @@
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
     }
   ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
-    }
-  ],
   "2026-04-22-ps-ds5.md": [
     {
       "hash": "dd60749ecbcc4b293b9cfe030b0f54e85b6324ae",
@@ -528,6 +521,13 @@
       "hash": "e0c998b00b0da7f86bcda95e2e262dc872c4e1c7",
       "date": "2026-04-22 17:54:47 +0800",
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
+    }
+  ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "2026-06-15-steam302-1.md": [
@@ -564,6 +564,11 @@
     }
   ],
   "2026-07-25-在wsl中安装archlinux并配置dotfiles开启vibecoding之旅-wsl-archlinux-dotfiles.md": [
+    {
+      "hash": "8a42d684223eee3439b76872b116abd4d1133c42",
+      "date": "2026-07-25 14:11:12 +0800",
+      "message": "CMS:Update Posts “2026-07-25-在wsl中安装archlinux并配置dotfiles开启vibecoding之旅-wsl-archlinux-dotfiles”"
+    },
     {
       "hash": "74b4ad8adc8614a0fe2674b40e0e966412ee5f0a",
       "date": "2026-07-25 14:09:46 +0800",
@@ -941,18 +946,18 @@
       "message": "post: 发布文章archlinux"
     }
   ],
-  "ax101.md": [
-    {
-      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
-      "date": "2026-07-09 14:33:57 +0800",
-      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
-    }
-  ],
   "crosshair_view.md": [
     {
       "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
       "date": "2025-11-25 14:12:38 +0800",
       "message": "docs(post):CFGinstaller文章发布"
+    }
+  ],
+  "ax101.md": [
+    {
+      "hash": "82a043e871898b46b9d9a446ec7dd06b64121e96",
+      "date": "2026-07-09 14:33:57 +0800",
+      "message": "post: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE"
     }
   ],
   "autoexec.md": [
@@ -1109,6 +1114,23 @@
       "message": "docs(post):frp-1发布"
     }
   ],
+  "immortalwrt-build.md": [
+    {
+      "hash": "ca294ef53b25751de05c1652cb6ceb4693f016f7",
+      "date": "2026-07-24 16:03:16 +0800",
+      "message": "CMS:Update Posts “immortalwrt-build”"
+    },
+    {
+      "hash": "c21c04bf1d3ebcb8982b4a69f6fa2142b9b6484a",
+      "date": "2026-07-24 15:59:45 +0800",
+      "message": "CMS:Update Posts “immortalwrt-build”"
+    },
+    {
+      "hash": "56014cbf7393f7023951962cb0e69909ccf88f7e",
+      "date": "2026-07-09 13:47:48 +0800",
+      "message": "post: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL"
+    }
+  ],
   "lgnewui2.md": [
     {
       "hash": "a6394f9cd80772a7330e0fd9635cba1f090c2dcd",
@@ -1229,23 +1251,6 @@
       "hash": "da303a2885d34daefb4649ecd98e1c3c80c4ff8c",
       "date": "2026-04-03 16:17:38 +0800",
       "message": "CMS:Update Posts \"lgnewui2\""
-    }
-  ],
-  "immortalwrt-build.md": [
-    {
-      "hash": "ca294ef53b25751de05c1652cb6ceb4693f016f7",
-      "date": "2026-07-24 16:03:16 +0800",
-      "message": "CMS:Update Posts “immortalwrt-build”"
-    },
-    {
-      "hash": "c21c04bf1d3ebcb8982b4a69f6fa2142b9b6484a",
-      "date": "2026-07-24 15:59:45 +0800",
-      "message": "CMS:Update Posts “immortalwrt-build”"
-    },
-    {
-      "hash": "56014cbf7393f7023951962cb0e69909ccf88f7e",
-      "date": "2026-07-09 13:47:48 +0800",
-      "message": "post: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL"
     }
   ],
   "mac-mc-1.md": [
@@ -1533,6 +1538,35 @@
       "message": "post: 发布Srp-img项目介绍文章"
     }
   ],
+  "umami-1.md": [
+    {
+      "hash": "e72aa475aeab18b5c6800efb9a926e25c747c4f3",
+      "date": "2026-05-13 13:21:08 +0800",
+      "message": "CMS:Update Posts “umami-1”"
+    },
+    {
+      "hash": "5b7959c39ad85e00290830d87e95fa67b9e2da62",
+      "date": "2026-05-09 15:01:28 +0800",
+      "message": "CMS:Update Posts “umami-1”"
+    },
+    {
+      "hash": "07b351ecb249b71063789627a506dcb6f20c4103",
+      "date": "2026-04-19 22:50:51 +0800",
+      "message": "post: 发布文章"
+    }
+  ],
+  "video.md": [
+    {
+      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
+      "date": "2025-10-25 21:32:31 +0800",
+      "message": "将向导文章设置为草稿"
+    },
+    {
+      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
+      "date": "2025-10-25 20:16:42 +0800",
+      "message": "initblog"
+    }
+  ],
   "sunmoon-scrcpy.md": [
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
@@ -1553,35 +1587,6 @@
       "hash": "0ee9b720ff245276fb92e46bd3655fc453498ede",
       "date": "2025-11-10 12:16:55 +0800",
       "message": "doc(post):如何投屏和串流？"
-    }
-  ],
-  "video.md": [
-    {
-      "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
-      "date": "2025-10-25 21:32:31 +0800",
-      "message": "将向导文章设置为草稿"
-    },
-    {
-      "hash": "b74e4cc137105747ba54124c675d9470dc7fe7ef",
-      "date": "2025-10-25 20:16:42 +0800",
-      "message": "initblog"
-    }
-  ],
-  "umami-1.md": [
-    {
-      "hash": "e72aa475aeab18b5c6800efb9a926e25c747c4f3",
-      "date": "2026-05-13 13:21:08 +0800",
-      "message": "CMS:Update Posts “umami-1”"
-    },
-    {
-      "hash": "5b7959c39ad85e00290830d87e95fa67b9e2da62",
-      "date": "2026-05-09 15:01:28 +0800",
-      "message": "CMS:Update Posts “umami-1”"
-    },
-    {
-      "hash": "07b351ecb249b71063789627a506dcb6f20c4103",
-      "date": "2026-04-19 22:50:51 +0800",
-      "message": "post: 发布文章"
     }
   ],
   "webDAV-1.md": [
