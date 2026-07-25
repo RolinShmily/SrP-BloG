@@ -15,6 +15,7 @@ lang: ""
 - [Maple Mono: Open source monospace font](https://font.subf.dev/zh-cn/)
 - [dotfiles-ArchWiki](https://wiki.archlinux.org.cn/title/Dotfiles)
 - [Archlinux | 清华镜像站](https://mirrors.tuna.tsinghua.edu.cn/help/archlinux/)
+- [使用 WSL 访问网络应用程序](https://learn.microsoft.com/zh-cn/windows/wsl/networking)
 
 # WSL初始化
 参考[在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL ](https://blog.srprolin.top/posts/immortalwrt-build/)中关于WSL的安装即可，安装好Arch Linux。
