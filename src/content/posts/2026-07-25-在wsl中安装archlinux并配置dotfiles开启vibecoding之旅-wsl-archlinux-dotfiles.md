@@ -101,6 +101,7 @@ yay -S paru-bin
 cd ~
 git clone https://github.com/RolinShmily/srp-dotfiles.git
 cd srp-dotfiles
+git checkout wsl
 
 # 安装软件包
 chmod +x install_arch.sh
