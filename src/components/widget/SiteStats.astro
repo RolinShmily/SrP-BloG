@@ -1,9 +1,9 @@
 ---
-import I18nKey from "../../i18n/i18nKey";
-import { i18n } from "../../i18n/translation";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "../../config";
-import { getTotalWords, getPostCount } from "../../utils/content-utils";
+import I18nKey from "../../i18n/i18nKey";
+import { i18n } from "../../i18n/translation";
+import { getPostCount, getTotalWords } from "../../utils/content-utils";
 import WidgetLayout from "./WidgetLayout.astro";
 
 const totalWords = await getTotalWords();

@@ -1,0 +1,55 @@
+name: 友链申请
+description: 提交一个新的友情链接
+title: "[友链申请] <你的站点名称>"
+labels: ["friend-link"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        欢迎申请友链！请填妥以下信息。
+        如果你的友链信息有效，机器人将自动验证并回复。
+
+  - type: input
+    id: sitename
+    attributes:
+      label: 站点名称 (name)
+      description: 你的网站名称
+      placeholder: 例如：SrP-BloG
+    validations:
+      required: true
+
+  - type: input
+    id: siteurl
+    attributes:
+      label: 站点链接 (url)
+      description: 你的网站首页链接 (需以 http:// 或 https:// 开头)
+      placeholder: 例如：https://blog.srprolin.top/
+    validations:
+      required: true
+
+  - type: input
+    id: sitedesc
+    attributes:
+      label: 站点描述 (description)
+      description: 用一两句话描述你的网站
+      placeholder: 例如：如无必要，勿增实体。
+    validations:
+      required: true
+
+  - type: input
+    id: siteavatar
+    attributes:
+      label: 站点头像 (avatar)
+      description: 你的网站图标链接 (需以 http:// 或 https:// 开头)
+      placeholder: 例如：https://blog.srprolin.top/favicon/favicon.ico
+    validations:
+      required: true
+
+  - type: input
+    id: sitebacklink
+    attributes:
+      label: 回链地址 (backlink)
+      description: 你网站上放置了本站链接的页面地址 (用于验证)
+      placeholder: 例如：https://blog.srprolin.top/frlinks/
+    validations:
+      required: true

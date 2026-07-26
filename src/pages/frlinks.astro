@@ -1,15 +1,11 @@
 ---
 import { getEntry, render } from "astro:content";
-import MainGridLayout from "@layouts/MainGridLayout.astro";
 import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
 import { siteConfig } from "@/config";
-
-// giscus评论区文章页集成
-import Giscus from "../components/misc/Giscus.astro";
-
-import type { FrlinkContent } from "@/types/data";
 import { getFrlinks } from "@/data/frlinks";
+import type { FrlinkContent } from "@/types/data";
 
 // 获取所有友链数据
 const frlinks = await getFrlinks();
@@ -30,7 +26,7 @@ const { Content } = await render(frlinksMd);
         </div>
         <!-- 申请友链 -->
             <p class="text-sm text-black/60 dark:text-white/60 mb-4">
-            如果您也想加入友链名单，<a target="_blank" href="https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/frlinks" class="transition link text-[var(--primary)] font-medium underline">请点击这里提交</a>
+            如果您也想加入友链名单，请在 GitHub 仓库通过 <a target="_blank" href="https://github.com/RolinShmily/SrP-BloG/issues/new?template=friend_link.yml" class="transition link text-[var(--primary)] font-medium underline">提交 Issue</a> 申请，或者 <a target="_blank" href="https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/frlinks" class="transition link text-[var(--primary)] font-medium underline">直接提交 PR</a>。
             </p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             {frlinks.map((frlink) => (
@@ -50,14 +46,6 @@ const { Content } = await render(frlinksMd);
             <Content />
         </Markdown>
 
-        <!-- giscus评论区文章页集成 -->
-        <Giscus
-            repo="RolinShmily/SrP-BloG"
-            repoId="R_kgDOQI8WBA"
-            category="Announcements"
-            categoryId="DIC_kwDOQI8WBM4Cxde8"
-            lang="zh-CN"
-        />
 
     </div>
   </div>

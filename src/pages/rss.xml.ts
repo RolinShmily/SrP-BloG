@@ -1,12 +1,12 @@
+import { getImage } from "astro:assets";
 import rss from "@astrojs/rss";
 import { getSortedPosts } from "@utils/content-utils";
 import { url } from "@utils/url-utils";
 import type { APIContext } from "astro";
 import MarkdownIt from "markdown-it";
+import { parse as htmlParser } from "node-html-parser";
 import sanitizeHtml from "sanitize-html";
 import { siteConfig } from "@/config";
-import { parse as htmlParser } from "node-html-parser";
-import { getImage } from "astro:assets";
 
 const parser = new MarkdownIt();
 
@@ -40,7 +40,7 @@ export async function GET(context: APIContext) {
 			for (const img of images) {
 				const src = img.getAttribute("src");
 
-				if (src && src.includes("assets/")) {
+				if (src?.includes("assets/")) {
 					const internalPath = src.replace("../assets", "/src/content/assets");
 
 					const imageGetter = imagesGlob[internalPath];

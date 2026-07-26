@@ -3,15 +3,15 @@ import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import Icon from "@iconify/svelte";
 import {
-	getDefaultHue,
-	getHue,
-	setHue,
 	// 背景模糊
 	getBgBlur,
-	setBgBlur,
+	getDefaultHue,
 	// 背景启用否
 	getHideBg,
+	getHue,
+	setBgBlur,
 	setHideBg,
+	setHue,
 } from "@utils/setting-utils";
 
 let hue = getHue();

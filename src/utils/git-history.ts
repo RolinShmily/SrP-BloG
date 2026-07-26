@@ -1,6 +1,6 @@
 import { gitHubEditConfig } from "../config";
 // Import json directly - Vite/Astro handles JSON imports
-// @ts-ignore
+// @ts-expect-error
 import gitHistory from "../json/git-history.json";
 
 export interface Commit {

@@ -58,7 +58,9 @@ function updateUrl() {
 	const url = new URL(window.location.href);
 	if (activeTags.length > 0) {
 		url.searchParams.delete("tag");
-		activeTags.forEach((tag) => url.searchParams.append("tag", tag));
+		activeTags.forEach((tag) => {
+			url.searchParams.append("tag", tag);
+		});
 	} else {
 		url.searchParams.delete("tag");
 	}

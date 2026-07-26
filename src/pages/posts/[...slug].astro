@@ -2,10 +2,6 @@
 import path from "node:path";
 import License from "@components/misc/License.astro";
 import Markdown from "@components/misc/Markdown.astro";
-
-// giscus评论区文章页集成
-import Giscus from "../../components/misc/Giscus.astro";
-
 import I18nKey from "@i18n/i18nKey";
 import { i18n } from "@i18n/translation";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
@@ -14,6 +10,8 @@ import { getCommitUrl, getPostHistory } from "@utils/git-history";
 import { getDir, getPostUrlBySlug } from "@utils/url-utils";
 import { Icon } from "astro-icon/components";
 import { cmsEditConfig, gitHubEditConfig, licenseConfig } from "src/config";
+// giscus评论区文章页集成
+import Giscus from "../../components/misc/Giscus.astro";
 import ImageWrapper from "../../components/misc/ImageWrapper.astro";
 import PostMetadata from "../../components/PostMeta.astro";
 import PostUpdateNotice from "../../components/widget/PostUpdateNotice.astro";

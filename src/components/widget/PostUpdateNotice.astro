@@ -1,6 +1,6 @@
 ---
-import { Icon } from "astro-icon/components";
 import type { Commit } from "@utils/git-history";
+import { Icon } from "astro-icon/components";
 
 interface Props {
 	published: string | Date;
@@ -14,7 +14,7 @@ const publishedStr =
 const updatedStr = updated instanceof Date ? updated.toISOString() : updated;
 
 // 使用 Git 历史中最新的提交日期作为最后修改时间
-let lastUpdatedStr;
+let lastUpdatedStr: string | undefined;
 if (history && history.length > 0) {
 	// 历史记录是按时间倒序排列的，第一个就是最新的
 	lastUpdatedStr = history[0].date;

@@ -30,7 +30,7 @@ export function setHue(hue: number): void {
 // 背景模糊
 export function getBgBlur(): number {
 	const stored = localStorage.getItem("bg-blur");
-	return stored ? Number.parseInt(stored) : 4; // Default blur is 4
+	return stored ? Number.parseInt(stored, 10) : 4; // Default blur is 4
 }
 
 export function setBgBlur(blur: number): void {

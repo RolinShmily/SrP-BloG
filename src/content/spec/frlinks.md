@@ -10,7 +10,9 @@
 
 ### 交换信息
 
-> 如果您使用 [Pull Request](https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/frlinks) 提交友链，请在`json`文件中添加回链字段`"backlink"`指向你的 **友链页面**，以便于 **GitHub Action** 进行校验。
+> 本页评论区已关闭。如果您想申请友链，请通过 [提交 Issue 申请](https://github.com/RolinShmily/SrP-BloG/issues/new?template=friend_link.yml) (最方便) 或使用 [Pull Request](https://github.com/RolinShmily/SrP-BloG/tree/main/src/data/frlinks) 提交。
+> 
+> 如果您提交友链，请务必保证可以通过您的 JSON/YAML 检查到，并提供对应字段：
 
 ```json
 {

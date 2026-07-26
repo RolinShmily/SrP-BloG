@@ -1,11 +1,10 @@
 ---
-import ImageWrapper from "../components/misc/ImageWrapper.astro";
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
-import MainGridLayout from "../layouts/MainGridLayout.astro";
-
 // giscus评论区文章页集成
 import Giscus from "../components/misc/Giscus.astro";
+import ImageWrapper from "../components/misc/ImageWrapper.astro";
+import MainGridLayout from "../layouts/MainGridLayout.astro";
 
 // 适配js，强制单侧边栏配置
 const isBothSidebarMode = false; //sidebarLayoutConfig.position === "both";
@@ -48,6 +47,7 @@ async function fetchBangumiCollection(
 	type: number,
 ) {
 	try {
+		// biome-ignore lint/suspicious/noExplicitAny: API
 		let allData: any[] = [];
 		let offset = 0;
 		const limit = 50; // 每页获取的数量
@@ -83,11 +83,13 @@ async function fetchBangumiCollection(
 }
 
 // 获取Bangumi数据转换为页面所需格式
+// biome-ignore lint/suspicious/noExplicitAny: API
 async function processBangumiData(data: any, status: string) {
-	if (!data || !data.data) return [];
+	if (!data || !Array.isArray(data.data)) return [];
 
 	// 为每个条目获取详细信息
 	const detailedItems = await Promise.all(
+		// biome-ignore lint/suspicious/noExplicitAny: API
 		data.data.map(async (item: any) => {
 			// 获取相关人员信息
 			const subjectPersons = await fetchSubjectPersons(item.subject_id);
@@ -127,7 +129,8 @@ async function processBangumiData(data: any, status: string) {
 				episodes: `${totalEpisodes} episodes`,
 				year: year,
 				genre: item.subject?.tags
-					? item.subject.tags.slice(0, 3).map((tag: any) => tag.name)
+					? // biome-ignore lint/suspicious/noExplicitAny: API
+						item.subject.tags.slice(0, 3).map((tag: any) => tag.name)
 					: ["Unknown"],
 				studio: studio,
 				link: `https://bgm.tv/subject/${item.subject.id}` || "#",

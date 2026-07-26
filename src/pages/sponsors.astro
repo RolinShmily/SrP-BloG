@@ -1,9 +1,9 @@
 ---
-import { siteConfig } from "@/config";
-import type { Sponsor } from "@/types/data";
 import LinkSubmitInfo from "@components/misc/LinkSubmitInfo.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { Icon } from "astro-icon/components";
+import { siteConfig } from "@/config";
+import type { Sponsor } from "@/types/data";
 
 const sponsors = Object.values(
 	import.meta.glob<Sponsor>("@/data/sponsors/*.json", {

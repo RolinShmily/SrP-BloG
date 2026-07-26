@@ -1,10 +1,9 @@
 ---
+// 导入导航数据
+import naviData from "../data/navi.json";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
-
-// 导入导航数据
-import naviData from "../data/navi.json";
 
 // 生成 headings 用于 TOC
 const headings = naviData.categories.map((cat) => ({

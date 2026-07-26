@@ -2,11 +2,11 @@
 
 import { getEntry, render } from "astro:content";
 import Markdown from "@components/misc/Markdown.astro";
+import { Icon } from "astro-icon/components";
+import { siteConfig } from "@/config";
 import I18nKey from "../i18n/i18nKey";
 import { i18n } from "../i18n/translation";
 import MainGridLayout from "../layouts/MainGridLayout.astro";
-import { Icon } from "astro-icon/components";
-import { siteConfig } from "@/config";
 
 const aboutPost = await getEntry("spec", "about");
 
