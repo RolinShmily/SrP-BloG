@@ -55,7 +55,7 @@ nano /etc/samba/smb.conf
 systemctl restart smbd nmbd
 ```
 
-如何在Windows中访问？
+# 如何在Windows中访问？
 
 只需`win+r`打开运行窗/文件资源管理器，地址栏输入`\\<ipaddress>\root`(<ipaddress>替换为ipv4地址)
 
