@@ -506,13 +506,6 @@
       "message": "CMS:Create Posts “2026-04-22-ps-ds5”"
     }
   ],
-  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
-    {
-      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
-      "date": "2026-05-08 00:05:18 +0800",
-      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
-    }
-  ],
   "2026-04-18-bitwarden-1.md": [
     {
       "hash": "9e2efccaf9701bfd826f104f2265e0a1b32d8af6",
@@ -528,6 +521,13 @@
       "hash": "f914b75fcbe0991b8e2a4cfb939e109359635b5b",
       "date": "2026-04-18 15:01:18 +0800",
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
+    }
+  ],
+  "2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver.md": [
+    {
+      "hash": "cb0199a2d6fb8c18ba50fb377ce5fbd1ff40f85c",
+      "date": "2026-05-08 00:05:18 +0800",
+      "message": "CMS:Create Posts “2026-05-07-windows-defender-卸载程序-bluetooth-audio-receiver”"
     }
   ],
   "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
@@ -734,23 +734,6 @@
       "message": "post:Markdown-1"
     }
   ],
-  "Python-1.md": [
-    {
-      "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
-      "date": "2026-03-20 13:12:15 +0800",
-      "message": "CMS:Update Posts “Python-1”"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
-      "date": "2025-10-26 19:45:47 +0800",
-      "message": "post:PyTorch环境搭建"
-    }
-  ],
   "OBS-1.md": [
     {
       "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
@@ -766,6 +749,23 @@
       "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
       "date": "2025-10-26 21:09:00 +0800",
       "message": "post:OBS-1"
+    }
+  ],
+  "Python-1.md": [
+    {
+      "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
+      "date": "2026-03-20 13:12:15 +0800",
+      "message": "CMS:Update Posts “Python-1”"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
+      "date": "2025-10-26 19:45:47 +0800",
+      "message": "post:PyTorch环境搭建"
     }
   ],
   "SrP-CFG.md": [
@@ -1407,23 +1407,6 @@
       "message": "CMS: New Posts \"msys\""
     }
   ],
-  "pytorch-2.md": [
-    {
-      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
-      "date": "2026-04-03 01:53:04 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
-      "date": "2026-03-20 12:50:13 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
-      "date": "2026-03-20 12:41:16 +0800",
-      "message": "doc(post): 深度学习框架的安装"
-    }
-  ],
   "script-1.md": [
     {
       "hash": "32398ff2a3aa4cd2213cd05866c8183d180057ff",
@@ -1474,6 +1457,23 @@
       "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
       "date": "2026-03-12 22:57:02 +0800",
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
+    }
+  ],
+  "pytorch-2.md": [
+    {
+      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
+      "date": "2026-04-03 01:53:04 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
+      "date": "2026-03-20 12:50:13 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
+      "date": "2026-03-20 12:41:16 +0800",
+      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "srp-img.md": [
@@ -1536,6 +1536,11 @@
     }
   ],
   "ssh-1.md": [
+    {
+      "hash": "64fdc11707989c8ee63a9e264ad4ecdd8903c537",
+      "date": "2026-07-28 19:48:21 +0800",
+      "message": "CMS:Update Posts “ssh-1”"
+    },
     {
       "hash": "e6e6aad1c9399d238bb306a66baed98eefcc4a63",
       "date": "2026-04-17 23:45:17 +0800",
