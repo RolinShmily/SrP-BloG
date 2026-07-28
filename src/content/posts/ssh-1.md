@@ -35,6 +35,49 @@ SSH 的基本结构和使用场景：
 2. 基于密匙的安全验证
    需要依靠密匙，也就是你必须为自己创建一对密匙，并把公用密匙放在需要访问的服务器上。如果你要连接到 SSH 服务器上，客户端软件就会向服务器发出请求，请求用你的密匙进行安全验证。服务器收到请求之后，先在该服务器上你的主目录下寻找你的公用密匙，然后把它和你发送过来的公用密匙进行比较。如果两个密匙一致，服务器就用公用密匙加密“质询”（challenge）并把它发送给客户端软件。客户端软件收到“质询”之后就可以用你的私人密匙解密再把它发送给服务器。
 
+## SSH 的精简指令操作流
+
+打开终端，确保安装了SSH组件例如`openssh`：
+```bash
+# 生成密钥对，并添加注释信息
+ssh-keygen -t ed25519 -C "your_info"
+
+# 传送公钥到目标主机(默认22端口)
+ssh-copy-id login_name@server_ip -p 22
+```
+
+在手动设置的情况下一般会产生权限问题，可以这样设置：
+```bash
+# 1. 确保 .ssh 目录存在并修正目录权限
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+# 2. 修正私钥、配置文件和 authorized_keys 的权限
+chmod 600 ~/.ssh/id_rsa ~/.ssh/id_ed25519 ~/.ssh/config ~/.ssh/authorized_keys 2>/dev/null
+# 3. 修正公钥权限
+chmod 644 ~/.ssh/*.pub 2>/dev/null
+# 4. 确保当前目录下的文件归当前用户所有 (防 root 抢占)
+chown -R $(whoami):$(whoami) ~/.ssh
+```
+
+SSH客户端配置文件写法(`.ssh/config`)：
+```txt
+   Host debian
+       HostName 192.168.22.1        # 登录的 IP 地址
+       User RoL1n                   # 登录的用户名
+       Port 22                      # 端口号
+       IdentityFile ~/.ssh/id_ed25519 # 指定私钥路径
+
+   Host *
+       ServerAliveInterval 60       # 每 60 秒发一次心跳包，防止 SSH 挂机太久自动断开
+       ServerAliveCountMax 3        # 错过 3 次心跳包才断开
+       StrictHostKeyChecking no     # 重装系统后不弹警告，直接连
+```
+配置之后一下两条命令就等价了：
+```bash
+ssh RoL1n@192.168.22.1 -p 22
+ssh debian
+```
+
 # 云服务器的 SSH 安全策略
 
 > 本文中提到的 Linux 系统以`Ubuntu24`发行版为例。
