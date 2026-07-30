@@ -44,6 +44,9 @@ ssh-keygen -t ed25519 -C "your_info"
 
 # 传送公钥到目标主机(默认22端口)
 ssh-copy-id login_name@server_ip -p 22
+
+# ProxyJump方式
+ssh -J <proxy-server> <main-endpoint>
 ```
 
 在手动设置的情况下一般会产生权限问题，可以这样设置：
