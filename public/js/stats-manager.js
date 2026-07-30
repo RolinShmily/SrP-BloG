@@ -246,11 +246,31 @@
   }
 
   // --- Track current page ---
+  var hitTimeout = null;
   function trackCurrentPage() {
     var path = global.location.pathname;
     // Only record hits for actual content pages
     if (path && path !== "/") {
-      recordHit(path);
+      if (hitTimeout) {
+         clearTimeout(hitTimeout);
+         hitTimeout = null;
+      }
+
+      var sessionKey = "stats-hit:" + path;
+      var lastHit = sessionStorage.getItem(sessionKey);
+      // Debounce: do not send another hit if visited within the last 60 seconds
+      if (lastHit && (Date.now() - parseInt(lastHit, 10) < 60000)) {
+        return;
+      }
+
+      // Delay 3 seconds to filter out bounces and some crawlers
+      hitTimeout = setTimeout(function() {
+         // Make sure we are still on the same page and page is not hidden
+         if (global.location.pathname === path && document.visibilityState !== 'hidden') {
+             recordHit(path);
+             sessionStorage.setItem(sessionKey, Date.now().toString());
+         }
+      }, 3000);
     }
   }
 

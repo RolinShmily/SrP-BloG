@@ -12,6 +12,20 @@ async function hashVisitor(ip: string, ua: string, salt: string): Promise<string
     .join("");
 }
 
+const BOT_AGENTS = [
+  "bot", "spider", "crawler", "ping", "wget", "curl", "headless",
+  "lighthouse", "python", "php", "java", "postman", "insomnia", "http"
+];
+
+// In-memory cache for IP+Path debouncing (Worker isolate scoped)
+const hitCache = new Map<string, number>();
+const CACHE_TTL = 60 * 1000; // 60 seconds
+
+function isBot(ua: string): boolean {
+  const lowerUA = ua.toLowerCase();
+  return BOT_AGENTS.some((bot) => lowerUA.includes(bot));
+}
+
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
     status,
@@ -27,6 +41,35 @@ async function handleHit(request: Request, env: Env): Promise<Response> {
 
     const ip = request.headers.get("CF-Connecting-IP") || "unknown";
     const ua = request.headers.get("User-Agent") || "unknown";
+
+    // 1. Basic Bot Filtering
+    if (isBot(ua)) {
+      const row = await env.DB.prepare("SELECT views FROM page_views WHERE path = ?1").bind(path).first<{ views: number }>();
+      return json({ views: row?.views ?? 0 });
+    }
+
+    // 2. IP + Path Debouncing (60 seconds)
+    const cacheKey = `${ip}:${path}`;
+    const now = Date.now();
+    const lastHit = hitCache.get(cacheKey);
+
+    if (lastHit && (now - lastHit) < CACHE_TTL) {
+      // Too fast, ignore hit but return current views
+      const row = await env.DB.prepare("SELECT views FROM page_views WHERE path = ?1").bind(path).first<{ views: number }>();
+      return json({ views: row?.views ?? 0 });
+    }
+
+    // Update cache
+    hitCache.set(cacheKey, now);
+    
+    // Periodically cleanup cache to avoid memory leak
+    if (hitCache.size > 1000) {
+       const cutoff = now - CACHE_TTL;
+       for (const [k, v] of hitCache.entries()) {
+           if (v < cutoff) hitCache.delete(k);
+       }
+    }
+
     const visitorHash = await hashVisitor(ip, ua, env.VISITOR_SALT);
     const today = new Date().toISOString().slice(0, 10);
 
