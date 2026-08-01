@@ -530,13 +530,6 @@
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
     }
   ],
-  "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
-    {
-      "hash": "519e6426b454118912c8cb16c92835deb4f62bed",
-      "date": "2026-06-26 21:13:48 +0800",
-      "message": "CMS:Create Posts “2026-06-26-antigravity-proxy-解决系统代理的不可达性”"
-    }
-  ],
   "2026-06-15-steam302-1.md": [
     {
       "hash": "5cce02218c27dad173369c1b490acf9fe8e4961c",
@@ -549,18 +542,18 @@
       "message": "feat: add SteamCommunity 302 post and update claude mirror settings template"
     }
   ],
+  "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
+    {
+      "hash": "519e6426b454118912c8cb16c92835deb4f62bed",
+      "date": "2026-06-26 21:13:48 +0800",
+      "message": "CMS:Create Posts “2026-06-26-antigravity-proxy-解决系统代理的不可达性”"
+    }
+  ],
   "2026-06-28-nvidiaprofileinspector-一个高级的n卡控制面板.md": [
     {
       "hash": "f1882297e84bd1278452d8fd5a17f3c5a2c00786",
       "date": "2026-06-28 16:43:02 +0800",
       "message": "CMS:Create Posts “2026-06-28-nvidiaprofileinspector-一个高级的n卡控制面板”"
-    }
-  ],
-  "2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却.md": [
-    {
-      "hash": "0a2851ff7bb7e2288dcd3ce9abba1bebf84d461f",
-      "date": "2026-07-12 19:36:55 +0800",
-      "message": "CMS:Create Posts “2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却”"
     }
   ],
   "2026-07-18-在wsl中快速使用indextts推理-python-tts.md": [
@@ -608,6 +601,13 @@
       "hash": "8edf112e3132275eb2da9de2fa32ab306a8532e4",
       "date": "2026-07-18 21:20:07 +0800",
       "message": "CMS:Create Posts “2026-07-18-在wsl中快速使用indextts推理-python-tts”"
+    }
+  ],
+  "2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却.md": [
+    {
+      "hash": "0a2851ff7bb7e2288dcd3ce9abba1bebf84d461f",
+      "date": "2026-07-12 19:36:55 +0800",
+      "message": "CMS:Create Posts “2026-07-12-windows中的超级管理员administrator开启方法-账户丢失-桌面丢失-密码忘却”"
     }
   ],
   "2026-07-25-在wsl中安装archlinux并配置dotfiles开启vibecoding之旅-wsl-archlinux-dotfiles.md": [
@@ -1203,6 +1203,11 @@
     }
   ],
   "lgnewui2.md": [
+    {
+      "hash": "2bc2a82487171202efeb871acc65bc1f06728079",
+      "date": "2026-08-01 10:43:37 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
     {
       "hash": "9edb75af3d28437f419937f9caf5d6a55bfb7f83",
       "date": "2026-08-01 10:42:39 +0800",
