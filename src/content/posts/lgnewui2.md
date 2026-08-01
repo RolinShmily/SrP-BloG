@@ -339,6 +339,14 @@ sudo docker network connect mynet php74-fpm
 sudo docker network connect mynet mysql57
 ```
 
+或者也可以在两段compose里加入如下字段：
+```yaml
+networks:
+    web_net:
+        name: web_net
+        external: true
+```
+
 # Nginx、Certbot安装与配置(网站上线)
 ```zsh
 # 使用apt-get获取nginx、certbot
