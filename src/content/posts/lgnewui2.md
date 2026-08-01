@@ -254,9 +254,7 @@ RUN echo "extension=ixed.7.4.lin" > /usr/local/etc/php/conf.d/ixed.ini \
  && echo "sourceguardian.enable_vm_hybrid=1" >> /usr/local/etc/php/conf.d/ixed.ini
 
 # ===== PHP基础配置 =====
-RUN echo "upload_max_filesize = 20M" > /usr/local/etc/php/conf.d/custom.ini \
- && echo "post_max_size = 20M" >> /usr/local/etc/php/conf.d/custom.ini
-
+RUN echo "upload_max_filesize = 100M" > /usr/local/etc/php/conf.d/custom.ini  && echo "post_max_size = 100M" >> /usr/local/etc/php/conf.d/custom.ini  && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/custom.ini  && echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/custom.ini
 ```
 
 ```ini
