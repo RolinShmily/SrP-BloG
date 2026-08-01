@@ -530,6 +530,13 @@
       "message": "CMS:Create Posts “2026-04-18-bitwarden-1”"
     }
   ],
+  "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
+    {
+      "hash": "519e6426b454118912c8cb16c92835deb4f62bed",
+      "date": "2026-06-26 21:13:48 +0800",
+      "message": "CMS:Create Posts “2026-06-26-antigravity-proxy-解决系统代理的不可达性”"
+    }
+  ],
   "2026-06-15-steam302-1.md": [
     {
       "hash": "5cce02218c27dad173369c1b490acf9fe8e4961c",
@@ -540,13 +547,6 @@
       "hash": "11e19708af16262d6c569822c34bccfab8ce1ba6",
       "date": "2026-06-15 17:34:12 +0800",
       "message": "feat: add SteamCommunity 302 post and update claude mirror settings template"
-    }
-  ],
-  "2026-06-26-antigravity-proxy-解决系统代理的不可达性.md": [
-    {
-      "hash": "519e6426b454118912c8cb16c92835deb4f62bed",
-      "date": "2026-06-26 21:13:48 +0800",
-      "message": "CMS:Create Posts “2026-06-26-antigravity-proxy-解决系统代理的不可达性”"
     }
   ],
   "2026-06-28-nvidiaprofileinspector-一个高级的n卡控制面板.md": [
@@ -663,6 +663,18 @@
       "message": "posts: 发布文章Claude Code Hub 部署"
     }
   ],
+  "C_inVScode.md": [
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
+      "date": "2025-10-26 19:10:44 +0800",
+      "message": "post:在VSCode中搭建C语言环境"
+    }
+  ],
   "CFGInstaller.md": [
     {
       "hash": "e1a9e3c46ed3bf1d0610a95632405b12fe2f53eb",
@@ -688,18 +700,6 @@
       "hash": "6b0213579806f89cf6ed91c4ee8e3cf23e5f3437",
       "date": "2025-11-25 14:12:38 +0800",
       "message": "docs(post):CFGinstaller文章发布"
-    }
-  ],
-  "C_inVScode.md": [
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "327f2ceb81eae1555101578b43f86e88b1524ea8",
-      "date": "2025-10-26 19:10:44 +0800",
-      "message": "post:在VSCode中搭建C语言环境"
     }
   ],
   "Markdown-1.md": [
@@ -746,23 +746,6 @@
       "message": "移植文章Minecraft-1"
     }
   ],
-  "Python-1.md": [
-    {
-      "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
-      "date": "2026-03-20 13:12:15 +0800",
-      "message": "CMS:Update Posts “Python-1”"
-    },
-    {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
-      "date": "2025-10-26 19:45:47 +0800",
-      "message": "post:PyTorch环境搭建"
-    }
-  ],
   "OBS-1.md": [
     {
       "hash": "d66fef5d8838a2e8fc9c954599d663db1feb0107",
@@ -778,6 +761,23 @@
       "hash": "5c1b1eb419a636b373a72308ba623fa51133b9db",
       "date": "2025-10-26 21:09:00 +0800",
       "message": "post:OBS-1"
+    }
+  ],
+  "Python-1.md": [
+    {
+      "hash": "3a802bef75f20f71415f72215f7d2201ec256712",
+      "date": "2026-03-20 13:12:15 +0800",
+      "message": "CMS:Update Posts “Python-1”"
+    },
+    {
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "ae4b302251ddc05209aebb3b25dbcabac5e0a823",
+      "date": "2025-10-26 19:45:47 +0800",
+      "message": "post:PyTorch环境搭建"
     }
   ],
   "SrP-Sakura_Minecraft.md": [
@@ -1155,21 +1155,21 @@
       "message": "post: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL"
     }
   ],
-  "mac-mc-1.md": [
+  "mac-mc-2.md": [
     {
-      "hash": "81a7b872a58a78782a087bd532fa0de5bc707d3f",
-      "date": "2026-04-17 23:38:41 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
+      "hash": "7966ba794b42c76f6714c2d2d28051bbd056ee80",
+      "date": "2026-04-17 23:38:13 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
     },
     {
-      "hash": "032be9cfc3590040ad33c4caa1cede095c9a4339",
-      "date": "2026-03-24 22:20:42 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
+      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
+      "date": "2026-03-24 22:19:58 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
     },
     {
-      "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
-      "date": "2026-02-26 20:53:16 +0800",
-      "message": "CMS:Update Posts “mac-mc-1”"
+      "hash": "1476509546a384379a28e5c82d55431677c65a62",
+      "date": "2026-02-26 20:50:10 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
     },
     {
       "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
@@ -1177,32 +1177,27 @@
       "message": "fix:修复文章背景路径"
     },
     {
-      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
-      "date": "2026-01-05 14:45:19 +0800",
-      "message": "fix:修改封面"
+      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
+      "date": "2026-01-05 14:21:52 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
     },
     {
-      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
-      "date": "2026-01-05 14:41:46 +0800",
-      "message": "fix:修复文章封面"
+      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
+      "date": "2026-01-05 14:20:56 +0800",
+      "message": "CMS:Update Posts “mac-mc-2”"
     },
     {
-      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
-      "date": "2025-12-10 10:57:02 +0800",
-      "message": "docs(posts):标签量缩减至3个;feat++"
-    },
-    {
-      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
-      "date": "2025-12-07 19:38:09 +0800",
-      "message": "docs(mac-mc-1):代码段类型添加"
-    },
-    {
-      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
-      "date": "2025-12-07 18:37:35 +0800",
-      "message": "docs(post):mac-mc-1发布"
+      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
+      "date": "2025-12-20 13:06:34 +0800",
+      "message": "docs(post):mac-mc-2发布"
     }
   ],
   "lgnewui2.md": [
+    {
+      "hash": "bb8bda5271dccced82aa8f7dc868006f0e8d361b",
+      "date": "2026-08-01 10:45:32 +0800",
+      "message": "CMS:Update Posts “lgnewui2”"
+    },
     {
       "hash": "2bc2a82487171202efeb871acc65bc1f06728079",
       "date": "2026-08-01 10:43:37 +0800",
@@ -1334,21 +1329,21 @@
       "message": "CMS:Update Posts \"lgnewui2\""
     }
   ],
-  "mac-mc-2.md": [
+  "mac-mc-1.md": [
     {
-      "hash": "7966ba794b42c76f6714c2d2d28051bbd056ee80",
-      "date": "2026-04-17 23:38:13 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
+      "hash": "81a7b872a58a78782a087bd532fa0de5bc707d3f",
+      "date": "2026-04-17 23:38:41 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
     },
     {
-      "hash": "7782a621c288a65d811330a719589a0bb72d0ec8",
-      "date": "2026-03-24 22:19:58 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
+      "hash": "032be9cfc3590040ad33c4caa1cede095c9a4339",
+      "date": "2026-03-24 22:20:42 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
     },
     {
-      "hash": "1476509546a384379a28e5c82d55431677c65a62",
-      "date": "2026-02-26 20:50:10 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
+      "hash": "cc27b162d95df8f19ed62fb0927c728b5cca8b61",
+      "date": "2026-02-26 20:53:16 +0800",
+      "message": "CMS:Update Posts “mac-mc-1”"
     },
     {
       "hash": "8a3f4888b3e0e074bb968dca7ed812b1b2d92d0a",
@@ -1356,22 +1351,32 @@
       "message": "fix:修复文章背景路径"
     },
     {
-      "hash": "bab53a48d8113a090c1f3ab03b0a47afa949475e",
-      "date": "2026-01-05 14:21:52 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
+      "hash": "4b0e67d83da88ca237a377da6131d6049c067432",
+      "date": "2026-01-05 14:45:19 +0800",
+      "message": "fix:修改封面"
     },
     {
-      "hash": "c3078591da247f1e2d198966dbef159f12a3f39a",
-      "date": "2026-01-05 14:20:56 +0800",
-      "message": "CMS:Update Posts “mac-mc-2”"
+      "hash": "41e319bf48e07c2d3b5caded387c36f3b045e78a",
+      "date": "2026-01-05 14:41:46 +0800",
+      "message": "fix:修复文章封面"
     },
     {
-      "hash": "21d3d19bae35a174ea2c18f4dba5b6738accfe86",
-      "date": "2025-12-20 13:06:34 +0800",
-      "message": "docs(post):mac-mc-2发布"
+      "hash": "fd6543e574bbacb9e9deb64940606fcc8b5969ad",
+      "date": "2025-12-10 10:57:02 +0800",
+      "message": "docs(posts):标签量缩减至3个;feat++"
+    },
+    {
+      "hash": "7cec77d93277a416798d1e3b05ee0027d3dddc00",
+      "date": "2025-12-07 19:38:09 +0800",
+      "message": "docs(mac-mc-1):代码段类型添加"
+    },
+    {
+      "hash": "6d365ab7215f0c6c4521b60dc1bc40c90ec866b3",
+      "date": "2025-12-07 18:37:35 +0800",
+      "message": "docs(post):mac-mc-1发布"
     }
   ],
-  "markdown.md": [
+  "markdown-extended.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -1383,7 +1388,7 @@
       "message": "initblog"
     }
   ],
-  "markdown-extended.md": [
+  "markdown.md": [
     {
       "hash": "aa49b61bd79bafe8c740e0e015371293777e7dee",
       "date": "2025-10-25 21:32:31 +0800",
@@ -1420,23 +1425,6 @@
       "hash": "5f4cfdf0b7814fa2202ab2a157ffcbb34d97db16",
       "date": "2026-05-10 14:14:30 +0800",
       "message": "CMS: New Posts \"msys\""
-    }
-  ],
-  "pytorch-2.md": [
-    {
-      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
-      "date": "2026-04-03 01:53:04 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
-      "date": "2026-03-20 12:50:13 +0800",
-      "message": "CMS:Update Posts “pytorch-2”"
-    },
-    {
-      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
-      "date": "2026-03-20 12:41:16 +0800",
-      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "nginx-download.md": [
@@ -1496,6 +1484,23 @@
       "hash": "61b2234796557c5feaaaea2bd57c53c63d2f021c",
       "date": "2026-03-12 22:57:02 +0800",
       "message": "docs: 添加 SrP-Scripts 仓库介绍及视频音频合并脚本详细说明"
+    }
+  ],
+  "pytorch-2.md": [
+    {
+      "hash": "9f05375cebfc6375340c85d9a770b2e84d74974e",
+      "date": "2026-04-03 01:53:04 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "4c1a38ff2544de78e7ee7bfbe8610f89531336d1",
+      "date": "2026-03-20 12:50:13 +0800",
+      "message": "CMS:Update Posts “pytorch-2”"
+    },
+    {
+      "hash": "b3c4ff1fcbfb767d2dff7513defd98ce5e85aeea",
+      "date": "2026-03-20 12:41:16 +0800",
+      "message": "doc(post): 深度学习框架的安装"
     }
   ],
   "sunmoon-scrcpy.md": [
