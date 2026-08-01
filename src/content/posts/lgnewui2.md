@@ -341,6 +341,10 @@ sudo docker network connect mynet mysql57
 
 或者也可以在两段compose里加入如下字段：
 ```yaml
+# ...
+        networks:
+            - web_net
+
 networks:
     web_net:
         name: web_net
