@@ -18,6 +18,19 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issue = context.payload.issue;
+
+            // 去重：opened 与 labeled 事件可能同时触发，避免重复评论
+            const existing = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              per_page: 100
+            });
+            if (existing.data.some((c) => c.body && c.body.includes('📮 友链申请已收到'))) {
+              console.log('guide comment already exists, skip');
+              return;
+            }
+
             const body = [
               '📮 友链申请已收到！感谢你的申请。',
               '',
