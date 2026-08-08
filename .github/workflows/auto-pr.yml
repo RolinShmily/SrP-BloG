@@ -21,7 +21,9 @@ jobs:
       - name: Label PR by changed paths
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.PAT }}
+          # 使用 GITHUB_TOKEN：工作流已声明 contents/pull-requests/issues write 权限，
+          # 足以完成本脚本全部操作；不依赖 PAT，避免 token 过期导致 401 中断。
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const owner = context.repo.owner
             const repo = context.repo.repo

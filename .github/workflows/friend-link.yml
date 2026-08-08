@@ -2,7 +2,7 @@ name: Friend Link Issue Processor
 
 on:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, labeled]
 
 jobs:
   process-friend-link:
@@ -14,6 +14,8 @@ jobs:
       pull-requests: write
 
     steps:
+      # 注意：此工作流必须使用有效 PAT。
+      # 用 GITHUB_TOKEN 创建的分支/PR 不会触发 pull_request_target，会中断 auto-pr 自动化链路。
       - name: Parse Issue and Create PR
         uses: actions/github-script@v7
         env:
