@@ -2,190 +2,51 @@ name: Friend Link Issue Processor
 
 on:
   issues:
-    types: [opened, edited, labeled]
+    types: [opened, labeled]
 
 jobs:
-  process-friend-link:
+  welcome:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.labels.*.name, 'friend-link')
     permissions:
-      contents: write
       issues: write
-      pull-requests: write
-
     steps:
-      # 设计说明：
-      # - 主 token 用 GITHUB_TOKEN：评论、读分支、提交文件等全部操作，永不因 PAT 过期而 401；
-      # - 仅「创建 PR」一步使用 PAT：GITHUB_TOKEN 创建的 PR 不会触发 pull_request_target，
-      #   会中断 auto-pr 的自动打标签链路。因此想走「Issue 提交 → 自动建 PR → 自动打标签校验」
-      #   全链路，仍需维护有效 PAT；PAT 失效时本工作流会在 Issue 上发友好提示。
-      - name: Parse Issue and Create PR
+      - name: Post friend link submission guide
         uses: actions/github-script@v7
-        env:
-          PAT: ${{ secrets.PAT }}
         with:
+          # 仅发指引评论，全程 GITHUB_TOKEN，无 PAT 依赖
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // 建 PR 专用 octokit：PAT 有效则用它创建 PR（保证触发 auto-pr 自动打标签），否则降级为 github
-            let prOctokit = github
-            try {
-              const { getOctokit } = require('@actions/github')
-              if (process.env.PAT) prOctokit = getOctokit(process.env.PAT)
-            } catch (e) {
-              console.warn('prOctokit init failed, will use GITHUB_TOKEN:', e && e.message)
-            }
-
-            try {
             const issue = context.payload.issue;
-            const body = issue.body;
-            
-            // 解析 Issue 内容
-            const sections = body.split('###');
-            const data = {};
-            for (const section of sections) {
-              if (!section.trim()) continue;
-              const lines = section.trim().split('\n');
-              const header = lines[0].trim();
-              const content = lines.slice(1).join('\n').trim();
-              
-              if (header.includes('站点名称')) data.name = content;
-              if (header.includes('站点链接')) data.url = content;
-              if (header.includes('站点描述')) data.description = content;
-              if (header.includes('站点头像')) data.avatar = content;
-              if (header.includes('回链地址')) data.backlink = content;
-            }
-            
-            if (!data.name || !data.url || !data.avatar) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: issue.number,
-                body: "❌ 友链申请解析失败：缺少必要信息（名称、链接、头像）。请检查你的 Issue 内容是否完整并重新编辑。"
-              });
-              return;
-            }
-            
-            // 创建 JSON 文件内容
-            const frlinkObj = {
-              name: data.name,
-              url: data.url,
-              description: data.description || "",
-              avatar: data.avatar,
-              backlink: data.backlink || ""
-            };
-            
-            const safeName = data.name.replace(/[^a-zA-Z0-9\u4e00-\u9fa5_-]/g, '');
-            const filePath = `src/data/frlinks/${safeName}.json`;
-            const fileContent = JSON.stringify(frlinkObj, null, 2);
-            const encodedContent = Buffer.from(fileContent).toString('base64');
-            
-            // 验证链接是否存活（简单的 fetch）
-            try {
-              const urlResponse = await fetch(data.url);
-              if (!urlResponse.ok) {
-                 await github.rest.issues.createComment({
-                    owner: context.repo.owner,
-                    repo: context.repo.repo,
-                    issue_number: issue.number,
-                    body: `⚠️ 友链申请警告：无法访问你的站点链接 \`${data.url}\` (状态码: ${urlResponse.status})。请确保链接可访问，我们将进行人工审核。`
-                 });
-              }
-            } catch (error) {
-               console.log("Fetch failed", error);
-            }
-
-            const branchName = `friend-link-${issue.number}`;
-            
-            // 检查分支是否已存在
-            let branchExists = false;
-            try {
-              await github.rest.repos.getBranch({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                branch: branchName
-              });
-              branchExists = true;
-            } catch (e) {
-              branchExists = false;
-            }
-            
-            if (!branchExists) {
-              // 创建分支
-              const mainBranch = await github.rest.git.getRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: 'heads/main'
-              });
-              
-              await github.rest.git.createRef({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                ref: `refs/heads/${branchName}`,
-                sha: mainBranch.data.object.sha
-              });
-            }
-
-            // 提交文件
-            let sha = undefined;
-            try {
-              const existingFile = await github.rest.repos.getContent({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                path: filePath,
-                ref: branchName
-              });
-              sha = existingFile.data.sha;
-            } catch (e) {}
-
-            await github.rest.repos.createOrUpdateFileContents({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              path: filePath,
-              message: `Add friend link: ${data.name} (#${issue.number})`,
-              content: encodedContent,
-              branch: branchName,
-              sha: sha
-            });
-
-            // 寻找现有的 PR
-            const pulls = await github.rest.pulls.list({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              head: `${context.repo.owner}:${branchName}`,
-              state: 'open'
-            });
-
-            let prNumber;
-            if (pulls.data.length > 0) {
-              prNumber = pulls.data[0].number;
-            } else {
-              // 创建 PR（必须用 PAT：GITHUB_TOKEN 创建的 PR 不会触发 auto-pr 自动打标签）
-              const pr = await prOctokit.rest.pulls.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: `✨ 新友链申请: ${data.name}`,
-                body: `Closes #${issue.number}\n\n自动生成的友链 PR，请管理员审核。`,
-                head: branchName,
-                base: 'main'
-              });
-              prNumber = pr.data.number;
-            }
-
-            // 评论通知用户
+            const body = [
+              '📮 友链申请已收到！感谢你的申请。',
+              '',
+              '本 Issue 仅作为申请登记（自动打上 `friend-link` 标签）。',
+              '请按以下步骤**直接提交 JSON 文件**，提交 PR 后机器人会自动打标签并校验：',
+              '',
+              '1. Fork 本仓库',
+              '2. 在 `src/data/frlinks/` 目录新增一个 JSON 文件（文件名随意，建议用站点名），内容格式如下：',
+              '',
+              '```json',
+              '{',
+              '  "name": "站点名称",',
+              '  "url": "https://example.com/",',
+              '  "description": "一句话描述你的网站",',
+              '  "avatar": "https://example.com/favicon.png",',
+              '  "backlink": "https://example.com/friends/"',
+              '}',
+              '```',
+              '',
+              '3. 提交 Pull Request（标题格式不限，机器人会自动改写）',
+              '',
+              '提交后机器人自动完成：格式校验 → URL 可达性检查 → 双向链接验证，',
+              '全部通过后由站长人工合并，合并即上线。',
+              '',
+              '> 注意：`backlink` 页面必须包含本站的绝对链接 `https://blog.srprolin.top/`，否则双向验证不通过。'
+            ].join('\n');
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: issue.number,
-              body: `🎉 友链申请已成功解析！系统已自动创建了 Pull Request: #${prNumber} 。请等待管理员审核合并，合并后即可在网站上看到你的链接！`
+              body
             });
-            } catch (e) {
-              console.error('Friend link processor failed:', e)
-              try {
-                await github.rest.issues.createComment({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: context.payload.issue.number,
-                  body: `⚠️ 友链申请自动处理失败：${e && e.message || e}\n\n可能原因：仓库 Actions 中的 \`PAT\` 已失效。可改为直接向仓库提交 PR 申请友链（PR 会自动打标签并校验），或联系站长更新 PAT。`
-                })
-              } catch (_) {}
-            }

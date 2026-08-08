@@ -7,7 +7,10 @@ body:
     attributes:
       value: |
         欢迎申请友链！请填妥以下信息。
-        如果你的友链信息有效，机器人将自动验证并回复。
+
+        - 提交后会自动打上 `friend-link` 标签（申请登记），机器人会回复提交指引：
+          需要按指定 JSON 格式把友链信息提交为 Pull Request。
+        - 机器人会对 PR 自动打标签、校验 URL 可达性与双向链接，最终由站长人工合并。
 
   - type: input
     id: sitename
