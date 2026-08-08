@@ -14,15 +14,28 @@ jobs:
       pull-requests: write
 
     steps:
-      # 注意：此工作流必须使用有效 PAT。
-      # 用 GITHUB_TOKEN 创建的分支/PR 不会触发 pull_request_target，会中断 auto-pr 自动化链路。
+      # 设计说明：
+      # - 主 token 用 GITHUB_TOKEN：评论、读分支、提交文件等全部操作，永不因 PAT 过期而 401；
+      # - 仅「创建 PR」一步使用 PAT：GITHUB_TOKEN 创建的 PR 不会触发 pull_request_target，
+      #   会中断 auto-pr 的自动打标签链路。因此想走「Issue 提交 → 自动建 PR → 自动打标签校验」
+      #   全链路，仍需维护有效 PAT；PAT 失效时本工作流会在 Issue 上发友好提示。
       - name: Parse Issue and Create PR
         uses: actions/github-script@v7
         env:
           PAT: ${{ secrets.PAT }}
         with:
-          github-token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            // 建 PR 专用 octokit：PAT 有效则用它创建 PR（保证触发 auto-pr 自动打标签），否则降级为 github
+            let prOctokit = github
+            try {
+              const { getOctokit } = require('@actions/github')
+              if (process.env.PAT) prOctokit = getOctokit(process.env.PAT)
+            } catch (e) {
+              console.warn('prOctokit init failed, will use GITHUB_TOKEN:', e && e.message)
+            }
+
+            try {
             const issue = context.payload.issue;
             const body = issue.body;
             
@@ -146,8 +159,8 @@ jobs:
             if (pulls.data.length > 0) {
               prNumber = pulls.data[0].number;
             } else {
-              // 创建 PR
-              const pr = await github.rest.pulls.create({
+              // 创建 PR（必须用 PAT：GITHUB_TOKEN 创建的 PR 不会触发 auto-pr 自动打标签）
+              const pr = await prOctokit.rest.pulls.create({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 title: `✨ 新友链申请: ${data.name}`,
@@ -165,3 +178,14 @@ jobs:
               issue_number: issue.number,
               body: `🎉 友链申请已成功解析！系统已自动创建了 Pull Request: #${prNumber} 。请等待管理员审核合并，合并后即可在网站上看到你的链接！`
             });
+            } catch (e) {
+              console.error('Friend link processor failed:', e)
+              try {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.payload.issue.number,
+                  body: `⚠️ 友链申请自动处理失败：${e && e.message || e}\n\n可能原因：仓库 Actions 中的 \`PAT\` 已失效。可改为直接向仓库提交 PR 申请友链（PR 会自动打标签并校验），或联系站长更新 PAT。`
+                })
+              } catch (_) {}
+            }

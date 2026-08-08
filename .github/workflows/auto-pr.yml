@@ -5,7 +5,7 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  contents: write
+  contents: read
   pull-requests: write
   issues: write
 
@@ -20,13 +20,9 @@ jobs:
     steps:
       - name: Label PR by changed paths
         uses: actions/github-script@v7
-        env:
-          # 仅合并步骤需要真 PAT：GITHUB_TOKEN 执行 pulls.merge 会返回
-          # 403 "Resource not accessible by integration"（fork PR 场景）。
-          MERGE_TOKEN: ${{ secrets.PAT }}
         with:
-          # 主 token 用 GITHUB_TOKEN：工作流已声明 contents/pull-requests/issues write 权限，
-          # 足以完成标签/校验/评论等全部操作，不依赖 PAT，避免 token 过期导致 401 中断。
+          # 全程使用 GITHUB_TOKEN（工作流已声明所需权限）：自动打标签、校验、评论。
+          # 不依赖 PAT，避免 token 过期导致 401 中断；自动合并已移除，合并由站长人工完成。
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const owner = context.repo.owner
@@ -603,22 +599,18 @@ jobs:
                 }
 
                 await setLabels({ addLabels: [LABEL_BIDIR_OK], removeLabels: [LABEL_BIDIR] })
-                core.info('bidir: verified ok -> merge')
+                core.info('bidir: verified ok -> notify for manual merge')
 
-                try {
-                  // GITHUB_TOKEN 无法合并 fork PR（403 Resource not accessible by integration），
-                  // 因此有有效 PAT 时用 PAT 执行合并；否则降级尝试并用清晰评论提示站长。
-                  const mergeToken = process.env.MERGE_TOKEN || ''
-                  let mergeApi = github
-                  if (mergeToken) {
-                    const { getOctokit } = require('@actions/github')
-                    mergeApi = getOctokit(mergeToken)
-                  }
-                  await mergeApi.rest.pulls.merge({ owner, repo, pull_number, merge_method: 'squash' })
-                } catch (e) {
-                  await createComment(
-                    `自动合并失败：${e?.message || e}\n\n如果错误为 \`Resource not accessible by integration\`，请站长在仓库 Settings → Secrets and variables → Actions 中更新有效的 PAT（需 repo 或 Contents/Pull requests 读写权限）后重新触发；或直接手动合并本 PR。`
-                  )
-                  return
-                }
+                // 自动合并已移除：验证通过后由站长在 GitHub 页面人工 Merge。
+                await createComment(
+                  [
+                    '✅ 友链申请全部校验通过：',
+                    '',
+                    '• 头像 URL 可达',
+                    '• 网站 URL 可达',
+                    '• 双向链接验证通过（backlink 页面已包含本站链接）',
+                    '',
+                    '请站长审核后手动合并本 PR（Merge pull request），合并后友链即上线。',
+                  ].join('\n')
+                )
               }
