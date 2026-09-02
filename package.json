@@ -2,6 +2,8 @@
   "name": "SrP-BloG",
   "type": "module",
   "version": "0.0.1",
+  "description": "A personal tech blog built with Astro, customized based on the Fuwari template.",
+  "license": "MIT",
   "scripts": {
     "dev": "astro dev --host --port 3005",
     "start": "astro dev --host --port 3005",

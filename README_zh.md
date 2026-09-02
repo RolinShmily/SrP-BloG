@@ -1,7 +1,7 @@
 <h1 align="center">SrP-BloG</h1>
 
 <p align="center">
-  <b>A Personal Tech Blog powered by Astro & Fuwari</b>
+  <b>基于 Astro 与 Fuwari 构建的个人技术博客</b>
 </p>
 
 <div align="center">
@@ -17,23 +17,23 @@
 
 ---
 
-## Overview
+## 概述说明
 
-**SrP-BloG** is a personal static blog website built with the [Astro](https://github.com/withastro/astro) framework. It is customized and expanded upon the [Fuwari](https://github.com/saicaca/fuwari) theme (originally created by [saicaca](https://github.com/saicaca)).
+**SrP-BloG** 是一个基于 [Astro](https://github.com/withastro/astro) 框架构建的个人静态技术博客网站。本项目基于 [saicaca](https://github.com/saicaca) 开发的 [Fuwari](https://github.com/saicaca/fuwari) 模版进行二次定制与功能扩展。
 
-## License & Attribution
+## 开源协议与版权声明
 
-This project is licensed and attributed under the following terms:
+本项目严格遵循开源许可规范并尊重上游作者版权，具体授权细则如下：
 
-1. **Source Code & Custom Modifications**:
-   - The codebase and custom modifications of this repository are licensed under the **[MIT License](./LICENSE)** (Copyright &copy; 2025-2026 RoL1n_SrP).
-2. **Upstream Template Attribution**:
-   - Customized based on [Fuwari](https://github.com/saicaca/fuwari), copyright &copy; 2024 [saicaca](https://github.com/saicaca), originally released under the MIT License (full original notice included below).
-3. **Blog Content**:
-   - All written articles and media content are licensed under **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)** (Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International) unless otherwise specified.
+1. **博客源码与二次开发代码**：
+   - 本仓库的源代码及后续新增/修改功能均基于 **[MIT License](./LICENSE)**（Copyright &copy; 2025-2026 RoL1n_SrP）开源。
+2. **上游模板致谢与版权**：
+   - 基础模版源自 [Fuwari](https://github.com/saicaca/fuwari)，版权所有 &copy; 2024 [saicaca](https://github.com/saicaca)，原模版基于 MIT License 发布（完整授权文本见下方折叠区）。
+3. **博客文章与原创内容**：
+   - 博客内所有原创文章及多媒体内容（除特殊注明外）均采用 **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)**（知识共享 署名-非商业性使用-相同方式共享 4.0 国际许可协议）进行许可。
 
 <details>
-<summary><b>Click to view Fuwari's original MIT License</b></summary>
+<summary><b>点击展开查看 Fuwari 原作者 MIT 许可证文本</b></summary>
 
 ```text
 MIT License

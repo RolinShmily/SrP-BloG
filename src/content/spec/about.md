@@ -1,6 +1,6 @@
 # 关于本站
 
-本网站是一个基于 [Astro](https://github.com/withastro/astro) 框架构建的静态博客，使用了 [Fuwari](https://github.com/saicaca/fuwari) 模板，采用 [GPL-3.0](https://www.gnu.org/licenses/gpl-3.0.html) 协议开源。
+本网站是一个基于 [Astro](https://github.com/withastro/astro) 框架构建的静态博客，使用了 [Fuwari](https://github.com/saicaca/fuwari) 模板，采用 [MIT](https://opensource.org/license/mit) 协议开源。
 
 **博客主站** - 本站源码，包含文章内容、主题配置及功能实现。
 
