@@ -1,0 +1,30 @@
+# Cloudflare Workers + D1 configuration for srp-blog-upv.
+#
+#   wrangler d1 create srp-blog-upv      # paste the printed database_id below
+#   wrangler d1 execute srp-blog-upv --file=./schema.sql --remote
+#   wrangler secret put SALT            # never commit the real salt
+#   wrangler deploy
+
+name = "srp-blog-upv"
+main = "src/worker.ts"
+compatibility_date = "2025-01-01"
+
+# Workers modules with explicit .ts import specifiers are bundled by esbuild.
+# Node built-ins are NOT used by the Worker path: worker.ts -> app.ts ->
+# store.ts -> store-d1.ts only touches Web APIs and the D1 binding.
+
+[[d1_databases]]
+binding = "DB"
+database_name = "srp-blog-upv"
+database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+
+[vars]
+# Restrict this in production, e.g. "https://blog.example.com,https://www.blog.example.com".
+ALLOWED_ORIGINS = "*"
+# 0 = disabled. A Worker may have several live isolates, so in-memory
+# throttling is best-effort only; use Cloudflare Rate Limiting rules instead.
+THROTTLE_WINDOW_MS = "0"
+BLOCK_BOTS = "true"
+
+# SALT is a secret, not a var:
+#   wrangler secret put SALT

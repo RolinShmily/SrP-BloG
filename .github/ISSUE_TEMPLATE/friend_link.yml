@@ -9,8 +9,14 @@ body:
         欢迎申请友链！请填妥以下信息。
 
         - 提交后会自动打上 `friend-link` 标签（申请登记），机器人会回复提交指引：
-          需要按指定 JSON 格式把友链信息提交为 Pull Request。
+          需要在 `content/friends/` 目录下新增一个 JSON 文件（文件名建议用站点名）并提交 Pull Request。
         - 机器人会对 PR 自动打标签、校验 URL 可达性与双向链接，最终由站长人工合并。
+
+        参考格式（`content/friends/<站点名>.json`，单个文件只写一个对象，不是数组）：
+
+        ```json
+        { "name": "站点名", "url": "https://example.com", "description": "一句话简介", "avatar": "https://example.com/avatar.png" }
+        ```
 
   - type: input
     id: sitename
@@ -52,7 +58,7 @@ body:
     id: sitebacklink
     attributes:
       label: 回链地址 (backlink)
-      description: 你网站上放置了本站链接的页面地址 (用于验证)
-      placeholder: 例如：https://blog.srprolin.top/frlinks/
+      description: 你网站上放置了本站链接的页面地址 (用于自动双向链接验证，可选；填写后需包含 https://blog.srprolin.top/)
+      placeholder: 例如：https://example.com/friends/
     validations:
       required: true

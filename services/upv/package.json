@@ -1,0 +1,22 @@
+{
+	"name": "srp-blog-upv",
+	"version": "0.1.0",
+	"private": true,
+	"type": "module",
+	"description": "Self-contained Unique Visitor / Page View counting service for srp-blog. Runs on Node/Bun + SQLite (VPS/Docker) or Cloudflare Workers + D1 with the exact same core logic. Zero runtime dependencies.",
+	"engines": {
+		"node": ">=22.5"
+	},
+	"scripts": {
+		"start": "node --experimental-sqlite --experimental-strip-types src/server.ts",
+		"start:bun": "bun run src/server.bun.ts",
+		"typecheck": "tsc --noEmit -p tsconfig.json",
+		"smoke": "bash smoke-test.sh",
+		"d1:schema": "wrangler d1 execute srp-blog-upv --file=./schema.sql",
+		"d1:schema:remote": "wrangler d1 execute srp-blog-upv --remote --file=./schema.sql",
+		"cf:dev": "wrangler dev",
+		"cf:deploy": "wrangler deploy"
+	},
+	"dependencies": {},
+	"devDependencies": {}
+}

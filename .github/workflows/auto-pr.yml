@@ -18,7 +18,7 @@ jobs:
     if: ${{ github.event_name == 'pull_request_target' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Label PR by changed paths
+      - name: Label & validate friend-link PRs
         uses: actions/github-script@v7
         with:
           # 全程使用 GITHUB_TOKEN（工作流已声明所需权限）：自动打标签、校验、评论。
@@ -29,8 +29,12 @@ jobs:
             const repo = context.repo.repo
             const pull_number = context.payload.pull_request.number
 
+            // 友链数据：目录型布局，每人一个 JSON 文件（content/friends/<站点名>.json）。
+            const FRIENDS_DIR = 'content/friends/'
+            const SITE_CONFIG_FILE = 'src/config/site.ts'
+            const DEFAULT_SITE_URL = 'https://blog.srprolin.top'
+
             const LABEL_FRIEND = '友链'
-            const LABEL_SPONSOR = '赞助'
             const LABEL_AVATAR_OK = '头像可达'
             const LABEL_AVATAR_BAD = '头像不可达'
             const LABEL_SITE_OK = '网站可达'
@@ -38,6 +42,8 @@ jobs:
             const LABEL_ALL_OK = 'URL全部可达'
             const LABEL_BIDIR = '双向链接验证'
             const LABEL_BIDIR_OK = '双向链接验证通过'
+
+            const REQUIRED_FIELDS = ['name', 'url', 'description', 'avatar']
 
             async function ensureLabel(name) {
               try {
@@ -65,19 +71,19 @@ jobs:
             }
 
             const files = await listAllFiles()
-            const paths = files.map((f) => f.filename)
 
-            const touchedFriends = paths.some((p) => p.startsWith('src/data/frlinks/'))
-            const touchedSponsors = paths.some((p) => p.startsWith('src/data/sponsors/'))
+            // GitHub API 返回的 filename 可能是 URL-encoded（含中文文件名时），统一 decode 后再比较。
+            const paths = files.map((f) => decodePath(f.filename))
 
-            if (!touchedFriends && !touchedSponsors) {
-              core.info('No friends/sponsors changes detected. Skip.')
+            const touchedFriends = paths.some((p) => p.startsWith(FRIENDS_DIR))
+
+            if (!touchedFriends) {
+              core.info(`No ${FRIENDS_DIR} changes detected. Skip.`)
               return
             }
 
             for (const name of [
               LABEL_FRIEND,
-              LABEL_SPONSOR,
               LABEL_AVATAR_OK,
               LABEL_AVATAR_BAD,
               LABEL_SITE_OK,
@@ -89,23 +95,12 @@ jobs:
               await ensureLabel(name)
             }
 
-            const add = []
-            const remove = []
-            if (touchedFriends) add.push(LABEL_FRIEND)
-            if (touchedSponsors) add.push(LABEL_SPONSOR)
-            if (touchedFriends && !touchedSponsors) remove.push(LABEL_SPONSOR)
-            if (touchedSponsors && !touchedFriends) remove.push(LABEL_FRIEND)
-
-            if (add.length) {
-              await github.rest.issues.addLabels({ owner, repo, issue_number: pull_number, labels: add })
-            }
-            for (const name of remove) {
-              try {
-                await github.rest.issues.removeLabel({ owner, repo, issue_number: pull_number, name })
-              } catch (e) {
-                if (e.status !== 404) throw e
-              }
-            }
+            await github.rest.issues.addLabels({
+              owner,
+              repo,
+              issue_number: pull_number,
+              labels: [LABEL_FRIEND],
+            })
 
             async function createComment(body) {
               const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
@@ -129,6 +124,18 @@ jobs:
               return typeof v === 'string' && v.trim().length > 0
             }
 
+            // GitHub API 在某些场景下会返回 URL-encoded 的路径（例如含中文的文件名）。
+            // 仅在确实含 %XX 转义时尝试 decode，避免误伤本来就含 % 的合法文件名。
+            function decodePath(p) {
+              if (!isNonEmptyString(p)) return p
+              if (!/%[0-9A-Fa-f]{2}/.test(p)) return p
+              try {
+                return decodeURIComponent(p)
+              } catch {
+                return p
+              }
+            }
+
             function parseJsonSafe(text) {
               try {
                 return { ok: true, value: JSON.parse(text) }
@@ -144,15 +151,30 @@ jobs:
               return raw
             }
 
+            // 列出 ref 上 content/friends/ 目录下的全部 .json 文件路径（目录不存在时返回空数组）。
+            async function listFriendFiles(ref) {
+              try {
+                const res = await github.rest.repos.getContent({ owner, repo, path: 'content/friends', ref })
+                if (!Array.isArray(res.data)) return []
+                return res.data
+                  .filter((e) => e.type === 'file' && e.name.toLowerCase().endsWith('.json'))
+                  .map((e) => decodePath(e.path))
+              } catch (e) {
+                if (e?.status === 404) return []
+                throw e
+              }
+            }
+
+            // 站点主域名从 src/config/site.ts 的 `url:` 字段读取（不再读取 Astro 时代的配置文件）。
             async function getSiteBase() {
               try {
-                const raw = await getTextFileFromRepo('astro.config.mjs', context.payload.repository.default_branch)
-                const m = raw.match(/\bsite\s*:\s*["']([^"']+)["']/)
-                if (!m) return null
+                const raw = await getTextFileFromRepo(SITE_CONFIG_FILE, context.payload.repository.default_branch)
+                const m = raw.match(/[^\w]url\s*:\s*["']([^"']+)["']/)
+                if (!m) return DEFAULT_SITE_URL
                 return m[1]
               } catch (e) {
-                core.warning(`Failed to read astro.config.mjs: ${e?.message || e}`)
-                return null
+                core.warning(`Failed to read ${SITE_CONFIG_FILE}: ${e?.message || e}`)
+                return DEFAULT_SITE_URL
               }
             }
 
@@ -170,6 +192,11 @@ jobs:
               } catch {
                 return null
               }
+            }
+
+            function urlKey(entry) {
+              if (!entry || !isNonEmptyString(entry.url)) return null
+              return (normalizeUrl(entry.url) || entry.url.trim()).toLowerCase()
             }
 
             async function checkUrl(url, { timeoutMs }) {
@@ -227,18 +254,35 @@ jobs:
               }
             }
 
-            const relevant = files.filter((f) => {
-              if (f.status === 'removed') return false
-              if (f.filename.startsWith('src/data/frlinks/')) return true
-              if (f.filename.startsWith('src/data/sponsors/')) return true
-              return false
-            })
+            const headSha = context.payload.pull_request.head.sha
+            const baseSha = context.payload.pull_request.base.sha
 
-            const invalidSuffix = relevant.filter((f) => !f.filename.endsWith('.json')).map((f) => f.filename)
+            // 本 PR 在 content/friends/ 下新增/修改的文件（删除单独拦截）。
+            const changedFriendFiles = files
+              .filter((f) => decodePath(f.filename).startsWith(FRIENDS_DIR) && f.status !== 'removed')
+              .map((f) => decodePath(f.filename))
+            const removedFriendFiles = files
+              .filter((f) => decodePath(f.filename).startsWith(FRIENDS_DIR) && f.status === 'removed')
+              .map((f) => decodePath(f.filename))
+
+            if (removedFriendFiles.length) {
+              await createComment(
+                [
+                  '检测到本 PR 删除了友链数据文件：',
+                  '',
+                  ...removedFriendFiles.map((p) => `- \`${p}\``),
+                  '',
+                  '友链数据不可静默删除，请恢复文件；如确需移除某条友链，请说明理由并等待站长人工处理。',
+                ].join('\n')
+              )
+              return
+            }
+
+            const invalidSuffix = changedFriendFiles.filter((p) => !p.endsWith('.json'))
             if (invalidSuffix.length) {
               await createComment(
                 [
-                  '检测到友链/赞助目录下存在非 .json 文件，已停止处理：',
+                  `检测到 ${FRIENDS_DIR} 目录下存在非 .json 文件，已停止处理：`,
                   '',
                   ...invalidSuffix.map((p) => `- ${p}`),
                 ].join('\n')
@@ -246,60 +290,87 @@ jobs:
               return
             }
 
-            const headSha = context.payload.pull_request.head.sha
-            const parsedEntries = []
-            const errors = []
-
-            for (const f of relevant) {
-              const raw = await getTextFileFromRepo(f.filename, headSha)
-              const parsed = parseJsonSafe(raw)
-              if (!parsed.ok) {
-                errors.push(`${f.filename}: JSON 解析失败（${parsed.error}）`)
-                continue
-              }
-              if (!parsed.value || typeof parsed.value !== 'object' || Array.isArray(parsed.value)) {
-                errors.push(`${f.filename}: JSON 必须是对象`)
-                continue
-              }
-
-              const kind = f.filename.startsWith('src/data/frlinks/') ? 'friend' : 'sponsor'
-              parsedEntries.push({ path: f.filename, kind, data: parsed.value })
-            }
-
-            function validateEntry({ kind, data, path }) {
-              const entryErrors = []
-              if (!isNonEmptyString(data.name)) entryErrors.push('name 必填')
-              if (!isNonEmptyString(data.avatar)) entryErrors.push('avatar 必填')
-              if (kind === 'friend') {
-                if (!isNonEmptyString(data.url)) entryErrors.push('url 必填')
-              }
-              if (kind === 'sponsor') {
-                if (!isNonEmptyString(data.date)) entryErrors.push('date 必填')
-                if (!isNonEmptyString(data.amount)) entryErrors.push('amount 必填')
-              }
-              if (entryErrors.length) return `${path}: ${entryErrors.join('、')}`
-              return null
-            }
-
-            for (const e of parsedEntries) {
-              const err = validateEntry(e)
-              if (err) errors.push(err)
-            }
-
-            if (errors.length) {
-              await createComment(['检测到数据文件校验失败：', '', ...errors.map((x) => `- ${x}`)].join('\n'))
+            if (changedFriendFiles.length === 0) {
+              core.info(`No ${FRIENDS_DIR}*.json changes detected. Skip.`)
               return
             }
 
-            const vipPaths = parsedEntries
-              .filter((e) => Object.prototype.hasOwnProperty.call(e.data, 'vip'))
-              .map((e) => e.path)
+            const errors = []
+            const vipPaths = []
+            const changedEntries = []
+
+            // 逐个解析被改动的文件：每个文件必须是单个 JSON 对象。
+            for (const path of changedFriendFiles) {
+              const raw = await getTextFileFromRepo(path, headSha)
+              const parsed = parseJsonSafe(raw)
+              if (!parsed.ok) {
+                errors.push(`${path}：JSON 解析失败（${parsed.error}）`)
+                continue
+              }
+              const entry = parsed.value
+              if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
+                errors.push(`${path}：必须是单个 JSON 对象（目录型友链：一个文件一个对象，不是数组）`)
+                continue
+              }
+              changedEntries.push({ path, data: entry })
+            }
+
+            // 校验必填字段与 URL 合法性。
+            for (const { path, data } of changedEntries) {
+              const label = isNonEmptyString(data.name) ? data.name.trim() : path
+              for (const field of REQUIRED_FIELDS) {
+                if (!isNonEmptyString(data[field])) errors.push(`${label}（${path}）：缺少必填字段 ${field}`)
+              }
+              if (isNonEmptyString(data.url) && !normalizeUrl(data.url)) {
+                errors.push(`${label}（${path}）：url 不是合法的 http(s) 绝对链接（${data.url}）`)
+              }
+              if (isNonEmptyString(data.avatar) && !normalizeUrl(data.avatar)) {
+                errors.push(`${label}（${path}）：avatar 不是合法的 http(s) 绝对链接（${data.avatar}）`)
+              }
+              if (Object.prototype.hasOwnProperty.call(data, 'vip')) vipPaths.push(path)
+            }
+
+            // 与目录内其他所有友链文件比对，全库 url 唯一。
+            const repoFriendFiles = await listFriendFiles(headSha)
+            const seenUrlKeys = new Map()
+            for (const otherPath of repoFriendFiles) {
+              let data = null
+              const local = changedEntries.find((e) => e.path === otherPath)
+              if (local) {
+                data = local.data
+              } else {
+                try {
+                  const raw = await getTextFileFromRepo(otherPath, headSha)
+                  const parsed = parseJsonSafe(raw)
+                  if (parsed.ok) data = parsed.value
+                  else errors.push(`${otherPath}：JSON 解析失败（${parsed.error}）`)
+                } catch (e) {
+                  errors.push(`${otherPath}：无法读取（${e?.message || e}）`)
+                }
+              }
+              if (!data || typeof data !== 'object' || Array.isArray(data)) continue
+              const key = urlKey(data)
+              if (!key) continue
+              if (seenUrlKeys.has(key)) {
+                errors.push(`${otherPath}：url 与其他友链文件重复（${seenUrlKeys.get(key)}，${data.url}）`)
+              } else {
+                seenUrlKeys.set(key, otherPath)
+              }
+            }
+
+            if (errors.length) {
+              await createComment(
+                [`检测到 \`${FRIENDS_DIR}\` 友链校验失败：`, '', ...errors.map((x) => `- ${x}`)].join('\n')
+              )
+              return
+            }
+
             if (vipPaths.length) {
               await createComment(
                 [
                   '检测到 JSON 存在 vip 字段，已终止自动流程。',
                   '',
-                  '请从以下文件移除 vip 字段后再 push 更新（移除后才会继续自动校验/自动合并）：',
+                  '请从以下文件移除 vip 字段后再 push 更新（移除后才会继续自动校验）：',
                   '',
                   ...vipPaths.map((p) => `- ${p}`),
                 ].join('\n')
@@ -307,21 +378,42 @@ jobs:
               return
             }
 
-            const primaryKind = touchedSponsors ? 'sponsor' : 'friend'
-            const primary = parsedEntries.find((e) => e.kind === primaryKind) || parsedEntries[0]
+            // 与 base 版本比较，定位本次新增/修改的文件作为被审核对象。
+            let primaryEntry = null
+            for (const entry of changedEntries) {
+              let baseData = null
+              try {
+                const baseRaw = await getTextFileFromRepo(entry.path, baseSha)
+                const baseParsed = parseJsonSafe(baseRaw)
+                baseData = baseParsed.ok ? baseParsed.value : null
+              } catch (e) {
+                core.info(`No base version of ${entry.path} (${e?.message || e}); treating it as new.`)
+              }
+              if (baseData === null) {
+                primaryEntry = entry
+                break
+              }
+              if (!primaryEntry && JSON.stringify(baseData) !== JSON.stringify(entry.data)) {
+                primaryEntry = entry
+              }
+            }
+            if (!primaryEntry) primaryEntry = changedEntries[0]
+
+            const primaryPath = primaryEntry.path
+            const primary = primaryEntry.data
 
             await github.rest.pulls.update({
               owner,
               repo,
               pull_number,
-              title: `${primary.kind === 'friend' ? '友链' : '赞助'}：${primary.data.name}`,
+              title: `友链：${primary.name}`,
             })
 
-            const avatarUrl = normalizeUrl(primary.data.avatar)
-            const siteUrl = normalizeUrl(primary.data.url)
-            const selfSite = siteBase ? siteBase.replace(/\/$/, '') : null
+            const avatarUrl = normalizeUrl(primary.avatar)
+            const siteUrl = normalizeUrl(primary.url)
+            const selfSite = siteBase.replace(/\/$/, '')
             const normalizedSiteUrl = siteUrl ? siteUrl.replace(/\/$/, '') : null
-            const normalizedBacklinkRaw = isNonEmptyString(primary.data.backlink) ? primary.data.backlink.trim() : null
+            const normalizedBacklinkRaw = isNonEmptyString(primary.backlink) ? primary.backlink.trim() : null
             const normalizedBacklinkUrl = normalizedBacklinkRaw
               ? (() => {
                   try {
@@ -331,286 +423,232 @@ jobs:
                   }
                 })()
               : null
-            if (primary.kind === 'friend' && selfSite) {
-              if (normalizedSiteUrl === selfSite) {
-                await createComment(`检测到友链 JSON 的 url 指向本站（${siteBase}），请填写你自己的网站 URL。`)
-                return
-              }
-              if (normalizedBacklinkUrl === selfSite) {
-                await createComment(`检测到友链 JSON 的 backlink 指向本站（${siteBase}），请填写你自己网站的友链页 URL。`)
-                return
-              }
+            if (normalizedSiteUrl === selfSite) {
+              await createComment(`检测到友链的 url 指向本站（${siteBase}），请填写你自己的网站 URL。`)
+              return
+            }
+            if (normalizedBacklinkUrl === selfSite) {
+              await createComment(`检测到友链的 backlink 指向本站（${siteBase}），请填写你自己网站的友链页 URL。`)
+              return
             }
 
             const avatarCheck = avatarUrl ? await checkUrl(avatarUrl, { timeoutMs: 10000 }) : { ok: false, error: 'Invalid avatar URL' }
-            const siteCheck =
-              primary.kind === 'friend'
-                ? siteUrl
-                  ? await checkUrl(siteUrl, { timeoutMs: 10000 })
-                  : { ok: false, error: 'Invalid site URL' }
-                : siteUrl
-                  ? await checkUrl(siteUrl, { timeoutMs: 10000 })
-                  : null
+            const siteCheck = siteUrl ? await checkUrl(siteUrl, { timeoutMs: 10000 }) : { ok: false, error: 'Invalid site URL' }
 
             const addReach = []
             const removeReach = [LABEL_AVATAR_OK, LABEL_AVATAR_BAD, LABEL_SITE_OK, LABEL_SITE_BAD, LABEL_ALL_OK]
 
             addReach.push(avatarCheck.ok ? LABEL_AVATAR_OK : LABEL_AVATAR_BAD)
-            if (siteCheck) addReach.push(siteCheck.ok ? LABEL_SITE_OK : LABEL_SITE_BAD)
+            addReach.push(siteCheck.ok ? LABEL_SITE_OK : LABEL_SITE_BAD)
 
-            const allOk = avatarCheck.ok && (!siteCheck || siteCheck.ok)
-            if (allOk && siteCheck) addReach.push(LABEL_ALL_OK)
+            const allOk = avatarCheck.ok && siteCheck.ok
+            if (allOk) addReach.push(LABEL_ALL_OK)
 
             await setLabels({ addLabels: addReach, removeLabels: removeReach, skipIfSame: true })
-
-            if (primary.kind === 'sponsor') {
-              // 赞助申请流程：需要站长人工审核
-              const LABEL_PENDING_REVIEW = '待人工审核'
-
-              await github.rest.issues.addLabels({
-                owner,
-                repo,
-                issue_number: pull_number,
-                labels: [LABEL_PENDING_REVIEW],
-              })
-
-              if (avatarCheck.ok) {
-                await createComment(
-                  [
-                    '✅ 赞助信息格式校验通过！',
-                    '',
-                    '• 头像 URL 可达',
-                    '',
-                    '📋 **后续步骤：**',
-                    '',
-                    '1. 请在评论区提供赞助证明（截图、订单号等）',
-                    '2. 站长审核通过后将手动合并此 PR',
-                    '3. 审核期间请耐心等待',
-                  ].join('\n')
-                )
-              } else {
-                await createComment(
-                  [
-                    '❌ 赞助信息校验未通过，请检查：',
-                    '',
-                    '• 头像 URL 不可达',
-                    '',
-                    '请修复后重新提交。',
-                  ].join('\n')
-                )
-              }
-              return
-            }
 
             const existingLabelNames = new Set((context.payload.pull_request.labels || []).map((l) => l.name))
             core.info(`bidir: event.action=${context.payload.action || ''}`)
             core.info(`bidir: siteBase=${siteBase || ''}`)
             core.info(`bidir: existingLabels=${Array.from(existingLabelNames).join(',')}`)
-            if (primary.kind === 'friend') {
-              if (!siteBase) {
-                core.info('bidir: missing siteBase -> comment and return')
-                await createComment('无法读取本站 site 配置，无法进行双向链接验证。')
-                return
-              }
-              if (!existingLabelNames.has(LABEL_BIDIR) && !existingLabelNames.has(LABEL_BIDIR_OK)) {
-                core.info('bidir: add LABEL_BIDIR')
-                await github.rest.issues.addLabels({ owner, repo, issue_number: pull_number, labels: [LABEL_BIDIR] })
-              }
+            if (!existingLabelNames.has(LABEL_BIDIR) && !existingLabelNames.has(LABEL_BIDIR_OK)) {
+              core.info('bidir: add LABEL_BIDIR')
+              await github.rest.issues.addLabels({ owner, repo, issue_number: pull_number, labels: [LABEL_BIDIR] })
+            }
 
-              const expected = siteBase.replace(/\/$/, '')
-              const backlink = primary.data.backlink
-              core.info(`bidir: url=${String(siteUrl || '')}`)
-              core.info(`bidir: backlink=${String(backlink || '')}`)
+            const expected = selfSite
+            const backlink = primary.backlink
+            core.info(`bidir: url=${String(siteUrl || '')}`)
+            core.info(`bidir: backlink=${String(backlink || '')}`)
 
-              if (!isNonEmptyString(backlink)) {
-                core.info('bidir: missing backlink -> setLabels + comment')
-                await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-                await createComment(
-                  [
-                    '基础校验已通过，需要进行双向链接验证：',
-                    '',
-                    `1) 请在你的友链页面添加本站友链（必须为绝对链接）：${siteBase}`,
-                    '2) 然后更新本 PR 的友链 JSON，增加字段 backlink（填写你的友链页面 URL，必须是 http/https 绝对链接）',
-                    '',
-                    '示例：',
-                    '',
-                    '```json',
-                    '{',
-                    '  "name": "...",',
-                    '  "avatar": "...",',
-                    '  "url": "...",',
-                    '  "backlink": "https://example.com/friends/"',
-                    '}',
-                    '```',
-                    '',
-                    `3) 请确保你的 backlink 页面中包含指向本站的链接 href=${siteBase} （必须完全一致的绝对链接）`,
-                    '4) push 更新后 Action 会自动重新校验并在通过后自动合并，无需额外评论',
-                  ].join('\n')
-                )
-                return
-              }
+            if (!isNonEmptyString(backlink)) {
+              core.info('bidir: missing backlink -> setLabels + comment')
+              await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
+              await createComment(
+                [
+                  '基础校验已通过，需要进行双向链接验证：',
+                  '',
+                  `1) 请在你的友链页面添加本站友链（必须为绝对链接）：${siteBase}`,
+                  `2) 然后在 \`content/friends/\` 目录下新增（或更新）对应的 JSON 文件：\`${primaryPath}\`，为你新增的对象增加字段 backlink（填写你的友链页面 URL，必须是 http/https 绝对链接）`,
+                  '',
+                  '示例：',
+                  '',
+                  '```json',
+                  '{',
+                  '  "name": "...",',
+                  '  "url": "...",',
+                  '  "description": "...",',
+                  '  "avatar": "...",',
+                  '  "backlink": "https://example.com/friends/"',
+                  '}',
+                  '```',
+                  '',
+                  `3) 请确保你的 backlink 页面中包含指向本站的链接 href=${siteBase} （必须完全一致的绝对链接）`,
+                  '4) push 更新后 Action 会自动重新校验，通过后由站长人工合并，无需额外评论',
+                ].join('\n')
+              )
+              return
+            }
 
-              let backlinkUrl
+            let backlinkUrl
+            try {
+              backlinkUrl = new URL(backlink).toString()
+            } catch {
+              core.info('bidir: backlink invalid url -> setLabels + comment')
+              await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
+              await createComment(`双向链接验证失败：backlink 不是合法的 URL（${backlink}）`)
+              return
+            }
+            if (!backlinkUrl.startsWith('http://') && !backlinkUrl.startsWith('https://')) {
+              core.info('bidir: backlink not http(s) -> setLabels + comment')
+              await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
+              await createComment(`双向链接验证失败：backlink 必须以 http/https 开头（${backlink}）`)
+              return
+            }
+
+            let siteUrlObj
+            try {
+              siteUrlObj = new URL(siteUrl)
+            } catch {
+              core.info('bidir: siteUrl invalid -> setLabels + comment')
+              await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
+              await createComment('双向链接验证失败：友链 JSON 中 url 无效，无法比较主域名。')
+              return
+            }
+            const backlinkHost = new URL(backlinkUrl).host.toLowerCase()
+            const siteHost = siteUrlObj.host.toLowerCase()
+            core.info(`bidir: host url=${siteHost} backlink=${backlinkHost}`)
+            if (backlinkHost !== siteHost) {
+              core.info('bidir: host mismatch -> setLabels + comment')
+              await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
+              await createComment(
+                [
+                  '双向链接验证失败：backlink 的主域名必须与 url 的主域名一致。',
+                  '',
+                  `url：${siteUrlObj.toString()}`,
+                  `backlink：${backlinkUrl}`,
+                ].join('\n')
+              )
+              return
+            }
+
+            function extractTitle(html) {
+              if (!isNonEmptyString(html)) return null
+              const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)
+              if (!m) return null
+              const t = String(m[1] || '').replace(/\s+/g, ' ').trim()
+              return t.slice(0, 200)
+            }
+
+            function formatBacklinkDebug(d) {
+              const lines = ['调试信息：']
+              if (isNonEmptyString(d?.finalUrl)) lines.push(`- 最终 URL：${d.finalUrl}`)
+              if (typeof d?.status === 'number') lines.push(`- 状态码：${d.status}`)
+              if (isNonEmptyString(d?.contentType)) lines.push(`- Content-Type：${d.contentType}`)
+              if (isNonEmptyString(d?.title)) lines.push(`- 标题：${d.title}`)
+              return lines.join('\n')
+            }
+
+            const fetched = await (async () => {
+              const controller = new AbortController()
+              const timer = setTimeout(() => controller.abort(), 10000)
               try {
-                backlinkUrl = new URL(backlink).toString()
-              } catch {
-                core.info('bidir: backlink invalid url -> setLabels + comment')
-                await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-                await createComment(`双向链接验证失败：backlink 不是合法的 URL（${backlink}）`)
-                return
-              }
-              if (!backlinkUrl.startsWith('http://') && !backlinkUrl.startsWith('https://')) {
-                core.info('bidir: backlink not http(s) -> setLabels + comment')
-                await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-                await createComment(`双向链接验证失败：backlink 必须以 http/https 开头（${backlink}）`)
-                return
-              }
-
-              let siteUrlObj
-              try {
-                siteUrlObj = new URL(siteUrl)
-              } catch {
-                core.info('bidir: siteUrl invalid -> setLabels + comment')
-                await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-                await createComment('双向链接验证失败：友链 JSON 中 url 无效，无法比较主域名。')
-                return
-              }
-              const backlinkHost = new URL(backlinkUrl).host.toLowerCase()
-              const siteHost = siteUrlObj.host.toLowerCase()
-              core.info(`bidir: host url=${siteHost} backlink=${backlinkHost}`)
-              if (backlinkHost !== siteHost) {
-                core.info('bidir: host mismatch -> setLabels + comment')
-                await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-                await createComment(
-                  [
-                    '双向链接验证失败：backlink 的主域名必须与 url 的主域名一致。',
-                    '',
-                    `url：${siteUrlObj.toString()}`,
-                    `backlink：${backlinkUrl}`,
-                  ].join('\n')
-                )
-                return
-              }
-
-                function extractTitle(html) {
-                  if (!isNonEmptyString(html)) return null
-                  const m = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)
-                  if (!m) return null
-                  const t = String(m[1] || '').replace(/\s+/g, ' ').trim()
-                  return t.slice(0, 200)
-                }
-
-                function formatBacklinkDebug(d) {
-                  const lines = ['调试信息：']
-                  if (isNonEmptyString(d?.finalUrl)) lines.push(`- 最终 URL：${d.finalUrl}`)
-                  if (typeof d?.status === 'number') lines.push(`- 状态码：${d.status}`)
-                  if (isNonEmptyString(d?.contentType)) lines.push(`- Content-Type：${d.contentType}`)
-                  if (isNonEmptyString(d?.title)) lines.push(`- 标题：${d.title}`)
-                  return lines.join('\n')
-                }
-
-                const fetched = await (async () => {
-                  const controller = new AbortController()
-                  const timer = setTimeout(() => controller.abort(), 10000)
-                  try {
-                    const res = await fetch(backlinkUrl, {
-                      method: 'GET',
-                      redirect: 'follow',
-                      headers: { 'user-agent': 'fuwari-auto-pr/1.0 (+github actions)', accept: 'text/html,*/*;q=0.8' },
-                      signal: controller.signal,
-                    })
-                    if (!res.ok) {
-                      core.info(`bidir: fetch backlink not ok status=${res.status}`)
-                      await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-                      await createComment(
-                        [
-                          `双向链接验证失败：无法访问 backlink（${res.status}）。`,
-                          '',
-                          `backlink：${backlinkUrl}`,
-                          formatBacklinkDebug({
-                            finalUrl: res.url,
-                            status: res.status,
-                            contentType: res.headers.get('content-type') || '',
-                          }),
-                        ].join('\n')
-                      )
-                      return { ok: false }
-                    }
-                    core.info('bidir: fetch backlink ok, read text')
-                    const html = await res.text()
-                    return {
-                      ok: true,
-                      html,
-                      finalUrl: res.url,
-                      status: res.status,
-                      contentType: res.headers.get('content-type') || '',
-                      title: extractTitle(html),
-                    }
-                  } catch (e) {
-                    core.info(`bidir: fetch backlink threw: ${e?.message || e}`)
-                    await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-                    await createComment(
-                      [
-                        '双向链接验证失败：访问 backlink 出错。',
-                        '',
-                        `backlink：${backlinkUrl}`,
-                        `错误：${e?.message || e}`,
-                      ].join('\n')
-                    )
-                    return { ok: false }
-                  } finally {
-                    clearTimeout(timer)
-                  }
-                })()
-                if (!fetched.ok) return
-                const html = fetched.html || ''
-                core.info(`bidir: html length=${html.length}`)
-
-                let found = false
-                const re = /href\s*=\s*["']([^"']+)["']/gi
-                let m
-                while ((m = re.exec(html)) !== null) {
-                  const href = (m[1] || '').trim()
-                  if (!href.startsWith('http')) continue
-                  const normalized = href.replace(/\/$/, '')
-                  if (normalized === expected) {
-                    found = true
-                    break
-                  }
-                }
-                core.info(`bidir: expected=${expected} found=${found}`)
-
-                if (!found) {
-                  core.info('bidir: not found -> setLabels + comment')
+                const res = await fetch(backlinkUrl, {
+                  method: 'GET',
+                  redirect: 'follow',
+                  headers: { 'user-agent': 'fuwari-auto-pr/1.0 (+github actions)', accept: 'text/html,*/*;q=0.8' },
+                  signal: controller.signal,
+                })
+                if (!res.ok) {
+                  core.info(`bidir: fetch backlink not ok status=${res.status}`)
                   await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
                   await createComment(
                     [
-                      '双向链接验证未通过：在 backlink 页面未检测到本站友链。',
+                      `双向链接验证失败：无法访问 backlink（${res.status}）。`,
                       '',
-                      `需要添加的绝对链接：${siteBase}`,
-                      `backlink 页面：${backlinkUrl}`,
-                      '',
-                      formatBacklinkDebug(fetched),
-                      '',
-                      '请添加后 push 更新（无需评论）。',
+                      `backlink：${backlinkUrl}`,
+                      formatBacklinkDebug({
+                        finalUrl: res.url,
+                        status: res.status,
+                        contentType: res.headers.get('content-type') || '',
+                      }),
                     ].join('\n')
                   )
-                  return
+                  return { ok: false }
                 }
-
-                await setLabels({ addLabels: [LABEL_BIDIR_OK], removeLabels: [LABEL_BIDIR] })
-                core.info('bidir: verified ok -> notify for manual merge')
-
-                // 自动合并已移除：验证通过后由站长在 GitHub 页面人工 Merge。
+                core.info('bidir: fetch backlink ok, read text')
+                const html = await res.text()
+                return {
+                  ok: true,
+                  html,
+                  finalUrl: res.url,
+                  status: res.status,
+                  contentType: res.headers.get('content-type') || '',
+                  title: extractTitle(html),
+                }
+              } catch (e) {
+                core.info(`bidir: fetch backlink threw: ${e?.message || e}`)
+                await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
                 await createComment(
                   [
-                    '✅ 友链申请全部校验通过：',
+                    '双向链接验证失败：访问 backlink 出错。',
                     '',
-                    '• 头像 URL 可达',
-                    '• 网站 URL 可达',
-                    '• 双向链接验证通过（backlink 页面已包含本站链接）',
-                    '',
-                    '请站长审核后手动合并本 PR（Merge pull request），合并后友链即上线。',
+                    `backlink：${backlinkUrl}`,
+                    `错误：${e?.message || e}`,
                   ].join('\n')
                 )
+                return { ok: false }
+              } finally {
+                clearTimeout(timer)
               }
+            })()
+            if (!fetched.ok) return
+            const html = fetched.html || ''
+            core.info(`bidir: html length=${html.length}`)
+
+            let found = false
+            const re = /href\s*=\s*["']([^"']+)["']/gi
+            let m
+            while ((m = re.exec(html)) !== null) {
+              const href = (m[1] || '').trim()
+              if (!href.startsWith('http')) continue
+              const normalized = href.replace(/\/$/, '')
+              if (normalized === expected) {
+                found = true
+                break
+              }
+            }
+            core.info(`bidir: expected=${expected} found=${found}`)
+
+            if (!found) {
+              core.info('bidir: not found -> setLabels + comment')
+              await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
+              await createComment(
+                [
+                  '双向链接验证未通过：在 backlink 页面未检测到本站友链。',
+                  '',
+                  `需要添加的绝对链接：${siteBase}`,
+                  `backlink 页面：${backlinkUrl}`,
+                  '',
+                  formatBacklinkDebug(fetched),
+                  '',
+                  '请添加后 push 更新（无需评论）。',
+                ].join('\n')
+              )
+              return
+            }
+
+            await setLabels({ addLabels: [LABEL_BIDIR_OK], removeLabels: [LABEL_BIDIR] })
+            core.info('bidir: verified ok -> notify for manual merge')
+
+            // 自动合并已移除：验证通过后由站长在 GitHub 页面人工 Merge。
+            await createComment(
+              [
+                '✅ 友链申请全部校验通过：',
+                '',
+                '• 头像 URL 可达',
+                '• 网站 URL 可达',
+                '• 双向链接验证通过（backlink 页面已包含本站链接）',
+                '',
+                '请站长审核后手动合并本 PR（Merge pull request），合并后友链即上线。',
+              ].join('\n')
+            )

@@ -1,21 +1,23 @@
 {
   "$schema": "https://frontmatter.codes/frontmatter.schema.json",
-  "frontMatter.framework.id": "astro",
-  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.framework.id": "next",
+  "frontMatter.framework.startCommand": "pnpm dev",
+  "frontMatter.preview.host": "http://localhost:3000",
   "frontMatter.content.publicFolder": "public",
   "frontMatter.content.pageFolders": [
     {
       "title": "posts",
-      "path": "[[workspace]]/src/content/posts"
+      "path": "[[workspace]]/content/posts",
+      "previewPath": "/posts",
+      "trailingSlash": true
     }
   ],
   "frontMatter.taxonomy.contentTypes": [
     {
       "name": "default",
       "pageBundle": true,
-      "previewPath": "'blog'",
-      "filePrefix": null,
       "clearEmpty": true,
+      "filePrefix": null,
       "fields": [
         {
           "title": "title",
@@ -34,6 +36,12 @@
           "type": "datetime",
           "default": "{{now}}",
           "isPublishDate": true
+        },
+        {
+          "title": "updated",
+          "name": "updated",
+          "type": "datetime",
+          "isModifiedDate": true
         },
         {
           "title": "preview",
@@ -57,9 +65,14 @@
           "type": "boolean"
         },
         {
-          "title": "language",
-          "name": "language",
+          "title": "lang",
+          "name": "lang",
           "type": "string"
+        },
+        {
+          "title": "pinned",
+          "name": "pinned",
+          "type": "boolean"
         }
       ]
     }

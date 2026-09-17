@@ -1,0 +1,785 @@
+@import "katex/dist/katex.min.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --radius: 0.5rem;
+
+  /* Signature Pink Accent Tokens (mirrored from www.srprolin.top) */
+  --accent-pink: #f75c7e;
+  --accent-bright: #ff7eb3;
+  --accent-soft: #ffa4c6;
+  --accent-glow: rgba(247, 92, 126, 0.25);
+
+  /* Article grayscale ladder
+     ------------------------------------------------------------------
+     Body copy sits at a comfortable mid-gray instead of near-black, and every
+     element derives its weight from one of four steps — so emphasis reads as
+     contrast rather than as sheer darkness (or as size/colour noise).
+
+     Reference: antfu.me's prose scale
+       .prose        { --fg-light:#888; --fg:#555; --fg-deep:#222; --fg-deeper:#000 }
+       html.dark     { --fg-light:#888; --fg:#bbb; --fg-deep:#ddd; --fg-deeper:#fff }
+
+     The luminances below mirror those four steps; the hue stays in the Zinc
+     family (240 x%) so article text matches the rest of the UI chrome. As in the
+     reference, `figcaption` and ordered-list numbers share one muted value
+     (antfu.me uses #6b7280 for both), and both stay above 4.5:1. */
+  --article-fg: 240 4% 34%; /* body copy              ≈ #53535a */
+  --article-fg-deep: 240 5% 13%; /* h2, strong, inline code ≈ #1f1f23 */
+  --article-fg-deeper: 240 6% 7%; /* h1, links              ≈ #111113 */
+  --article-fg-muted: 240 4% 46%; /* figcaption, ol numbers ≈ #71717a */
+  --article-marker-bullet: 240 5% 84%; /* ul bullets         ≈ #d4d4d8 */
+  --article-rule: 240 5% 90%; /* hr, table rules               ≈ #e4e4e7 */
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+
+  /* Signature Pink Accent Tokens */
+  --accent-pink: #f75c7e;
+  --accent-bright: #ff7eb3;
+  --accent-soft: #ffa4c6;
+  --accent-glow: rgba(247, 92, 126, 0.25);
+
+  /* Article grayscale ladder — same four steps, inverted direction: on a dark
+     canvas the ladder brightens as importance rises (antfu.me uses
+     #bbb → #ddd → #fff). */
+  --article-fg: 240 4% 73%; /* body copy              ≈ #b7b7bd */
+  --article-fg-deep: 240 4% 87%; /* h2, strong, inline code ≈ #dddddf */
+  --article-fg-deeper: 240 5% 96%; /* h1, links              ≈ #f4f4f5 */
+  --article-fg-muted: 240 4% 58%; /* figcaption, ol numbers ≈ #909098 */
+  --article-marker-bullet: 240 5% 30%; /* ul bullets         ≈ #494950 */
+  --article-rule: 240 4% 20%; /* hr, table rules               ≈ #313135 */
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: rgba(247, 92, 126, 0.22);
+    color: inherit;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  code, pre, kbd, samp {
+    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-foreground;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  /*
+   * Bilingual DOM switching for `output: "export"`.
+   *
+   * Server components render both languages via <T> (inner spans carry
+   * `data-i18n`), while the pre-paint inline script in `app/layout.tsx` writes
+   * the active locale to `<html data-locale>`. Only the active language is
+   * displayed, so there is no hydration mismatch and no flash of the wrong
+   * language. Note the two attributes are deliberately distinct (`data-locale`
+   * marks the page language, `data-i18n` marks each text node’s language).
+   */
+  html[data-locale="zh"] [data-i18n="en"],
+  html[data-locale="en"] [data-i18n="zh"] {
+    display: none;
+  }
+}
+
+/**
+ * Brand mark draw-on. `pathLength="1"` on each glyph path normalises its length
+ * to 1, so the whole animation is just a dash offset going 1 -> 0 — no
+ * JS `getTotalLength()` measuring.
+ *
+ * An initial 0% opacity:0 prevents the round cap of `stroke-linecap="round"`
+ * from painting a dot at the origin while paths are waiting for their staggered delay.
+ *
+ * `brand-draw-again` is structurally identical to `brand-draw`: applying a *different*
+ * keyframe name on hover is what makes the browser restart the animation rather
+ * than treat it as already-satisfied.
+ */
+@keyframes brand-draw {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  1% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+@keyframes brand-draw-again {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  1% {
+    stroke-dashoffset: 1;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* The draw-on is pure decoration; skip straight to the finished mark. */
+@media (prefers-reduced-motion: reduce) {
+  .brand-mark-path,
+  .site-brand:hover .brand-mark-path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+@layer components {
+  /* Shiki / Rehype Pretty Code styles */
+  figure[data-rehype-pretty-code-figure] {
+    margin: 1.5rem 0;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--muted) / 0.4);
+  }
+
+  figure[data-rehype-pretty-code-figure] pre {
+    padding: 1rem 0;
+    overflow-x: auto;
+    font-size: 0.875rem;
+    line-height: 1.65;
+    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+  }
+
+  /* Light / Dark Dual Theme Shiki colors */
+  html.dark pre[data-theme*="dark"] span {
+    color: var(--shiki-dark);
+  }
+  html:not(.dark) pre[data-theme*="light"] span {
+    color: var(--shiki-light);
+  }
+
+  /* Line numbers */
+  code[data-line-numbers] {
+    counter-reset: line;
+  }
+
+  code[data-line-numbers] > [data-line]::before {
+    counter-increment: line;
+    content: counter(line);
+    display: inline-block;
+    width: 1.5rem;
+    margin-right: 1.25rem;
+    padding-left: 0.5rem;
+    text-align: right;
+    color: hsl(var(--muted-foreground));
+    user-select: none;
+    font-size: 0.8125rem;
+  }
+
+  code[data-line-numbers] > [data-line] {
+    padding-left: 0.5rem;
+    padding-right: 1.25rem;
+  }
+
+  /* Floating header — faithful port of mengxiblog.top's header-component.
+     ------------------------------------------------------------------
+     The transition list is an explicit whitelist (the reference never uses
+     `all`), so a one-off layout change — web-font swap, hydration, scroll
+     restoration — can never be animated into a visible "spread, then gather"
+     artefact. */
+  .site-header {
+    transition: transform 0.3s;
+  }
+  .site-header-capsule {
+    transition:
+      margin-inline 0.3s,
+      padding 0.3s,
+      border-color 0.15s,
+      background-color 0.15s,
+      box-shadow 0.15s;
+  }
+  .site-header-brand {
+    transition: margin-inline 0.3s;
+  }
+  .site-header-cluster {
+    transition: gap 0.3s;
+  }
+
+  /* ----------------------------------------------------------------
+     Brand wordmark (nav left) — an SVG "SrP" monogram traced from the
+     favicon, plus its label set in a display serif.
+     ---------------------------------------------------------------- */
+  .site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    padding: 0.25rem 0.55rem 0.25rem 0.375rem;
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease;
+  }
+  .site-brand:hover {
+    border-color: hsl(var(--border));
+    background-color: hsl(var(--muted) / 0.6);
+  }
+
+  .brand-mark-letters {
+    display: block;
+  }
+  .brand-mark-path {
+    stroke: #18181b;
+    stroke-width: 5.2;
+    /* pathLength="1" on every path means the dash maths needs no measuring. */
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    opacity: 1;
+    animation: brand-draw 0.55s cubic-bezier(0.45, 0, 0.2, 1) var(--brand-draw-delay, 0s) both;
+  }
+  /* In dark theme, crisp bright white (#ffffff). */
+  .dark .brand-mark-path {
+    stroke: #ffffff;
+  }
+  /* Hovering the brand rewrites it with a calm, tactile handwriting cadence. */
+  .site-brand:hover .brand-mark-path {
+    animation: brand-draw-again 0.45s cubic-bezier(0.45, 0, 0.2, 1) var(--brand-draw-delay, 0s) both;
+  }
+
+  .site-brand-text {
+    font-family: var(--font-display), Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 1;
+    /* Instrument Serif is drawn tight and narrow, so at navbar size the strokes
+       of adjacent letters nearly touch. A wider track opens the wordmark up.
+       The negative margin cancels the tracking added after the final glyph,
+       which would otherwise leave a gap before the capsule's right edge. */
+    letter-spacing: 0.055em;
+    margin-right: -0.055em;
+    color: hsl(var(--foreground));
+    white-space: nowrap;
+  }
+  /* The type half of the wordmark is italicised and faded, the way the
+     reference splits its name from the word "Blog". */
+  .site-brand-type {
+    font-style: italic;
+    color: hsl(var(--muted-foreground));
+    transition: color 0.2s ease;
+  }
+  .site-brand:hover .site-brand-type {
+    color: hsl(var(--foreground));
+  }
+
+  .site-header[data-scrolled="true"] .site-header-capsule {
+    border-color: hsl(var(--border));
+    background-color: hsl(var(--background));
+    padding-inline: 0.375rem;
+    box-shadow:
+      hsl(240 5% 10% / 0.08) 0 0 0 1px,
+      hsl(240 5% 10% / 0.08) 0 10px 15px -3px,
+      hsl(240 5% 10% / 0.08) 0 4px 6px -4px;
+  }
+  /* On a dark canvas the page background would swallow the capsule, so the
+     reference lifts it to the `muted` surface instead. */
+  .dark .site-header[data-scrolled="true"] .site-header-capsule {
+    background-color: hsl(var(--muted));
+  }
+
+  .site-header[data-scrolled="true"] .site-header-brand {
+    margin-inline-start: 0.5rem;
+  }
+  .site-header[data-scrolled="true"] .site-header-cluster {
+    gap: 0.375rem;
+  }
+
+  /* Only the desktop bar narrows. 8% resolves against the content column
+     because the capsule lives inside it, which is what makes the gesture read
+     the same as the reference at any viewport width. */
+  @media (min-width: 800px) {
+    .site-header[data-scrolled="true"] .site-header-capsule {
+      margin-inline: 8%;
+    }
+  }
+
+  /* Retract while scrolling down. The reference only ever writes this after a
+     real scroll event, never from its mount handler, so a freshly loaded page
+     can not start with the bar already gone. */
+  .site-header[data-retracted="true"] {
+    transform: translateY(-5rem);
+  }
+
+  /* Mobile panel: collapsed via the 0fr→1fr grid trick, exactly like
+     `#headerExpandContent` in the reference. `invisible` keeps the links out of
+     the tab order while collapsed (the reference leaves them focusable). */
+  .site-header-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      grid-template-rows 0.3s,
+      opacity 0.3s,
+      visibility 0s linear 0.3s;
+  }
+  .site-header[data-menu="open"] .site-header-panel {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    visibility: visible;
+    transition:
+      grid-template-rows 0.3s,
+      opacity 0.3s,
+      visibility 0s;
+  }
+  .site-header-panel > * {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* Code block wrapper with copy button */
+  .code-block-wrapper {
+    position: relative;
+    margin: 1.5rem 0;
+    border-radius: calc(var(--radius) + 2px);
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    overflow: hidden;
+  }
+
+  .code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    background-color: hsl(var(--muted) / 0.5);
+    border-bottom: 1px solid hsl(var(--border));
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    letter-spacing: 0.05em;
+    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+  }
+
+  .code-copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.5rem;
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: hsl(var(--muted-foreground));
+    background-color: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    transition: all 0.15s ease;
+    cursor: pointer;
+  }
+  .code-copy-btn:hover {
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--foreground) / 0.3);
+    background-color: hsl(var(--accent));
+  }
+
+  /* Article typography refinements */
+  .article-body {
+    /* Re-point the typography plugin's palette at the ladder above. Everything
+       the plugin styles on its own (figcaption, em, h5/h6, table cells…) picks
+       these up, so the whole article stays on one grayscale scale. */
+    --tw-prose-body: hsl(var(--article-fg));
+    --tw-prose-lead: hsl(var(--article-fg));
+    --tw-prose-headings: hsl(var(--article-fg-deep));
+    --tw-prose-links: hsl(var(--article-fg-deeper));
+    --tw-prose-bold: hsl(var(--article-fg-deep));
+    --tw-prose-counters: hsl(var(--article-fg-muted));
+    --tw-prose-bullets: hsl(var(--article-marker-bullet));
+    --tw-prose-hr: hsl(var(--article-rule));
+    --tw-prose-quotes: hsl(var(--article-fg));
+    --tw-prose-quote-borders: hsl(var(--article-rule));
+    --tw-prose-captions: hsl(var(--article-fg-muted));
+    --tw-prose-code: hsl(var(--article-fg-deep));
+    --tw-prose-th-borders: hsl(var(--article-rule));
+    --tw-prose-td-borders: hsl(var(--article-rule));
+
+    color: hsl(var(--article-fg));
+    /* CJK glyphs are denser than Latin ones, so body copy is set one step above
+       the 16px base and given a looser leading than the reference theme's 1.5. */
+    line-height: 1.8;
+    font-size: 1.0625rem;
+  }
+
+  .article-body h1,
+  .article-body h2,
+  .article-body h3,
+  .article-body h4,
+  .article-body h5,
+  .article-body h6 {
+    scroll-margin-top: 5rem;
+    color: hsl(var(--article-fg-deep));
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Heading ladder: h1 is the darkest, h2 one step down, and h3 is derived from
+     the body color via opacity so the three levels read as a smooth ramp
+     instead of three identical blacks. */
+  .article-body a {
+    transition: color 0.15s ease, text-decoration-color 0.15s ease;
+  }
+  .article-body a:hover {
+    color: var(--accent-pink);
+    text-decoration-color: var(--accent-pink);
+  }
+
+  .article-body h1 {
+    color: hsl(var(--article-fg-deeper));
+    font-size: 1.875rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .article-body h2 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 0.875rem;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .article-body h3 {
+    color: inherit;
+    opacity: 0.7;
+    font-size: 1.25rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.625rem;
+  }
+
+  .article-body h4 {
+    font-size: 1.1rem;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .article-body p {
+    margin-top: 1.125rem;
+    margin-bottom: 1.125rem;
+  }
+
+  .article-body a {
+    color: hsl(var(--primary));
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: opacity 0.15s ease;
+  }
+  .article-body a:hover {
+    opacity: 0.8;
+  }
+
+  .article-body strong {
+    font-weight: 600;
+    color: hsl(var(--article-fg-deep));
+  }
+
+  .article-body ul {
+    list-style-type: disc;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .article-body ol {
+    list-style-type: decimal;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .article-body li {
+    margin-top: 0.375rem;
+    margin-bottom: 0.375rem;
+  }
+
+  /* Markers recede: bullets almost vanish, ordered digits sit at the muted step
+     (the same value figcaptions use). */
+  .article-body ul > li::marker {
+    color: hsl(var(--article-marker-bullet));
+  }
+  .article-body ol > li::marker {
+    color: hsl(var(--article-fg-muted));
+  }
+
+  /* Quotes keep the body gray — they are set apart by the rule and the tinted
+     panel, not by being faded out. */
+  .article-body blockquote {
+    border-left: 3px solid hsl(var(--primary));
+    background-color: hsl(var(--muted) / 0.4);
+    padding: 0.75rem 1rem;
+    margin: 1.5rem 0;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: hsl(var(--article-fg));
+  }
+  .article-body blockquote p {
+    margin: 0.25rem 0;
+  }
+
+  .article-body hr {
+    border: 0;
+    border-top: 1px solid hsl(var(--border));
+    margin: 2rem 0;
+  }
+
+  .article-body code:not(pre code) {
+    background-color: hsl(var(--muted) / 0.6);
+    color: hsl(var(--article-fg-deep));
+    border: 1px solid hsl(var(--border));
+    padding: 0.15rem 0.35rem;
+    border-radius: calc(var(--radius) - 2px);
+    font-size: 0.875em;
+    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+  }
+
+  .article-body table {
+    width: 100%;
+    margin: 1.5rem 0;
+    border-collapse: collapse;
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius);
+    overflow: hidden;
+    font-size: 0.9375rem;
+  }
+
+  .article-body th,
+  .article-body td {
+    padding: 0.625rem 0.875rem;
+    border: 1px solid hsl(var(--border));
+    text-align: left;
+  }
+
+  .article-body th {
+    background-color: hsl(var(--muted) / 0.5);
+    font-weight: 600;
+    color: hsl(var(--article-fg-deep));
+  }
+
+  .article-body img {
+    border-radius: var(--radius);
+    border: 1px solid hsl(var(--border));
+    margin: 1.5rem auto;
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5rem 0;
+  }
+}
+
+/* Light/dark switch — circular reveal growing out of the theme button, ported
+   from antfu.me.
+   --------------------------------------------------------------------------
+   - The default cross-fade is switched off; the clip-path animation in
+     ThemeToggle owns the whole effect.
+   - The z-index of the two snapshots swaps with the `.dark` class: while
+     switching *to* dark the old (light) snapshot is the one on top, so that is
+     the layer whose clip-path shrinks. See ThemeToggle for the pairing. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-old(root) {
+  z-index: 9999;
+}
+
+.dark::view-transition-new(root) {
+  z-index: 1;
+}
+
+/* ---------------------------------------------------------------------------
+   Cover art that bleeds into its card
+   ---------------------------------------------------------------------------
+   The listing cards let the post's cover image sit *behind* the text and fade
+   out toward the reading side, so artwork and surface read as one plane rather
+   than a framed thumbnail. `mask-image` does the fade: the image stays opaque at
+   the card's trailing edge and dissolves to nothing over the copy.
+
+   The fade is deliberately deeper than a plain two-stop gradient. Post covers
+   here are often dark and busy screenshots, so a gentle fade would still leave
+   texture competing with the headline; holding the mask near zero across the
+   text column keeps the copy legible and lets only the trailing edge read as
+   artwork. On narrow screens the art moves to a top band, so the gradient is
+   rotated to match. */
+.blend-cover {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(0 0 0 / 0.12) 38%,
+    rgb(0 0 0 / 0.62) 72%,
+    #000 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    rgb(0 0 0 / 0.12) 38%,
+    rgb(0 0 0 / 0.62) 72%,
+    #000 100%
+  );
+}
+
+@media (max-width: 640px) {
+  .blend-cover {
+    -webkit-mask-image: linear-gradient(
+      to top,
+      transparent 0%,
+      rgb(0 0 0 / 0.12) 45%,
+      #000 100%
+    );
+    mask-image: linear-gradient(
+      to top,
+      transparent 0%,
+      rgb(0 0 0 / 0.12) 45%,
+      #000 100%
+    );
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Table-of-contents rail
+   ---------------------------------------------------------------------------
+   Each entry owns a 2px rail on its leading edge. The rail is filled from the
+   top by `--toc-progress`, which the TOC component recomputes on scroll, so the
+   rail reads as a per-section reading meter. */
+.toc-rail {
+  position: absolute;
+  left: 0;
+  top: 5%;
+  width: 2px;
+  border-radius: 9999px;
+  transition:
+    background-color 0.3s ease,
+    height 0.15s linear;
+}
+
+/* ---------------------------------------------------------------------------
+   Sponsorship payment cards
+   ---------------------------------------------------------------------------
+   The payment code sits behind its method glyph, dimmed and blurred, and is
+   revealed on hover — so a glance at the code cannot produce a mis-scan.
+
+   The reveal is gated behind `@media (hover: hover)`. Touch devices never fire
+   hover, so applying the blur unconditionally would leave them with a
+   permanently unscannable QR code; they get the code sharp and rely on the
+   caption below the card for the label. Anything that matches neither query
+   falls through to the same usable default. */
+.sponsorship-card-icon {
+  display: none;
+}
+
+@media (hover: hover) {
+  .sponsorship-card-icon {
+    display: flex;
+  }
+
+  .sponsorship-card-img {
+    opacity: 0.3;
+    filter: blur(4px);
+    transition:
+      opacity 0.3s ease,
+      filter 0.3s ease;
+  }
+
+  .sponsorship-card-icon {
+    transition: opacity 0.3s ease;
+  }
+
+  .sponsorship-card:hover .sponsorship-card-img {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  .sponsorship-card:hover .sponsorship-card-icon {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sponsorship-card-img,
+  .sponsorship-card-icon {
+    transition: none;
+  }
+}

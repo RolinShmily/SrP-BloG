@@ -1,4 +1,13 @@
-/* This is a script to create a new post markdown file with front-matter */
+/*
+ * Scaffolds a new post folder:
+ *   content/posts/<slug>/index.zh.md
+ *
+ * Usage: pnpm run new-post -- <slug>
+ *
+ * The co-located layout (see src/lib/content/provider.ts) treats the folder
+ * name as the canonical slug and `index.<locale>.md` as one language version.
+ * New posts are created as drafts so incomplete scaffolding never ships.
+ */
 
 import fs from "fs"
 import path from "path"
@@ -15,45 +24,44 @@ function getDate() {
 const args = process.argv.slice(2)
 
 if (args.length === 0) {
-  console.error(`Error: No filename argument provided
-Usage: npm run new-post -- <filename>`)
-  process.exit(1) // Terminate the script and return error code 1
-}
-
-let fileName = args[0]
-
-// Add .md extension if not present
-const fileExtensionRegex = /\.(md|mdx)$/i
-if (!fileExtensionRegex.test(fileName)) {
-  fileName += ".md"
-}
-
-const targetDir = "./src/content/posts/"
-const fullPath = path.join(targetDir, fileName)
-
-if (fs.existsSync(fullPath)) {
-  console.error(`Error: File ${fullPath} already exists `)
+  console.error(`Error: No slug argument provided
+Usage: pnpm run new-post -- <slug>`)
   process.exit(1)
 }
 
-// recursive mode creates multi-level directories
-const dirPath = path.dirname(fullPath)
-if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true })
+// Accept an optional .md/.mdx suffix for muscle memory, but the folder name is
+// the slug. Strip a leading content/posts prefix if the user pasted a path.
+let slug = args[0].trim().replace(/\.(md|mdx)$/i, "")
+slug = slug.replace(/\\/g, "/").replace(/^content\/posts\//, "").replace(/^\/+|\/+$/g, "")
+
+if (!slug || slug.split("/").some((segment) => segment === ".." || segment === "." || segment === "")) {
+  console.error(`Error: invalid slug "${args[0]}". Use a directory-safe name.`)
+  process.exit(1)
 }
 
+const targetDir = path.join("content", "posts", slug)
+const filePath = path.join(targetDir, "index.zh.md")
+
+if (fs.existsSync(filePath)) {
+  console.error(`Error: ${filePath} already exists`)
+  process.exit(1)
+}
+
+fs.mkdirSync(targetDir, { recursive: true })
+
 const content = `---
-title: ${args[0]}
+title: ${slug}
 published: ${getDate()}
 description: ''
 image: ''
 tags: []
 category: ''
-draft: false 
+draft: true
 lang: ''
 ---
+
 `
 
-fs.writeFileSync(path.join(targetDir, fileName), content)
-
-console.log(`Post ${fullPath} created`)
+fs.writeFileSync(filePath, content)
+console.log(`Post created: ${filePath}`)
+console.log(`Add the translated version at: ${path.join(targetDir, "index.en.md")}`)

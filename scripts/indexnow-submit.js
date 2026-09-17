@@ -24,11 +24,44 @@ const CONFIG = {
 
   // 文件路径配置
   paths: {
-    distDir: 'dist',
+    // Next.js static export output directory (`output: 'export'`).
+    // The Astro era used `dist`; the route/sitemap source is now `out/sitemap.xml`.
+    outDir: 'out',
     lastUrlsFile: '.last-urls.json',
   },
 };
 // ================================================
+
+/**
+ * XML entity unescape + canonical single-pass percent-encoding.
+ *
+ * Next.js already percent-encodes CJK slugs in `sitemap.xml`; re-encoding the
+ * decoded value keeps the payload deterministic (and guarantees `encodeURI`
+ * semantics) without ever double-encoding `%xx` sequences.
+ */
+function normalizeSitemapUrl(rawUrl) {
+  const decoded = rawUrl
+    .trim()
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+
+  try {
+    return encodeURI(decodeURI(decoded));
+  } catch {
+    return decoded;
+  }
+}
+
+/**
+ * Only URLs served by this site are ever submitted.
+ */
+function isOwnHost(url) {
+  const { host } = CONFIG.indexNow;
+  return url.startsWith(`https://${host}/`) || url.startsWith(`http://${host}/`);
+}
 
 /**
  * 从sitemap文件中提取所有URL
@@ -40,19 +73,21 @@ async function extractUrlsFromSitemap(sitemapPath) {
   let match;
 
   while ((match = urlRegex.exec(content)) !== null) {
-    urls.push(match[1]);
+    urls.push(normalizeSitemapUrl(match[1]));
   }
 
   return urls.sort();
 }
 
 /**
- * 查找dist目录下的sitemap文件
+ * 查找 out 目录下的 sitemap 文件（Next.js `app/sitemap.ts` 导出 out/sitemap.xml）
  */
 async function findSitemap() {
-  const files = await readdir(CONFIG.paths.distDir);
-  const sitemapFile = files.find(f => f.startsWith('sitemap') && f.endsWith('.xml'));
-  return sitemapFile ? join(CONFIG.paths.distDir, sitemapFile) : null;
+  const files = await readdir(CONFIG.paths.outDir);
+  const sitemapFile =
+    files.find((f) => f === 'sitemap.xml') ??
+    files.find((f) => f.startsWith('sitemap') && f.endsWith('.xml'));
+  return sitemapFile ? join(CONFIG.paths.outDir, sitemapFile) : null;
 }
 
 /**
@@ -144,14 +179,18 @@ async function main() {
     // 查找sitemap文件
     const sitemapPath = await findSitemap();
     if (!sitemapPath) {
-      console.error('错误: 在dist目录下未找到sitemap文件');
+      console.error(`错误: 在 ${CONFIG.paths.outDir} 目录下未找到sitemap文件`);
       process.exit(1);
     }
 
     console.log(`使用sitemap文件: ${sitemapPath}`);
 
-    // 提取当前所有URL
-    const currentUrls = await extractUrlsFromSitemap(sitemapPath);
+    // 提取当前所有URL（仅保留本站域名，防止误提交外链）
+    const sitemapUrls = await extractUrlsFromSitemap(sitemapPath);
+    const currentUrls = sitemapUrls.filter(isOwnHost);
+    if (currentUrls.length !== sitemapUrls.length) {
+      console.log(`已过滤 ${sitemapUrls.length - currentUrls.length} 个非本站域名 URL\n`);
+    }
     console.log(`当前共有 ${currentUrls.length} 个URL\n`);
 
     // 加载上次的URL列表

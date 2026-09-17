@@ -1,0 +1,11 @@
+node_modules
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+.env
+.git
+.wrangler
+Dockerfile
+docker-compose.yml
+README.md
+smoke-test.sh
