@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getFriendLinks } from "@/lib/friends";
 import { getSponsors } from "@/lib/sponsors";
+import { createPageMetadata } from "@/lib/seo";
 import { FriendCard } from "@/components/blog/friend-card";
 import { Sponsorship, SponsorList } from "@/components/blog/sponsorship";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -11,10 +12,11 @@ import { ArrowUpRight, Coffee } from "lucide-react";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "友情链接 (Friends)",
   description: "优秀的独立技术博客与创作者朋友们，欢迎交换友链共同成长。",
-};
+  path: "/friends/",
+});
 
 const zh = dictionaries.zh;
 const en = dictionaries.en;
@@ -42,8 +44,14 @@ export default async function FriendsPage() {
 
       {/* Friends Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-        {friends.map((friend) => (
-          <FriendCard key={friend.name} friend={friend} />
+        {friends.map((friend, idx) => (
+          <div
+            key={friend.name}
+            className="card-animate-in"
+            style={{ "--stagger-index": idx } as React.CSSProperties}
+          >
+            <FriendCard friend={friend} />
+          </div>
         ))}
       </div>
 

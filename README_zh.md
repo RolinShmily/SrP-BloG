@@ -61,12 +61,14 @@
 ├── public/
 │   ├── posts/                      # 构建产物：文章局部资源（已 gitignore）
 │   ├── search-index.json           # 构建产物：客户端搜索索引（已 gitignore）
+│   ├── og/                         # 默认 1200x630 Open Graph 卡片（母版 og.svg + 位图 og.png）
 │   ├── favicon/                    # favicon.ico 与备案徽标图
 │   ├── sponsors/                   # 赞助区的支付宝 / 微信收款码
 │   └── ...                         # 各搜索引擎站点校验文件
 ├── scripts/
 │   ├── sync-post-assets.ts         # content/posts/** -> public/posts/**
 │   ├── generate-search-index.ts    # 生成 public/search-index.json
+│   ├── generate-og-image.ts        # 重新生成 public/og/og.svg 并转出 public/og/og.png (resvg)
 │   ├── verify-content.ts           # 内容/frontmatter 校验（CI 门禁）
 │   ├── new-post.js                 # `pnpm new-post -- <slug>` 脚手架
 │   └── indexnow-submit.js          # 从 out/sitemap.xml 提取 URL 提交 IndexNow
@@ -74,7 +76,7 @@
 │   ├── app/                        # App Router 路由（见「路由表」）
 │   ├── components/
 │   │   ├── ui/                     # shadcn/ui 基础组件
-│   │   ├── layout/                 # 顶栏、页脚
+│   │   ├── layout/                 # 顶栏、页脚、卡片光标聚光灯动效
 │   │   ├── blog/                   # 文章列表、正文视图、TOC、标签、友链、PV/UV 计数器
 │   │   ├── icons/                  # lucide 没有的品牌标（Cloudflare/Folo/开往）与支付宝/微信支付
 │   │   ├── i18n/                   # <T> 双语 DOM 组件、语言切换按钮
@@ -85,6 +87,7 @@
 │       ├── content/                # 内容层（文件扫描、Markdown 渲染、类型定义）
 │       ├── friends.ts              # 友链数据提供者（content/friends/）
 │       ├── sponsors.ts             # 赞助者数据提供者（content/sponsors/）
+│       ├── seo.ts                  # Open Graph 与 Twitter 元数据构造工具
 │       └── upv/                    # UPV 客户端 + 空实现（未配置时降级）
 ├── services/
 │   └── upv/                        # 独立的 PV/UV 统计服务（自带 package.json，零运行时依赖）
@@ -114,6 +117,7 @@ pnpm dev                # http://localhost:3000
 | `pnpm verify-content` | 校验所有文章目录、frontmatter 与友链数据 |
 | `pnpm sync-assets` | 把文章同目录资源复制到 `public/posts/` |
 | `pnpm generate-search-index` | 重新生成 `public/search-index.json` |
+| `pnpm generate-og-image` | 重新生成 `public/og.svg` 并渲染 `public/og.png` |
 | `pnpm new-post -- <slug>` | 生成 `content/posts/<slug>/index.zh.md`（默认 draft） |
 
 `pnpm start` 对站点本身没有意义：`output: 'export'` 不含服务端运行时，`out/` 由静态托管服务提供。

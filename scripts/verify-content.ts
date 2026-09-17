@@ -12,6 +12,8 @@ import {
 import { collectDictionaryKeys, dictionaries, getDictionary } from "../src/i18n";
 import { getFriendLinks } from "../src/lib/friends";
 import { getSponsors } from "../src/lib/sponsors";
+import { siteConfig } from "../src/config/site";
+import { createPageMetadata, createPostMetadata } from "../src/lib/seo";
 import { CUSTOM_FONT_SIZE_TOKENS } from "../src/lib/utils";
 import { postsDir, publicPostsDir, syncPostAssets } from "./sync-post-assets";
 
@@ -673,6 +675,78 @@ async function verifyContent() {
     unregisteredFontSizes.length === 0,
     `Every theme.fontSize token is registered in CUSTOM_FONT_SIZE_TOKENS (${unregisteredFontSizes.join(", ") || "all registered"})`
   );
+
+  console.log("\n13. Verifying Open Graph and Social Metadata Support...");
+  const ogImagePath = path.join(process.cwd(), "public", "og", "og.png");
+  assert(fs.existsSync(ogImagePath), "Default Open Graph image public/og/og.png exists");
+  const ogImageStat = fs.statSync(ogImagePath);
+  assert(
+    ogImageStat.size > 10240,
+    `public/og/og.png is non-empty (>10KB, got: ${ogImageStat.size} bytes)`
+  );
+
+  const ogImageHeader = fs.readFileSync(ogImagePath);
+  const isPng =
+    ogImageHeader.length > 8 &&
+    ogImageHeader[0] === 0x89 &&
+    ogImageHeader[1] === 0x50 &&
+    ogImageHeader[2] === 0x4e &&
+    ogImageHeader[3] === 0x47;
+  assert(isPng, "public/og/og.png has a valid PNG signature");
+
+  assert(
+    typeof siteConfig.ogImage === "string" && siteConfig.ogImage.startsWith("/"),
+    `siteConfig.ogImage is configured as absolute path (${siteConfig.ogImage})`
+  );
+
+  const pageMeta = createPageMetadata({
+    title: "测试页面",
+    description: "测试描述",
+    path: "/test/",
+  });
+  const pageOg = pageMeta.openGraph as Record<string, unknown> | undefined;
+  const pageTwitter = pageMeta.twitter as Record<string, unknown> | undefined;
+  assert(
+    pageOg?.type === "website" &&
+      pageOg?.siteName === siteConfig.title &&
+      pageOg?.url === "/test/",
+    "createPageMetadata produces valid website Open Graph metadata"
+  );
+  assert(
+    Boolean(pageTwitter?.card === "summary_large_image"),
+    "createPageMetadata produces summary_large_image Twitter card"
+  );
+
+  const postWithCover = allPosts.find((p) => Boolean(p.image));
+  assert(Boolean(postWithCover), "At least one post with a cover image exists");
+  if (postWithCover) {
+    const metaWithCover = createPostMetadata(postWithCover);
+    const postOg = metaWithCover.openGraph as Record<string, unknown> | undefined;
+    assert(
+      postOg?.type === "article" &&
+        Array.isArray(postOg?.images) &&
+        (postOg.images[0] as { url: string }).url === postWithCover.image,
+      "createPostMetadata uses post.image when cover exists"
+    );
+  }
+
+  const postWithoutCover = allPosts.find((p) => !p.image);
+  assert(Boolean(postWithoutCover), "At least one post without a cover image exists");
+  if (postWithoutCover) {
+    const metaWithoutCover = createPostMetadata(postWithoutCover);
+    const postWithoutOg = metaWithoutCover.openGraph as Record<string, unknown> | undefined;
+    assert(
+      postWithoutOg?.type === "article" &&
+        Array.isArray(postWithoutOg?.images) &&
+        (postWithoutOg.images[0] as { url: string }).url === siteConfig.ogImage,
+      "createPostMetadata falls back to siteConfig.ogImage when cover is missing"
+    );
+    assert(
+      postWithoutOg?.siteName === siteConfig.title &&
+        Boolean(postWithoutOg?.publishedTime),
+      "createPostMetadata populates siteName and publishedTime"
+    );
+  }
 
   console.log("\n==================================================");
   console.log(`  Verification Complete: ${passedTests} passed, ${failedTests} failed`);

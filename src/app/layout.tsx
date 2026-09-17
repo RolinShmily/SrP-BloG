@@ -4,6 +4,7 @@ import { LocaleProvider } from "@/i18n/locale-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { SpotlightEffect } from "@/components/layout/spotlight";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -32,6 +33,7 @@ export const metadata: Metadata = {
   description: siteConfig.description,
   keywords: siteConfig.keywords,
   authors: [{ name: siteConfig.author, url: siteConfig.homeUrl }],
+  creator: siteConfig.author,
   icons: {
     icon: "/favicon/favicon.ico",
   },
@@ -39,6 +41,44 @@ export const metadata: Metadata = {
     types: {
       "application/rss+xml": siteConfig.rssUrl,
     },
+  },
+  openGraph: {
+    type: "website",
+    locale: "zh_CN",
+    alternateLocale: ["en_US"],
+    url: siteConfig.url,
+    siteName: siteConfig.title,
+    title: {
+      default: `${siteConfig.title} - ${siteConfig.subtitle}`,
+      template: `%s | ${siteConfig.title}`,
+    },
+    description: siteConfig.description,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.title} - ${siteConfig.subtitle}`,
+        type: "image/png",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: {
+      default: `${siteConfig.title} - ${siteConfig.subtitle}`,
+      template: `%s | ${siteConfig.title}`,
+    },
+    description: siteConfig.description,
+    creator: siteConfig.author,
+    images: [
+      {
+        url: siteConfig.ogImage,
+        width: 1200,
+        height: 630,
+        alt: `${siteConfig.title} - ${siteConfig.subtitle}`,
+      },
+    ],
   },
 };
 
@@ -73,6 +113,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LocaleProvider>
+            <SpotlightEffect />
             <Navbar />
             <div className="flex-1 flex flex-col">{children}</div>
             <Footer />

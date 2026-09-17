@@ -3,14 +3,16 @@ import { SpotlightHero } from "@/components/blog/spotlight-hero";
 import { PostsList } from "@/components/blog/posts-list";
 import { T } from "@/components/i18n/t";
 import { dictionaries } from "@/i18n";
+import { createPageMetadata } from "@/lib/seo";
 import type { Metadata } from "next";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "文章列表 (Posts)",
   description: "浏览全部技术分享、教程与实战文章。",
-};
+  path: "/posts/",
+});
 
 const zh = dictionaries.zh;
 const en = dictionaries.en;

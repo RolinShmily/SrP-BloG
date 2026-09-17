@@ -55,7 +55,13 @@ export function PostsList({ posts, pageSize = 8 }: PostsListProps) {
       {/* Posts Grid / Stack */}
       <div className="space-y-3">
         {currentPosts.map((post, idx) => (
-          <PostCard key={post.slug} post={post} priorityImage={idx < 2} />
+          <div
+            key={post.slug}
+            className="card-animate-in"
+            style={{ "--stagger-index": idx } as React.CSSProperties}
+          >
+            <PostCard post={post} priorityImage={idx < 2} />
+          </div>
         ))}
       </div>
 

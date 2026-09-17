@@ -117,8 +117,8 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
 
       {/* Stats Bar */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card className="shadow-none">
-          <CardContent className="p-4 space-y-1">
+        <Card className="card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none">
+          <CardContent className="relative z-10 p-4 space-y-1">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <BookOpen className="h-3.5 w-3.5" />
               <span>{t.stats.totalPosts}</span>
@@ -130,8 +130,8 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
           </CardContent>
         </Card>
 
-        <Card className="shadow-none">
-          <CardContent className="p-4 space-y-1">
+        <Card className="card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none">
+          <CardContent className="relative z-10 p-4 space-y-1">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <FileText className="h-3.5 w-3.5" />
               <span>{t.stats.totalWords}</span>

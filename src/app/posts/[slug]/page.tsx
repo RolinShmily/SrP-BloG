@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
+import { createPostMetadata } from "@/lib/seo";
 import { ArticleView } from "@/components/blog/article-view";
 
 export const dynamic = "force-static";
@@ -26,20 +27,7 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
     };
   }
 
-  return {
-    title: post.title,
-    description: post.description || post.excerpt,
-    keywords: post.tags,
-    openGraph: {
-      title: post.title,
-      description: post.description || post.excerpt,
-      type: "article",
-      publishedTime: post.published,
-      modifiedTime: post.updated,
-      tags: post.tags,
-      images: post.image ? [post.image] : undefined,
-    },
-  };
+  return createPostMetadata(post);
 }
 
 export default async function PostDetailPage({ params }: PostPageProps) {

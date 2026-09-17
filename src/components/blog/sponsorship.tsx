@@ -45,8 +45,8 @@ export function Sponsorship() {
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-start">
       {methods.map(({ key, image, zh: zhLabel, en: enLabel, Icon }) => (
         <figure key={key} className="flex flex-col items-center gap-2">
-          <div className="sponsorship-card relative overflow-hidden rounded-xl border border-border bg-white">
-            <div className="sponsorship-card-icon absolute inset-0 z-10 items-center justify-center text-zinc-800">
+          <div className="sponsorship-card card-spotlight card-interactive relative overflow-hidden rounded-xl border border-border bg-white dark:bg-zinc-900">
+            <div className="sponsorship-card-icon absolute inset-0 z-10 items-center justify-center text-zinc-800 dark:text-zinc-100">
               <Icon className="h-20 w-20" />
             </div>
             <Image
@@ -98,7 +98,7 @@ export function SponsorList({ sponsors, progressMax = 520 }: SponsorListProps) {
         return (
           <div
             key={sponsor.name}
-            className="relative h-full overflow-hidden rounded-xl border border-border px-4 py-3"
+            className="card-spotlight card-interactive relative h-full overflow-hidden rounded-xl border border-border/70 bg-card/50 hover:border-border hover:bg-card px-4 py-3"
           >
             {/* Amount fill, kept behind the copy so the card still reads as text. */}
             <span

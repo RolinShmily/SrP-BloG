@@ -10,6 +10,7 @@
     "lint": "next lint",
     "sync-assets": "tsx scripts/sync-post-assets.ts",
     "generate-search-index": "tsx scripts/generate-search-index.ts",
+    "generate-og-image": "tsx scripts/generate-og-image.ts",
     "new-post": "node scripts/new-post.js",
     "verify-content": "tsx scripts/verify-content.ts"
   },

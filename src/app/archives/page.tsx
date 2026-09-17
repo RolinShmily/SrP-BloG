@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import { getSiteStats, getAllPosts } from "@/lib/content";
+import { createPageMetadata } from "@/lib/seo";
 import { ArchivesView } from "@/components/blog/archives-view";
 
 export const dynamic = "force-static";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createPageMetadata({
   title: "文章归档与搜索 (Archives)",
   description: "全站文章按年份时间线归档与多维度实时全文检索，查看建站字数与文章统计。",
-};
+  path: "/archives/",
+});
 
 export default async function ArchivesPage() {
   const [stats, posts] = await Promise.all([

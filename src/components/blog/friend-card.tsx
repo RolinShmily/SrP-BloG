@@ -19,18 +19,18 @@ export function FriendCard({ friend }: FriendCardProps) {
       href={friend.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group block h-full"
+      className="group block h-full select-none"
     >
-      <Card className="h-full p-4 hover:border-foreground/30 hover:bg-muted/30 transition-all duration-200 shadow-none">
-        <div className="flex items-start gap-3.5">
+      <Card className="card-spotlight card-interactive relative h-full p-4 border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none">
+        <div className="relative z-10 flex items-start gap-3.5">
           {/* Avatar */}
-          <div className="h-11 w-11 rounded-lg overflow-hidden shrink-0 border border-border bg-muted/50 flex items-center justify-center">
+          <div className="h-11 w-11 rounded-lg overflow-hidden shrink-0 border border-border/80 bg-muted/50 flex items-center justify-center">
             {!imageError && friend.avatar ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={friend.avatar}
                 alt={friend.name}
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-200"
+                className="h-full w-full object-cover transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110"
                 onError={() => setImageError(true)}
                 loading="lazy"
               />
@@ -42,10 +42,10 @@ export function FriendCard({ friend }: FriendCardProps) {
           {/* Info */}
           <div className="flex-1 min-w-0 space-y-1">
             <div className="flex items-center justify-between gap-1">
-              <h3 className="text-sm font-medium text-foreground group-hover:underline decoration-1 underline-offset-4 truncate">
+              <h3 className="text-sm font-medium text-foreground group-hover:text-[#f75c7e] transition-colors duration-200 truncate">
                 {friend.name}
               </h3>
-              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity shrink-0" />
+              <ArrowUpRight className="h-3.5 w-3.5 text-muted-foreground opacity-60 group-hover:opacity-100 group-hover:text-[#f75c7e] transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 shrink-0" />
             </div>
             {friend.description ? (
               <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">

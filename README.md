@@ -66,12 +66,14 @@ of the Next.js App Router; the upstream attribution is kept below.
 ├── public/
 │   ├── posts/                      # generated: co-located post assets (git-ignored)
 │   ├── search-index.json           # generated: client-side search index (git-ignored)
+│   ├── og/                         # default 1200x630 Open Graph card (og.svg source + og.png)
 │   ├── favicon/                    # favicon.ico + the filing badge images
 │   ├── sponsors/                   # Alipay / WeChat Pay QR codes for the sponsorship section
 │   └── ...                         # search-engine verification files
 ├── scripts/
 │   ├── sync-post-assets.ts         # content/posts/** -> public/posts/**
 │   ├── generate-search-index.ts    # -> public/search-index.json
+│   ├── generate-og-image.ts        # renders public/og/og.svg -> public/og/og.png (resvg)
 │   ├── verify-content.ts           # content/frontmatter validation (CI gate)
 │   ├── new-post.js                 # `pnpm new-post -- <slug>` scaffolder
 │   └── indexnow-submit.js          # IndexNow submission from out/sitemap.xml
@@ -79,7 +81,7 @@ of the Next.js App Router; the upstream attribution is kept below.
 │   ├── app/                        # App Router routes (see "Routes")
 │   ├── components/
 │   │   ├── ui/                     # shadcn/ui primitives
-│   │   ├── layout/                 # navbar, footer
+│   │   ├── layout/                 # navbar, footer, cursor-tracking spotlight
 │   │   ├── blog/                   # posts list, article view, TOC, tags, friends, PV/UV counters
 │   │   ├── icons/                  # brand marks lucide lacks (Cloudflare/Folo/开往) + Alipay/WeChat Pay
 │   │   ├── i18n/                   # <T> bilingual-DOM component, locale toggle
@@ -90,6 +92,7 @@ of the Next.js App Router; the upstream attribution is kept below.
 │       ├── content/                # content provider (fs scanner, markdown renderer, types)
 │       ├── friends.ts              # friend-link provider (content/friends/)
 │       ├── sponsors.ts             # sponsor provider (content/sponsors/)
+│       ├── seo.ts                  # Open Graph & Twitter metadata helpers
 │       └── upv/                    # UPV HTTP client + null adapter
 ├── services/
 │   └── upv/                        # standalone PV/UV service (own package.json, zero deps)
@@ -119,6 +122,7 @@ pnpm dev                # http://localhost:3000
 | `pnpm verify-content` | Validates every post directory, frontmatter and friend link |
 | `pnpm sync-assets` | Copies co-located post assets into `public/posts/` |
 | `pnpm generate-search-index` | Regenerates `public/search-index.json` |
+| `pnpm generate-og-image` | Regenerates `public/og.svg` and renders `public/og.png` |
 | `pnpm new-post -- <slug>` | Scaffolds `content/posts/<slug>/index.zh.md` (draft) |
 
 `pnpm start` is intentionally a no-op for the site itself: `output: 'export'`

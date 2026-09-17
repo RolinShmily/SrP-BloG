@@ -85,8 +85,8 @@ function StatCard({
   unit: string;
 }) {
   return (
-    <Card className="shadow-none">
-      <CardContent className="p-4 space-y-1">
+    <Card className="card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none">
+      <CardContent className="relative z-10 p-4 space-y-1">
         <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
           {icon}
           <span>{label}</span>

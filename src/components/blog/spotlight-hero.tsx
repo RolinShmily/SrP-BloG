@@ -22,7 +22,7 @@ interface SpotlightHeroProps {
  */
 export function SpotlightHero({ post }: SpotlightHeroProps) {
   return (
-    <section className="group relative mb-10 overflow-hidden rounded-xl border border-border bg-card transition-colors duration-200 hover:border-foreground/20">
+    <section className="card-spotlight card-interactive group relative mb-10 overflow-hidden rounded-xl border border-border bg-card/80 hover:border-border hover:bg-card">
       {post.image && (
         <div className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5">
           <Image
@@ -57,7 +57,7 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
         </div>
 
         {/* Heading */}
-        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground">
+        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground transition-colors duration-200 group-hover:text-[#f75c7e]">
           {post.title}
         </h2>
 

@@ -26,7 +26,7 @@ interface PostCardProps {
  */
 export function PostCard({ post, priorityImage = false }: PostCardProps) {
   return (
-    <article className="group relative overflow-hidden rounded-xl border border-border/60 bg-card/40 transition-colors duration-200 hover:border-border hover:bg-muted/40">
+    <article className="card-spotlight card-interactive group relative overflow-hidden rounded-xl border border-border/60 bg-card/40 hover:border-border hover:bg-card/75">
       {/* Cover art: a top band on narrow screens, a trailing-edge panel on wide. */}
       {post.image && (
         <div className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5">
@@ -67,7 +67,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
         </div>
 
         {/* Title */}
-        <h3 className="text-lg sm:text-xl font-medium tracking-tight text-foreground">
+        <h3 className="text-lg sm:text-xl font-medium tracking-tight text-foreground transition-colors duration-200 group-hover:text-[#f75c7e]">
           {post.title}
         </h3>
 

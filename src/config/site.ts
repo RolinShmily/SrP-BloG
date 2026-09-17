@@ -54,6 +54,8 @@ export const siteConfig = {
   author: "RoL1n",
   bio: "Entities should not be multiplied unnecessarily.",
   avatar: "/favicon/favicon.ico",
+  /** Default Open Graph image (1200x630) used for social cards and embeds. */
+  ogImage: "/og/og.png",
   url: "https://blog.srprolin.top",
   /** Absolute-site-relative path of the RSS 2.0 feed (built by `app/rss.xml`). */
   rssUrl: "/rss.xml",
