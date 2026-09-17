@@ -9,7 +9,6 @@ tags:
   - TensorFlow
 draft: false
 lang: ""
-category: ""
 ---
 # 相关链接与前情提要
 - [Anaconda](https://www.anaconda.com/download/success?reg=skipped)

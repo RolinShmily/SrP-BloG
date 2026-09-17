@@ -4,7 +4,6 @@ published: 2026-07-08
 description: 'N100机型常见的板载无线网卡AX101, 如何在PVE虚拟系统/OpenWrt中进行上网'
 image: ''
 tags: [ax101,OpenWrt,PVE]
-category: ''
 draft: false 
 lang: ''
 ---

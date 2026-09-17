@@ -9,7 +9,6 @@ tags:
   - Steam
 draft: true
 lang: ""
-category: ""
 ---
 # 简介
 

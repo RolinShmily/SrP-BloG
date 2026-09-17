@@ -5,15 +5,17 @@ description: 一个使用docker在Debian13服务器上搭建Umami统计服务的
 image: ./2026-0419-2237.png
 tags:
   - Docker
-  - Nginx，PostgreSQL
+  - Nginx
+  - PostgreSQL
 draft: false
 lang: ""
-category: ""
 ---
 # 相关链接
+
 - [Umami官网](https://umami.is/)
 
 # Docker-Compose配置
+
 ```bash
 # 创建应用目录
 cd ~
@@ -24,7 +26,9 @@ mkdir umami
 # 请将<yourpassword>和<yourhashsalt>更改
 nano ~/umami/docker-compose.yml
 ```
+
 配置内容参考如下：
+
 ```yaml
 version: '3.9'
 services:
@@ -72,8 +76,8 @@ networks:
     driver: bridge
 ```
 
-
 随后启动容器：
+
 ```bash
 # 可以先拉取所需的两个镜像
 sudo docker pull postgres:17-alpine
@@ -85,6 +89,7 @@ sudo docker compose up -d
 ```
 
 # PostgreSQL数据库备份与恢复
+
 ```bash
 # 备份数据库
 docker exec -t <容器名umami-postgres> pg_dump -U <用户名umami> -c <数据库名umami_db> > ~/backup.sql
@@ -94,6 +99,7 @@ cat ~/backup.sql | docker exec -i <容器名umami-postgres> psql -U <用户名um
 ```
 
 # Nginx+Certbot配置
+
 ```bash
 # 安装启动Nginx、Certbot
 apt-get update && apt-get install -y nginx
@@ -117,7 +123,9 @@ nginx -t
 # 重载Nginx服务
 systemctl reload nginx
 ```
+
 配置文件内容参考：
+
 ```ini
 # ==================== Umami - HTTP ====================
 server {
@@ -152,10 +160,14 @@ server {
     }
 }
 ```
+
 默认账号密码：
+
 - Username: `admin`
 - Password: `umami`
+
 # 结语
+
 - 上述方法建立在长期使用，且有域名的前提下，此方法不需要开放云服务器厂商处的端口。
 - 当然你可以使用宝塔、1Panel等服务器面板管理应用，一键安装配置。
 - 如果你只是测试，可以不进行Nginx配置，只在docker容器跑通后，开放云服务器厂商的3001TCP端口，即可通过http://ip:3001访问Umami后台。

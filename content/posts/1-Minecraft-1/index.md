@@ -4,7 +4,6 @@ published: 2024-06-22
 description: '本文将介绍游戏Minecraft(我的世界)(MC)的Java版下载，如何启动，如何用Zerotier工具实现虚拟局域网的远程联机。'
 image: './wallhaven-r2ykww.png'
 tags: [Minecraft,PCL2,Zerotier,Network]
-category: ''
 draft: false
 lang: ''
 ---

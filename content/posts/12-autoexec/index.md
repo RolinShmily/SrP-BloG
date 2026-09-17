@@ -8,7 +8,6 @@ tags:
   - CS2
 draft: false
 lang: ""
-category: ""
 ---
 # 简介
 

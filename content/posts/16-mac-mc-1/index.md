@@ -9,7 +9,6 @@ tags:
   - Frp
 draft: false
 lang: ""
-category: ""
 ---
 
 # 简介

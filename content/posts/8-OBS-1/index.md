@@ -4,7 +4,6 @@ published: 2025-07-25
 description: '本文将介绍OBS的视频录制、直播推流设置，以及虚拟摄像头、即时回放、插件的用法'
 image: './2025-07-25-0.jpg'
 tags: [OBS,FFmpeg,NVIDIA]
-category: ''
 draft: false
 lang: ''
 ---

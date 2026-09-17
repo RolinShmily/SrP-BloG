@@ -1,11 +1,11 @@
 /*
  * Scaffolds a new post folder:
- *   content/posts/<slug>/index.zh.md
+ *   content/posts/<slug>/index.md
  *
  * Usage: pnpm run new-post -- <slug>
  *
  * The co-located layout (see src/lib/content/provider.ts) treats the folder
- * name as the canonical slug and `index.<locale>.md` as one language version.
+ * name as the canonical slug and `index.md` as the post entry file.
  * New posts are created as drafts so incomplete scaffolding never ships.
  */
 
@@ -40,7 +40,7 @@ if (!slug || slug.split("/").some((segment) => segment === ".." || segment === "
 }
 
 const targetDir = path.join("content", "posts", slug)
-const filePath = path.join(targetDir, "index.zh.md")
+const filePath = path.join(targetDir, "index.md")
 
 if (fs.existsSync(filePath)) {
   console.error(`Error: ${filePath} already exists`)
@@ -55,7 +55,6 @@ published: ${getDate()}
 description: ''
 image: ''
 tags: []
-category: ''
 draft: true
 lang: ''
 ---
@@ -64,4 +63,3 @@ lang: ''
 
 fs.writeFileSync(filePath, content)
 console.log(`Post created: ${filePath}`)
-console.log(`Add the translated version at: ${path.join(targetDir, "index.en.md")}`)

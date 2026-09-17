@@ -9,7 +9,6 @@ tags:
   - Rcon
 draft: false
 lang: ""
-category: ""
 ---
 # 前言
 之前发布过一篇在MacMini上借助mcsmanager管理Minecraft服务器的文章: [使用MacMini搭建Minecraft服务器](https://blog.srprolin.top/posts/16-mac-mc-1/) ，但是对于betterMC这样的大型forge整合包，通过JVM运行通常已经很吃内存了。

@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import type { PostDetail } from "@/lib/content/types";
-import type { Locale } from "@/i18n/types";
 import { useLocale } from "@/i18n/locale-provider";
 import { formatReadingTime, formatWordCount } from "@/i18n/format";
 import { ArticleContent } from "./article-content";
@@ -22,7 +20,6 @@ import {
   Pin,
   ArrowLeft,
   RefreshCw,
-  Languages,
 } from "lucide-react";
 
 interface ArticleViewProps {
@@ -30,37 +27,17 @@ interface ArticleViewProps {
 }
 
 /**
- * Full article renderer with the per-post machine-translation toggle.
- *
- * Rendering happens server-side first (defaults to the original Chinese
- * content), then this client component can swap to the pre-rendered English
- * bundle (`post.translations.en`) without any network request. Only the body
- * HTML, TOC, word count and reading time switch; the title/tags stay canonical.
+ * Full article renderer.
  *
  * The header follows the reference theme's order — artwork first, then the
  * provenance line, then the headline and its standfirst — with the table of
  * contents beside the whole article rather than beside the body alone.
  */
 export function ArticleView({ post }: ArticleViewProps) {
-  const { t } = useLocale();
-  const enBundle = post.translations.en;
-  const canToggle = post.availableLocales.includes("en") && Boolean(enBundle);
-  const [showMachine, setShowMachine] = useState(false);
+  const { t, locale } = useLocale();
 
-  const showEnglish = canToggle && showMachine && Boolean(enBundle);
-  const active = showEnglish && enBundle
-    ? enBundle
-    : {
-        contentHtml: post.contentHtml,
-        toc: post.toc,
-        wordCount: post.wordCount,
-        readingTime: post.readingTime,
-      };
-
-  // Stats/units follow the language of the content currently displayed.
-  const contentLocale: Locale = showEnglish ? "en" : post.contentLocale;
-  const minutes = formatReadingTime(active.readingTime, active.wordCount, contentLocale);
-  const words = formatWordCount(active.wordCount, contentLocale);
+  const minutes = formatReadingTime(post.readingTime, post.wordCount, locale);
+  const words = formatWordCount(post.wordCount, locale);
   const standfirst = post.description || post.excerpt;
 
   return (
@@ -114,12 +91,6 @@ export function ArticleView({ post }: ArticleViewProps) {
               </Badge>
             )}
 
-            {post.category && (
-              <Badge variant="outline" className="px-2 py-0 text-xs font-normal">
-                {post.category}
-              </Badge>
-            )}
-
             <span className="inline-flex items-center gap-1">
               <Calendar className="h-3.5 w-3.5" />
               <time className="font-mono">{post.published}</time>
@@ -160,13 +131,6 @@ export function ArticleView({ post }: ArticleViewProps) {
                 ))}
               </span>
             )}
-
-            {showEnglish && (
-              <Badge variant="outline" className="gap-1 px-1.5 py-0 text-xs font-normal">
-                <Languages className="h-2.5 w-2.5" />
-                {t.translation.machine}
-              </Badge>
-            )}
           </div>
 
           {/* Headline */}
@@ -184,37 +148,10 @@ export function ArticleView({ post }: ArticleViewProps) {
           {/* Dividing rule: deliberately short so it reads as a flourish */}
           <div className="mt-5 w-1/2 border-t border-border sm:mt-6 sm:w-1/3" />
 
-          {/* Machine-translation toggle + notice */}
-          {canToggle && (
-            <div className="mt-6 space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setShowMachine((value) => !value)}
-                  className="h-8 gap-1.5 text-sm"
-                  aria-pressed={showMachine}
-                >
-                  <Languages className="h-3.5 w-3.5" />
-                  <span>{showMachine ? t.translation.hideMachine : t.translation.showMachine}</span>
-                </Button>
-              </div>
-
-              {showEnglish && (
-                <div
-                  role="note"
-                  className="rounded-lg border border-amber-500/30 bg-amber-500/10 px-3 py-2 text-meta text-amber-700 dark:text-amber-300"
-                >
-                  {t.translation.notice}
-                </div>
-              )}
-            </div>
-          )}
-
           {/* Body */}
           <div id="article-content" className="mt-8 min-w-0">
-            <MobileToc toc={active.toc} />
-            <ArticleContent html={active.contentHtml} />
+            <MobileToc toc={post.toc} />
+            <ArticleContent html={post.contentHtml} />
           </div>
 
           {/* Provenance card, then the neighbouring posts */}
@@ -252,7 +189,7 @@ export function ArticleView({ post }: ArticleViewProps) {
         </article>
 
         {/* Table of contents, spanning the header and the body */}
-        <DesktopToc toc={active.toc} />
+        <DesktopToc toc={post.toc} />
       </div>
     </>
   );

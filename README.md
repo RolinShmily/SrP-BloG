@@ -55,8 +55,7 @@ of the Next.js App Router; the upstream attribution is kept below.
 ├── content/
 │   ├── posts/
 │   │   └── <slug>/                 # one directory per post; the directory name is the URL slug
-│   │       ├── index.zh.md         # Chinese source (required)
-│   │       ├── index.en.md         # optional English translation
+│   │       ├── index.md            # post content (source language of author's choice)
 │   │       └── cover.png           # optional co-located assets (copied to public/posts/<slug>/)
 │   ├── friends/                    # friend links: one JSON file per site (<site>.json)
 │   │   └── <site>.json             # single object: name / url / description / avatar [ / backlink ]
@@ -81,7 +80,7 @@ of the Next.js App Router; the upstream attribution is kept below.
 │   ├── app/                        # App Router routes (see "Routes")
 │   ├── components/
 │   │   ├── ui/                     # shadcn/ui primitives
-│   │   ├── layout/                 # navbar, footer, cursor-tracking spotlight
+│   │   ├── layout/                 # navbar, footer, spotlight, page transition, route progress bar
 │   │   ├── blog/                   # posts list, article view, TOC, tags, friends, PV/UV counters
 │   │   ├── icons/                  # brand marks lucide lacks (Cloudflare/Folo/开往) + Alipay/WeChat Pay
 │   │   ├── i18n/                   # <T> bilingual-DOM component, locale toggle
@@ -123,7 +122,7 @@ pnpm dev                # http://localhost:3000
 | `pnpm sync-assets` | Copies co-located post assets into `public/posts/` |
 | `pnpm generate-search-index` | Regenerates `public/search-index.json` |
 | `pnpm generate-og-image` | Regenerates `public/og.svg` and renders `public/og.png` |
-| `pnpm new-post -- <slug>` | Scaffolds `content/posts/<slug>/index.zh.md` (draft) |
+| `pnpm new-post -- <slug>` | Scaffolds `content/posts/<slug>/index.md` (draft) |
 
 `pnpm start` is intentionally a no-op for the site itself: `output: 'export'`
 has no server runtime, so `out/` is served by a static host.
@@ -145,7 +144,7 @@ slugs (Chinese, spaces, …) are supported and percent-encoded in URLs.
 
 ### 2. Frontmatter
 
-`content/posts/<slug>/index.zh.md`:
+`content/posts/<slug>/index.md`:
 
 ```markdown
 ---
@@ -155,8 +154,7 @@ updated: 2026-01-05        # optional
 description: A short summary shown in lists and meta tags.
 image: ./cover.png                  # optional; path is relative to the post directory
 tags: [Next.js, TypeScript]
-category: Web
-lang: zh                   # optional informational tag; the file name decides the locale
+lang: zh                   # optional content language tag
 draft: true                # drafts are excluded from the build
 pinned: false              # true pins the post to the top of the home page
 ---
@@ -171,19 +169,10 @@ pinned: false              # true pins the post to the top of the home page
 | `description` | no | Used for list excerpts, search results and `<meta>`. |
 | `image` | no | Cover image (see “Images”). |
 | `tags` | no | Array of tag names; drives `/tags`. |
-| `category` | no | Single category badge. |
 | `lang` | no | Informational content language tag. |
 | `pinned` | no | Pinned posts are listed first. |
 
 `pnpm verify-content` checks these rules and is wired into CI.
-
-### 3. English (machine) translation
-
-Add `index.en.md` next to `index.zh.md` with the same frontmatter. The article
-page then shows a **translation toggle** (Chinese ⇄ English) in the meta bar;
-both versions are pre-rendered into the same HTML file, so switching is instant
-and needs no extra request. Posts without `index.en.md` simply show no toggle.
-Chinese remains the default reading language.
 
 ### Images
 
@@ -210,7 +199,7 @@ are passed through untouched.
 | Route | Description |
 | --- | --- |
 | `/` | Posts (pinned first, then newest) |
-| `/posts/[slug]` | Article detail + TOC + translation toggle + per-post UV |
+| `/posts/[slug]` | Article detail + TOC + per-post PV/UV counter |
 | `/tags` | All tags with client-side filtering (`?tag=`) |
 | `/friends` | Friend links from `content/friends/` + sponsorship section (`#sponsors`) |
 | `/archives` | Stats card, full-text search, year timeline, site UV |
@@ -222,9 +211,7 @@ are passed through untouched.
 
 ---
 
-## UI language vs. post language
-
-These are two independent features:
+## UI language vs. post content
 
 * **UI texts** — dictionaries in `src/i18n/zh.ts` / `src/i18n/en.ts` (key parity
   enforced at compile time) with a client-side toggle in the navbar. Because the
@@ -233,8 +220,8 @@ These are two independent features:
   (`html[data-locale]`); client components use `useLocale()`. The choice is
   persisted in `localStorage["srp-locale"]` (and can be forced with `?lang=en`).
   One build serves both languages — no `/en/` route duplication.
-* **Post content** — driven by files: `index.zh.md` (default) plus optional
-  `index.en.md`, switched per article as described above.
+* **Post content** — each post lives in its own `index.md` in whichever language
+  it was originally written, displayed as-is without machine-translation overhead.
 
 ---
 

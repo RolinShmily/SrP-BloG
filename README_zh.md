@@ -50,8 +50,7 @@
 ├── content/
 │   ├── posts/
 │   │   └── <slug>/                 # 一篇文章一个目录；目录名即 URL slug
-│   │       ├── index.zh.md         # 中文正文（必需）
-│   │       ├── index.en.md         # 可选的英文机翻
+│   │       ├── index.md            # 文章正文（默认语言自定）
 │   │       └── cover.png           # 可选的同目录局部资源（会复制到 public/posts/<slug>/）
 │   ├── friends/                    # 友链：每个站点一个 JSON 文件（<站点名>.json）
 │   │   └── <站点名>.json             # 单个对象：name / url / description / avatar [ / backlink ]
@@ -76,7 +75,7 @@
 │   ├── app/                        # App Router 路由（见「路由表」）
 │   ├── components/
 │   │   ├── ui/                     # shadcn/ui 基础组件
-│   │   ├── layout/                 # 顶栏、页脚、卡片光标聚光灯动效
+│   │   ├── layout/                 # 顶栏、页脚、卡片光标聚光灯、页面转场、路由细进度条
 │   │   ├── blog/                   # 文章列表、正文视图、TOC、标签、友链、PV/UV 计数器
 │   │   ├── icons/                  # lucide 没有的品牌标（Cloudflare/Folo/开往）与支付宝/微信支付
 │   │   ├── i18n/                   # <T> 双语 DOM 组件、语言切换按钮
@@ -118,7 +117,7 @@ pnpm dev                # http://localhost:3000
 | `pnpm sync-assets` | 把文章同目录资源复制到 `public/posts/` |
 | `pnpm generate-search-index` | 重新生成 `public/search-index.json` |
 | `pnpm generate-og-image` | 重新生成 `public/og.svg` 并渲染 `public/og.png` |
-| `pnpm new-post -- <slug>` | 生成 `content/posts/<slug>/index.zh.md`（默认 draft） |
+| `pnpm new-post -- <slug>` | 生成 `content/posts/<slug>/index.md`（默认 draft） |
 
 `pnpm start` 对站点本身没有意义：`output: 'export'` 不含服务端运行时，`out/` 由静态托管服务提供。
 
@@ -138,7 +137,7 @@ mkdir -p content/posts/my-first-post
 
 ### 2. frontmatter 字段
 
-`content/posts/<slug>/index.zh.md`：
+`content/posts/<slug>/index.md`：
 
 ```markdown
 ---
@@ -148,8 +147,7 @@ updated: 2026-01-05        # 可选
 description: 一句话摘要，用于列表、搜索与 meta 标签。
 image: ./cover.png                  # 可选；路径相对于文章目录
 tags: [Next.js, TypeScript]
-category: Web
-lang: zh                   # 可选的信息性标注；实际语言由文件名决定
+lang: zh                   # 可选的信息性语言标注
 draft: true                # draft 不会进入构建产物
 pinned: false              # true 时置顶
 ---
@@ -164,15 +162,10 @@ pinned: false              # true 时置顶
 | `description` | 否 | 列表摘要、搜索结果与 `<meta>`。 |
 | `image` | 否 | 封面图（见「图片引用」）。 |
 | `tags` | 否 | 标签数组，驱动 `/tags` 页面。 |
-| `category` | 否 | 单个分类徽标。 |
 | `lang` | 否 | 信息性内容语言标注。 |
 | `pinned` | 否 | 置顶文章优先展示。 |
 
 `pnpm verify-content` 会校验上述规则，并且是 CI 的一环。
-
-### 3. 添加英文机翻
-
-在同目录下新增 `index.en.md`（frontmatter 保持一致）。文章页的元信息栏会出现**机翻开关**（中文 ⇄ English）；两个版本都预渲染在同一个 HTML 里，切换无需额外请求。没有 `index.en.md` 的文章不显示开关。默认阅读语言始终是中文。
 
 ### 图片引用
 
@@ -191,7 +184,7 @@ pinned: false              # true 时置顶
 | 路由 | 说明 |
 | --- | --- |
 | `/` | 文章列表（置顶优先，其余按时间倒序） |
-| `/posts/[slug]` | 文章详情 + 目录 + 机翻开关 + 单篇 UV |
+| `/posts/[slug]` | 文章详情 + 目录 + 单篇 PV/UV 计数器 |
 | `/tags` | 标签总览，支持 `?tag=` 客户端筛选 |
 | `/friends` | 读取 `content/friends/` 的友链页 + 赞助区（`#sponsors`） |
 | `/archives` | 统计卡片、全文检索、年份时间线、全站 UV |
@@ -203,12 +196,10 @@ pinned: false              # true 时置顶
 
 ---
 
-## UI 双语与文章双语的区别
+## UI 双语与文章内容
 
-这是两件独立的事：
-
-* **UI 文案** —— `src/i18n/zh.ts` / `src/i18n/en.ts` 字典（编译期强制 key 一致），顶栏提供客户端切换。由于是预渲染导出，服务端组件通过 `<T zh en>` 组件把**两种语言同时渲染进 DOM**，再由 CSS 按 `html[data-locale]` 隐藏非当前语言；客户端组件使用 `useLocale()`。选择会持久化在 `localStorage["srp-locale"]`，也支持用 `?lang=en` 强制指定。一次构建同时服务两种语言，不会产生 `/en/` 路由副本。
-* **文章内容** —— 由文件决定：`index.zh.md`（默认）+ 可选的 `index.en.md`，在文章页内逐篇切换。
+* **UI 文案双语** —— `src/i18n/zh.ts` / `src/i18n/en.ts` 字典（编译期强制 key 一致），顶栏提供客户端切换。由于是预渲染导出，服务端组件通过 `<T zh en>` 组件把**两种语言同时渲染进 DOM**，再由 CSS 按 `html[data-locale]` 隐藏非当前语言；客户端组件使用 `useLocale()`。选择会持久化在 `localStorage["srp-locale"]`，也支持用 `?lang=en` 强制指定。一次构建同时服务两种语言，不会产生 `/en/` 路由副本。
+* **文章内容展示** —— 文章由各目录下的 `index.md` 唯一承载，原作者以什么语言书写就直接展示什么语言，不掺杂机翻译文或复杂开关，保证内容真实纯粹。
 
 ---
 

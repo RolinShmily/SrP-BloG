@@ -9,7 +9,6 @@ tags:
   - Linux
 draft: false
 lang: ""
-category: ""
 ---
 
 # SSH 的基本概念

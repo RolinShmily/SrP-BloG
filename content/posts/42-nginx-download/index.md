@@ -4,7 +4,6 @@ published: 2026-06-01
 description: '利用Nginx的反代特性，将VPS中的文件经过HTTP协议路径映射，实现URL下载。'
 image: ''
 tags: [Nginx]
-category: ''
 draft: false 
 lang: ''
 ---

@@ -37,23 +37,40 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
       )}
 
       <div className="relative z-10 flex flex-col gap-3 p-6 sm:p-8 sm:pe-[38%]">
-        {/* Top row: pinned flag, category, date */}
+        {/* Top row: pinned flag, date, tags */}
         <div className="flex flex-wrap items-center gap-2 text-meta">
           <Badge variant="secondary" className="gap-1 px-2 py-0.5 text-xs font-medium">
             <Pin className="h-3 w-3 text-[#f75c7e]" />
             <T zh={dictionaries.zh.post.pinned} en={dictionaries.en.post.pinned} />
           </Badge>
 
-          {post.category && (
-            <Badge variant="outline" className="px-2 py-0.5 text-xs font-normal">
-              {post.category}
-            </Badge>
-          )}
-
           <span className="inline-flex items-center gap-1 text-meta text-muted-foreground">
             <Calendar className="h-3.5 w-3.5" />
             <time className="font-mono">{post.published}</time>
           </span>
+
+          {post.tags.length > 0 && (
+            <>
+              <span className="text-muted-foreground/40">&bull;</span>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {post.tags.slice(0, 3).map((tag) => (
+                  // Raised above the stretched overlay link so tags stay clickable.
+                  <Link
+                    key={tag}
+                    href={`/tags/?tag=${encodeURIComponent(tag)}`}
+                    className="relative z-20 text-meta text-muted-foreground/80 transition-colors hover:text-[#f75c7e]"
+                  >
+                    #{tag}
+                  </Link>
+                ))}
+                {post.tags.length > 3 && (
+                  <span className="text-xs text-muted-foreground/50">
+                    +{post.tags.length - 3}
+                  </span>
+                )}
+              </div>
+            </>
+          )}
         </div>
 
         {/* Heading */}
@@ -68,7 +85,7 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
           </p>
         )}
 
-        {/* Meta & tags */}
+        {/* Meta stats */}
         <div className="flex flex-wrap items-center gap-3 pt-1 text-meta text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             <FileText className="h-3.5 w-3.5" />
@@ -82,24 +99,6 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
               en={formatReadingTime(post.readingTime, post.wordCount, "en")}
             />
           </span>
-
-          {post.tags.length > 0 && (
-            <>
-              <span className="text-muted-foreground/40">&bull;</span>
-              <div className="flex flex-wrap items-center gap-1.5">
-                {post.tags.slice(0, 3).map((tag) => (
-                  // Raised above the stretched overlay link so tags stay clickable.
-                  <Link
-                    key={tag}
-                    href={`/tags/?tag=${encodeURIComponent(tag)}`}
-                    className="relative z-20 text-meta transition-colors hover:text-foreground"
-                  >
-                    #{tag}
-                  </Link>
-                ))}
-              </div>
-            </>
-          )}
         </div>
       </div>
 

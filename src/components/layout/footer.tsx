@@ -5,13 +5,13 @@ import { siteConfig, type CdnBrand, type SocialIcon } from "@/config/site";
 import { dictionaries } from "@/i18n";
 import { T } from "@/components/i18n/t";
 import {
-  CloudflareLockup,
   FaBilibiliIcon,
   FaGithubIcon,
   FaSteamIcon,
   FoloIcon,
   TravellingsBadge,
 } from "@/components/icons/brands";
+import { TechStackRow } from "@/components/layout/tech-stack-row";
 import {
   ArrowUpRight,
   Map,
@@ -44,7 +44,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-border bg-background text-muted-foreground text-sm transition-colors mt-auto">
+    <footer className="bg-background text-muted-foreground text-sm transition-colors mt-auto">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         {/* Top row: Quick links & Socials */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -74,6 +74,16 @@ export function Footer() {
               <Map className="h-3 w-3 opacity-80" />
               <T zh={zh.footer.sitemap} en={en.footer.sitemap} />
             </a>
+            <a
+              href={siteConfig.travellingsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition-colors inline-flex items-center"
+              aria-label={`${zh.footer.travellings} / ${en.footer.travellings}`}
+              title={`${zh.footer.travellings} / ${en.footer.travellings}`}
+            >
+              <TravellingsBadge className="h-[18px] w-auto shrink-0 grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all" />
+            </a>
           </div>
 
           {/* Socials */}
@@ -97,33 +107,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* CDN row: Cloudflare mark on the left, Travellings relay on the right */}
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-4 border-t border-border/40">
-          <span className="inline-flex items-center text-xs font-medium tracking-wider opacity-70">
-            <T zh={zh.footer.cdn} en={en.footer.cdn} />
-          </span>
-          <a
-            href="https://www.cloudflare.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Cloudflare"
-            className="inline-flex items-center opacity-80 hover:opacity-100 transition-opacity"
-          >
-            <span className="sr-only">Cloudflare</span>
-            <CloudflareLockup className="h-6 w-auto" />
-          </a>
-
-          {/* 开往 (Travellings) relay badge — keeps its own dark palette */}
-          <a
-            href={siteConfig.travellingsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={`${zh.footer.travellings} / ${en.footer.travellings}`}
-            className="ml-auto inline-flex items-center opacity-85 hover:opacity-100 transition-opacity"
-          >
-            <span className="sr-only">{zh.footer.travellings}</span>
-            <TravellingsBadge className="h-6 w-auto" />
-          </a>
+        {/* Tech stack & ecosystem row */}
+        <div className="pt-4 border-t border-border/40">
+          <TechStackRow />
         </div>
 
         {/* Bottom row: Copyright, Source, Licenses & Filings */}

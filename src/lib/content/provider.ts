@@ -1,16 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
-import { DEFAULT_LOCALE, LOCALES, isLocale } from "../../i18n/types";
-import type { Locale } from "../../i18n/types";
 import type {
-  CategoryInfo,
   ContentQueryArg,
   IContentProvider,
   Post,
   PostDetail,
   PostQueryOptions,
-  PostTranslation,
   SearchIndexItem,
   SiteStats,
   TagInfo,
@@ -24,7 +20,7 @@ import {
   stripMarkdown,
 } from "./markdown";
 
-/** Frontmatter-derived metadata for one language version of a post. */
+/** Frontmatter-derived metadata for a post. */
 interface PostMeta {
   title: string;
   published: string;
@@ -33,7 +29,6 @@ interface PostMeta {
   description?: string;
   image?: string;
   tags: string[];
-  category?: string;
   lang?: string;
   pinned: boolean;
   wordCount: number;
@@ -41,29 +36,17 @@ interface PostMeta {
   excerpt: string;
 }
 
-/** A single `index.<locale>.md` file parsed from disk. */
-interface RawLocaleData {
-  locale: Locale;
+/** A single post parsed from disk. */
+interface RawPostData {
+  slug: string;
   filePath: string;
   rawContent: string;
   plainText: string;
   meta: PostMeta;
 }
 
-/** All language versions of one post, keyed by slug (the directory name). */
-interface RawPostData {
-  slug: string;
-  locales: Partial<Record<Locale, RawLocaleData>>;
-  availableLocales: Locale[];
-}
-
-interface ResolvedQuery {
-  locale: Locale;
-  options: PostQueryOptions;
-}
-
-/** Matches the co-located bilingual file naming convention: `index.zh.md` / `index.en.mdx`. */
-const POST_FILE_PATTERN = /^index\.(zh|en)\.(?:md|mdx)$/;
+/** Matches the standard post entry file: `index.md` or `index.mdx`. */
+const POST_FILE_PATTERN = /^index\.(?:md|mdx)$/;
 
 function formatDate(value: unknown): string {
   if (!value) return "";
@@ -100,14 +83,14 @@ export class LocalContentProvider implements IContentProvider {
   }
 
   /**
-   * Recursively finds every co-located post file (`<slug>/index.<locale>.md`).
+   * Recursively finds every co-located post file (`<slug>/index.md`).
    * The slug is derived from the containing directory name, so slugs containing
    * CJK characters or other special characters are preserved verbatim.
    */
-  private scanPostFiles(): Array<{ slug: string; locale: Locale; filePath: string }> {
+  private scanPostFiles(): Array<{ slug: string; filePath: string }> {
     if (!fs.existsSync(this.postsDir)) return [];
 
-    const results: Array<{ slug: string; locale: Locale; filePath: string }> = [];
+    const results: Array<{ slug: string; filePath: string }> = [];
 
     const walk = (dir: string): void => {
       const entries = fs.readdirSync(dir, { withFileTypes: true });
@@ -119,13 +102,12 @@ export class LocalContentProvider implements IContentProvider {
         }
         if (!entry.isFile()) continue;
 
-        const match = POST_FILE_PATTERN.exec(entry.name);
-        if (!match) continue;
+        if (!POST_FILE_PATTERN.test(entry.name)) continue;
 
         const slug = path.relative(this.postsDir, dir).split(path.sep).join("/");
         if (!slug) continue;
 
-        results.push({ slug, locale: match[1] as Locale, filePath: fullPath });
+        results.push({ slug, filePath: fullPath });
       }
     };
 
@@ -134,9 +116,9 @@ export class LocalContentProvider implements IContentProvider {
   }
 
   /**
-   * Parses a single `index.<locale>.md` file into metadata + plain text.
+   * Parses a single `index.md` file into metadata + plain text.
    */
-  private parseLocaleFile(filePath: string, locale: Locale, slug: string): RawLocaleData {
+  private parsePostFile(filePath: string, slug: string): RawPostData {
     const fileContent = fs.readFileSync(filePath, "utf8");
     const { data, content } = matter(fileContent);
 
@@ -156,8 +138,7 @@ export class LocalContentProvider implements IContentProvider {
       tags: Array.isArray(data.tags)
         ? data.tags.map((tag) => String(tag).trim()).filter(Boolean)
         : [],
-      category: data.category ? String(data.category).trim() || undefined : undefined,
-      lang: data.lang ? String(data.lang).trim() : locale === "zh" ? "zh-CN" : "en",
+      lang: data.lang ? String(data.lang).trim() : undefined,
       pinned: Boolean(data.pinned),
       wordCount,
       readingTime,
@@ -168,7 +149,7 @@ export class LocalContentProvider implements IContentProvider {
           : plainText.trim(),
     };
 
-    return { locale, filePath, rawContent: content, plainText, meta };
+    return { slug, filePath, rawContent: content, plainText, meta };
   }
 
   /**
@@ -179,19 +160,9 @@ export class LocalContentProvider implements IContentProvider {
 
     const postMap = new Map<string, RawPostData>();
 
-    for (const { slug, locale, filePath } of this.scanPostFiles()) {
-      const parsed = this.parseLocaleFile(filePath, locale, slug);
-      let raw = postMap.get(slug);
-      if (!raw) {
-        raw = { slug, locales: {}, availableLocales: [] };
-        postMap.set(slug, raw);
-      }
-      raw.locales[locale] = parsed;
-    }
-
-    // Normalize locale order (zh first) for stable output.
-    for (const raw of postMap.values()) {
-      raw.availableLocales = LOCALES.filter((locale) => Boolean(raw.locales[locale]));
+    for (const { slug, filePath } of this.scanPostFiles()) {
+      const parsed = this.parsePostFile(filePath, slug);
+      postMap.set(slug, parsed);
     }
 
     this.cache = postMap;
@@ -199,26 +170,22 @@ export class LocalContentProvider implements IContentProvider {
   }
 
   /**
-   * Normalizes the `(locale?, options?)` / `(options?)` call styles.
+   * Resolves options when either `(options)` or `(locale, options)` is called.
    */
-  private resolveQuery(arg?: ContentQueryArg, options?: PostQueryOptions): ResolvedQuery {
-    if (typeof arg === "string") {
-      return { locale: isLocale(arg) ? arg : DEFAULT_LOCALE, options: options ?? {} };
+  private resolveOptions(arg?: ContentQueryArg, options?: PostQueryOptions): PostQueryOptions {
+    if (typeof arg === "object" && arg !== null) {
+      return arg;
     }
-    return { locale: DEFAULT_LOCALE, options: arg ?? options ?? {} };
+    return options ?? {};
   }
 
   /**
-   * Builds the public `Post` shape from raw locale data plus post-level aggregates.
+   * Builds the public `Post` shape from raw post data.
    */
-  private materialize(raw: RawPostData, data: RawLocaleData, isFallback: boolean): Post {
+  private materialize(raw: RawPostData): Post {
     return {
       slug: raw.slug,
-      ...data.meta,
-      availableLocales: [...raw.availableLocales],
-      hasTranslation: raw.availableLocales.length > 1,
-      contentLocale: data.locale,
-      isFallback,
+      ...raw.meta,
     };
   }
 
@@ -240,8 +207,7 @@ export class LocalContentProvider implements IContentProvider {
   }
 
   /**
-   * Finds a raw post by slug. Accepts the canonical directory slug and, for
-   * backwards compatibility, a legacy `"<slug>/index"` form. Handles
+   * Finds a raw post by slug. Accepts canonical directory slug and handles
    * percent-encoded (CJK) slugs.
    */
   private findRawPost(map: Map<string, RawPostData>, slug: string): RawPostData | undefined {
@@ -266,86 +232,42 @@ export class LocalContentProvider implements IContentProvider {
   }
 
   /**
-   * Returns all posts that exist in `locale` (default `zh`), sorted with drafts
-   * filtered unless `includeDrafts` is true.
-   *
-   * A post without `index.zh.md` is treated as a draft for the Chinese listing
-   * and is only visible through its own locale.
+   * Returns all posts, sorted with drafts filtered unless `includeDrafts` is true.
    */
   public async getAllPosts(
     localeOrOptions?: ContentQueryArg,
     maybeOptions?: PostQueryOptions
   ): Promise<Post[]> {
-    const { locale, options } = this.resolveQuery(localeOrOptions, maybeOptions);
+    const options = this.resolveOptions(localeOrOptions, maybeOptions);
     const rawMap = this.loadRawPosts();
     const posts: Post[] = [];
 
     for (const raw of rawMap.values()) {
-      const data = raw.locales[locale];
-      if (!data) continue;
-      if (data.meta.draft && !options.includeDrafts) continue;
-      posts.push(this.materialize(raw, data, false));
+      if (raw.meta.draft && !options.includeDrafts) continue;
+      posts.push(this.materialize(raw));
     }
 
     return this.sortPosts(posts);
   }
 
   /**
-   * Returns full post details for `locale` (default `zh`).
-   *
-   * When the requested locale has no version, the Chinese version is served with
-   * `isFallback: true`. `translations` carries the pre-rendered HTML of every
-   * available locale so the UI can switch language without a second request.
+   * Returns full post details for the given slug.
    */
   public async getPostBySlug(
     slug: string,
     localeOrOptions?: ContentQueryArg,
     maybeOptions?: PostQueryOptions
   ): Promise<PostDetail | null> {
-    const { locale, options } = this.resolveQuery(localeOrOptions, maybeOptions);
+    const options = this.resolveOptions(localeOrOptions, maybeOptions);
     const rawMap = this.loadRawPosts();
     const raw = this.findRawPost(rawMap, slug);
     if (!raw) return null;
 
-    const isUsable = (data: RawLocaleData | undefined): data is RawLocaleData =>
-      Boolean(data) && (!data!.meta.draft || Boolean(options.includeDrafts));
+    if (raw.meta.draft && !options.includeDrafts) return null;
 
-    let data = isUsable(raw.locales[locale]) ? raw.locales[locale] : undefined;
-    let isFallback = false;
+    const rendered = await renderMarkdownToHtml(raw.rawContent, raw.slug);
 
-    if (!data && locale !== DEFAULT_LOCALE && isUsable(raw.locales[DEFAULT_LOCALE])) {
-      data = raw.locales[DEFAULT_LOCALE];
-      isFallback = true;
-    }
-    if (!data) return null;
-
-    const sourceLocale = data.locale;
-    const rendered = await renderMarkdownToHtml(data.rawContent, raw.slug);
-
-    const translations: Partial<Record<Locale, PostTranslation>> = {};
-    for (const availableLocale of raw.availableLocales) {
-      const localeData = raw.locales[availableLocale];
-      if (!isUsable(localeData)) continue;
-      if (availableLocale === sourceLocale) {
-        translations[availableLocale] = {
-          contentHtml: rendered.contentHtml,
-          toc: rendered.toc,
-          wordCount: localeData.meta.wordCount,
-          readingTime: localeData.meta.readingTime,
-        };
-        continue;
-      }
-      const other = await renderMarkdownToHtml(localeData.rawContent, raw.slug);
-      translations[availableLocale] = {
-        contentHtml: other.contentHtml,
-        toc: other.toc,
-        wordCount: localeData.meta.wordCount,
-        readingTime: localeData.meta.readingTime,
-      };
-    }
-
-    // Prev/next follow the ordering of the locale the content actually came from.
-    const sortedPosts = await this.getAllPosts(sourceLocale, options);
+    const sortedPosts = await this.getAllPosts(options);
     const currentIndex = sortedPosts.findIndex((post) => post.slug === raw.slug);
 
     // In a descending list (newest first):
@@ -364,10 +286,9 @@ export class LocalContentProvider implements IContentProvider {
     const toc: TocItem[] = rendered.toc;
 
     return {
-      ...this.materialize(raw, data, isFallback),
+      ...this.materialize(raw),
       contentHtml: rendered.contentHtml,
       toc,
-      translations,
       prevPost,
       nextPost,
     };
@@ -380,8 +301,8 @@ export class LocalContentProvider implements IContentProvider {
     localeOrOptions?: ContentQueryArg,
     maybeOptions?: PostQueryOptions
   ): Promise<TagInfo[]> {
-    const { locale, options } = this.resolveQuery(localeOrOptions, maybeOptions);
-    const posts = await this.getAllPosts(locale, options);
+    const options = this.resolveOptions(localeOrOptions, maybeOptions);
+    const posts = await this.getAllPosts(options);
     const countMap: Record<string, number> = {};
 
     for (const post of posts) {
@@ -400,40 +321,14 @@ export class LocalContentProvider implements IContentProvider {
   }
 
   /**
-   * Aggregates all categories with post counts, sorted descending by post count.
-   * Posts without a category are grouped under "未分类".
-   */
-  public async getAllCategories(
-    localeOrOptions?: ContentQueryArg,
-    maybeOptions?: PostQueryOptions
-  ): Promise<CategoryInfo[]> {
-    const { locale, options } = this.resolveQuery(localeOrOptions, maybeOptions);
-    const posts = await this.getAllPosts(locale, options);
-    const countMap: Record<string, number> = {};
-
-    for (const post of posts) {
-      const categoryName = post.category || "未分类";
-      countMap[categoryName] = (countMap[categoryName] || 0) + 1;
-    }
-
-    return Object.entries(countMap)
-      .map(([name, count]) => ({ name, count }))
-      .sort((a, b) => {
-        const diff = b.count - a.count;
-        if (diff !== 0) return diff;
-        return a.name.localeCompare(b.name, "zh-CN");
-      });
-  }
-
-  /**
-   * Returns total post count and total word count for a locale.
+   * Returns total post count and total word count.
    */
   public async getSiteStats(
     localeOrOptions?: ContentQueryArg,
     maybeOptions?: PostQueryOptions
   ): Promise<SiteStats> {
-    const { locale, options } = this.resolveQuery(localeOrOptions, maybeOptions);
-    const posts = await this.getAllPosts(locale, options);
+    const options = this.resolveOptions(localeOrOptions, maybeOptions);
+    const posts = await this.getAllPosts(options);
     const totalPosts = posts.length;
     const totalWordCount = posts.reduce((sum, post) => sum + post.wordCount, 0);
 
@@ -445,41 +340,27 @@ export class LocalContentProvider implements IContentProvider {
 
   /**
    * Returns a lightweight search index payload for client-side search.
-   * Each item is tagged with its `locale`; English bodies are attached when the
-   * post is bilingual and the primary locale is `zh`.
    */
   public async getSearchIndex(
     localeOrOptions?: ContentQueryArg,
     maybeOptions?: PostQueryOptions
   ): Promise<SearchIndexItem[]> {
-    const { locale, options } = this.resolveQuery(localeOrOptions, maybeOptions);
+    const options = this.resolveOptions(localeOrOptions, maybeOptions);
     const rawMap = this.loadRawPosts();
-    const posts = await this.getAllPosts(locale, options);
+    const posts = await this.getAllPosts(options);
 
     return posts.map((post) => {
       const raw = rawMap.get(post.slug);
-      const primary = raw?.locales[post.contentLocale];
-      const english = raw?.locales.en;
-      const englishUsable = Boolean(english) && (!english!.meta.draft || Boolean(options.includeDrafts));
 
-      const item: SearchIndexItem = {
+      return {
         slug: post.slug,
         title: post.title,
         description: post.description,
-        category: post.category || "未分类",
         tags: post.tags,
         date: post.published,
         wordCount: post.wordCount,
-        plainText: primary ? primary.plainText : "",
-        locale: post.contentLocale,
+        plainText: raw ? raw.plainText : "",
       };
-
-      if (post.contentLocale === "zh" && english && englishUsable) {
-        item.titleEn = english.meta.title;
-        item.plainTextEn = english.plainText;
-      }
-
-      return item;
     });
   }
 }
@@ -502,10 +383,6 @@ export const getAllTags = (
   localeOrOptions?: ContentQueryArg,
   options?: PostQueryOptions
 ): Promise<TagInfo[]> => contentProvider.getAllTags(localeOrOptions, options);
-export const getAllCategories = (
-  localeOrOptions?: ContentQueryArg,
-  options?: PostQueryOptions
-): Promise<CategoryInfo[]> => contentProvider.getAllCategories(localeOrOptions, options);
 export const getSiteStats = (
   localeOrOptions?: ContentQueryArg,
   options?: PostQueryOptions

@@ -12,7 +12,6 @@ tags:
   - Stm32
 draft: false
 lang: ""
-category: ""
 ---
 # 相关链接
 - [MSYS2官方文档](https://www.msys2.org/)

@@ -5,6 +5,8 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SpotlightEffect } from "@/components/layout/spotlight";
+import { PageTransition } from "@/components/layout/page-transition";
+import { RouteProgressBar } from "@/components/layout/route-progress";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -113,9 +115,10 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LocaleProvider>
+            <RouteProgressBar />
             <SpotlightEffect />
             <Navbar />
-            <div className="flex-1 flex flex-col">{children}</div>
+            <PageTransition>{children}</PageTransition>
             <Footer />
           </LocaleProvider>
         </ThemeProvider>

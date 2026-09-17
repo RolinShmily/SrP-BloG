@@ -10,7 +10,6 @@ tags:
   - Mac
 draft: false
 lang: ""
-category: ""
 ---
 # 相关链接
 - [DockerDesktop安装文档](https://docs.docker.com/desktop/setup/install/windows-install/)

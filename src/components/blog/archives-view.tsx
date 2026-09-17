@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import type { Post, SiteStats, SearchIndexItem } from "@/lib/content/types";
 import { Input } from "@/components/ui/input";
@@ -21,6 +21,27 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchIndex, setSearchIndex] = useState<SearchIndexItem[]>([]);
   const [isLoadingIndex, setIsLoadingIndex] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const handleHashFocus = () => {
+      if (
+        window.location.hash === "#search" ||
+        window.location.hash === "#archive-search-input"
+      ) {
+        setTimeout(() => {
+          if (searchInputRef.current) {
+            searchInputRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+            searchInputRef.current.focus({ preventScroll: true });
+          }
+        }, 150);
+      }
+    };
+
+    handleHashFocus();
+    window.addEventListener("hashchange", handleHashFocus);
+    return () => window.removeEventListener("hashchange", handleHashFocus);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -44,12 +65,10 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
             slug: p.slug,
             title: p.title,
             description: p.description || p.excerpt,
-            category: p.category,
             tags: p.tags,
             date: p.published,
             wordCount: p.wordCount,
             plainText: p.excerpt || "",
-            locale: p.contentLocale,
           }));
           setSearchIndex(fallbackIndex);
           setIsLoadingIndex(false);
@@ -69,11 +88,8 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
 
     return searchIndex.filter((item) => {
       const title = (item.title || "").toLowerCase();
-      const titleEn = (item.titleEn || "").toLowerCase();
       const desc = (item.description || "").toLowerCase();
       const plain = (item.plainText || "").toLowerCase();
-      const plainEn = (item.plainTextEn || "").toLowerCase();
-      const category = (item.category || "").toLowerCase();
       const tags = (item.tags || []).join(" ").toLowerCase();
       const date = (item.date || "").toLowerCase();
       const year = date.split("-")[0] || "";
@@ -81,11 +97,8 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
       return terms.every(
         (term) =>
           title.includes(term) ||
-          titleEn.includes(term) ||
           desc.includes(term) ||
           plain.includes(term) ||
-          plainEn.includes(term) ||
-          category.includes(term) ||
           tags.includes(term) ||
           date.includes(term) ||
           year === term
@@ -108,7 +121,10 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
   return (
     <div className="space-y-10">
       {/* Header */}
-      <div className="space-y-1 pb-2">
+      <div
+        className="section-animate-in space-y-1 pb-2"
+        style={{ "--section-index": 0 } as React.CSSProperties}
+      >
         <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
           {t.archives.heading}
         </h1>
@@ -116,8 +132,14 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
       </div>
 
       {/* Stats Bar */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card className="card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none">
+      <section
+        className="section-animate-in grid grid-cols-2 md:grid-cols-4 gap-3"
+        style={{ "--section-index": 1 } as React.CSSProperties}
+      >
+        <Card
+          className="card-animate-in card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none"
+          style={{ "--stagger-index": 0 } as React.CSSProperties}
+        >
           <CardContent className="relative z-10 p-4 space-y-1">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <BookOpen className="h-3.5 w-3.5" />
@@ -130,7 +152,10 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
           </CardContent>
         </Card>
 
-        <Card className="card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none">
+        <Card
+          className="card-animate-in card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none"
+          style={{ "--stagger-index": 1 } as React.CSSProperties}
+        >
           <CardContent className="relative z-10 p-4 space-y-1">
             <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <FileText className="h-3.5 w-3.5" />
@@ -150,10 +175,16 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
       </section>
 
       {/* Search Input Bar */}
-      <section className="space-y-3">
+      <section
+        id="search"
+        className="section-animate-in space-y-3"
+        style={{ "--section-index": 2 } as React.CSSProperties}
+      >
         <div className="relative flex items-center">
           <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none" />
           <Input
+            id="archive-search-input"
+            ref={searchInputRef}
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
@@ -206,14 +237,6 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
                         <Calendar className="h-3 w-3" />
                         <time className="font-mono">{item.date}</time>
                       </span>
-                      {item.category && (
-                        <>
-                          <span>&bull;</span>
-                          <Badge variant="outline" className="text-xs px-1.5 py-0">
-                            {item.category}
-                          </Badge>
-                        </>
-                      )}
                       <span>&bull;</span>
                       <span className="inline-flex items-center gap-1 font-mono">
                         <FileText className="h-3 w-3" />
@@ -246,21 +269,28 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
         </section>
       ) : (
         /* Chronological Timeline */
-        <section className="space-y-10">
+        <section className="space-y-16">
           {postsByYear.map(([year, yearPosts]) => (
-            <div key={year} className="space-y-4">
-              {/* Year Heading */}
-              <div className="flex items-center gap-2.5 pb-2 border-b border-border">
-                <h2 className="text-xl font-semibold tracking-tight text-foreground font-mono">
+            <div key={year} className="relative space-y-4">
+              {/* Antfu-style Big Background Year Watermark Header */}
+              <div className="relative h-16 sm:h-20 select-none pointer-events-none flex items-end justify-between pb-2 border-b border-border/40">
+                <span
+                  aria-hidden="true"
+                  className="absolute -left-2 sm:-left-6 -top-6 sm:-top-10 font-mono text-7xl sm:text-8xl md:text-[8.5rem] font-black tracking-tight leading-none text-transparent stroke-year"
+                >
                   {year}
-                </h2>
-                <Badge variant="secondary" className="text-xs px-2 py-0 font-normal">
+                </span>
+                <span className="sr-only">{year}</span>
+                <Badge
+                  variant="secondary"
+                  className="relative z-10 text-xs px-2.5 py-0.5 font-normal ml-auto pointer-events-auto"
+                >
                   {yearPosts.length} {t.stats.posts}
                 </Badge>
               </div>
 
               {/* Timeline Items */}
-              <div className="relative border-l border-border ml-2 pl-5 space-y-4">
+              <div className="relative z-10 border-l border-border ml-2 pl-5 space-y-4">
                 {yearPosts.map((post) => {
                   const dateParts = post.published.split("-");
                   const monthDay =
@@ -293,14 +323,6 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
 
                       {/* Meta */}
                       <div className="flex items-center gap-2 text-xs text-muted-foreground sm:shrink-0 pl-15 sm:pl-0">
-                        {post.category && (
-                          <Badge
-                            variant="outline"
-                            className="text-xs px-1.5 py-0 font-normal"
-                          >
-                            {post.category}
-                          </Badge>
-                        )}
                         <span className="font-mono text-xs">
                           {formatWordCount(post.wordCount, locale)}
                         </span>

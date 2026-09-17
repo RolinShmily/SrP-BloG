@@ -90,14 +90,11 @@ export function createPostMetadata(post: Post): Metadata {
       siteName: siteConfig.title,
       title: post.title,
       description: postDescription,
-      locale: post.contentLocale === "en" ? "en_US" : "zh_CN",
-      alternateLocale: post.hasTranslation
-        ? [post.contentLocale === "en" ? "zh_CN" : "en_US"]
-        : undefined,
+      locale: post.lang === "en" ? "en_US" : "zh_CN",
       publishedTime: post.published,
       modifiedTime: post.updated || post.published,
       authors: [siteConfig.author],
-      section: post.category,
+      section: post.tags[0],
       tags: post.tags,
       images: [postImage],
     },

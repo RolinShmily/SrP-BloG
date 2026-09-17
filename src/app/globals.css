@@ -311,23 +311,54 @@
   }
 
   .site-brand-text {
-    font-family: var(--font-display), Georgia, "Times New Roman", serif;
-    font-weight: 400;
-    font-size: 1.125rem;
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    font-size: 1.0625rem;
     line-height: 1;
-    /* Instrument Serif is drawn tight and narrow, so at navbar size the strokes
-       of adjacent letters nearly touch. A wider track opens the wordmark up.
-       The negative margin cancels the tracking added after the final glyph,
-       which would otherwise leave a gap before the capsule's right edge. */
-    letter-spacing: 0.055em;
-    margin-right: -0.055em;
     color: hsl(var(--foreground));
     white-space: nowrap;
   }
-  /* The type half of the wordmark is italicised and faded, the way the
-     reference splits its name from the word "Blog". */
+
+  /* Author name set in Maple Mono NF CN */
+  .site-brand-author {
+    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: hsl(var(--foreground));
+  }
+
+  /* The signature brand apostrophe accented with theme pink */
+  .brand-apostrophe {
+    display: inline-block;
+    font-family: var(--font-display), Georgia, "Times New Roman", serif;
+    font-style: normal;
+    font-weight: 600;
+    color: #f75c7e;
+    padding-inline: 0.03em;
+  }
+  @supports (-webkit-background-clip: text) or (background-clip: text) {
+    .brand-apostrophe {
+      background: linear-gradient(135deg, #f75c7e, #ff8fa3);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .dark .brand-apostrophe {
+      background: linear-gradient(135deg, #ff8fa3, #f75c7e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+  }
+
+  /* "BloG" in Instrument Serif italic, referenced from danarnoux.com's "Blog" style */
   .site-brand-type {
+    font-family: var(--font-display), Georgia, "Times New Roman", serif;
     font-style: italic;
+    font-weight: 400;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
     color: hsl(var(--muted-foreground));
     transition: color 0.2s ease;
   }
@@ -878,8 +909,8 @@
 .card-interactive {
   transform-origin: center;
   transition:
-    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 200ms ease,
     background-color 200ms ease;
 }
@@ -893,32 +924,196 @@
   box-shadow: 0 14px 30px -4px rgba(0, 0, 0, 0.5);
 }
 
+/* Crisp tactile ease-in on press, graceful ease-out on release */
 .card-interactive:active {
-  transform: translateY(0) scale(0.992);
+  transform: translateY(0) scale(0.988);
+  transition-duration: 90ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
 
-/* Staggered card entrance */
-@keyframes card-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
+/* ---------------------------------------------------------------------------
+   Antfu-style Background Year Watermark (for Archives timeline)
+   --------------------------------------------------------------------------- */
+.stroke-year {
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(113, 113, 122, 0.24);
+  text-stroke: 2px rgba(113, 113, 122, 0.24);
+  user-select: none;
+}
+
+.dark .stroke-year {
+  -webkit-text-stroke: 2px rgba(212, 212, 216, 0.16);
+  text-stroke: 2px rgba(212, 212, 216, 0.16);
+}
+
+/* ---------------------------------------------------------------------------
+   Footer Tech Stack Marquee (Slow scroll when overflowing)
+   --------------------------------------------------------------------------- */
+@keyframes tech-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
   }
-  to {
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-tech-marquee {
+  display: flex;
+  width: max-content;
+  animation: tech-marquee 32s linear infinite;
+}
+
+.animate-tech-marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-tech-marquee {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Global Page Entrance & Staggered Component Animations
+   --------------------------------------------------------------------------- */
+@keyframes page-enter-up {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.997);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.page-transition-enter {
+  animation: page-enter-up 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: opacity, transform;
+}
+
+@keyframes section-fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
+.section-animate-in {
+  animation: section-fade-up 340ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: calc(var(--section-index, 0) * 60ms);
+}
+
+/* Staggered card entrance */
+@keyframes card-fade-up {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.988);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .card-animate-in {
-  animation: card-fade-up 350ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: card-fade-up 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: calc(var(--stagger-index, 0) * 35ms);
 }
 
+/* ---------------------------------------------------------------------------
+   Tag Cloud Floating Chips (inspired by danarnoux.com/tags/)
+   ---------------------------------------------------------------------------
+   Smooth Apple-style elevation, proportional em-scaling based on frequency,
+   and subtle glass shine on hover.
+   --------------------------------------------------------------------------- */
+.apple-float-chip {
+  position: relative;
+  overflow: hidden;
+  transform-origin: center;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.apple-float-chip::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(244, 244, 245, 0.5)
+  );
+  opacity: 0;
+  transform: scale(0.95);
+  transition:
+    opacity 180ms ease,
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.apple-float-chip:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 24px -2px rgba(15, 23, 42, 0.08);
+}
+
+.apple-float-chip:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.apple-float-chip:active {
+  transform: translateY(0) scale(0.975);
+  transition-duration: 90ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+}
+
+.dark .apple-float-chip::before {
+  background: linear-gradient(
+    180deg,
+    rgba(63, 63, 70, 0.75),
+    rgba(39, 39, 42, 0.45)
+  );
+}
+
+.dark .apple-float-chip:hover {
+  box-shadow: 0 12px 26px -2px rgba(0, 0, 0, 0.4);
+}
+
+.apple-float-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  transition:
+    transform 240ms cubic-bezier(0.22, 1, 0.36, 1),
+    letter-spacing 180ms ease;
+}
+
+.apple-float-chip:hover .apple-float-label {
+  transform: scale(1.02);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .page-transition-enter,
+  .section-animate-in,
   .card-spotlight::before,
   .card-spotlight::after,
   .card-interactive,
-  .card-animate-in {
+  .card-animate-in,
+  .apple-float-chip,
+  .apple-float-label {
     transition: none !important;
     transform: none !important;
     animation: none !important;

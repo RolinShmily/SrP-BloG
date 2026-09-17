@@ -3,7 +3,7 @@ export interface NavItem {
   href: string;
   external?: boolean;
   /** Dictionary key under `nav` used by the navbar for localized labels. */
-  i18nKey?: "home" | "posts" | "archives" | "tags" | "categories" | "friends" | "about";
+  i18nKey?: "home" | "posts" | "archives" | "tags" | "friends" | "about";
 }
 
 export interface SocialItem {
@@ -52,6 +52,8 @@ export const siteConfig = {
     "容器化部署",
   ],
   author: "RoL1n",
+  /** Navbar brand author display name (defaults to author if omitted) */
+  brandAuthor: "RoL1n",
   bio: "Entities should not be multiplied unnecessarily.",
   avatar: "/favicon/favicon.ico",
   /** Default Open Graph image (1200x630) used for social cards and embeds. */

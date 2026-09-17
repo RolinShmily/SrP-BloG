@@ -2,7 +2,6 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import {
-  getAllCategories,
   getAllPosts,
   getAllTags,
   getPostBySlug,
@@ -34,11 +33,10 @@ function isHttpUrl(value: unknown): boolean {
 
 interface FlatPostFile {
   slug: string;
-  locale: string;
   fileName: string;
 }
 
-/** Lists every co-located post file: `content/posts/<slug>/index.<locale>.md`. */
+/** Lists every co-located post file: `content/posts/<slug>/index.md`. */
 function listPostFiles(): FlatPostFile[] {
   const files: FlatPostFile[] = [];
   if (!fs.existsSync(postsDir)) return files;
@@ -47,9 +45,9 @@ function listPostFiles(): FlatPostFile[] {
     if (!slugEntry.isDirectory()) continue;
     const slugDir = path.join(postsDir, slugEntry.name);
     for (const fileEntry of fs.readdirSync(slugDir, { withFileTypes: true })) {
-      const match = /^index\.(zh|en)\.mdx?$/.exec(fileEntry.name);
+      const match = /^index\.mdx?$/.exec(fileEntry.name);
       if (match && fileEntry.isFile()) {
-        files.push({ slug: slugEntry.name, locale: match[1], fileName: fileEntry.name });
+        files.push({ slug: slugEntry.name, fileName: fileEntry.name });
       }
     }
   }
@@ -75,7 +73,7 @@ async function verifyContent() {
   }
 
   // 1. Verify co-located directory layout
-  console.log("1. Verifying co-located bilingual layout under content/posts/...");
+  console.log("1. Verifying co-located layout under content/posts/...");
   assert(fs.existsSync(postsDir), `Root directory content/posts exists`);
   assert(
     fs.existsSync(path.join(process.cwd(), "content/friends")),
@@ -89,31 +87,25 @@ async function verifyContent() {
     .readdirSync(postsDir, { withFileTypes: true })
     .filter((entry) => entry.isFile() && /\.mdx?$/.test(entry.name));
   const postFiles = listPostFiles();
-  const zhFiles = postFiles.filter((file) => file.locale === "zh");
-  const enFiles = postFiles.filter((file) => file.locale === "en");
 
   assert(
     postDirs.length === EXPECTED_TOTAL_POSTS,
     `content/posts contains ${EXPECTED_TOTAL_POSTS} post directories (got: ${postDirs.length})`
   );
   assert(
-    zhFiles.length === EXPECTED_TOTAL_POSTS,
-    `Found ${EXPECTED_TOTAL_POSTS} index.zh.md files (got: ${zhFiles.length})`
-  );
-  assert(
-    enFiles.length >= 0,
-    `English source files discovered in the co-located layout (count: ${enFiles.length})`
+    postFiles.length === EXPECTED_TOTAL_POSTS,
+    `Found ${EXPECTED_TOTAL_POSTS} index.md files (got: ${postFiles.length})`
   );
   assert(
     flatMarkdownFiles.length === 0,
     `No legacy flat markdown files remain in content/posts root (got: ${flatMarkdownFiles.length})`
   );
-  const dirsMissingZh = postDirs.filter(
-    (entry) => !fs.existsSync(path.join(postsDir, entry.name, "index.zh.md"))
+  const dirsMissingIndex = postDirs.filter(
+    (entry) => !fs.existsSync(path.join(postsDir, entry.name, "index.md"))
   );
   assert(
-    dirsMissingZh.length === 0,
-    `Every post directory has an index.zh.md (missing: ${dirsMissingZh.map((d) => d.name).join(", ") || "none"})`
+    dirsMissingIndex.length === 0,
+    `Every post directory has an index.md (missing: ${dirsMissingIndex.map((d) => d.name).join(", ") || "none"})`
   );
   // Every post now co-locates its images, so the fixture is a draft post that
   // carries a post-local image in frontmatter as well as in its body.
@@ -131,13 +123,13 @@ async function verifyContent() {
 
   // 2. Verify Post Count & Frontmatter Parsing
   console.log("\n2. Verifying Posts Count and Frontmatter Parsing...");
-  const allPosts = await getAllPosts("zh", { includeDrafts: true });
+  const allPosts = await getAllPosts({ includeDrafts: true });
   assert(
     allPosts.length === EXPECTED_TOTAL_POSTS,
     `Total posts parsed equals ${EXPECTED_TOTAL_POSTS} (got: ${allPosts.length})`
   );
 
-  const publishedPosts = await getAllPosts("zh", { includeDrafts: false });
+  const publishedPosts = await getAllPosts({ includeDrafts: false });
   assert(
     publishedPosts.length === EXPECTED_PUBLISHED_POSTS,
     `Published posts count equals ${EXPECTED_PUBLISHED_POSTS} (${EXPECTED_TOTAL_POSTS} total - 12 drafts) (got: ${publishedPosts.length})`
@@ -146,7 +138,6 @@ async function verifyContent() {
   const slugs = new Set<string>();
   let allHaveValidFields = true;
   let allImagesResolved = true;
-  let allLocaleMetaValid = true;
 
   for (const post of allPosts) {
     if (slugs.has(post.slug)) {
@@ -160,26 +151,11 @@ async function verifyContent() {
       allHaveValidFields = false;
     }
 
-    if (!/^\d+ 分钟阅读$/.test(post.readingTime)) {
-      console.error(`    Invalid readingTime format: ${post.readingTime} in ${post.slug}`);
-      allHaveValidFields = false;
-    }
-
     if (post.image && post.image.startsWith("../assets")) {
       console.error(
         `    Unresolved relative image path in frontmatter: ${post.image} in ${post.slug}`
       );
       allImagesResolved = false;
-    }
-
-    if (
-      !post.availableLocales.includes("zh") ||
-      post.contentLocale !== "zh" ||
-      post.isFallback !== false ||
-      post.hasTranslation !== (post.availableLocales.length > 1)
-    ) {
-      console.error(`    Invalid locale metadata in slug: ${post.slug}`);
-      allLocaleMetaValid = false;
     }
   }
 
@@ -189,10 +165,6 @@ async function verifyContent() {
     `All posts have valid title, published date, wordCount, and readingTime`
   );
   assert(allImagesResolved, `All frontmatter image paths resolved to browser-ready paths`);
-  assert(
-    allLocaleMetaValid,
-    `Every post exposes availableLocales/hasTranslation/contentLocale/isFallback correctly`
-  );
   assert(
     allPosts.every((post) => post.excerpt && post.excerpt.length > 0),
     `Every post has a non-empty excerpt`
@@ -234,11 +206,10 @@ async function verifyContent() {
   console.log(`\n4. Verifying Markdown Rendering across all ${EXPECTED_TOTAL_POSTS} posts...`);
   let renderErrors = 0;
   let hasImageUnresolvedInBody = false;
-  let translationsBundlesValid = true;
 
   for (const post of allPosts) {
     try {
-      const detail = await getPostBySlug(post.slug, "zh", { includeDrafts: true });
+      const detail = await getPostBySlug(post.slug, { includeDrafts: true });
       if (!detail) {
         console.error(`    Failed to fetch detail for slug: ${post.slug}`);
         renderErrors++;
@@ -247,24 +218,6 @@ async function verifyContent() {
       if (detail.contentHtml.includes('src="../assets/images/')) {
         console.error(`    Unresolved ../assets/images in body of ${post.slug}`);
         hasImageUnresolvedInBody = true;
-      }
-
-      const primary = detail.translations[detail.contentLocale];
-      if (
-        !primary ||
-        primary.contentHtml !== detail.contentHtml ||
-        primary.toc.length !== detail.toc.length ||
-        primary.wordCount !== detail.wordCount ||
-        primary.readingTime !== detail.readingTime
-      ) {
-        console.error(`    Invalid translations bundle for slug: ${post.slug}`);
-        translationsBundlesValid = false;
-      }
-
-      const bundleLocales = Object.keys(detail.translations);
-      if (bundleLocales.some((locale) => !detail.availableLocales.includes(locale as "zh" | "en"))) {
-        console.error(`    translations bundle exposes a locale without a source file: ${post.slug}`);
-        translationsBundlesValid = false;
       }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
@@ -277,20 +230,16 @@ async function verifyContent() {
     `All ${EXPECTED_TOTAL_POSTS} posts rendered without throwing errors (errors: ${renderErrors})`
   );
   assert(!hasImageUnresolvedInBody, `No unresolved ../assets/images/ found in rendered HTML`);
-  assert(
-    translationsBundlesValid,
-    `Every PostDetail exposes a self-consistent, pre-rendered translations bundle`
-  );
 
   // Math Rendering Verification
   const MATH_POST = "9-Markdown-1";
-  const mathPost = await getPostBySlug(MATH_POST, "zh", { includeDrafts: true });
+  const mathPost = await getPostBySlug(MATH_POST, { includeDrafts: true });
   const hasKatex = mathPost?.contentHtml.includes('class="katex"');
   assert(Boolean(hasKatex), `KaTeX formulas rendered correctly in ${MATH_POST} (contains class="katex")`);
 
   // Code Highlighting and Line Numbers Verification
   const CODE_POST = "47-immortalwrt-build";
-  const codePost = await getPostBySlug(CODE_POST, "zh");
+  const codePost = await getPostBySlug(CODE_POST);
   const hasCodeBlock = codePost?.contentHtml.includes("data-rehype-pretty-code-figure");
   const hasLineNumbers = codePost?.contentHtml.includes("data-line-numbers");
   assert(Boolean(hasCodeBlock), `Shiki code blocks highlighted with data-rehype-pretty-code-figure`);
@@ -300,11 +249,11 @@ async function verifyContent() {
     `Headings extracted for Table of Contents (${codePost?.toc.length} headings in ${CODE_POST})`
   );
 
-  // 5. Verify CJK slugs and locale fallback behaviour
-  console.log("\n5. Verifying CJK slugs and locale fallback...");
+  // 5. Verify CJK slugs and draft isolation
+  console.log("\n5. Verifying CJK slugs and draft isolation...");
   const cjkSlug = "38-windows-defender-卸载程序-bluetooth-audio-receiver";
-  const cjkPostRaw = await getPostBySlug(cjkSlug, "zh");
-  const cjkPostEncoded = await getPostBySlug(encodeURIComponent(cjkSlug), "zh");
+  const cjkPostRaw = await getPostBySlug(cjkSlug);
+  const cjkPostEncoded = await getPostBySlug(encodeURIComponent(cjkSlug));
   assert(Boolean(cjkPostRaw), `CJK slug resolves by raw directory name (${cjkSlug})`);
   assert(
     Boolean(cjkPostEncoded) && cjkPostEncoded?.slug === cjkSlug,
@@ -315,32 +264,7 @@ async function verifyContent() {
     `CJK slug is preserved verbatim as the canonical slug (got: ${cjkPostRaw?.slug})`
   );
 
-  const englishPosts = await getAllPosts("en", { includeDrafts: true });
-  assert(
-    englishPosts.length === enFiles.length,
-    `getAllPosts("en") lists exactly the posts that ship an index.en.md (listed: ${englishPosts.length}, files: ${enFiles.length})`
-  );
-
-  const fallbackDetail = await getPostBySlug("32-docker-mc", "en");
-  assert(Boolean(fallbackDetail), `getPostBySlug(slug, "en") falls back to zh instead of returning null`);
-  assert(
-    fallbackDetail?.isFallback === true && fallbackDetail?.contentLocale === "zh",
-    `Fallback detail is marked isFallback=true / contentLocale="zh"`
-  );
-  assert(
-    Boolean(
-      fallbackDetail?.translations.zh &&
-        fallbackDetail.translations.zh.contentHtml === fallbackDetail.contentHtml &&
-        fallbackDetail.translations.zh.toc.length === fallbackDetail.toc.length
-    ),
-    `Fallback detail still ships the pre-rendered zh translation bundle`
-  );
-  assert(
-    fallbackDetail?.availableLocales.length === 1 && fallbackDetail?.hasTranslation === false,
-    `Fallback detail reports availableLocales=["zh"] and hasTranslation=false`
-  );
-
-  const unpublishedPost = await getPostBySlug(COVER_POST, "zh");
+  const unpublishedPost = await getPostBySlug(COVER_POST);
   assert(unpublishedPost === null, `Draft posts are hidden by default (${COVER_POST} -> null)`);
 
   // 6. Verify asset references and the prebuild sync script
@@ -407,22 +331,16 @@ async function verifyContent() {
   const syncedCover = path.join(publicPostsDir, COVER_POST, COVER_FILE);
   assert(fs.existsSync(syncedCover), `public/posts/${COVER_POST}/${COVER_FILE} exists after sync`);
 
-  // 7. Verify Categories and Tags Aggregation
-  console.log("\n7. Verifying Categories and Tags Aggregation...");
-  const tags = await getAllTags("zh");
+  // 7. Verify Tags Aggregation
+  console.log("\n7. Verifying Tags Aggregation...");
+  const tags = await getAllTags();
   assert(tags.length > 0, `Tags aggregated successfully (total tags: ${tags.length})`);
   const isTagsSorted = tags.every((tag, idx) => idx === 0 || tags[idx - 1].count >= tag.count);
   assert(isTagsSorted, `Tags are sorted descending by post count`);
 
-  const categories = await getAllCategories("zh");
-  assert(
-    categories.length > 0,
-    `Categories aggregated successfully (total categories: ${categories.length})`
-  );
-
   // 8. Verify Site Stats & Search Index
   console.log("\n8. Verifying Site Stats and Search Index...");
-  const stats = await getSiteStats("zh");
+  const stats = await getSiteStats();
   const manualWordCount = publishedPosts.reduce((sum, post) => sum + post.wordCount, 0);
   assert(
     stats.totalPosts === EXPECTED_PUBLISHED_POSTS,
@@ -433,20 +351,16 @@ async function verifyContent() {
     `SiteStats.totalWordCount (${stats.totalWordCount}) equals sum of published word counts (${manualWordCount})`
   );
 
-  const searchIndex = await getSearchIndex("zh", { includeDrafts: false });
+  const searchIndex = await getSearchIndex({ includeDrafts: false });
   assert(
     searchIndex.length === EXPECTED_PUBLISHED_POSTS,
     `Search index generated for all ${EXPECTED_PUBLISHED_POSTS} published posts`
   );
   assert(
     searchIndex.every(
-      (item) => Boolean(item.slug && item.title && item.date && item.plainText) && item.locale === "zh"
+      (item) => Boolean(item.slug && item.title && item.date && item.plainText)
     ),
-    `Every search index item includes slug/title/date/plainText plus a locale field`
-  );
-  assert(
-    searchIndex.every((item) => (item.titleEn ? Boolean(item.plainTextEn) : true)),
-    `Search index only attaches English text when an index.en.md exists`
+    `Every search index item includes slug/title/date/plainText`
   );
 
   // 9. Verify i18n dictionaries
@@ -475,7 +389,6 @@ async function verifyContent() {
     "friends.apply",
     "archives.timeline",
     "archives.year",
-    "translation.showMachine",
   ];
   const missingRequired = requiredKeys.filter((key) => !zhKeys.includes(key));
   assert(
@@ -487,8 +400,7 @@ async function verifyContent() {
   assert(
     allStringValues &&
       getDictionary("zh").stats.totalPosts === "文章总数" &&
-      getDictionary("en").stats.totalPosts === "Total Posts" &&
-      getDictionary("en").translation.showMachine === "Show machine translation",
+      getDictionary("en").stats.totalPosts === "Total Posts",
     `getDictionary() returns locale-specific strings`
   );
 

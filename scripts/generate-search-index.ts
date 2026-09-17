@@ -9,16 +9,14 @@ const rootDir = path.resolve(__dirname, "..");
 
 export async function generateSearchIndex() {
   console.log("[search-index] Generating public/search-index.json...");
-  const searchIndex = await getSearchIndex("zh", { includeDrafts: false });
+  const searchIndex = await getSearchIndex({ includeDrafts: false });
   const outPath = path.join(rootDir, "public/search-index.json");
 
   fs.mkdirSync(path.dirname(outPath), { recursive: true });
   fs.writeFileSync(outPath, JSON.stringify(searchIndex), "utf8");
 
-  const bilingual = searchIndex.filter((item) => Boolean(item.plainTextEn)).length;
   console.log(
-    `[search-index] Successfully generated index with ${searchIndex.length} items ` +
-      `(${bilingual} with an English body attached) to ${outPath}`
+    `[search-index] Successfully generated index with ${searchIndex.length} items to ${outPath}`
   );
 }
 

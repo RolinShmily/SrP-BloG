@@ -4,7 +4,6 @@ published: 2025-11-25
 description: '本篇将详细解析crosshair_view.cfg文件的功能列表，和部分实现途径'
 image: ''
 tags: [CFG,CS2]
-category: ''
 draft: true
 lang: ''
 ---

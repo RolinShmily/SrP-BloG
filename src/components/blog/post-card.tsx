@@ -42,7 +42,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
       )}
 
       <div className="relative z-10 flex flex-col gap-2 p-5 sm:p-6 sm:pe-[38%]">
-        {/* Meta line: pinned flag, date, category */}
+        {/* Meta line: pinned flag, date, tags */}
         <div className="flex flex-wrap items-center gap-2 text-meta">
           {post.pinned && (
             <Badge variant="secondary" className="gap-1 px-1.5 py-0 text-xs font-medium">
@@ -56,12 +56,26 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
             <time className="font-mono text-meta text-muted-foreground">{post.published}</time>
           </span>
 
-          {post.category && (
+          {post.tags.length > 0 && (
             <>
               <span className="text-muted-foreground/40">&bull;</span>
-              <Badge variant="outline" className="px-2 py-0 text-xs font-normal">
-                {post.category}
-              </Badge>
+              <div className="flex flex-wrap items-center gap-1.5">
+                {post.tags.slice(0, 3).map((tag) => (
+                  // Raised above the stretched overlay link so tags stay clickable.
+                  <Link
+                    key={tag}
+                    href={`/tags/?tag=${encodeURIComponent(tag)}`}
+                    className="relative z-20 text-meta text-muted-foreground/80 transition-colors hover:text-[#f75c7e]"
+                  >
+                    #{tag}
+                  </Link>
+                ))}
+                {post.tags.length > 3 && (
+                  <span className="text-xs text-muted-foreground/50">
+                    +{post.tags.length - 3}
+                  </span>
+                )}
+              </div>
             </>
           )}
         </div>
@@ -78,7 +92,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
           </p>
         )}
 
-        {/* Meta footer: word count, reading time, tags */}
+        {/* Meta footer: word count, reading time */}
         <div className="flex flex-wrap items-center gap-2.5 pt-1 text-meta text-muted-foreground">
           <span className="inline-flex items-center gap-1">
             <FileText className="h-3.5 w-3.5" />
@@ -96,29 +110,6 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
               en={formatReadingTime(post.readingTime, post.wordCount, "en")}
             />
           </span>
-
-          {post.tags.length > 0 && (
-            <>
-              <span className="text-muted-foreground/40">&bull;</span>
-              <div className="flex flex-wrap items-center gap-1.5">
-                {post.tags.slice(0, 3).map((tag) => (
-                  // Raised above the stretched overlay link so tags stay clickable.
-                  <Link
-                    key={tag}
-                    href={`/tags/?tag=${encodeURIComponent(tag)}`}
-                    className="relative z-20 text-meta text-muted-foreground/80 transition-colors hover:text-foreground"
-                  >
-                    #{tag}
-                  </Link>
-                ))}
-                {post.tags.length > 3 && (
-                  <span className="text-xs text-muted-foreground/50">
-                    +{post.tags.length - 3}
-                  </span>
-                )}
-              </div>
-            </>
-          )}
         </div>
       </div>
 

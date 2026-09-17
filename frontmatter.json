@@ -55,11 +55,6 @@
           "type": "list"
         },
         {
-          "title": "category",
-          "name": "category",
-          "type": "string"
-        },
-        {
           "title": "draft",
           "name": "draft",
           "type": "boolean"

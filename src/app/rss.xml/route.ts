@@ -45,11 +45,8 @@ export async function GET() {
     .map((post) => {
       const link = postUrl(post.slug);
       const description = post.description || post.excerpt || post.title;
-      const categories = [
-        ...(post.category ? [post.category] : []),
-        ...post.tags,
-      ]
-        .map((category) => `      <category>${escapeXml(category)}</category>`)
+      const categories = post.tags
+        .map((tag) => `      <category>${escapeXml(tag)}</category>`)
         .join("\n");
 
       return [

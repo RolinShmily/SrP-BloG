@@ -9,7 +9,7 @@ import { LocaleToggle } from "@/components/i18n/locale-toggle";
 import { navIconButtonClass } from "@/components/layout/nav-button";
 import { BrandMark } from "@/components/layout/brand-mark";
 import { useLocale } from "@/i18n/locale-provider";
-import { Menu, X, ArrowUpRight, Rss } from "lucide-react";
+import { Menu, X, ArrowUpRight, Rss, Search } from "lucide-react";
 
 /** Scroll offset past which the floating bar turns into a solid capsule. */
 const MORPH_AT = 20;
@@ -109,7 +109,11 @@ export function Navbar() {
           <Link href="/" className="site-brand site-header-brand shrink-0" aria-label={siteConfig.title}>
             <BrandMark className="h-[1.125rem] w-auto shrink-0 text-foreground" />
             <span className="site-brand-text" aria-hidden="true">
-              RoL1n&apos;s <span className="site-brand-type">BloG</span>
+              <span className="site-brand-author">
+                {siteConfig.brandAuthor || siteConfig.author}
+                <span className="brand-apostrophe">&rsquo;</span>s
+              </span>
+              <span className="site-brand-type">BloG</span>
             </span>
           </Link>
 
@@ -149,6 +153,25 @@ export function Navbar() {
                   </Link>
                 );
               })}
+
+              {/* Search shortcut button right after 'About' */}
+              <Link
+                href="/archives#search"
+                className="relative inline-flex items-center justify-center px-2 py-2 text-muted-foreground transition-colors hover:text-primary rounded-md"
+                aria-label={t.common.search}
+                title={t.common.search}
+                onClick={() => {
+                  if (pathname === "/archives") {
+                    const el = document.getElementById("archive-search-input");
+                    if (el) {
+                      el.scrollIntoView({ behavior: "smooth", block: "center" });
+                      (el as HTMLInputElement).focus({ preventScroll: true });
+                    }
+                  }
+                }}
+              >
+                <Search className="h-3.5 w-3.5" />
+              </Link>
             </nav>
 
             {/* Header controls — the cluster tightens once the bar is scrolled */}
@@ -213,6 +236,26 @@ export function Navbar() {
                   </Link>
                 );
               })}
+
+              <Link
+                href="/archives#search"
+                className="flex w-full items-center justify-end gap-1.5 px-3 py-2 text-right text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  if (pathname === "/archives") {
+                    setTimeout(() => {
+                      const el = document.getElementById("archive-search-input");
+                      if (el) {
+                        el.scrollIntoView({ behavior: "smooth", block: "center" });
+                        (el as HTMLInputElement).focus({ preventScroll: true });
+                      }
+                    }, 120);
+                  }
+                }}
+              >
+                <span>{t.common.search}</span>
+                <Search className="h-3.5 w-3.5 opacity-60" />
+              </Link>
 
               <div className="mt-1 flex items-center justify-between border-t border-border px-3 pt-2.5">
                 <span className="text-xs text-muted-foreground">{t.common.language}</span>

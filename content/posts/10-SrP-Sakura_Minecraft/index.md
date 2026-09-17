@@ -4,7 +4,6 @@ published: 2025-10-13
 description: "本文将介绍自建的插件服务器功能，发布适用于原版生存的辅助性整合包，并为其所添加的mod、资源进行介绍说明"
 image: "./PixPin_2025-08-04_15-10-35.png"
 tags: [Minecraft]
-category: ""
 draft: false
 lang: ""
 ---
