@@ -2,7 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { Eye } from "lucide-react";
-import { upvClient, isUpvConfigured, type UPVStats } from "@/lib/upv/client";
+import {
+	upvClient,
+	isUpvConfigured,
+	getCachedPathStats,
+	isPathCacheFresh,
+	createStatsFromPath,
+	subscribePathStats,
+	type UPVStats,
+} from "@/lib/upv/client";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
@@ -97,13 +105,29 @@ export function UPVCounter({
 			: siteConfig.upv?.showPostCounter !== false);
 	const configured = isUpvConfigured();
 
-	// When no API is configured or skeleton is disabled, initialize with zero counts immediately.
+	// SWR Cache: synchronously initialize with cached stats if available (0ms paint)
 	const [state, setState] = useState<CounterState>(() => {
-		if (!configured || !showSkeleton) {
+		if (!isEnabled || !configured) {
+			return { status: "ready", stats: zeroStats(path) };
+		}
+		const cached = getCachedPathStats(path);
+		if (cached) {
+			return { status: "ready", stats: createStatsFromPath(path, cached) };
+		}
+		if (!showSkeleton) {
 			return { status: "ready", stats: zeroStats(path) };
 		}
 		return { status: "loading", stats: null };
 	});
+
+	// Subscribe to real-time updates for this path
+	useEffect(() => {
+		return subscribePathStats((updatedPath, stats) => {
+			if (updatedPath === path) {
+				setState({ status: "ready", stats: createStatsFromPath(path, stats) });
+			}
+		});
+	}, [path]);
 
 	useEffect(() => {
 		if (!isEnabled || !configured) return;
@@ -111,21 +135,36 @@ export function UPVCounter({
 		let cancelled = false;
 		const storageKey = `${HIT_STORAGE_PREFIX}${path}`;
 		const shouldHit = !readOnly && !readSessionHit(storageKey);
-		if (shouldHit) markSessionHit(storageKey);
 
-		const request = shouldHit ? upvClient.hit(path) : upvClient.getStats([path]);
+		if (shouldHit) {
+			markSessionHit(storageKey);
+			void upvClient
+				.hit(path)
+				.then((stats) => {
+					if (cancelled || !stats) return;
+					setState({ status: "ready", stats });
+				})
+				.catch((error: unknown) => {
+					if (!cancelled) {
+						console.warn("[upv] counter hit failed", error);
+					}
+				});
+		} else {
+			// If cached and fresh (< TTL), skip redundant network fetch
+			if (isPathCacheFresh(path)) return;
 
-		void request
-			.then((stats) => {
-				if (cancelled) return;
-				setState({ status: "ready", stats: stats ?? zeroStats(path) });
-			})
-			.catch((error: unknown) => {
-				if (!cancelled) {
-					console.warn("[upv] counter request failed", error);
-					setState({ status: "ready", stats: zeroStats(path) });
-				}
-			});
+			void upvClient
+				.getStats([path])
+				.then((stats) => {
+					if (cancelled || !stats) return;
+					setState({ status: "ready", stats });
+				})
+				.catch((error: unknown) => {
+					if (!cancelled) {
+						console.warn("[upv] counter request failed", error);
+					}
+				});
+		}
 
 		return () => {
 			cancelled = true;
@@ -158,6 +197,7 @@ export function UPVCounter({
 				</span>
 			)}
 			<span
+				suppressHydrationWarning
 				className={cn(
 					"inline-flex items-center gap-1 text-xs tabular-nums text-muted-foreground",
 					className,

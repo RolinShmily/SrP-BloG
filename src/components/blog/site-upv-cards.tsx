@@ -3,7 +3,13 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Eye, Users } from "lucide-react";
 import type { UPVSiteStats } from "@/lib/upv/client";
-import { upvClient, isUpvConfigured } from "@/lib/upv/client";
+import {
+  upvClient,
+  isUpvConfigured,
+  getCachedSiteStats,
+  isSiteCacheFresh,
+  subscribeSiteStats,
+} from "@/lib/upv/client";
 import { siteConfig } from "@/config/site";
 import { useLocale } from "@/i18n/locale-provider";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,31 +36,43 @@ export function SiteUpvCards() {
   const configured = isUpvConfigured();
   const { t, locale } = useLocale();
 
-  // If no backend API is configured, display zero placeholder counts immediately.
+  // Synchronously initialize with cached site stats if available (0ms paint)
   const [state, setState] = useState<SiteStatsState>(() => {
-    if (!configured) {
+    if (!isEnabled || !configured) {
       return { status: "ready", stats: { views: 0, visitors: 0 } };
+    }
+    const cached = getCachedSiteStats();
+    if (cached) {
+      return { status: "ready", stats: cached };
     }
     return { status: "loading", stats: null };
   });
 
+  // Subscribe to real-time site stats updates
+  useEffect(() => {
+    return subscribeSiteStats((updatedSite) => {
+      setState({ status: "ready", stats: updatedSite });
+    });
+  }, []);
+
   useEffect(() => {
     if (!isEnabled || !configured) return;
+    // If cached and fresh (< TTL), skip redundant network fetch
+    if (isSiteCacheFresh()) return;
 
     let cancelled = false;
     void upvClient
       .getStats([])
       .then((stats) => {
-        if (cancelled) return;
+        if (cancelled || !stats) return;
         setState({
           status: "ready",
-          stats: stats ? stats.site : { views: 0, visitors: 0 },
+          stats: stats.site,
         });
       })
       .catch((error: unknown) => {
         if (!cancelled) {
           console.warn("[upv] site stats request failed", error);
-          setState({ status: "ready", stats: { views: 0, visitors: 0 } });
         }
       });
     return () => {
@@ -134,7 +152,7 @@ function StatCard({
           {icon}
           <span>{label}</span>
         </div>
-        <div className="text-2xl font-semibold tracking-tight text-foreground font-mono">
+        <div suppressHydrationWarning className="text-2xl font-semibold tracking-tight text-foreground font-mono">
           {value}{" "}
           <span className="text-xs font-normal text-muted-foreground font-sans">{unit}</span>
         </div>

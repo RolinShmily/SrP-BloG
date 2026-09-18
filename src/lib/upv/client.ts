@@ -27,6 +27,146 @@ export interface UPVSiteStats {
 	visitors: number;
 }
 
+export interface CacheEntry<T> {
+	data: T;
+	timestamp: number;
+}
+
+export const UPV_CACHE_TTL_MS = 60_000;
+const STORAGE_KEY_PATHS = "upv:cache:paths";
+const STORAGE_KEY_SITE = "upv:cache:site";
+const MAX_CACHED_PATHS = 300;
+
+// Level 1: In-memory cache singleton across SPA navigations
+const memoryPathCache = new Map<string, CacheEntry<UPVPathStats>>();
+let memorySiteCache: CacheEntry<UPVSiteStats> | null = null;
+let storageInitialized = false;
+
+type StatsListener = (path: string, stats: UPVPathStats) => void;
+type SiteStatsListener = (site: UPVSiteStats) => void;
+const pathListeners = new Set<StatsListener>();
+const siteListeners = new Set<SiteStatsListener>();
+
+function ensureStorageLoaded(): void {
+	if (storageInitialized || typeof window === "undefined") return;
+	storageInitialized = true;
+	try {
+		const rawPaths = window.localStorage.getItem(STORAGE_KEY_PATHS);
+		if (rawPaths) {
+			const parsed = JSON.parse(rawPaths) as Record<string, CacheEntry<UPVPathStats>>;
+			if (parsed && typeof parsed === "object") {
+				for (const [path, entry] of Object.entries(parsed)) {
+					if (entry && typeof entry === "object" && entry.data && typeof entry.timestamp === "number") {
+						memoryPathCache.set(path, entry);
+					}
+				}
+			}
+		}
+		const rawSite = window.localStorage.getItem(STORAGE_KEY_SITE);
+		if (rawSite) {
+			const parsed = JSON.parse(rawSite) as CacheEntry<UPVSiteStats>;
+			if (parsed && typeof parsed === "object" && parsed.data && typeof parsed.timestamp === "number") {
+				memorySiteCache = parsed;
+			}
+		}
+	} catch {
+		// Ignore storage parse errors
+	}
+}
+
+let persistTimeout: ReturnType<typeof setTimeout> | null = null;
+function schedulePersist(): void {
+	if (typeof window === "undefined") return;
+	if (persistTimeout) return;
+	persistTimeout = setTimeout(() => {
+		persistTimeout = null;
+		try {
+			const pathsObj: Record<string, CacheEntry<UPVPathStats>> = {};
+			let count = 0;
+			for (const [path, entry] of memoryPathCache.entries()) {
+				pathsObj[path] = entry;
+				count++;
+				if (count >= MAX_CACHED_PATHS) break;
+			}
+			window.localStorage.setItem(STORAGE_KEY_PATHS, JSON.stringify(pathsObj));
+			if (memorySiteCache) {
+				window.localStorage.setItem(STORAGE_KEY_SITE, JSON.stringify(memorySiteCache));
+			}
+		} catch {
+			// Storage write failure (quota/private mode)
+		}
+	}, 100);
+}
+
+/** Synchronously retrieve cached stats for a path if available (0ms lookup). */
+export function getCachedPathStats(path: string): UPVPathStats | null {
+	ensureStorageLoaded();
+	return memoryPathCache.get(path)?.data ?? null;
+}
+
+/** Synchronously retrieve cached site-wide stats if available (0ms lookup). */
+export function getCachedSiteStats(): UPVSiteStats | null {
+	ensureStorageLoaded();
+	return memorySiteCache?.data ?? null;
+}
+
+/** Returns true if path stats exist in cache and were fetched within TTL. */
+export function isPathCacheFresh(path: string, ttlMs: number = UPV_CACHE_TTL_MS): boolean {
+	ensureStorageLoaded();
+	const entry = memoryPathCache.get(path);
+	if (!entry) return false;
+	return Date.now() - entry.timestamp < ttlMs;
+}
+
+/** Returns true if site stats exist in cache and were fetched within TTL. */
+export function isSiteCacheFresh(ttlMs: number = UPV_CACHE_TTL_MS): boolean {
+	ensureStorageLoaded();
+	if (!memorySiteCache) return false;
+	return Date.now() - memorySiteCache.timestamp < ttlMs;
+}
+
+export function setCachedPathStats(path: string, stats: UPVPathStats): void {
+	ensureStorageLoaded();
+	memoryPathCache.set(path, { data: stats, timestamp: Date.now() });
+	schedulePersist();
+	for (const listener of pathListeners) {
+		listener(path, stats);
+	}
+}
+
+export function setCachedSiteStats(site: UPVSiteStats): void {
+	ensureStorageLoaded();
+	memorySiteCache = { data: site, timestamp: Date.now() };
+	schedulePersist();
+	for (const listener of siteListeners) {
+		listener(site);
+	}
+}
+
+export function subscribePathStats(listener: StatsListener): () => void {
+	pathListeners.add(listener);
+	return () => {
+		pathListeners.delete(listener);
+	};
+}
+
+export function subscribeSiteStats(listener: SiteStatsListener): () => void {
+	siteListeners.add(listener);
+	return () => {
+		siteListeners.delete(listener);
+	};
+}
+
+export function createStatsFromPath(path: string, stats: UPVPathStats): UPVStats {
+	return {
+		items: { [path]: stats },
+		site: getCachedSiteStats() ?? { views: 0, visitors: 0 },
+		path,
+		views: stats.views,
+		visitors: stats.visitors,
+	};
+}
+
 /**
  * Normalised response shape.
  *
@@ -60,18 +200,19 @@ export class NullUPVAdapter implements UPVAdapter {
 	async getStats(paths: string[]): Promise<UPVStats> {
 		const items: Record<string, UPVPathStats> = {};
 		for (const path of paths) {
-			items[path] = { views: 0, visitors: 0 };
+			items[path] = getCachedPathStats(path) ?? { views: 0, visitors: 0 };
 		}
-		return { items, site: { views: 0, visitors: 0 } };
+		return { items, site: getCachedSiteStats() ?? { views: 0, visitors: 0 } };
 	}
 
 	async hit(path: string): Promise<UPVStats> {
+		const cached = getCachedPathStats(path) ?? { views: 0, visitors: 0 };
 		return {
-			items: { [path]: { views: 0, visitors: 0 } },
-			site: { views: 0, visitors: 0 },
+			items: { [path]: cached },
+			site: getCachedSiteStats() ?? { views: 0, visitors: 0 },
 			path,
-			views: 0,
-			visitors: 0,
+			views: cached.views,
+			visitors: cached.visitors,
 		};
 	}
 }
@@ -99,7 +240,26 @@ class HttpUPVAdapter implements UPVAdapter {
 		// An empty path list is a valid request: the service answers with the
 		// site-wide aggregate only (`{ items: {}, site: { views, visitors } }`).
 		if (unique.length === 0) {
-			return parseStatsPayload(await this.#request("/api/stats?paths="));
+			if (isSiteCacheFresh()) {
+				return { items: {}, site: getCachedSiteStats()! };
+			}
+			const payload = parseStatsPayload(await this.#request("/api/stats?paths="));
+			if (payload) {
+				setCachedSiteStats(payload.site);
+			}
+			return payload;
+		}
+
+		// If every requested path is fresh in cache, return immediately (0ms) without hitting network
+		if (unique.every((p) => isPathCacheFresh(p))) {
+			const items: Record<string, UPVPathStats> = {};
+			for (const p of unique) {
+				items[p] = getCachedPathStats(p)!;
+			}
+			return {
+				items,
+				site: getCachedSiteStats() ?? { views: 0, visitors: 0 },
+			};
 		}
 
 		// Microtask batching: if multiple components call getStats in the same tick
@@ -127,9 +287,15 @@ class HttpUPVAdapter implements UPVAdapter {
 					const allPaths = [...currentBatch.paths];
 					const query = allPaths.map((p) => encodeURIComponent(p)).join(",");
 					const payload = parseStatsPayload(await this.#request(`/api/stats?paths=${query}`));
+					if (payload) {
+						for (const [path, stats] of Object.entries(payload.items)) {
+							setCachedPathStats(path, stats);
+						}
+						setCachedSiteStats(payload.site);
+					}
 					const result = payload ?? {
-						items: Object.fromEntries(allPaths.map((p) => [p, { views: 0, visitors: 0 }])),
-						site: { views: 0, visitors: 0 },
+						items: Object.fromEntries(allPaths.map((p) => [p, getCachedPathStats(p) ?? { views: 0, visitors: 0 }])),
+						site: getCachedSiteStats() ?? { views: 0, visitors: 0 },
 					};
 					for (const item of currentBatch.resolvers) {
 						item.resolve(result);
@@ -152,13 +318,19 @@ class HttpUPVAdapter implements UPVAdapter {
 			headers: { "content-type": "application/json" },
 		});
 		const payload = parseHitPayload(raw, path);
-		if (payload) return payload;
+		if (payload) {
+			const pathStats = payload.items[path] ?? { views: payload.views ?? 0, visitors: payload.visitors ?? 0 };
+			setCachedPathStats(path, pathStats);
+			setCachedSiteStats(payload.site);
+			return payload;
+		}
+		const fallbackStats = getCachedPathStats(path) ?? { views: 0, visitors: 0 };
 		return {
-			items: { [path]: { views: 0, visitors: 0 } },
-			site: { views: 0, visitors: 0 },
+			items: { [path]: fallbackStats },
+			site: getCachedSiteStats() ?? { views: 0, visitors: 0 },
 			path,
-			views: 0,
-			visitors: 0,
+			views: fallbackStats.views,
+			visitors: fallbackStats.visitors,
 		};
 	}
 
