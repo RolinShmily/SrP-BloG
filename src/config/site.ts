@@ -287,7 +287,7 @@ export const siteConfig = {
      * Backend API URL. You can set it directly here, or leave blank to read
      * from the NEXT_PUBLIC_UPV_API environment variable.
      */
-    api: "",
+    api: "https://srp-blog-stats.rolinshmily.workers.dev",
     /** Whether to display the page views counter on article pages. */
     showPostCounter: true,
     /** Whether to display the page views counter on post listing cards. */

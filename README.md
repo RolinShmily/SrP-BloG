@@ -100,11 +100,10 @@ Centralized settings live in [`src/config/site.ts`](./src/config/site.ts) — ma
 
 ## 🚢 Deployment & CI/CD
 
-### 1. Cloudflare Pages Deployment
+### 1. Cloudflare Workers Deployment
 Automated builds and deployments are handled by `.github/workflows/deploy.yml`:
 - Set repository secrets in GitHub: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
-- Pushing to the `main` branch automatically triggers static build and deployment.
-- *Note: If migrating from a legacy Cloudflare Worker, unbind or delete the Worker routes before attaching your custom domain to the Pages project.*
+- Pushing to the `main` branch automatically triggers static build (`out/`) and deploys via `wrangler deploy` (Workers Static Assets via `wrangler.jsonc`).
 
 ### 2. (Optional) UPV Analytics Service
 The counter service lives in `services/upv/`, running on Cloudflare Workers + D1:

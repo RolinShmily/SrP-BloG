@@ -1,9 +1,9 @@
-# Cloudflare Workers + D1 configuration for srp-blog-upv.
+# Cloudflare Workers + D1 configuration for srp-blog-stats.
 #
 #   wrangler secret put SALT            # never commit the real salt
 #   wrangler deploy
 
-name = "srp-blog-upv"
+name = "srp-blog-stats"
 main = "src/worker.ts"
 compatibility_date = "2025-01-01"
 

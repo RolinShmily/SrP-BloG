@@ -100,11 +100,10 @@ pinned: false           # 为 true 时在首页置顶
 
 ## 🚢 部署与 CI/CD
 
-### 1. Cloudflare Pages 部署
-本项目通过 `.github/workflows/deploy.yml` 自动打包并部署至 Cloudflare Pages：
+### 1. Cloudflare Workers 部署
+本项目通过 `.github/workflows/deploy.yml` 自动打包并部署至 Cloudflare Workers（基于 Workers 静态资源托管）：
 - 在 GitHub 仓库设置中配置 Secrets：`CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID`。
-- 推送代码至 `main` 分支即可自动触发构建与发布。
-- *提示：若旧站曾使用 Cloudflare Worker，需先解绑或删除旧 Worker 的路由，再将域名绑定到 Pages 项目。*
+- 推送代码至 `main` 分支即可自动触发构建并通过 `wrangler deploy`（读取 `wrangler.jsonc` 静态资产配置）发布至 Worker。
 
 ### 2. （可选）UPV 统计服务部署
 统计服务位于 `services/upv/`，基于 Cloudflare Workers + D1：

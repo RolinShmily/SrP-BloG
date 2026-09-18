@@ -9,14 +9,14 @@ tags:
   - Network
 draft: false
 ---
-
 # 相关链接
-- [软件官方下载地址](https://steamcommunity.net/)
-- [Steamcommunity 302 官方说明](https://steamcommunity.net/) — 羽翼城出品，Ver.14 功能介绍
+
+- [软件官方下载地址](https://www.dogfight360.com/blog/18682/)
+- [Steamcommunity 302 官方说明](https://www.dogfight360.com/blog/18682/) — 羽翼城出品，Ver.14 功能介绍
 
 # 这是什么
 
-[SteamCommunity 302](https://steamcommunity.net/) 是 **羽翼城** 开发的网络优化工具，面向 Steam、GitHub、Discord、Minecraft 等海外平台。
+[SteamCommunity 302](https://www.dogfight360.com/blog/18682/) 是 **羽翼城** 开发的网络优化工具，面向 Steam、GitHub、Discord、Minecraft 等海外平台。
 
 核心思路：**不翻墙，改路由**。它通过修改 hosts 文件，将目标域名指向响应最快的国内 CDN 节点，绕过运营商的拥堵路由，从而减少延迟和丢包。
 
@@ -28,10 +28,10 @@ draft: false
 
 本指南只涉及以下功能，不涉及 DNS 重定向和系统代理配置：
 
-| 功能 | 作用 | 是否必开 |
-|------|------|----------|
-| Hosts 模式 | 修改 hosts 文件，将域名指向优选 CDN | ✅ 必开 |
-| 开机自启动 | 重启电脑后自动运行，无需手动操作 | ✅ 推荐 |
+| 功能       | 作用                                | 是否必开 |
+| ---------- | ----------------------------------- | -------- |
+| Hosts 模式 | 修改 hosts 文件，将域名指向优选 CDN | ✅ 必开  |
+| 开机自启动 | 重启电脑后自动运行，无需手动操作    | ✅ 推荐  |
 
 # 配置步骤
 
@@ -68,6 +68,7 @@ draft: false
 启动后可以在日志区查看运行状态。如果启动有问题，`Ctrl+A` 全选日志、`Ctrl+C` 复制，先发给 AI 让它帮你诊断。
 
 ## IF 启动有问题
+
 把所有日志先发给AI (ctrl+a全选ctrl+c复制)，让它先帮你诊断问题。
 
 ![](./2026-0615-1554.png)

@@ -1,0 +1,15 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "srp-blog",
+	"compatibility_date": "2025-01-05",
+	"assets": {
+		"directory": "./out",
+		"not_found_handling": "404-page"
+	},
+	"routes": [
+		{
+			"pattern": "blog.srprolin.top/*",
+			"zone_name": "srprolin.top"
+		}
+	]
+}
