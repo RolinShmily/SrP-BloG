@@ -79,44 +79,15 @@ Markdown 正文...
 
 ---
 
-## ⚙️ 站点配置与扩展功能
+## ⚙️ 站点配置
 
-全局站点配置统一收拢在 [`src/config/site.ts`](./src/config/site.ts)，可集中管理站点元数据、各功能模块开关与三方服务集成：
+全局配置统一收拢在 [`src/config/site.ts`](./src/config/site.ts)，集中维护全站核心元数据与服务集成开关：
 
-### 1. Sveltia CMS 内容管理 (`siteConfig.cms`)
-
-访问 `/admin` 即可使用基于 GitHub 存储的轻量可视化内容编辑器：
-- **文章管理**：支持在线撰写、修改 Markdown 正文、配置 Frontmatter 并就近上传配图。
-- **友链与赞助**：支持可视化增删友链与赞助记录，修改后直接通过 GitHub API 自动提交。
-- **一键阻断**：当 `cms.enabled = false` 时，构建脚本将自动清空生产 `out/admin` 产物，访问返回 404，且页脚自动隐藏该徽标。
-
-### 2. Waline 评论系统 (`siteConfig.comment`)
-
-文章与友链页集成了轻量强大的 Waline 评论系统：
-- **开箱自适应**：样式深度适配了站点的黑金/极夜浅深色调，支持微博与 Bilibili 表情包。
-- **自建推荐配置 (Docker Compose)**：
-  ```yaml
-  services:
-    waline:
-      image: lizheming/waline:latest
-      restart: always
-      ports:
-        - "8360:8360"
-      volumes:
-        - ./data:/app/data
-      environment:
-        SQLITE_PATH: /app/data/waline.sqlite
-        SECURE_DOMAINS: "waline.yourdomain.com,blog.yourdomain.com"
-  ```
-- **配置开关**：在 `src/config/site.ts` 中配置 `comment.serverUrl` 即可连通；设置 `comment.enabled = false` 可彻底隐藏全站评论区及页脚徽标。
-
-### 3. 搜索引擎与站长生态 (`siteConfig.seo`)
-
-无需在 `public/` 下堆积零散的验证文件，直接在 `siteConfig.seo` 中配置：
-- **Bing 站长平台**：配置 `metaCode` 自动生成 `<meta name="msvalidate.01">`。
-- **Google Search Console**：配置 `verificationCode` 自动生成 `<meta name="google-site-verification">`。
-- **Google Analytics (GA4)**：配置 `measurementId`（如 `G-XXXXXXXXXX`）自动异步加载 GA 脚本。
-- **IndexNow 协议**：配置 `key` 后，每次 CI 部署自动运行 `scripts/indexnow-submit.js` 将新增文章 URL 实时推送到搜索引擎。
+- **基础与展示**：站点标题、作者身份、社交媒体链接、ICP 备案号、友链申请信息及页脚技术栈。
+- **CMS 管理 (`cms`)**：集成基于 GitHub 的 Sveltia CMS，控制 `/admin` 路由及页脚标识。
+- **互动评论 (`comment`)**：集成 Waline 评论区，支持配置服务端 URL 及全站一键启闭。
+- **SEO 与站长生态 (`seo`)**：集成 Google Analytics 4、Google Search Console、Bing Webmaster 鉴权及 IndexNow 实时推送。
+- **隐私统计 (`upv`)**：集成自建 Cloudflare Workers + D1 的 PV/UV 统计服务 API。
 
 ---
 
