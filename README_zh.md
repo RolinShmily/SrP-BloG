@@ -111,7 +111,6 @@ pinned: false           # 为 true 时在首页置顶
 cd services/upv
 cp .dev.vars.example .dev.vars
 npm run db:schema                  # 应用 D1 数据库表结构
-npm run db:migrate-slugs           # （可选）迁移旧 Astro 站历史统计数据
 npx wrangler secret put SALT       # 配置加盐哈希密钥
 npm run deploy                     # 部署 Worker
 ```

@@ -41,8 +41,6 @@ services/upv/
 ├── wrangler.toml                     # Workers + D1 binding `DB` + [vars]
 ├── schema.sql                        # idempotent DDL (verbatim copy of SCHEMA_STATEMENTS)
 ├── .dev.vars.example                 # local secrets/vars for `wrangler dev`
-├── migrations/
-│   └── 2026-09-18-post-slug-rename.sql   # rescue the pre-rebuild article counters
 └── src/
     ├── types.ts                      # Env, StatsPayload, HitResult, SqlRunner, D1 subset
     ├── store.ts                      # UPVStore + SqlUPVStore + hashing + validation + normalizePath
@@ -291,7 +289,6 @@ npx tsc --noEmit -p services/upv/tsconfig.json
 | `deploy` | `wrangler deploy` |
 | `typecheck` | `tsc --noEmit` |
 | `db:schema` | apply `schema.sql` to the **remote** database |
-| `db:migrate-slugs` | apply the post-slug migration to the **remote** database |
 | `db:export` | dump the remote database to `./backup-YYYYMMDD.sql` |
 
 ---
@@ -340,50 +337,74 @@ for deploys — it is not a runtime dependency and deliberately not in
 
 ---
 
-## 7. Migrating the legacy (Astro-era) counters
+## 7. Cloudflare D1 数据库迁移与运维方案 (D1 Database Migration & Ops)
 
-The previous blog was an Astro build deployed at `blog.srprolin.top` whose
-tracker wrote `window.location.pathname` — the **percent-encoded path with a
-trailing slash**, derived from a lowercased github-slugger filename slug. The
-rebuild renamed every article to `<N>-<english>-<n>`, so without a migration all
-historical article counters would sit under keys nothing reads.
+D1 是基于 SQLite 引擎构建的边缘分布式关系型数据库。以下是在日常维护、版本升级或跨库迁移时的标准最佳实践方案：
 
-`migrations/2026-09-18-post-slug-rename.sql` moves them:
+### 方案 A：Wrangler 官方标准迁移工作流（推荐：用于生产 Schema 演进）
+
+Cloudflare 官方提供了内置的版本化迁移机制，底层通过 `d1_migrations` 追踪表保证每个 SQL 文件仅执行一次，避免重复应用。
+
+1. **在 `wrangler.toml` 中配置迁移目录**：
+   ```toml
+   [[d1_databases]]
+   binding = "DB"
+   database_name = "srp-blog-stats"
+   database_id = "427d66da-2ae5-43ff-8680-83f9065a9e64"
+   migrations_dir = "migrations"
+   ```
+
+2. **创建新迁移文件**：
+   ```bash
+   npx wrangler d1 migrations create srp-blog-stats <migration_name>
+   # 将在 migrations/ 目录下自动生成 0001_<migration_name>.sql
+   ```
+
+3. **本地沙箱环境验证**：
+   ```bash
+   npx wrangler d1 migrations apply srp-blog-stats --local
+   ```
+
+4. **安全应用至生产远程数据库**：
+   ```bash
+   # 查看待应用的迁移清单
+   npx wrangler d1 migrations list srp-blog-stats --remote
+
+   # 确认无误后应用到远端
+   npx wrangler d1 migrations apply srp-blog-stats --remote
+   ```
+
+---
+
+### 方案 B：直接 SQL 脚本执行（适用于初始化建表或单次数据修补）
+
+对于一次性的 Schema 初始化或批量数据修复操作，可以直接通过 `execute` 指令加载 SQL 文件：
 
 ```bash
-cd services/upv
+# 执行本地 SQL 文件到远端生产数据库
+npx wrangler d1 execute srp-blog-stats --remote --file=./schema.sql
 
-# 0. Always take a backup first.
-npm run db:export
-
-# 1. Move /posts/minecraft-1/ -> /posts/1-minecraft-1 (51 articles)
-npm run db:migrate-slugs
+# 直接执行单条 SQL 命令（如查看表状态、核验行数）
+npx wrangler d1 execute srp-blog-stats --remote --command="SELECT COUNT(*) FROM page_views;"
 ```
 
-What it does, per article:
+---
 
-* **PV** — `INSERT … SELECT … ON CONFLICT DO UPDATE SET views = views + excluded.views`,
-  then deletes the legacy rows. Merging (rather than renaming) means
-  `SUM(page_views.views)` is preserved exactly, and re-running after launch
-  cannot lose a concurrently recorded view.
-* **UV** — `INSERT OR IGNORE` into the new slug followed by a delete, so a
-  visitor who saw both spellings on the same UTC day still counts once.
-* **Non-post paths** (`/about/`, `/archive/`, pagination, …) are deliberately
-  left alone: they are history, and deleting them would silently shrink the
-  site-wide totals.
-* Finally it recomputes `site_stats.total_views` / `total_visitors` from the raw
-  tables (the same statement pair as `recount()`).
+### 方案 C：全量备份与跨库恢复（容灾与克隆）
 
-It is idempotent — every legacy key it touches is deleted, so a second run is a
-no-op — and every statement is a no-op on a database that never served the old
-site. It handles both `/posts/x/` and `/posts/x`, and for CJK titles both the
-percent-encoded and raw UTF-8 spellings.
+在任何重要数据变更前，务必先进行冷备份：
 
-The mapping was derived from the live old sitemap and verified by fetching each
-legacy URL and comparing the JSON-LD `headline` against the current post's
-frontmatter title (51/51 exact matches). `/posts/srp-img/` has no counterpart —
-that article was published on the old site but is not part of the rebuild, so its
-row is intentionally left in place (it keeps the site totals truthful).
+1. **备份/导出远端数据**：
+   ```bash
+   # 导出为标准 SQLite SQL dump 文件
+   npx wrangler d1 export srp-blog-stats --remote --output=./backup-$(date +%Y%m%d).sql
+   ```
+
+2. **还原或克隆到新数据库**：
+   ```bash
+   # 导入到新建的或待恢复的 D1 数据库
+   npx wrangler d1 execute <target_db_name> --remote --file=./backup-20260918.sql
+   ```
 
 ---
 

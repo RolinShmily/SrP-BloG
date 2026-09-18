@@ -12,7 +12,6 @@
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy",
 		"db:schema": "wrangler d1 execute srp-blog-stats --remote --file=./schema.sql",
-		"db:migrate-slugs": "wrangler d1 execute srp-blog-stats --remote --file=./migrations/2026-09-18-post-slug-rename.sql",
 		"db:export": "wrangler d1 export srp-blog-stats --remote --output=./backup-$(date +%Y%m%d).sql"
 	},
 	"dependencies": {},

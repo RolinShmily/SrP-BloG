@@ -111,7 +111,6 @@ The counter service lives in `services/upv/`, running on Cloudflare Workers + D1
 cd services/upv
 cp .dev.vars.example .dev.vars
 npm run db:schema                  # Initialize D1 schema
-npm run db:migrate-slugs           # (Optional) Migrate legacy Astro statistics
 npx wrangler secret put SALT       # Set visitor hashing salt secret
 npm run deploy                     # Deploy Worker
 ```
