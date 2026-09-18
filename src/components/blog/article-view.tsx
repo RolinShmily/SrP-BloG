@@ -10,6 +10,7 @@ import { ArticleCopyright } from "./article-copyright";
 import { MobileToc, DesktopToc } from "./toc";
 import { LocalizedUPVCounter } from "./localized-upv-counter";
 import { PreviewArrow } from "./preview-arrow";
+import { WalineComments } from "./waline-comments";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -186,6 +187,9 @@ export function ArticleView({ post }: ArticleViewProps) {
               <span className="hidden sm:block" />
             )}
           </footer>
+
+          {/* Waline Comments Section */}
+          <WalineComments path={`/posts/${post.slug}`} />
         </article>
 
         {/* Table of contents, spanning the header and the body */}

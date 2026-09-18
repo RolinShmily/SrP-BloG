@@ -1,0 +1,250 @@
+/**
+ * Waline Comments Theme Adaptation for SrP-BloG
+ * Seamlessly harmonized with shadcn Zinc + antfu obsidian #050505 + signature #f75c7e pink accent.
+ */
+
+:root {
+  /* Font & Typography */
+  --waline-font-size: 0.9375rem;
+
+  /* Regular Colors */
+  --waline-white: #ffffff;
+  --waline-light-grey: #a1a1aa;
+  --waline-dark-grey: #52525b;
+
+  /* Signature Pink Accent */
+  --waline-theme-color: #f75c7e;
+  --waline-active-color: #e04b6c;
+
+  /* Layout & Cards (Light Mode) */
+  --waline-color: hsl(var(--foreground));
+  --waline-bg-color: hsl(var(--card));
+  --waline-bg-color-light: hsl(var(--muted));
+  --waline-bg-color-hover: hsl(var(--muted) / 0.8);
+  --waline-border-color: hsl(var(--border));
+  --waline-disable-bg-color: hsl(var(--muted) / 0.5);
+  --waline-disable-color: hsl(var(--muted-foreground));
+  --waline-code-bg-color: hsl(var(--muted));
+
+  /* Blockquote & Meta */
+  --waline-bq-color: hsl(var(--muted) / 0.6);
+  --waline-badge-color: #f75c7e;
+  --waline-badge-font-size: 0.75em;
+  --waline-info-bg-color: hsl(var(--muted));
+  --waline-info-color: hsl(var(--muted-foreground));
+  --waline-info-font-size: 0.75em;
+
+  /* Shape & Borders */
+  --waline-border: 1px solid hsl(var(--border));
+  --waline-avatar-radius: 50%;
+  --waline-box-shadow: none;
+}
+
+/* Dark Mode (Deep Obsidian #050505 + Zinc) */
+html.dark {
+  /* Regular Colors */
+  --waline-white: #000000;
+  --waline-light-grey: #71717a;
+  --waline-dark-grey: #a1a1aa;
+
+  /* Signature Pink Accent */
+  --waline-theme-color: #f75c7e;
+  --waline-active-color: #ff7eb3;
+
+  /* Layout & Cards (Dark Mode) */
+  --waline-color: #e4e4e7;
+  --waline-bg-color: #09090b;
+  --waline-bg-color-light: #18181b;
+  --waline-bg-color-hover: #27272a;
+  --waline-border-color: #27272a;
+  --waline-disable-bg-color: #18181b;
+  --waline-disable-color: #52525b;
+  --waline-code-bg-color: #141417;
+
+  /* Blockquote & Meta */
+  --waline-bq-color: #141417;
+  --waline-badge-color: #f75c7e;
+  --waline-info-bg-color: #18181b;
+  --waline-info-color: #71717a;
+
+  /* Shape & Borders */
+  --waline-border: 1px solid #27272a;
+}
+
+/* Container & Component Polish */
+.waline-custom-container {
+  font-family: inherit;
+}
+
+/* Input Panel */
+.waline-custom-container .wl-panel {
+  border-radius: 0.75rem;
+  border: var(--waline-border);
+  background-color: var(--waline-bg-color);
+  box-shadow: none;
+  overflow: hidden;
+  transition: border-color 0.2s ease;
+}
+
+.waline-custom-container .wl-panel:focus-within {
+  border-color: rgba(247, 92, 126, 0.5);
+}
+
+/* Header Inputs (Nick, Mail, Link) */
+.waline-custom-container .wl-header {
+  border-bottom: var(--waline-border);
+  background-color: var(--waline-bg-color-light);
+}
+
+.waline-custom-container .wl-header label {
+  color: var(--waline-color);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.waline-custom-container .wl-header input {
+  color: var(--waline-color);
+  font-size: 0.8125rem;
+}
+
+.waline-custom-container .wl-header input::placeholder {
+  color: var(--waline-info-color);
+  opacity: 0.7;
+}
+
+/* Textarea Editor */
+.waline-custom-container .wl-editor {
+  color: var(--waline-color);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  min-height: 5.5rem;
+}
+
+.waline-custom-container .wl-editor::placeholder {
+  color: var(--waline-info-color);
+  opacity: 0.7;
+}
+
+/* Action Toolbar */
+.waline-custom-container .wl-footer {
+  margin: 0.5rem;
+}
+
+.waline-custom-container .wl-action {
+  color: var(--waline-info-color);
+  transition: color 0.15s ease;
+}
+
+.waline-custom-container .wl-action:hover {
+  color: var(--waline-theme-color);
+}
+
+/* Primary Button (Submit) */
+.waline-custom-container .wl-btn.primary {
+  background-color: #f75c7e !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 0.375rem !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  padding: 0.375rem 1rem !important;
+  transition: opacity 0.2s ease, transform 0.1s ease !important;
+}
+
+.waline-custom-container .wl-btn.primary:hover {
+  opacity: 0.9 !important;
+}
+
+.waline-custom-container .wl-btn.primary:active {
+  transform: scale(0.98);
+}
+
+/* Badges */
+.waline-custom-container .wl-badge {
+  background-color: #f75c7e !important;
+  color: #ffffff !important;
+  border-radius: 0.25rem !important;
+  padding: 0.1rem 0.35rem !important;
+  font-size: 0.6875rem !important;
+  font-weight: 600 !important;
+  border: none !important;
+}
+
+/* Comment Cards */
+.waline-custom-container .wl-card {
+  border-top: var(--waline-border);
+  padding: 1rem 0;
+}
+
+.waline-custom-container .wl-card-item {
+  font-size: 0.875rem;
+}
+
+.waline-custom-container .wl-user {
+  font-weight: 600;
+  color: var(--waline-color);
+  font-size: 0.875rem;
+}
+
+.waline-custom-container .wl-user[href]:hover {
+  color: var(--waline-theme-color);
+}
+
+.waline-custom-container .wl-time {
+  font-size: 0.75rem;
+  color: var(--waline-info-color);
+}
+
+.waline-custom-container .wl-avatar {
+  border: 1px solid var(--waline-border-color);
+}
+
+/* Action items on comments (reply, like) */
+.waline-custom-container .wl-card-actions button {
+  color: var(--waline-info-color);
+  transition: color 0.15s ease;
+}
+
+.waline-custom-container .wl-card-actions button:hover {
+  color: var(--waline-theme-color);
+}
+
+/* Code Blocks in Comments */
+.waline-custom-container .wl-content code {
+  font-family: var(--font-maple), monospace;
+  font-size: 0.8125rem;
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  background-color: var(--waline-code-bg-color);
+}
+
+.waline-custom-container .wl-content pre {
+  font-family: var(--font-maple), monospace;
+  font-size: 0.8125rem;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: var(--waline-border);
+  background-color: var(--waline-code-bg-color);
+}
+
+/* Blockquotes in Comments */
+.waline-custom-container .wl-content blockquote {
+  border-left: 3px solid #f75c7e;
+  background-color: var(--waline-bq-color);
+  padding: 0.5rem 0.75rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+  margin: 0.5rem 0;
+}
+
+/* Reactions Bar */
+.waline-custom-container .wl-reaction-item {
+  border-radius: 0.5rem;
+  border: var(--waline-border);
+  transition: border-color 0.2s ease, transform 0.15s ease;
+}
+
+.waline-custom-container .wl-reaction-item:hover {
+  border-color: #f75c7e;
+  transform: translateY(-2px);
+}

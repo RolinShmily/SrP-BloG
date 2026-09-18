@@ -5,6 +5,7 @@ import { createPageMetadata } from "@/lib/seo";
 import { FriendCard } from "@/components/blog/friend-card";
 import { FriendInfoBox } from "@/components/blog/friend-info-box";
 import { Sponsorship, SponsorList } from "@/components/blog/sponsorship";
+import { WalineComments } from "@/components/blog/waline-comments";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { T } from "@/components/i18n/t";
@@ -157,6 +158,9 @@ export default async function FriendsPage() {
           </div>
         </section>
       )}
+
+      {/* Waline Comments Section */}
+      <WalineComments path="/friends" />
     </main>
   );
 }

@@ -39,7 +39,13 @@ export type TechIcon =
   | "tailwind"
   | "shadcn"
   | "radix"
-  | "lucide";
+  | "lucide"
+  | "sveltia"
+  | "waline"
+  | "google-analytics"
+  | "google-search"
+  | "bing"
+  | "indexnow";
 
 export interface TechItem {
   name: string;
@@ -106,6 +112,124 @@ export interface UpvConfig {
    * Default: true.
    */
   showArchivesStats?: boolean;
+}
+
+export interface CmsConfig {
+  /**
+   * Master switch for Sveltia CMS admin portal.
+   * If false:
+   *  - Completely blocks the `/admin` route (returns 404) by purging public/admin and out/admin
+   *  - Automatically hides Sveltia CMS from the footer tech stack
+   * Default: true.
+   */
+  enabled: boolean;
+  /**
+   * Admin route path (default: "/admin").
+   */
+  adminRoute?: string;
+  /**
+   * GitHub OAuth backend URL (e.g. "https://gh-oauth.srprolin.top").
+   */
+  oauthBaseUrl?: string;
+}
+
+export interface CommentConfig {
+  /**
+   * Master switch for the Waline comment system.
+   * If false:
+   *  - Completely hides comment areas on article pages and friends page
+   *  - Automatically hides Waline from the footer tech stack
+   * Default: true.
+   */
+  enabled: boolean;
+  /**
+   * Waline server backend URL (e.g. "https://waline.srprolin.top" or Docker self-hosted endpoint).
+   */
+  serverUrl: string;
+  /**
+   * Preset emoji packages (default: Weibo + Bilibili emojis).
+   */
+  emoji?: string[];
+  /**
+   * Comment editor placeholder.
+   */
+  placeholder?: string;
+  /**
+   * Whether to enable pageview tracking via Waline (default: false, handled by UPV service).
+   */
+  pageview?: boolean;
+  /**
+   * Required meta fields (e.g. ["nick", "mail"]).
+   */
+  requiredMeta?: string[];
+}
+
+/**
+ * Bing Webmaster Tools config.
+ */
+export interface BingWebmasterConfig {
+  /** Master switch for Bing Webmaster Tools integration and footer badge. */
+  enabled: boolean;
+  /**
+   * HTML meta tag authentication code (<meta name="msvalidate.01" content="..." />).
+   */
+  metaCode?: string;
+}
+
+/**
+ * Google Search Console config.
+ */
+export interface GoogleSearchConfig {
+  /** Master switch for Google Search Console integration and footer badge. */
+  enabled: boolean;
+  /**
+   * HTML meta verification code (<meta name="google-site-verification" content="..." />).
+   * Automatically emitted into Next.js metadata.verification.google.
+   */
+  verificationCode?: string;
+}
+
+/**
+ * Google Analytics (GA4) config.
+ */
+export interface GoogleAnalyticsConfig {
+  /** Master switch for Google Analytics tracking and footer badge. */
+  enabled: boolean;
+  /**
+   * Google Analytics 4 Measurement ID (e.g. "G-3BJMF4MP44").
+   */
+  measurementId: string;
+}
+
+/**
+ * IndexNow instant indexing protocol config (used with Bing, Yandex, etc.).
+ */
+export interface IndexNowConfig {
+  /** Master switch for IndexNow instant indexing and footer badge. */
+  enabled: boolean;
+  /**
+   * IndexNow API key (hex / UUID string).
+   * Also verified via https://<host>/<key>.txt containing the key.
+   */
+  key: string;
+  /** IndexNow endpoint URL (default: "https://api.indexnow.org/indexnow"). */
+  apiUrl?: string;
+  /** Batch submission size limit (max 10000). */
+  batchSize?: number;
+}
+
+/**
+ * Integrated SEO & Analytics configuration section.
+ */
+export interface SeoConfig {
+  /** Bing Webmaster Tools verification & indexing */
+  bingWebmaster: BingWebmasterConfig;
+  /** Google Search Console verification & indexing */
+  googleSearch: GoogleSearchConfig;
+  /** Google Analytics 4 (GA4) traffic analytics */
+  googleAnalytics: GoogleAnalyticsConfig;
+  /** IndexNow protocol real-time submission to Bing & other engines */
+  indexNow: IndexNowConfig;
 }
 
 export const siteConfig = {
@@ -238,6 +362,12 @@ export const siteConfig = {
     { name: "shadcn/ui", url: "https://ui.shadcn.com/", icon: "shadcn" },
     { name: "Radix UI", url: "https://www.radix-ui.com/", icon: "radix" },
     { name: "Lucide", url: "https://lucide.dev/", icon: "lucide" },
+    { name: "Sveltia CMS", url: "https://sveltiacms.app/", icon: "sveltia" },
+    { name: "Waline", url: "https://waline.js.org/", icon: "waline" },
+    { name: "Google Analytics", url: "https://analytics.google.com/", icon: "google-analytics" },
+    { name: "Google Search", url: "https://search.google.com/search-console", icon: "google-search" },
+    { name: "Bing Webmaster", url: "https://www.bing.com/webmasters", icon: "bing" },
+    { name: "IndexNow", url: "https://www.indexnow.org/", icon: "indexnow" },
   ] as TechItem[],
 
   // ==========================================
@@ -295,4 +425,69 @@ export const siteConfig = {
     /** Whether to display "Total Views" and "Total Visitors" cards on /archives. */
     showArchivesStats: true,
   } as UpvConfig,
+
+  // ==========================================
+  // 8. Sveltia CMS Configuration (内容管理系统配置)
+  // ==========================================
+  /**
+   * Master switch for the Sveltia CMS admin portal at /admin.
+   * When enabled: true, the admin portal is published and accessible at /admin.
+   * When enabled: false, the /admin route is completely blocked (404) and Sveltia CMS
+   * is removed from the footer tech stack.
+   */
+  cms: {
+    enabled: true,
+    adminRoute: "/admin",
+    oauthBaseUrl: "https://gh-oauth.srprolin.top",
+  } as CmsConfig,
+
+  // ==========================================
+  // 9. Comment System: Waline (Waline 评论系统配置)
+  // ==========================================
+  /**
+   * Waline comment system configuration.
+   * Supports self-hosted Docker backend, Vercel, or custom server.
+   */
+  comment: {
+    enabled: true,
+    serverUrl: "https://waline.srprolin.top",
+    emoji: [
+      "https://unpkg.com/@waline/emojis@1.4.0/weibo",
+      "https://unpkg.com/@waline/emojis@1.4.0/bilibili",
+    ],
+    placeholder: "说点什么吧... (支持 Markdown 语法与 Emoji 表情)",
+    pageview: false,
+    requiredMeta: ["nick", "mail"],
+  } as CommentConfig,
+
+  // ==========================================
+  // 10. SEO, Webmasters & Analytics (搜索引擎收录、站长平台与数据统计)
+  // ==========================================
+  /**
+   * Integrated SEO, Search Console, Google Analytics and IndexNow configuration.
+   */
+  seo: {
+    /** Bing Webmaster Tools (支持 HTML Meta 标签鉴权) */
+    bingWebmaster: {
+      enabled: true,
+      metaCode: "5DB2C9A2A7E7F356A6BC4294D57820DA",
+    },
+    /** Google Search Console (DNS验证为主，支持嵌入 HTML Meta 标签验证) */
+    googleSearch: {
+      enabled: true,
+      verificationCode: "2fcc9d4a94d0a3f7",
+    },
+    /** Google Analytics 4 (GA4) */
+    googleAnalytics: {
+      enabled: true,
+      measurementId: "G-3BJMF4MP44",
+    },
+    /** IndexNow 实时推送协议（配合 Bing / Yandex / Seznam） */
+    indexNow: {
+      enabled: true,
+      key: "e6d05f27754c43a6b547e1df433311df",
+      apiUrl: "https://api.indexnow.org/indexnow",
+      batchSize: 10000,
+    },
+  } as SeoConfig,
 };

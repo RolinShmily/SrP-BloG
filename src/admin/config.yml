@@ -1,0 +1,153 @@
+# Sveltia CMS Configuration for SrP-BloG
+# Docs: https://sveltiacms.app/en/docs/
+
+backend:
+  name: github
+  repo: RolinShmily/SrP-BloG
+  branch: main
+  base_url: https://gh-oauth.srprolin.top
+  auth_endpoint: auth
+  commit_messages:
+    create: 'content: create {{collection}} "{{slug}}"'
+    update: 'content: update {{collection}} "{{slug}}"'
+    delete: 'content: delete {{collection}} "{{slug}}"'
+    uploadMedia: 'assets: upload "{{path}}"'
+    deleteMedia: 'assets: delete "{{path}}"'
+
+site_url: https://blog.srprolin.top
+display_url: https://blog.srprolin.top
+logo_url: https://blog.srprolin.top/favicon/favicon.ico
+
+# 全局媒体回退目录
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "posts"
+    label: "文章 (Posts)"
+    label_singular: "文章"
+    folder: "content/posts"
+    create: true
+    path: "{{slug}}/index"
+    media_folder: ""
+    public_folder: ""
+    format: "frontmatter"
+    extension: "md"
+    summary: "{{title}} ({{published}})"
+    sortable_fields: ["published", "title"]
+    fields:
+      - { label: "标题", name: "title", widget: "string" }
+      - {
+          label: "发布日期",
+          name: "published",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+        }
+      - {
+          label: "置顶",
+          name: "pinned",
+          widget: "boolean",
+          default: false,
+          required: false,
+        }
+      - {
+          label: "文章摘要",
+          name: "description",
+          widget: "text",
+          required: false,
+        }
+      - {
+          label: "封面图片",
+          name: "image",
+          widget: "image",
+          required: false,
+          choose_url: true,
+        }
+      - {
+          label: "标签列表",
+          name: "tags",
+          widget: "list",
+          required: false,
+        }
+      - {
+          label: "草稿",
+          name: "draft",
+          widget: "boolean",
+          default: false,
+          required: false,
+        }
+      - {
+          label: "正文 (Markdown)",
+          name: "body",
+          widget: "markdown",
+        }
+
+  - name: "friends"
+    label: "友链 (Friends)"
+    label_singular: "友链"
+    folder: "content/friends"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{name}}"
+    summary: "{{name}} - {{description}}"
+    fields:
+      - { label: "站点名称", name: "name", widget: "string" }
+      - { label: "站点链接", name: "url", widget: "string" }
+      - { label: "描述", name: "description", widget: "string" }
+      - { label: "头像链接", name: "avatar", widget: "string" }
+      - {
+          label: "反链检查页面 (可选)",
+          name: "backlink",
+          widget: "string",
+          required: false,
+        }
+
+  - name: "sponsors"
+    label: "赞助者 (Sponsors)"
+    label_singular: "赞助者"
+    folder: "content/sponsors"
+    create: true
+    extension: "json"
+    format: "json"
+    slug: "{{name}}"
+    summary: "{{name}} - {{amount}} {{currency}} ({{date}})"
+    sortable_fields: ["date", "amount", "name"]
+    fields:
+      - { label: "赞助者名称", name: "name", widget: "string" }
+      - {
+          label: "赞助金额",
+          name: "amount",
+          widget: "number",
+          value_type: "float",
+          min: 0,
+        }
+      - {
+          label: "币种",
+          name: "currency",
+          widget: "select",
+          options: ["CNY", "USD"],
+          default: "CNY",
+        }
+      - {
+          label: "赞助日期",
+          name: "date",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+        }
+      - {
+          label: "赞助平台/渠道 (可选)",
+          name: "platform",
+          widget: "string",
+          required: false,
+        }
+      - {
+          label: "头像链接 (可选)",
+          name: "avatar",
+          widget: "string",
+          required: false,
+        }

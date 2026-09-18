@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Instrument_Serif } from "next/font/google";
 import { LocaleProvider } from "@/i18n/locale-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
@@ -84,6 +85,17 @@ export const metadata: Metadata = {
       },
     ],
   },
+  verification: {
+    google:
+      siteConfig.seo?.googleSearch?.enabled && siteConfig.seo.googleSearch.verificationCode
+        ? siteConfig.seo.googleSearch.verificationCode
+        : undefined,
+    other: {
+      ...(siteConfig.seo?.bingWebmaster?.enabled && siteConfig.seo.bingWebmaster.metaCode
+        ? { "msvalidate.01": siteConfig.seo.bingWebmaster.metaCode }
+        : {}),
+    },
+  },
 };
 
 /**
@@ -126,6 +138,23 @@ export default function RootLayout({
             <BackToTop />
           </LocaleProvider>
         </ThemeProvider>
+        {siteConfig.seo?.googleAnalytics?.enabled &&
+          siteConfig.seo.googleAnalytics.measurementId && (
+            <>
+              <Script
+                strategy="afterInteractive"
+                src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.seo.googleAnalytics.measurementId}`}
+              />
+              <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${siteConfig.seo.googleAnalytics.measurementId}');
+                `}
+              </Script>
+            </>
+          )}
       </body>
     </html>
   );

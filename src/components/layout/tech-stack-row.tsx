@@ -11,6 +11,12 @@ import {
   ShadcnIcon,
   RadixUiIcon,
   LucideIcon,
+  SveltiaCmsIcon,
+  WalineIcon,
+  GoogleAnalyticsIcon,
+  GoogleSearchConsoleIcon,
+  BingIcon,
+  IndexNowIcon,
 } from "@/components/icons/brands";
 
 const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
@@ -22,6 +28,12 @@ const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
   shadcn: ShadcnIcon,
   radix: RadixUiIcon,
   lucide: LucideIcon,
+  sveltia: SveltiaCmsIcon,
+  waline: WalineIcon,
+  "google-analytics": GoogleAnalyticsIcon,
+  "google-search": GoogleSearchConsoleIcon,
+  bing: BingIcon,
+  indexnow: IndexNowIcon,
 };
 
 function renderItem(item: TechItem, keyPrefix = "") {
@@ -43,7 +55,15 @@ function renderItem(item: TechItem, keyPrefix = "") {
 }
 
 export function TechStackRow() {
-  const techStack = siteConfig.techStack || [];
+  const techStack = (siteConfig.techStack || []).filter((item) => {
+    if (item.icon === "sveltia" && siteConfig.cms?.enabled === false) return false;
+    if (item.icon === "waline" && siteConfig.comment?.enabled === false) return false;
+    if (item.icon === "google-analytics" && siteConfig.seo?.googleAnalytics?.enabled === false) return false;
+    if (item.icon === "google-search" && siteConfig.seo?.googleSearch?.enabled === false) return false;
+    if (item.icon === "bing" && siteConfig.seo?.bingWebmaster?.enabled === false) return false;
+    if (item.icon === "indexnow" && siteConfig.seo?.indexNow?.enabled === false) return false;
+    return true;
+  });
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
