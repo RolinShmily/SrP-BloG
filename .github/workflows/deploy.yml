@@ -51,5 +51,7 @@ jobs:
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx wrangler pages deploy out --project-name=srp-blog --branch=main
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID || 'bc05b72cf39fa490daff27e02c0a19de' }}
+        run: |
+          npx wrangler pages project create srp-blog --production-branch main || true
+          npx wrangler pages deploy out --project-name=srp-blog --branch=main
