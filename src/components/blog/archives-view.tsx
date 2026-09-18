@@ -9,7 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { SiteUpvCards } from "./site-upv-cards";
 import { useLocale } from "@/i18n/locale-provider";
 import { formatWordCount } from "@/i18n/format";
-import { Search, SearchX, X, FileText, Calendar, BookOpen, ArrowRight } from "lucide-react";
+import { Search, SearchX, X, FileText, BookOpen } from "lucide-react";
+import { PostCard } from "./post-card";
 
 interface ArchivesViewProps {
   stats: SiteStats;
@@ -80,31 +81,61 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
     };
   }, [posts]);
 
-  const searchResults = useMemo(() => {
+  const searchedPosts = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return [];
 
     const terms = q.split(/\s+/).filter(Boolean);
+    const postMap = new Map<string, Post>(posts.map((p) => [p.slug, p]));
 
-    return searchIndex.filter((item) => {
-      const title = (item.title || "").toLowerCase();
-      const desc = (item.description || "").toLowerCase();
-      const plain = (item.plainText || "").toLowerCase();
-      const tags = (item.tags || []).join(" ").toLowerCase();
-      const date = (item.date || "").toLowerCase();
+    if (searchIndex.length > 0) {
+      const matched: Post[] = [];
+      const seen = new Set<string>();
+
+      for (const item of searchIndex) {
+        const title = (item.title || "").toLowerCase();
+        const desc = (item.description || "").toLowerCase();
+        const plain = (item.plainText || "").toLowerCase();
+        const tags = (item.tags || []).join(" ").toLowerCase();
+        const date = (item.date || "").toLowerCase();
+        const year = date.split("-")[0] || "";
+
+        const isMatch = terms.every(
+          (term) =>
+            title.includes(term) ||
+            desc.includes(term) ||
+            plain.includes(term) ||
+            tags.includes(term) ||
+            date.includes(term) ||
+            year === term
+        );
+
+        if (isMatch && !seen.has(item.slug)) {
+          seen.add(item.slug);
+          const post = postMap.get(item.slug);
+          if (post) matched.push(post);
+        }
+      }
+      return matched;
+    }
+
+    return posts.filter((post) => {
+      const title = post.title.toLowerCase();
+      const desc = (post.description || post.excerpt || "").toLowerCase();
+      const tags = post.tags.join(" ").toLowerCase();
+      const date = post.published.toLowerCase();
       const year = date.split("-")[0] || "";
 
       return terms.every(
         (term) =>
           title.includes(term) ||
           desc.includes(term) ||
-          plain.includes(term) ||
           tags.includes(term) ||
           date.includes(term) ||
           year === term
       );
     });
-  }, [searchQuery, searchIndex]);
+  }, [searchQuery, searchIndex, posts]);
 
   const postsByYear = useMemo(() => {
     const map = new Map<string, Post[]>();
@@ -205,10 +236,10 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
           )}
         </div>
 
-        {searchQuery && (
+        {searchQuery.trim() !== "" && (
           <div className="text-meta text-muted-foreground px-1 flex items-center justify-between">
             <span>
-              {t.search.found.replace("{count}", String(searchResults.length))}
+              {t.search.found.replace("{count}", String(searchedPosts.length))}
             </span>
             {isLoadingIndex && <span className="opacity-70">({t.common.loading})</span>}
           </div>
@@ -217,8 +248,8 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
 
       {/* Search Results Display */}
       {searchQuery.trim() !== "" ? (
-        <section className="space-y-3">
-          {searchResults.length === 0 ? (
+        <section className="space-y-4">
+          {searchedPosts.length === 0 ? (
             <div className="p-12 text-center rounded-xl border border-border bg-card text-muted-foreground space-y-2">
               <SearchX className="mx-auto h-6 w-6 opacity-50" />
               <p className="text-sm">
@@ -227,44 +258,13 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
               <p className="text-meta">{t.search.tip}</p>
             </div>
           ) : (
-            <div className="space-y-2.5">
-              {searchResults.map((item) => (
-                <article
-                  key={item.slug}
-                  className="group rounded-lg border border-border bg-card/40 hover:bg-muted/40 p-4 transition-colors flex items-start sm:items-center justify-between gap-4"
-                >
-                  <div className="space-y-1 min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2 text-meta text-muted-foreground">
-                      <span className="inline-flex items-center gap-1">
-                        <Calendar className="h-3 w-3" />
-                        <time className="font-mono">{item.date}</time>
-                      </span>
-                      <span>&bull;</span>
-                      <span className="inline-flex items-center gap-1 font-mono">
-                        <FileText className="h-3 w-3" />
-                        {formatWordCount(item.wordCount, locale)}
-                      </span>
-                    </div>
-
-                    <h3 className="text-base font-medium text-foreground group-hover:underline decoration-1 underline-offset-4 truncate">
-                      <Link href={`/posts/${item.slug}`}>{item.title}</Link>
-                    </h3>
-
-                    {item.description && (
-                      <p className="text-meta text-muted-foreground line-clamp-1">
-                        {item.description}
-                      </p>
-                    )}
-                  </div>
-
-                  <Link
-                    href={`/posts/${item.slug}`}
-                    className="shrink-0 p-1.5 text-muted-foreground group-hover:text-foreground transition-colors"
-                    aria-label={`${t.common.readMore}: ${item.title}`}
-                  >
-                    <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </article>
+            <div className="space-y-4">
+              {searchedPosts.map((post, idx) => (
+                <PostCard
+                  key={post.slug}
+                  post={post}
+                  priorityImage={idx < 2}
+                />
               ))}
             </div>
           )}
