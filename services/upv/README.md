@@ -289,6 +289,10 @@ npx tsc --noEmit -p services/upv/tsconfig.json
 | `deploy` | `wrangler deploy` |
 | `typecheck` | `tsc --noEmit` |
 | `db:schema` | apply `schema.sql` to the **remote** database |
+| `db:migrate:create` | create a new versioned migration file under `migrations/` |
+| `db:migrate:local` | apply pending migrations to local D1 |
+| `db:migrate:remote` | apply pending migrations to remote production D1 |
+| `db:migrate:list` | list migration history and pending status on remote D1 |
 | `db:export` | dump the remote database to `./backup-YYYYMMDD.sql` |
 
 ---
@@ -337,74 +341,68 @@ for deploys — it is not a runtime dependency and deliberately not in
 
 ---
 
-## 7. Cloudflare D1 数据库迁移与运维方案 (D1 Database Migration & Ops)
+## 7. Cloudflare D1 数据库迁移方案 (D1 Database Migrations)
 
-D1 是基于 SQLite 引擎构建的边缘分布式关系型数据库。以下是在日常维护、版本升级或跨库迁移时的标准最佳实践方案：
+采用 **Cloudflare D1 官方原生版本化迁移工作流（Wrangler Migrations）** 进行表结构演进与数据库维护。D1 会在底层自动维护 `d1_migrations` 元数据表记录已应用的迁移版本，严格单调递增执行，天然保证幂等性与可追溯性。
 
-### 方案 A：Wrangler 官方标准迁移工作流（推荐：用于生产 Schema 演进）
+### 1. 配置迁移目录
 
-Cloudflare 官方提供了内置的版本化迁移机制，底层通过 `d1_migrations` 追踪表保证每个 SQL 文件仅执行一次，避免重复应用。
+`wrangler.toml` 中已预先声明 `migrations_dir`：
 
-1. **在 `wrangler.toml` 中配置迁移目录**：
-   ```toml
-   [[d1_databases]]
-   binding = "DB"
-   database_name = "srp-blog-stats"
-   database_id = "427d66da-2ae5-43ff-8680-83f9065a9e64"
-   migrations_dir = "migrations"
-   ```
-
-2. **创建新迁移文件**：
-   ```bash
-   npx wrangler d1 migrations create srp-blog-stats <migration_name>
-   # 将在 migrations/ 目录下自动生成 0001_<migration_name>.sql
-   ```
-
-3. **本地沙箱环境验证**：
-   ```bash
-   npx wrangler d1 migrations apply srp-blog-stats --local
-   ```
-
-4. **安全应用至生产远程数据库**：
-   ```bash
-   # 查看待应用的迁移清单
-   npx wrangler d1 migrations list srp-blog-stats --remote
-
-   # 确认无误后应用到远端
-   npx wrangler d1 migrations apply srp-blog-stats --remote
-   ```
-
----
-
-### 方案 B：直接 SQL 脚本执行（适用于初始化建表或单次数据修补）
-
-对于一次性的 Schema 初始化或批量数据修复操作，可以直接通过 `execute` 指令加载 SQL 文件：
-
-```bash
-# 执行本地 SQL 文件到远端生产数据库
-npx wrangler d1 execute srp-blog-stats --remote --file=./schema.sql
-
-# 直接执行单条 SQL 命令（如查看表状态、核验行数）
-npx wrangler d1 execute srp-blog-stats --remote --command="SELECT COUNT(*) FROM page_views;"
+```toml
+[[d1_databases]]
+binding = "DB"
+database_name = "srp-blog-stats"
+database_id = "427d66da-2ae5-43ff-8680-83f9065a9e64"
+migrations_dir = "migrations"
 ```
 
----
+### 2. 创建迁移文件
 
-### 方案 C：全量备份与跨库恢复（容灾与克隆）
+当需要修改表结构（如新增字段、表或索引）时，生成带时间戳编号的 SQL 迁移文件：
 
-在任何重要数据变更前，务必先进行冷备份：
+```bash
+cd services/upv
+npx wrangler d1 migrations create srp-blog-stats <migration_name>
+# 或使用 npm script:
+npm run db:migrate:create -- <migration_name>
+```
 
-1. **备份/导出远端数据**：
-   ```bash
-   # 导出为标准 SQLite SQL dump 文件
-   npx wrangler d1 export srp-blog-stats --remote --output=./backup-$(date +%Y%m%d).sql
-   ```
+命令会在 `migrations/` 目录下自动生成文件，例如 `0001_<migration_name>.sql`。
 
-2. **还原或克隆到新数据库**：
-   ```bash
-   # 导入到新建的或待恢复的 D1 数据库
-   npx wrangler d1 execute <target_db_name> --remote --file=./backup-20260918.sql
-   ```
+### 3. 编写迁移 SQL
+
+在生成的迁移文件中编写具体 DDL / DML 变更，例如：
+
+```sql
+-- migrations/0001_add_post_likes.sql
+ALTER TABLE page_views ADD COLUMN likes INTEGER NOT NULL DEFAULT 0;
+CREATE INDEX IF NOT EXISTS idx_page_views_likes ON page_views(likes);
+```
+
+### 4. 本地沙箱测试验证
+
+在推送到生产环境前，先在本地 Miniflare 隔离环境中进行验证：
+
+```bash
+npm run db:migrate:local
+# 或: npx wrangler d1 migrations apply srp-blog-stats --local
+```
+
+### 5. 生产远程数据库迁移
+
+```bash
+# 1. 建议迁移前执行一次远程全量冷备：
+npm run db:export
+
+# 2. 查看远程数据库待应用迁移列表：
+npm run db:migrate:list
+# 或: npx wrangler d1 migrations list srp-blog-stats --remote
+
+# 3. 确认无误后执行远端正式迁移：
+npm run db:migrate:remote
+# 或: npx wrangler d1 migrations apply srp-blog-stats --remote
+```
 
 ---
 

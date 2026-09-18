@@ -105,7 +105,7 @@ Automated builds and deployments are handled by `.github/workflows/deploy.yml`:
 - Set repository secrets in GitHub: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 - Pushing to the `main` branch automatically triggers static build (`out/`) and deploys via `wrangler deploy` (Workers Static Assets via `wrangler.jsonc`).
 
-### 2. (Optional) UPV Analytics Service
+### 2. (Optional) UPV Analytics Service & D1 Migrations
 The counter service lives in `services/upv/`, running on Cloudflare Workers + D1:
 ```bash
 cd services/upv
@@ -115,6 +115,18 @@ npx wrangler secret put SALT       # Set visitor hashing salt secret
 npm run deploy                     # Deploy Worker
 ```
 Once deployed, configure `upv.api` in `src/config/site.ts` to connect the frontend.
+
+**D1 Database Versioned Migrations (Scheme 1: Wrangler Migrations)**:
+When updating database schemas (adding columns, tables, or indexes), use Cloudflare D1's native migration toolchain:
+```bash
+# 1. Create a versioned migration file (under migrations/0001_<name>.sql)
+npm run db:migrate:create -- <migration_name>
+
+# 2. Test locally and apply to remote production D1
+npm run db:migrate:local           # Test in local sandbox
+npm run db:migrate:remote          # Apply to remote production D1
+npm run db:migrate:list            # List migration status
+```
 
 ---
 

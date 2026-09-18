@@ -105,16 +105,28 @@ pinned: false           # 为 true 时在首页置顶
 - 在 GitHub 仓库设置中配置 Secrets：`CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID`。
 - 推送代码至 `main` 分支即可自动触发构建并通过 `wrangler deploy`（读取 `wrangler.jsonc` 静态资产配置）发布至 Worker。
 
-### 2. （可选）UPV 统计服务部署
+### 2. （可选）UPV 统计服务部署与 D1 迁移
 统计服务位于 `services/upv/`，基于 Cloudflare Workers + D1：
 ```bash
 cd services/upv
 cp .dev.vars.example .dev.vars
-npm run db:schema                  # 应用 D1 数据库表结构
+npm run db:schema                  # 初始化应用 D1 数据库表结构
 npx wrangler secret put SALT       # 配置加盐哈希密钥
 npm run deploy                     # 部署 Worker
 ```
 部署完成后，在 `src/config/site.ts` 中配置 `upv.api` 地址即可启用。
+
+**D1 数据库版本化迁移（方案 1：Wrangler Migrations）**：
+后续如需变更表结构（如新增字段或索引），使用 D1 官方版本化迁移工具链：
+```bash
+# 1. 创建带编号的迁移文件（位于 migrations/0001_<name>.sql）
+npm run db:migrate:create -- <migration_name>
+
+# 2. 本地测试与生产远端应用
+npm run db:migrate:local           # 本地沙箱测试
+npm run db:migrate:remote          # 生产远端应用
+npm run db:migrate:list            # 查看迁移历史与待应用状态
+```
 
 ---
 

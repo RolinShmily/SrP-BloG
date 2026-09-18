@@ -15,6 +15,7 @@ compatibility_date = "2025-01-01"
 binding = "DB"
 database_name = "srp-blog-stats"
 database_id = "427d66da-2ae5-43ff-8680-83f9065a9e64"
+migrations_dir = "migrations"
 
 [vars]
 # Restrict this in production, e.g. "https://blog.example.com,https://www.blog.example.com".

@@ -12,6 +12,10 @@
 		"dev": "wrangler dev",
 		"deploy": "wrangler deploy",
 		"db:schema": "wrangler d1 execute srp-blog-stats --remote --file=./schema.sql",
+		"db:migrate:create": "wrangler d1 migrations create srp-blog-stats",
+		"db:migrate:local": "wrangler d1 migrations apply srp-blog-stats --local",
+		"db:migrate:remote": "wrangler d1 migrations apply srp-blog-stats --remote",
+		"db:migrate:list": "wrangler d1 migrations list srp-blog-stats --remote",
 		"db:export": "wrangler d1 export srp-blog-stats --remote --output=./backup-$(date +%Y%m%d).sql"
 	},
 	"dependencies": {},
