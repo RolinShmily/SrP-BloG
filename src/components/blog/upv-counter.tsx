@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment, type ReactNode } from "react";
 import { Eye } from "lucide-react";
 import {
 	upvClient,
@@ -13,6 +13,7 @@ import {
 } from "@/lib/upv/client";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
+import { AnimatedNumber } from "./animated-number";
 
 export interface UPVCounterProps {
 	/** Path whose counters are displayed, e.g. `/posts/hello`. */
@@ -74,8 +75,21 @@ function markSessionHit(key: string): void {
 	}
 }
 
-function applyTemplate(template: string, views: string, visitors: string): string {
-	return template.replaceAll("{views}", views).replaceAll("{visitors}", visitors);
+function renderCounterContent(
+	template: string,
+	viewsNode: ReactNode,
+	visitorsNode: ReactNode,
+): ReactNode {
+	const parts = template.split(/(\{views\}|\{visitors\})/g);
+	return parts.map((part, index) => {
+		if (part === "{views}") {
+			return <Fragment key={index}>{viewsNode}</Fragment>;
+		}
+		if (part === "{visitors}") {
+			return <Fragment key={index}>{visitorsNode}</Fragment>;
+		}
+		return part;
+	});
 }
 
 /**
@@ -105,14 +119,11 @@ export function UPVCounter({
 			: siteConfig.upv?.showPostCounter !== false);
 	const configured = isUpvConfigured();
 
-	// SWR Cache: synchronously initialize with cached stats if available (0ms paint)
+	// Baseline state: for cards (showSkeleton === false), start at 0 so SSR matches client.
+	// For post detail (showSkeleton === true), start at loading skeleton.
 	const [state, setState] = useState<CounterState>(() => {
 		if (!isEnabled || !configured) {
 			return { status: "ready", stats: zeroStats(path) };
-		}
-		const cached = getCachedPathStats(path);
-		if (cached) {
-			return { status: "ready", stats: createStatsFromPath(path, cached) };
 		}
 		if (!showSkeleton) {
 			return { status: "ready", stats: zeroStats(path) };
@@ -131,6 +142,12 @@ export function UPVCounter({
 
 	useEffect(() => {
 		if (!isEnabled || !configured) return;
+
+		// Immediately hydrate from cache on client mount (runs after hydration, safe!)
+		const cached = getCachedPathStats(path);
+		if (cached) {
+			setState({ status: "ready", stats: createStatsFromPath(path, cached) });
+		}
 
 		let cancelled = false;
 		const storageKey = `${HIT_STORAGE_PREFIX}${path}`;
@@ -197,14 +214,17 @@ export function UPVCounter({
 				</span>
 			)}
 			<span
-				suppressHydrationWarning
 				className={cn(
 					"inline-flex items-center gap-1 text-xs tabular-nums text-muted-foreground",
 					className,
 				)}
 			>
-				<Eye className="h-3.5 w-3.5" />
-				{applyTemplate(template, format(pathStats.views), format(pathStats.visitors))}
+				<Eye className="h-3.5 w-3.5 shrink-0" />
+				{renderCounterContent(
+					template,
+					<AnimatedNumber value={pathStats.views} format={format} duration={600} />,
+					<AnimatedNumber value={pathStats.visitors} format={format} duration={600} />,
+				)}
 			</span>
 		</>
 	);

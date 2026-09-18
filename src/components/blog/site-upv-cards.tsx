@@ -13,6 +13,7 @@ import {
 import { siteConfig } from "@/config/site";
 import { useLocale } from "@/i18n/locale-provider";
 import { Card, CardContent } from "@/components/ui/card";
+import { AnimatedNumber } from "./animated-number";
 
 type SiteStatsState =
   | { status: "loading"; stats: null }
@@ -36,14 +37,10 @@ export function SiteUpvCards() {
   const configured = isUpvConfigured();
   const { t, locale } = useLocale();
 
-  // Synchronously initialize with cached site stats if available (0ms paint)
+  // Baseline state: initialize with loading skeleton to match server-rendered export
   const [state, setState] = useState<SiteStatsState>(() => {
     if (!isEnabled || !configured) {
       return { status: "ready", stats: { views: 0, visitors: 0 } };
-    }
-    const cached = getCachedSiteStats();
-    if (cached) {
-      return { status: "ready", stats: cached };
     }
     return { status: "loading", stats: null };
   });
@@ -57,6 +54,13 @@ export function SiteUpvCards() {
 
   useEffect(() => {
     if (!isEnabled || !configured) return;
+
+    // Immediately hydrate from cache on client mount
+    const cached = getCachedSiteStats();
+    if (cached) {
+      setState({ status: "ready", stats: cached });
+    }
+
     // If cached and fresh (< TTL), skip redundant network fetch
     if (isSiteCacheFresh()) return;
 
@@ -99,14 +103,14 @@ export function SiteUpvCards() {
       <StatCard
         icon={<Eye className="h-3.5 w-3.5" />}
         label={t.stats.totalViews}
-        value={format(state.stats.views)}
+        value={<AnimatedNumber value={state.stats.views} format={format} duration={700} />}
         unit={t.stats.views}
         staggerIndex={2}
       />
       <StatCard
         icon={<Users className="h-3.5 w-3.5" />}
         label={t.stats.totalVisitors}
-        value={format(state.stats.visitors)}
+        value={<AnimatedNumber value={state.stats.visitors} format={format} duration={700} />}
         unit={t.stats.visitors}
         staggerIndex={3}
       />
@@ -138,7 +142,7 @@ function StatCard({
 }: {
   icon: ReactNode;
   label: string;
-  value: string;
+  value: ReactNode;
   unit: string;
   staggerIndex: number;
 }) {
@@ -152,7 +156,7 @@ function StatCard({
           {icon}
           <span>{label}</span>
         </div>
-        <div suppressHydrationWarning className="text-2xl font-semibold tracking-tight text-foreground font-mono">
+        <div className="text-2xl font-semibold tracking-tight text-foreground font-mono">
           {value}{" "}
           <span className="text-xs font-normal text-muted-foreground font-sans">{unit}</span>
         </div>
