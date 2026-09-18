@@ -7,6 +7,8 @@ import { Footer } from "@/components/layout/footer";
 import { SpotlightEffect } from "@/components/layout/spotlight";
 import { PageTransition } from "@/components/layout/page-transition";
 import { RouteProgressBar } from "@/components/layout/route-progress";
+import { BackToTop } from "@/components/layout/back-to-top";
+import { AmbientArt } from "@/components/art/ambient-art";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -115,11 +117,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <LocaleProvider>
+            <AmbientArt />
             <RouteProgressBar />
             <SpotlightEffect />
             <Navbar />
             <PageTransition>{children}</PageTransition>
             <Footer />
+            <BackToTop />
           </LocaleProvider>
         </ThemeProvider>
       </body>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ComponentType } from "react";
-import { siteConfig, type CdnBrand, type SocialIcon } from "@/config/site";
+import { siteConfig, type SocialIcon } from "@/config/site";
 import { dictionaries } from "@/i18n";
 import { T } from "@/components/i18n/t";
 import {
@@ -14,9 +14,12 @@ import {
 import { TechStackRow } from "@/components/layout/tech-stack-row";
 import {
   ArrowUpRight,
+  Mail,
   Map,
   Rss,
   Scale,
+  Send,
+  Twitter,
 } from "lucide-react";
 
 const zh = dictionaries.zh;
@@ -31,24 +34,30 @@ const quickLinks = [
 ];
 
 /**
- * Social channels using official Font Awesome and dedicated brand SVGs.
+ * Social channels using official Font Awesome and dedicated brand SVGs,
+ * plus Lucide fallbacks for common platforms.
  */
 const socialIcons: Record<SocialIcon, ComponentType<{ className?: string }>> = {
   bilibili: FaBilibiliIcon,
   steam: FaSteamIcon,
   github: FaGithubIcon,
   folo: FoloIcon,
+  twitter: Twitter,
+  x: Twitter,
+  mail: Mail,
+  telegram: Send,
 };
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-background text-muted-foreground text-sm transition-colors mt-auto">
+    <footer className="bg-transparent text-muted-foreground text-sm transition-colors mt-auto">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-        {/* Top row: Quick links & Socials */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        {/* Top row: Quick links, Centered Travellings badge & Socials */}
+        <div className="flex flex-col lg:grid lg:grid-cols-[1fr_auto_1fr] items-center gap-4">
+          {/* Quick links */}
+          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2">
             {quickLinks.map((link) => (
               <Link key={link.href} href={link.href} className="hover:text-foreground transition-colors">
                 <T zh={link.label.zh} en={link.label.en} />
@@ -74,20 +83,28 @@ export function Footer() {
               <Map className="h-3 w-3 opacity-80" />
               <T zh={zh.footer.sitemap} en={en.footer.sitemap} />
             </a>
-            <a
-              href={siteConfig.travellingsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors inline-flex items-center"
-              aria-label={`${zh.footer.travellings} / ${en.footer.travellings}`}
-              title={`${zh.footer.travellings} / ${en.footer.travellings}`}
-            >
-              <TravellingsBadge className="h-[18px] w-auto shrink-0 grayscale opacity-75 hover:grayscale-0 hover:opacity-100 transition-all" />
-            </a>
           </div>
 
+          {/* Centered Travellings (开往) badge — enlarged slightly from 18px to 24px (h-6) */}
+          {siteConfig.travellingsUrl ? (
+            <div className="flex items-center justify-center shrink-0">
+              <a
+                href={siteConfig.travellingsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors inline-flex items-center"
+                aria-label={`${zh.footer.travellings} / ${en.footer.travellings}`}
+                title={`${zh.footer.travellings} / ${en.footer.travellings}`}
+              >
+                <TravellingsBadge className="h-6 w-auto shrink-0 grayscale opacity-80 hover:grayscale-0 hover:opacity-100 transition-all" />
+              </a>
+            </div>
+          ) : (
+            <div className="hidden lg:block" />
+          )}
+
           {/* Socials */}
-          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+          <div className="flex flex-wrap items-center justify-center lg:justify-end gap-x-3 gap-y-1">
             {siteConfig.socials.map((s) => {
               const Icon = socialIcons[s.icon];
               return (
@@ -118,15 +135,19 @@ export function Footer() {
             <span>
               &copy; {siteConfig.launchYear}&ndash;{currentYear}
             </span>
-            <a
-              href="https://github.com/RolinShmily/SrP-BloG"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition-colors font-medium"
-              title="GitHub Source Repository"
-            >
-              {siteConfig.title}
-            </a>
+            {siteConfig.repoUrl ? (
+              <a
+                href={siteConfig.repoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-foreground transition-colors font-medium"
+                title="Source Repository"
+              >
+                {siteConfig.title}
+              </a>
+            ) : (
+              <span className="font-medium">{siteConfig.title}</span>
+            )}
             <span>&bull;</span>
             <a
               href={siteConfig.license.url}

@@ -60,11 +60,6 @@
           "type": "boolean"
         },
         {
-          "title": "lang",
-          "name": "lang",
-          "type": "string"
-        },
-        {
           "title": "pinned",
           "name": "pinned",
           "type": "boolean"

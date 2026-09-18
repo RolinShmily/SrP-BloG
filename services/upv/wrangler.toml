@@ -1,7 +1,5 @@
 # Cloudflare Workers + D1 configuration for srp-blog-upv.
 #
-#   wrangler d1 create srp-blog-upv      # paste the printed database_id below
-#   wrangler d1 execute srp-blog-upv --file=./schema.sql --remote
 #   wrangler secret put SALT            # never commit the real salt
 #   wrangler deploy
 
@@ -15,8 +13,8 @@ compatibility_date = "2025-01-01"
 
 [[d1_databases]]
 binding = "DB"
-database_name = "srp-blog-upv"
-database_id = "REPLACE_WITH_YOUR_D1_DATABASE_ID"
+database_name = "srp-blog-stats"
+database_id = "427d66da-2ae5-43ff-8680-83f9065a9e64"
 
 [vars]
 # Restrict this in production, e.g. "https://blog.example.com,https://www.blog.example.com".

@@ -1,10 +1,14 @@
 import fs from "node:fs";
 import path from "node:path";
 
+export type Currency = "CNY" | "USD";
+
 export interface Sponsor {
   name: string;
-  /** Amount in CNY. Rendered as `¥{amount}`. */
+  /** Amount of sponsorship. */
   amount: number;
+  /** Currency code: "CNY" (¥) or "USD" ($). Defaults to "CNY". */
+  currency: Currency;
   /** ISO date (`YYYY-MM-DD`) the sponsorship was received. */
   date: string;
   /** Channel the sponsorship came through, e.g. `WeChat`. Optional. */
@@ -71,9 +75,6 @@ function parseSponsorFile(dir: string, fileName: string): Sponsor {
     );
   }
 
-  // Accept both `520` and the legacy `"520￥"` written by the main branch, but
-  // reject anything that does not reduce to a finite number so a typo cannot
-  // turn into `¥NaN` on the page.
   const amount = Number.parseFloat(String(item.amount).replace(/[^\d.-]/g, ""));
   if (!Number.isFinite(amount)) {
     throw new Error(
@@ -81,7 +82,10 @@ function parseSponsorFile(dir: string, fileName: string): Sponsor {
     );
   }
 
-  return { name, amount, date, platform, avatar };
+  const rawCurrency = item.currency ? String(item.currency).trim().toUpperCase() : "CNY";
+  const currency: Currency = rawCurrency === "USD" ? "USD" : "CNY";
+
+  return { name, amount, currency, date, platform, avatar };
 }
 
 /**

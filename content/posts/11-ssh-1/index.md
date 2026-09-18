@@ -8,7 +8,6 @@ tags:
   - SFTP
   - Linux
 draft: false
-lang: ""
 ---
 
 # SSH 的基本概念

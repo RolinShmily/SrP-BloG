@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState, useEffect, useCallback } from "react";
-import { siteConfig } from "@/config/site";
+import { useRef, useState, useEffect, useCallback, type ComponentType } from "react";
+import { siteConfig, type TechIcon, type TechItem } from "@/config/site";
 import {
   CloudflareIcon,
   NextjsIcon,
@@ -13,61 +13,23 @@ import {
   LucideIcon,
 } from "@/components/icons/brands";
 
-interface TechItem {
-  name: string;
-  href: string;
-  icon: React.ComponentType<{ className?: string }>;
-}
-
-const techStack: TechItem[] = [
-  {
-    name: "Cloudflare",
-    href: "https://www.cloudflare.com/",
-    icon: CloudflareIcon,
-  },
-  {
-    name: "Next.js",
-    href: "https://nextjs.org/",
-    icon: NextjsIcon,
-  },
-  {
-    name: "React",
-    href: "https://react.dev/",
-    icon: ReactIcon,
-  },
-  {
-    name: "TypeScript",
-    href: "https://www.typescriptlang.org/",
-    icon: TypeScriptIcon,
-  },
-  {
-    name: "Tailwind CSS",
-    href: "https://tailwindcss.com/",
-    icon: TailwindIcon,
-  },
-  {
-    name: "shadcn/ui",
-    href: "https://ui.shadcn.com/",
-    icon: ShadcnIcon,
-  },
-  {
-    name: "Radix UI",
-    href: "https://www.radix-ui.com/",
-    icon: RadixUiIcon,
-  },
-  {
-    name: "Lucide",
-    href: "https://lucide.dev/",
-    icon: LucideIcon,
-  },
-];
+const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
+  cloudflare: CloudflareIcon,
+  nextjs: NextjsIcon,
+  react: ReactIcon,
+  typescript: TypeScriptIcon,
+  tailwind: TailwindIcon,
+  shadcn: ShadcnIcon,
+  radix: RadixUiIcon,
+  lucide: LucideIcon,
+};
 
 function renderItem(item: TechItem, keyPrefix = "") {
-  const Icon = item.icon;
+  const Icon = techIcons[item.icon] || LucideIcon;
   return (
     <a
       key={`${keyPrefix}-${item.name}`}
-      href={item.href}
+      href={item.url}
       target="_blank"
       rel="noopener noreferrer"
       title={item.name}
@@ -81,6 +43,7 @@ function renderItem(item: TechItem, keyPrefix = "") {
 }
 
 export function TechStackRow() {
+  const techStack = siteConfig.techStack || [];
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -110,6 +73,10 @@ export function TechStackRow() {
       window.removeEventListener("resize", checkOverflow);
     };
   }, [checkOverflow]);
+
+  if (techStack.length === 0) {
+    return null;
+  }
 
   return (
     <div

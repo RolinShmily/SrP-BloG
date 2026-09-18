@@ -1,11 +1,9 @@
 /**
- * Platform-agnostic core of the UPV service.
+ * Core of the UPV service.
  *
  * Everything that decides *what* is counted lives here and talks to the
- * database only through the `SqlRunner` interface (see types.ts). The three
- * concrete drivers — node:sqlite, bun:sqlite and Cloudflare D1 — are thin
- * adapters that implement `SqlRunner`, so VPS and Workers provably share one
- * implementation of the counting semantics.
+ * database only through the `SqlRunner` interface (see types.ts). The D1
+ * driver (`store-d1.ts`) is a thin adapter that implements `SqlRunner`.
  *
  * Privacy design (important):
  *   * A raw client IP is NEVER persisted and never leaves the request scope.
@@ -96,9 +94,9 @@ export class InvalidInputError extends Error {
 }
 
 /**
- * Storage abstraction implemented by SqlUPVStore for every runtime.
+ * Storage abstraction implemented by SqlUPVStore (backed by the D1 driver).
  * Swapping in a mock (tests) or a future KV-based store only requires this
- * interface, nothing in app.ts / worker.ts / server.ts changes.
+ * interface, nothing in app.ts / worker.ts changes.
  */
 export interface UPVStore {
 	/** Record one page view (+unique visitor bookkeeping) atomically-ish. */
@@ -127,6 +125,20 @@ export function validatePath(path: unknown): string | null {
 export function assertValidPath(path: unknown): asserts path is string {
 	const problem = validatePath(path);
 	if (problem !== null) throw new InvalidInputError("invalid_path", problem);
+}
+
+/**
+ * Canonical storage key for a request path.
+ *
+ * The blog is exported with `trailingSlash: true`, so the very same article is
+ * reachable as both `/posts/foo` and `/posts/foo/`. Both spellings must resolve
+ * to one row, otherwise the counters silently split in two. The root path stays
+ * `/`.
+ */
+export function normalizePath(path: string): string {
+	if (path === "/") return "/";
+	const trimmed = path.replace(/\/+$/, "");
+	return trimmed.length > 0 ? trimmed : "/";
 }
 
 /** UTC calendar day (`YYYY-MM-DD`) — the UV dedup bucket. */
@@ -206,29 +218,32 @@ export class SqlUPVStore implements UPVStore {
 
 	async hit({ path, visitorHash, visitDate }: HitInput): Promise<HitResult> {
 		assertValidPath(path);
+		const canonical = normalizePath(path);
 
-		await this.#runner.execute(SQL.upsertPageView, [path]);
-		await this.#runner.execute(SQL.insertPageVisitor, [visitorHash, path, visitDate]);
+		await this.#runner.execute(SQL.upsertPageView, [canonical]);
+		await this.#runner.execute(SQL.insertPageVisitor, [visitorHash, canonical, visitDate]);
 		const siteVisitor = await this.#runner.execute(SQL.insertSiteVisitor, [visitorHash, visitDate]);
 		await this.#runner.execute(SQL.bumpTotalViews);
 		if (siteVisitor.changes > 0) {
 			await this.#runner.execute(SQL.bumpTotalVisitors);
 		}
 
-		const pathStats = await this.#readPathStats(path);
+		const pathStats = await this.#readPathStats(canonical);
 		const site = await this.#readSiteStats();
-		return { path, ...pathStats, site };
+		return { path: canonical, ...pathStats, site };
 	}
 
 	async getStats(paths: readonly string[]): Promise<StatsPayload> {
-		const unique = [...new Set(paths)];
-		if (unique.length > MAX_PATHS_PER_REQUEST) {
+		if (paths.length > MAX_PATHS_PER_REQUEST) {
 			throw new InvalidInputError(
 				"too_many_paths",
 				`at most ${MAX_PATHS_PER_REQUEST} paths per request`,
 			);
 		}
-		for (const path of unique) assertValidPath(path);
+		const unique = [...new Set(paths.map((path) => {
+			assertValidPath(path);
+			return normalizePath(path);
+		}))];
 
 		const items: Record<string, PathStats> = {};
 		for (const path of unique) {

@@ -1,6 +1,7 @@
 node_modules/
-*.sqlite
-*.sqlite-wal
-*.sqlite-shm
-.env
 .wrangler/
+.dev.vars
+
+# Local D1 dumps produced by `npm run db:export` must never be committed: they
+# contain every visitor hash and counter.
+backup-*.sql

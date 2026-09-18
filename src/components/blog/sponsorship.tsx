@@ -1,34 +1,12 @@
 import Image from "next/image";
 import type { Sponsor } from "@/lib/sponsors";
+import { siteConfig } from "@/config/site";
 import { T } from "@/components/i18n/t";
 import { dictionaries } from "@/i18n";
 import { AlipayMark, WechatPayMark } from "@/components/icons/pay";
 
 const zh = dictionaries.zh;
 const en = dictionaries.en;
-
-/**
- * Payment methods offered for sponsorship.
- *
- * The QR payloads are imported from `public/sponsors/` — these are the actual
- * personal payment codes, so they must never be replaced with placeholders.
- */
-const methods = [
-  {
-    key: "alipay",
-    image: "/sponsors/alipay.png",
-    zh: zh.sponsors.alipay,
-    en: en.sponsors.alipay,
-    Icon: AlipayMark,
-  },
-  {
-    key: "wechat",
-    image: "/sponsors/wechat.png",
-    zh: zh.sponsors.wechat,
-    en: en.sponsors.wechat,
-    Icon: WechatPayMark,
-  },
-];
 
 /**
  * The two scannable payment codes.
@@ -41,6 +19,26 @@ const methods = [
  * provides on pointer devices.
  */
 export function Sponsorship() {
+  const alipayImg = siteConfig.sponsorship?.alipay || "/sponsors/alipay.png";
+  const wechatImg = siteConfig.sponsorship?.wechat || "/sponsors/wechat.png";
+
+  const methods = [
+    {
+      key: "alipay",
+      image: alipayImg,
+      zh: zh.sponsors.alipay,
+      en: en.sponsors.alipay,
+      Icon: AlipayMark,
+    },
+    {
+      key: "wechat",
+      image: wechatImg,
+      zh: zh.sponsors.wechat,
+      en: en.sponsors.wechat,
+      Icon: WechatPayMark,
+    },
+  ];
+
   return (
     <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-start">
       {methods.map(({ key, image, zh: zhLabel, en: enLabel, Icon }) => (
@@ -128,8 +126,8 @@ export function SponsorList({ sponsors, progressMax = 520 }: SponsorListProps) {
               </div>
             </div>
 
-            <span className="absolute bottom-2 right-4 z-10 font-medium text-foreground">
-              ¥{sponsor.amount}
+            <span className="absolute bottom-2 right-4 z-10 font-medium text-foreground font-mono">
+              {sponsor.currency === "USD" ? "$" : "¥"}{sponsor.amount}
             </span>
           </div>
         );

@@ -161,7 +161,7 @@ export function TagsView({ posts, tags }: TagsViewProps) {
                   className={cn(
                     "apple-float-chip inline-flex items-center rounded-2xl px-[0.85em] py-[0.4em] font-medium transition-all duration-200 cursor-pointer select-none",
                     isSelected
-                      ? "border-2 border-[#f75c7e] bg-[#f75c7e]/12 text-[#f75c7e] dark:text-[#f75c7e] shadow-[0_0_0_1px_rgba(247,92,126,0.35)] scale-105 font-semibold"
+                      ? "border-2 border-[#f75c7e] bg-[#f75c7e]/[0.12] text-[#f75c7e] dark:text-[#f75c7e] shadow-[0_0_0_1px_rgba(247,92,126,0.35)] scale-105 font-semibold"
                       : "border border-border/80 bg-background/80 text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/40"
                   )}
                 >
@@ -169,7 +169,7 @@ export function TagsView({ posts, tags }: TagsViewProps) {
                     <span>#{tag.name}</span>
                     <span
                       className={cn(
-                        "ml-1.5 px-1.5 py-0.2 rounded-full font-mono text-[0.72em] font-semibold transition-colors",
+                        "ml-1.5 px-1.5 py-0.5 rounded-full font-mono text-[0.72em] font-semibold transition-colors",
                         isSelected
                           ? "bg-[#f75c7e] text-white shadow-xs"
                           : "bg-muted text-muted-foreground"

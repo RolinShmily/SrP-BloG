@@ -6,6 +6,7 @@ import { PostCard } from "./post-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useLocale } from "@/i18n/locale-provider";
+import { siteConfig } from "@/config/site";
 import { ChevronLeft, ChevronRight, Newspaper } from "lucide-react";
 
 interface PostsListProps {
@@ -13,7 +14,7 @@ interface PostsListProps {
   pageSize?: number;
 }
 
-export function PostsList({ posts, pageSize = 8 }: PostsListProps) {
+export function PostsList({ posts, pageSize = siteConfig.postsPerPage ?? 8 }: PostsListProps) {
   const [currentPage, setCurrentPage] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
   const { t } = useLocale();

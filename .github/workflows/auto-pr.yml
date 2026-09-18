@@ -207,7 +207,7 @@ jobs:
                   method: 'GET',
                   redirect: 'follow',
                   headers: {
-                    'user-agent': 'fuwari-auto-pr/1.0 (+github actions)',
+                    'user-agent': 'srp-blog-auto-pr/1.0 (+github actions)',
                     accept: 'text/html,application/json,image/*,*/*;q=0.8',
                   },
                   signal: controller.signal,
@@ -555,7 +555,7 @@ jobs:
                 const res = await fetch(backlinkUrl, {
                   method: 'GET',
                   redirect: 'follow',
-                  headers: { 'user-agent': 'fuwari-auto-pr/1.0 (+github actions)', accept: 'text/html,*/*;q=0.8' },
+                  headers: { 'user-agent': 'srp-blog-auto-pr/1.0 (+github actions)', accept: 'text/html,*/*;q=0.8' },
                   signal: controller.signal,
                 })
                 if (!res.ok) {

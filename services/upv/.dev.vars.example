@@ -1,0 +1,23 @@
+# ---------------------------------------------------------------------------
+# Local variables for `wrangler dev` (Cloudflare Workers + D1 deployment).
+#
+# Copy to `.dev.vars` — wrangler loads that file automatically for local
+# development and it is gitignored. Production values are NOT set here:
+#   wrangler secret put SALT          # secret, never committed
+# and the non-secret vars live in `[vars]` of wrangler.toml.
+# ---------------------------------------------------------------------------
+
+# Secret salt mixed into visitor_hash = sha256(ip + ua + utcDate + SALT).
+# Rotating it resets "unique visitor" identity for future visits; it can never
+# be used to brute-force old rows because raw IPs are never persisted.
+# If unset, the fixed development default is used and a warning is logged.
+SALT=change-me-to-a-long-random-string
+
+# Comma-separated CORS allow-list, or `*` for every origin.
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:4321
+
+# Best-effort per-isolate PV throttle in ms. 0 disables it.
+THROTTLE_WINDOW_MS=0
+
+# `false` counts requests from known bot user agents (keyword match).
+BLOCK_BOTS=true

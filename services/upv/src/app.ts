@@ -1,8 +1,8 @@
 /**
  * HTTP layer: pure Web `Request` -> `Response` handler.
  *
- * No runtime-specific API is used here, so the exact same handler is used by
- * the Cloudflare Worker (worker.ts) and the Node/Bun server (http-node.ts).
+ * No runtime-specific API is used here, so the handler stays a plain
+ * `Request` -> `Response` function driven by worker.ts.
  */
 
 import {
@@ -12,6 +12,7 @@ import {
 	assertValidPath,
 	computeVisitorHash,
 	isBotUserAgent,
+	normalizePath,
 	utcDate,
 	type UPVStore,
 } from "./store.ts";
@@ -155,9 +156,13 @@ export function createFetchHandler(options: HandlerOptions): FetchHandler {
 	let warnedAboutSalt = false;
 
 	async function snapshotHit(path: string): Promise<HitResult> {
-		const stats = await store.getStats([path]);
-		const pathStats: PathStats = stats.items[path] ?? { views: 0, visitors: 0 };
-		return { path, views: pathStats.views, visitors: pathStats.visitors, site: stats.site };
+		// `getStats` keys `items` by the canonical path, so look the normalised
+		// form up and echo it back — otherwise a trailing-slash request would
+		// report zeros for a path that has counters.
+		const canonical = normalizePath(path);
+		const stats = await store.getStats([canonical]);
+		const pathStats: PathStats = stats.items[canonical] ?? { views: 0, visitors: 0 };
+		return { path: canonical, views: pathStats.views, visitors: pathStats.visitors, site: stats.site };
 	}
 
 	return async function handle(request: Request): Promise<Response> {
@@ -190,9 +195,16 @@ export function createFetchHandler(options: HandlerOptions): FetchHandler {
 				if (request.method !== "GET") {
 					return json(errorBody("method_not_allowed", "use GET"), 405, { ...cors, allow: "GET, OPTIONS" });
 				}
-				const paths = parsePathsParam(url);
-				const payload = await store.getStats(paths);
-				return json(payload, 200, cors);
+				const requested = parsePathsParam(url);
+				const payload = await store.getStats(requested);
+				// The store keys `items` by the canonical path (no trailing slash);
+				// echo every requested spelling back so callers can look up exactly
+				// what they asked for.
+				const items: Record<string, PathStats> = {};
+				for (const path of requested) {
+					items[path] = payload.items[normalizePath(path)] ?? { views: 0, visitors: 0 };
+				}
+				return json({ items, site: payload.site }, 200, cors);
 			}
 
 			if (url.pathname === "/") {
@@ -232,7 +244,9 @@ export function createFetchHandler(options: HandlerOptions): FetchHandler {
 			}
 
 			const timestamp = now();
-			if (throttle.shouldSkip(`${clientIp(request)}|${path}`, timestamp)) {
+			// Key the throttle by the canonical path so alternating between `/a` and
+			// `/a/` cannot sidestep the window.
+			if (throttle.shouldSkip(`${clientIp(request)}|${normalizePath(path)}`, timestamp)) {
 				return json(await snapshotHit(path), 200, headers);
 			}
 

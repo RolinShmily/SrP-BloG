@@ -113,7 +113,7 @@ export function Navbar() {
                 {siteConfig.brandAuthor || siteConfig.author}
                 <span className="brand-apostrophe">&rsquo;</span>s
               </span>
-              <span className="site-brand-type">BloG</span>
+              <span className="site-brand-type">{siteConfig.brandTitle || "BloG"}</span>
             </span>
           </Link>
 

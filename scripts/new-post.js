@@ -56,7 +56,6 @@ description: ''
 image: ''
 tags: []
 draft: true
-lang: ''
 ---
 
 `

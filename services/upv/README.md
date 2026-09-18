@@ -1,18 +1,12 @@
 # srp-blog-upv
 
 A self-contained page-view (PV) / unique-visitor (UV) counting service for the
-blog. **One core implementation, two deployments:**
+blog, running on **Cloudflare Workers + D1** only.
 
-| Target | Runtime | Database | Entry point |
-| --- | --- | --- | --- |
-| VPS / Docker / bare metal | Node ≥ 22.5 (or Bun) | SQLite (`node:sqlite` / `bun:sqlite`) | `src/server.ts` |
-| Serverless edge | Cloudflare Workers | D1 (SQLite) | `src/worker.ts` |
-
-**Zero runtime dependencies.** No Express, no Hono, no better-sqlite3, no npm
-install step at all: the service is built from `node:http`, `node:sqlite`, Web
-Crypto, the Web `Request`/`Response` pair and Node's native TypeScript type
-stripping. There is nothing to keep patched, and the Docker image is just the
-Node base image plus ~700 lines of code.
+**Zero runtime dependencies.** No Express, no Hono, no npm install step at all:
+the whole service is `src/app.ts` (a Web `Request` → `Response` handler),
+`src/store.ts` (all counting logic), `src/store-d1.ts` (a ~60-line D1 adapter)
+and `src/worker.ts` (the Workers entry point). There is nothing to keep patched.
 
 ---
 
@@ -28,51 +22,41 @@ Node base image plus ~700 lines of code.
                        ┌───────────────▼───────────────────────┐
                        │  src/store.ts — ALL counting logic    │
                        │  SqlUPVStore over a SqlRunner          │
-                       └───────┬───────────────────┬───────────┘
-                               │                   │
-              src/store-sqlite.ts            src/store-d1.ts
-              (node:sqlite)                  (D1Database binding)
-              src/store-bun.ts
-              (bun:sqlite)
+                       └───────────────┬───────────────────────┘
+                                       │
+                              src/store-d1.ts
+                              (D1Database binding `DB`)
 ```
 
-The only thing that differs between VPS and Cloudflare is a ~20-line
-`SqlRunner` adapter. Path validation, visitor hashing (Web Crypto), the
-INSERT/UPDATE statements, PV/UV/site semantics, error mapping and CORS live in
-shared files used by both targets.
+Path validation, visitor hashing (Web Crypto), the INSERT/UPDATE statements,
+PV/UV/site semantics, error mapping and CORS all live in files that never touch
+a runtime-specific API, so the same logic is trivially unit-testable.
 
 ### Directory tree
 
 ```
 services/upv/
-├── package.json          # name: srp-blog-upv, type: module, zero runtime deps
-├── tsconfig.json         # NodeNext, strict, allowImportingTsExtensions
-├── schema.sql            # idempotent DDL (verbatim copy of SCHEMA_STATEMENTS)
-├── Dockerfile            # node:22-alpine, non-root, SQLite volume, no build step
-├── docker-compose.yml    # VPS deployment with a named data volume
-├── wrangler.toml         # Workers + D1 binding `DB` (example)
-├── .env.example          # PORT / DB_PATH / HOST / SALT / ALLOWED_ORIGINS / ...
-├── .dockerignore
-├── smoke-test.sh         # end-to-end curl test against a throwaway SQLite file
+├── package.json                      # name: srp-blog-upv, type: module, zero deps
+├── tsconfig.json                     # strict, ES2022 + DOM, allowImportingTsExtensions
+├── wrangler.toml                     # Workers + D1 binding `DB` + [vars]
+├── schema.sql                        # idempotent DDL (verbatim copy of SCHEMA_STATEMENTS)
+├── .dev.vars.example                 # local secrets/vars for `wrangler dev`
+├── migrations/
+│   └── 2026-09-18-post-slug-rename.sql   # rescue the pre-rebuild article counters
 └── src/
-    ├── types.ts          # Env, StatsPayload, HitResult, SqlRunner, D1 subset
-    ├── store.ts          # UPVStore interface + SqlUPVStore core + hashing + validation
-    ├── store-sqlite.ts   # node:sqlite driver (Node ≥ 22.5)
-    ├── store-bun.ts      # bun:sqlite driver
-    ├── store-d1.ts       # Cloudflare D1 driver
-    ├── app.ts            # fetch handler: routing, CORS, throttle, bot filter, errors
-    ├── worker.ts         # export default { fetch } for Workers
-    ├── server.ts         # Node entry point
-    ├── server.bun.ts     # Bun entry point
-    ├── http-node.ts      # node:http <-> Web Request/Response glue
-    └── bun-sqlite.d.ts   # minimal ambient types for bun:sqlite
+    ├── types.ts                      # Env, StatsPayload, HitResult, SqlRunner, D1 subset
+    ├── store.ts                      # UPVStore + SqlUPVStore + hashing + validation + normalizePath
+    ├── store-d1.ts                   # Cloudflare D1 driver
+    ├── app.ts                        # fetch handler: routing, CORS, throttle, bot filter, errors
+    └── worker.ts                     # export default { fetch } for Workers
 ```
 
 ---
 
 ## 2. Data model & privacy
 
-`schema.sql` / `SCHEMA_STATEMENTS` (idempotent, `CREATE TABLE IF NOT EXISTS`):
+`schema.sql` / `SCHEMA_STATEMENTS` (idempotent, `CREATE TABLE IF NOT EXISTS`;
+also applied per isolate on cold start, which is just a safety net):
 
 | Table | Key | Meaning |
 | --- | --- | --- |
@@ -108,9 +92,17 @@ visitor_hash = sha256(ip + userAgent + utcDate + SALT).slice(0, 32)   # hex
 
   (Deleting rows lowers the reported lifetime `visitors` numbers; `views` is
   unaffected.)
-* If `SALT` is unset, the server falls back to the public constant
+* If `SALT` is unset, the service falls back to the public constant
   `srp-blog-upv-dev-salt` **and logs a warning**. Never run production without
-  `SALT`; set it via `wrangler secret put SALT` / `UPV_SALT` in compose.
+  `SALT`; set it with `wrangler secret put SALT`.
+
+### Path normalisation
+
+The blog is exported with `trailingSlash: true`, so one article is reachable as
+both `/posts/foo` and `/posts/foo/`. `normalizePath()` strips trailing slashes
+(root stays `/`) before anything touches the database, so the two spellings
+cannot split a counter in two. `/api/stats` echoes each requested spelling back
+in its response, so callers can look up exactly the path they asked for.
 
 ### Counting semantics
 
@@ -168,7 +160,7 @@ $ curl -X POST .../api/hit -d '{"path":"/posts/hello"}' -H 'user-agent: SmokeTes
 ### `GET /api/stats?paths=/posts/a,/posts/b`
 
 Missing paths come back as zeros; `site` is always included. At most 100 paths
-per request.
+per request. Both spellings of a path return the same counters.
 
 ```bash
 $ curl 'https://upv.example.com/api/stats?paths=/posts/hello,/posts/missing'
@@ -188,7 +180,7 @@ Errors are structured, never HTML, and always carry an HTTP status:
 | 404 | `not_found` | unknown route |
 | 405 | `method_not_allowed` | wrong verb (`allow` header included) |
 | 500 | `internal_error` | unexpected exception (logged, not leaked) |
-| 500 | `missing_binding` | Workers deploy without the `DB` D1 binding |
+| 500 | `missing_binding` | deployed without the `DB` D1 binding |
 
 ```json
 {"error":{"code":"invalid_path","message":"path must start with '/'"}}
@@ -213,10 +205,10 @@ origin is echoed and `vary: origin` is set.
   `BLOCK_BOTS=false`. This is a courtesy filter, not security.
 * **PV throttle** — in-memory per-IP/per-path window
   (`THROTTLE_WINDOW_MS`, default `0` = off). Because a Worker has many isolates
-  and a VPS may run several processes, this is **best-effort only**. Real rate
-  limiting belongs in nginx / Cloudflare WAF / Rate Limiting rules. Correctness
-  of UV never depends on it: the database primary key is what deduplicates.
-  The default is off so that every request is counted as a page view.
+  serving traffic concurrently, this is **best-effort only**. Real rate
+  limiting belongs in Cloudflare WAF / Rate Limiting rules. Correctness of UV
+  never depends on it: the database primary key is what deduplicates. The
+  default is off so that every request is counted as a page view.
 * `/api/hit` is unauthenticated by design (it is called from the browser). If
   you need write protection, put it behind a signed token or a Cloudflare
   Turnstile check with a tiny amount of work in `app.ts`.
@@ -251,16 +243,16 @@ export class SqlUPVStore implements UPVStore { constructor(runner: SqlRunner) }
 
 export const SCHEMA_STATEMENTS: readonly string[];
 export function validatePath(path: unknown): string | null;      // null = ok
+export function assertValidPath(path: unknown): asserts path is string;
+export function normalizePath(path: string): string;            // trailing slash -> canonical
 export function utcDate(nowMs?: number): string;                 // YYYY-MM-DD
 export function computeVisitorHash(ip: string, userAgent: string, visitDate: string, salt: string): Promise<string>;
 export function isBotUserAgent(userAgent: string | null | undefined): boolean;
 ```
 
-Drivers:
+Driver:
 
 ```ts
-createSqliteStore(dbPath?: string): SqliteUPVStore & { close(): void }   // Node
-createBunSqliteStore(dbPath?: string): BunSqliteUPVStore & { close(): void }
 createD1Store(db: D1DatabaseLike): UPVStore
 initD1Schema(db: D1DatabaseLike): Promise<void>
 ```
@@ -275,10 +267,11 @@ the real binding is assignable without depending on `@cloudflare/workers-types`.
 ```bash
 cd services/upv
 
-# Node (22.5+; the sqlite flag is a no-op on 24.x but required on 22.5-22.12)
-PORT=8787 DB_PATH=./upv.sqlite SALT=dev-salt \
-  node --experimental-sqlite --experimental-strip-types src/server.ts
-# or: npm start     /    bun run src/server.bun.ts
+cp .dev.vars.example .dev.vars     # local SALT + CORS origins (gitignored)
+
+# Miniflare-backed local D1 (no Cloudflare account needed); applies migrations
+# to a local database and serves on http://127.0.0.1:8787
+npx wrangler dev
 
 curl http://127.0.0.1:8787/api/health
 ```
@@ -287,123 +280,141 @@ Type-check (no build output, no dependencies installed):
 
 ```bash
 npx tsc --noEmit -p services/upv/tsconfig.json
+# or: npm run typecheck
 ```
 
-End-to-end smoke test (starts a real server on a throwaway SQLite file in
-`$TMPDIR`, exercises every endpoint with curl, then removes its temp files):
+`npm run` scripts available:
 
-```bash
-bash services/upv/smoke-test.sh
-```
-
-Sample output (trimmed):
-
-```
-### 2. POST /api/hit /posts/hello (twice, same UA -> PV=2, UV=1)
-{"path":"/posts/hello","views":1,"visitors":1,"site":{"views":1,"visitors":1}}   HTTP 200
-{"path":"/posts/hello","views":2,"visitors":1,"site":{"views":2,"visitors":1}}   HTTP 200
-
-### 3. POST /api/hit /posts/hello (different UA -> PV=3, UV=2)
-{"path":"/posts/hello","views":3,"visitors":2,"site":{"views":3,"visitors":2}}   HTTP 200
-
-### 5. GET /api/stats?paths=/posts/hello,/posts/second,/posts/missing
-{"items":{"/posts/hello":{"views":3,"visitors":2},"/posts/second":{"views":1,"visitors":1},"/posts/missing":{"views":0,"visitors":0}},"site":{"views":4,"visitors":2}}   HTTP 200
-
-### 6. POST /api/hit with an illegal path -> 400
-{"error":{"code":"invalid_path","message":"path must start with '/'"}}           HTTP 400
-```
+| Script | What it does |
+| --- | --- |
+| `dev` | `wrangler dev` — local Miniflare + local D1 |
+| `deploy` | `wrangler deploy` |
+| `typecheck` | `tsc --noEmit` |
+| `db:schema` | apply `schema.sql` to the **remote** database |
+| `db:migrate-slugs` | apply the post-slug migration to the **remote** database |
+| `db:export` | dump the remote database to `./backup-YYYYMMDD.sql` |
 
 ---
 
-## 6. Deploy — VPS / Docker
+## 6. Deploy — Cloudflare Workers + D1
+
+`wrangler.toml` is already pointed at the live database
+(`database_name = "srp-blog-stats"`, `database_id = "427d66da-…"`), which is the
+same D1 instance the previous Astro+Worker stack used — see §7 for carrying its
+data over.
 
 ```bash
 cd services/upv
 
-# 1. Build and start (the healthcheck waits until /api/health answers)
-export UPV_SALT="$(openssl rand -hex 32)"
-export UPV_ALLOWED_ORIGINS="https://blog.example.com"
-docker compose up -d --build
+# 1. Apply the schema (idempotent; also applied automatically on cold start)
+npm run db:schema
 
-# 2. Verify
-curl -s http://127.0.0.1:8787/api/health
-docker compose logs -f upv
-
-# 3. Upgrade / rollback
-docker compose build --pull && docker compose up -d
-```
-
-Counters live in the `upv-data` volume (`/data/upv.sqlite`). Without Compose:
-
-```bash
-docker build -t srp-blog-upv ./services/upv
-docker run -d --name srp-blog-upv --restart unless-stopped \
-  -p 127.0.0.1:8787:8787 \
-  -e SALT="$(openssl rand -hex 32)" \
-  -e ALLOWED_ORIGINS="https://blog.example.com" \
-  -v upv-data:/data srp-blog-upv
-```
-
-Hardened systemd-less setup: bind the port to `127.0.0.1` and reverse-proxy
-with nginx/Caddy for TLS, gzip and rate limiting (`limit_req`).
-
-Backups are a file copy (WAL mode, so also copy the `-wal`/`-shm` siblings, or
-use `sqlite3 upv.sqlite ".backup '/backup/uv-$(date +%F).sqlite'"`).
-
----
-
-## 7. Deploy — Cloudflare Workers + D1
-
-```bash
-cd services/upv
-
-# 1. Create the database, copy the printed database_id into wrangler.toml
-npx wrangler d1 create srp-blog-upv
-
-# 2. Apply the schema (local for `wrangler dev`, --remote for production)
-npx wrangler d1 execute srp-blog-upv --file=./schema.sql
-npx wrangler d1 execute srp-blog-upv --file=./schema.sql --remote
-
-# 3. Secret salt (never put SALT in wrangler.toml)
+# 2. Secret salt (never put SALT in wrangler.toml)
 npx wrangler secret put SALT
 
-# 4. Local edge emulation (Miniflare + local D1)
+# 3. Local edge emulation
 npx wrangler dev
 
-# 5. Ship it
-npx wrangler deploy
+# 4. Ship it
+npm run deploy
 # -> https://srp-blog-upv.<account>.workers.dev
 
-# 6. Verify + query D1 directly
+# 5. Verify + query D1 directly
 curl -s https://srp-blog-upv.<account>.workers.dev/api/health
-npx wrangler d1 execute srp-blog-upv --remote \
+npx wrangler d1 execute srp-blog-stats --remote \
   --command "SELECT * FROM page_views ORDER BY views DESC LIMIT 10"
 ```
 
-Find the database id with `npx wrangler d1 list`. Bind a custom domain under
-Workers → Settings → Domains & Routes (e.g. `upv.example.com`), then point
-`NEXT_PUBLIC_UPV_API` at it. `wrangler` is only needed for deploys — it is not a
-runtime dependency of the service and is intentionally not in `package.json`.
+Production `[vars]` live in `wrangler.toml`; `ALLOWED_ORIGINS` should be
+narrowed from `*` to the blog's origin before launch, e.g.
 
-Optional: enable D1 read replication or Workers analytics later; the counters
-are plain SQL and portable, so `sqlite3 upv.sqlite .dump` can seed D1 if you
-migrate from the VPS deployment.
+```toml
+[vars]
+ALLOWED_ORIGINS = "https://blog.example.com,https://www.blog.example.com"
+```
+
+Bind a custom domain under Workers → Settings → Domains & Routes (e.g.
+`upv.example.com`), then point the blog at it (§8). `wrangler` is only needed
+for deploys — it is not a runtime dependency and deliberately not in
+`package.json`.
+
+---
+
+## 7. Migrating the legacy (Astro-era) counters
+
+The previous blog was an Astro build deployed at `blog.srprolin.top` whose
+tracker wrote `window.location.pathname` — the **percent-encoded path with a
+trailing slash**, derived from a lowercased github-slugger filename slug. The
+rebuild renamed every article to `<N>-<english>-<n>`, so without a migration all
+historical article counters would sit under keys nothing reads.
+
+`migrations/2026-09-18-post-slug-rename.sql` moves them:
+
+```bash
+cd services/upv
+
+# 0. Always take a backup first.
+npm run db:export
+
+# 1. Move /posts/minecraft-1/ -> /posts/1-minecraft-1 (51 articles)
+npm run db:migrate-slugs
+```
+
+What it does, per article:
+
+* **PV** — `INSERT … SELECT … ON CONFLICT DO UPDATE SET views = views + excluded.views`,
+  then deletes the legacy rows. Merging (rather than renaming) means
+  `SUM(page_views.views)` is preserved exactly, and re-running after launch
+  cannot lose a concurrently recorded view.
+* **UV** — `INSERT OR IGNORE` into the new slug followed by a delete, so a
+  visitor who saw both spellings on the same UTC day still counts once.
+* **Non-post paths** (`/about/`, `/archive/`, pagination, …) are deliberately
+  left alone: they are history, and deleting them would silently shrink the
+  site-wide totals.
+* Finally it recomputes `site_stats.total_views` / `total_visitors` from the raw
+  tables (the same statement pair as `recount()`).
+
+It is idempotent — every legacy key it touches is deleted, so a second run is a
+no-op — and every statement is a no-op on a database that never served the old
+site. It handles both `/posts/x/` and `/posts/x`, and for CJK titles both the
+percent-encoded and raw UTF-8 spellings.
+
+The mapping was derived from the live old sitemap and verified by fetching each
+legacy URL and comparing the JSON-LD `headline` against the current post's
+frontmatter title (51/51 exact matches). `/posts/srp-img/` has no counterpart —
+that article was published on the old site but is not part of the rebuild, so its
+row is intentionally left in place (it keeps the site totals truthful).
 
 ---
 
 ## 8. Blog front-end integration
 
-The front end is already wired in — three files, two mount points:
+The front end is already wired in. Configuration lives in
+`src/config/site.ts` under `siteConfig.upv`:
+
+```ts
+upv: {
+  enabled: true,            // false hides every counter (no network requests)
+  api: "https://upv.example.com",
+  showPostCounter: true,    // article page + post cards
+  showCardCounter: true,    // post cards specifically
+  showArchivesStats: true,  // site-wide PV/UV cards on /archives
+}
+```
+
+`siteConfig.upv.api` takes precedence over the build-time
+`NEXT_PUBLIC_UPV_API`; leaving both empty keeps the components mounted but
+reading zeros, so the layout never shifts.
 
 * `src/lib/upv/client.ts` — `UPVAdapter { getStats(paths), hit(path) }`,
-  `HttpUPVAdapter` (reads `NEXT_PUBLIC_UPV_API`), `NullUPVAdapter`, and the
-  auto-selected `upvClient` singleton. Every failure (unset env, offline,
-  CORS, timeout, malformed JSON, ad-blocker) resolves to `null`, so the blog
-  can never break because of analytics.
+  `HttpUPVAdapter`, `NullUPVAdapter`, the auto-selected `upvClient` singleton
+  (with microtask batching, so N post cards in one tick produce one request),
+  and `isUpvConfigured()`. Every failure (unset API, offline, CORS, timeout,
+  malformed JSON, ad-blocker) degrades to zeros rather than an error.
 * `src/components/blog/upv-counter.tsx` — `'use client'` counter that hits once
-  per path per browser session (`sessionStorage` guard) and otherwise reads,
-  shows a skeleton while loading, renders **nothing** when the API is
-  unavailable, and takes all copy through props (no language hard-coded).
+  per path per browser session (`sessionStorage` guard) and otherwise reads.
+  `context="card"` renders views only; skeletons are optional
+  (`showSkeleton`). Takes all copy through props (no language hard-coded).
   `localized-upv-counter.tsx` wraps it with the i18n template.
 * `src/components/blog/site-upv-cards.tsx` — the site-wide PV and UV cards.
 
@@ -411,8 +422,9 @@ Mount points:
 
 | Where | What | File |
 | --- | --- | --- |
-| Article page | per-article PV/UV line | `article-view.tsx` — `<LocalizedUPVCounter path={`/posts/${post.slug}`} />` |
-| Archives page | site-wide PV + UV cards | `archives-view.tsx` — `<SiteUpvCards />` |
+| Article page | per-article views | `article-view.tsx` — `<LocalizedUPVCounter path={`/posts/${post.slug}`} />` |
+| Post cards | per-article views | `post-card.tsx` — `context="card"` |
+| Archives page | site-wide views + visitors | `archives-view.tsx` — `<SiteUpvCards />` |
 
 Direct use of the primitive (copy passed in, no language baked in):
 
@@ -426,15 +438,9 @@ import { UPVCounter } from "@/components/blog/upv-counter";
 />
 ```
 
-Set the API base URL in `.env.local` (see the repository-root `.env.example`):
-
-```bash
-NEXT_PUBLIC_UPV_API=https://upv.example.com
-```
-
-Leaving it empty disables the counters without any code change. **This is a
-build-time value** — Next.js inlines it into the client bundle, so changing it
-requires a rebuild (and a redeploy on Cloudflare Pages).
+**`NEXT_PUBLIC_UPV_API` is inlined at build time** — changing it requires a
+rebuild and redeploy on Cloudflare Pages. The `siteConfig.upv.api` route avoids
+that by being read from the exported bundle instead.
 
 ---
 
@@ -442,8 +448,8 @@ requires a rebuild (and a redeploy on Cloudflare Pages).
 
 * No authentication on write endpoints (public counter by design) — rate limit
   at the edge if it is abused.
-* The in-memory PV throttle is per process/isolate and therefore best-effort;
-  UV correctness is guaranteed by the database, not by the throttle.
+* The in-memory PV throttle is per isolate and therefore best-effort; UV
+  correctness is guaranteed by the database, not by the throttle.
 * `visitors` counts visitor-days, not distinct people over all time (by
   design: the hash is day-scoped, so lifetime-unique humans are unknowable).
 * D1 has no interactive transactions; `hit()` is written as idempotent

@@ -6,7 +6,9 @@ import { T } from "@/components/i18n/t";
 import { dictionaries } from "@/i18n";
 import { formatReadingTime, formatWordCount } from "@/i18n/format";
 import { Pin, Calendar, Clock, FileText } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { PreviewArrow } from "./preview-arrow";
+import { LocalizedUPVCounter } from "./localized-upv-counter";
 
 interface PostCardProps {
   post: Post;
@@ -25,13 +27,15 @@ interface PostCardProps {
  * wrapping the markup in an anchor, which would nest the tag links illegally.
  */
 export function PostCard({ post, priorityImage = false }: PostCardProps) {
+  const hasCover = Boolean(post.image);
+
   return (
     <article className="card-spotlight card-interactive group relative overflow-hidden rounded-xl border border-border/60 bg-card/40 hover:border-border hover:bg-card/75">
       {/* Cover art: a top band on narrow screens, a trailing-edge panel on wide. */}
-      {post.image && (
+      {hasCover && (
         <div className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5">
           <Image
-            src={post.image}
+            src={post.image!}
             alt=""
             fill
             priority={priorityImage}
@@ -41,7 +45,12 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
         </div>
       )}
 
-      <div className="relative z-10 flex flex-col gap-2 p-5 sm:p-6 sm:pe-[38%]">
+      <div
+        className={cn(
+          "relative z-10 flex flex-col gap-2 p-5 sm:p-6",
+          hasCover ? "sm:pe-[38%]" : "sm:pe-16",
+        )}
+      >
         {/* Meta line: pinned flag, date, tags */}
         <div className="flex flex-wrap items-center gap-2 text-meta">
           {post.pinned && (
@@ -60,7 +69,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
             <>
               <span className="text-muted-foreground/40">&bull;</span>
               <div className="flex flex-wrap items-center gap-1.5">
-                {post.tags.slice(0, 3).map((tag) => (
+                {post.tags.slice(0, hasCover ? 3 : 5).map((tag) => (
                   // Raised above the stretched overlay link so tags stay clickable.
                   <Link
                     key={tag}
@@ -70,9 +79,9 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
                     #{tag}
                   </Link>
                 ))}
-                {post.tags.length > 3 && (
+                {post.tags.length > (hasCover ? 3 : 5) && (
                   <span className="text-xs text-muted-foreground/50">
-                    +{post.tags.length - 3}
+                    +{post.tags.length - (hasCover ? 3 : 5)}
                   </span>
                 )}
               </div>
@@ -87,7 +96,12 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
 
         {/* Excerpt */}
         {post.excerpt && (
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
+          <p
+            className={cn(
+              "text-sm text-muted-foreground leading-relaxed",
+              hasCover ? "line-clamp-2" : "line-clamp-2 sm:line-clamp-3",
+            )}
+          >
             {post.excerpt}
           </p>
         )}
@@ -110,6 +124,14 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
               en={formatReadingTime(post.readingTime, post.wordCount, "en")}
             />
           </span>
+
+          <LocalizedUPVCounter
+            path={`/posts/${post.slug}`}
+            readOnly={true}
+            prefixDot={true}
+            showSkeleton={false}
+            context="card"
+          />
         </div>
       </div>
 

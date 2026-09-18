@@ -15,6 +15,8 @@
  *   NEXT_PUBLIC_UPV_API=https://upv.example.com
  */
 
+import { siteConfig } from "@/config/site";
+
 export interface UPVPathStats {
 	views: number;
 	visitors: number;
@@ -53,14 +55,24 @@ export interface HttpUPVAdapterOptions {
 	debug?: boolean;
 }
 
-/** Used when no API is configured; keeps every caller branch-free. */
+/** Used when no API is configured; keeps every caller branch-free with zero counts. */
 export class NullUPVAdapter implements UPVAdapter {
-	async getStats(_paths: string[]): Promise<UPVStats | null> {
-		return null;
+	async getStats(paths: string[]): Promise<UPVStats> {
+		const items: Record<string, UPVPathStats> = {};
+		for (const path of paths) {
+			items[path] = { views: 0, visitors: 0 };
+		}
+		return { items, site: { views: 0, visitors: 0 } };
 	}
 
-	async hit(_path: string): Promise<UPVStats | null> {
-		return null;
+	async hit(path: string): Promise<UPVStats> {
+		return {
+			items: { [path]: { views: 0, visitors: 0 } },
+			site: { views: 0, visitors: 0 },
+			path,
+			views: 0,
+			visitors: 0,
+		};
 	}
 }
 
@@ -68,6 +80,13 @@ class HttpUPVAdapter implements UPVAdapter {
 	readonly #baseUrl: string;
 	readonly #timeoutMs: number;
 	readonly #debug: boolean;
+
+	#pendingBatch: {
+		paths: Set<string>;
+		resolvers: Array<{
+			resolve: (stats: UPVStats | null) => void;
+		}>;
+	} | null = null;
 
 	constructor(baseUrl: string, options: HttpUPVAdapterOptions = {}) {
 		this.#baseUrl = baseUrl.trim().replace(/\/+$/, "");
@@ -79,8 +98,50 @@ class HttpUPVAdapter implements UPVAdapter {
 		const unique = [...new Set(paths)].filter((path) => typeof path === "string" && path.length > 0);
 		// An empty path list is a valid request: the service answers with the
 		// site-wide aggregate only (`{ items: {}, site: { views, visitors } }`).
-		const query = unique.map((path) => encodeURIComponent(path)).join(",");
-		return parseStatsPayload(await this.#request(`/api/stats?paths=${query}`));
+		if (unique.length === 0) {
+			return parseStatsPayload(await this.#request("/api/stats?paths="));
+		}
+
+		// Microtask batching: if multiple components call getStats in the same tick
+		// (e.g. multiple post cards in a list), combine them into a single HTTP request.
+		return new Promise<UPVStats | null>((resolve) => {
+			if (!this.#pendingBatch) {
+				const currentBatch: {
+					paths: Set<string>;
+					resolvers: Array<{
+						resolve: (stats: UPVStats | null) => void;
+					}>;
+				} = {
+					paths: new Set<string>(),
+					resolvers: [],
+				};
+				this.#pendingBatch = currentBatch;
+
+				const schedule =
+					typeof queueMicrotask === "function"
+						? queueMicrotask
+						: (fn: () => void) => void Promise.resolve().then(fn);
+
+				schedule(async () => {
+					this.#pendingBatch = null;
+					const allPaths = [...currentBatch.paths];
+					const query = allPaths.map((p) => encodeURIComponent(p)).join(",");
+					const payload = parseStatsPayload(await this.#request(`/api/stats?paths=${query}`));
+					const result = payload ?? {
+						items: Object.fromEntries(allPaths.map((p) => [p, { views: 0, visitors: 0 }])),
+						site: { views: 0, visitors: 0 },
+					};
+					for (const item of currentBatch.resolvers) {
+						item.resolve(result);
+					}
+				});
+			}
+
+			for (const p of unique) {
+				this.#pendingBatch.paths.add(p);
+			}
+			this.#pendingBatch.resolvers.push({ resolve });
+		});
 	}
 
 	async hit(path: string): Promise<UPVStats | null> {
@@ -90,7 +151,15 @@ class HttpUPVAdapter implements UPVAdapter {
 			body: JSON.stringify({ path }),
 			headers: { "content-type": "application/json" },
 		});
-		return parseHitPayload(raw, path);
+		const payload = parseHitPayload(raw, path);
+		if (payload) return payload;
+		return {
+			items: { [path]: { views: 0, visitors: 0 } },
+			site: { views: 0, visitors: 0 },
+			path,
+			views: 0,
+			visitors: 0,
+		};
 	}
 
 	async #request(
@@ -188,4 +257,27 @@ export function createUPVClient(
 	return new HttpUPVAdapter(baseUrl, options);
 }
 
-export const upvClient: UPVAdapter = createUPVClient(process.env.NEXT_PUBLIC_UPV_API);
+/**
+ * Resolves the active UPV base URL from siteConfig or the build-time env var.
+ * Returns undefined if UPV is globally disabled in siteConfig or no API is set.
+ */
+export function resolveUpvApiUrl(): string | undefined {
+	if (siteConfig.upv?.enabled === false) {
+		return undefined;
+	}
+	const configApi = siteConfig.upv?.api?.trim();
+	if (configApi && configApi.length > 0) {
+		return configApi;
+	}
+	// NOTE: process.env.NEXT_PUBLIC_UPV_API must be referenced literally
+	// for Next.js to inline it into client bundles at build time.
+	const envApi = process.env.NEXT_PUBLIC_UPV_API?.trim();
+	return envApi && envApi.length > 0 ? envApi : undefined;
+}
+
+/** Returns true if an active UPV backend endpoint is configured. */
+export function isUpvConfigured(): boolean {
+	return resolveUpvApiUrl() !== undefined;
+}
+
+export const upvClient: UPVAdapter = createUPVClient(resolveUpvApiUrl());

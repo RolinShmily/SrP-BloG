@@ -108,15 +108,17 @@ export function ArticleCopyright({ post }: ArticleCopyrightProps) {
       </div>
 
       {/* Tab hanging off the card's bottom edge — reads as part of the same card. */}
-      <div className="mx-6 rounded-b-xl border border-t-0 border-border/60 px-4 pb-1.5 pt-1 sm:mx-8">
-        <Link
-          href="/friends#sponsors"
-          className="flex w-full items-center justify-between text-xs text-muted-foreground transition-colors hover:text-foreground"
-        >
-          <span>{t.sponsors.coffee}</span>
-          <Coffee className="box-content h-3.5 w-3.5 p-1" />
-        </Link>
-      </div>
+      {siteConfig.sponsorship?.enabled !== false && (
+        <div className="mx-6 rounded-b-xl border border-t-0 border-border/60 px-4 pb-1.5 pt-1 sm:mx-8">
+          <Link
+            href="/friends#sponsors"
+            className="flex w-full items-center justify-between text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <span>{t.sponsors.coffee}</span>
+            <Coffee className="box-content h-3.5 w-3.5 p-1" />
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

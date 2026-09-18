@@ -1,16 +1,14 @@
 /**
- * Shared, platform-agnostic types for the srp-blog UPV service.
+ * Shared types for the srp-blog UPV service (Cloudflare Workers + D1).
  *
  * This file must stay dependency-free and must not import anything from
- * `node:*`, so it can be compiled for both Cloudflare Workers and Node/Bun.
+ * `node:*`, so the Worker bundle stays clean.
  */
 
-/** Bindings/environment shared by every runtime. */
+/** Bindings/environment, as declared in wrangler.toml `[vars]` + secrets. */
 export interface Env {
-	/** Cloudflare D1 binding (Workers only). Declared in wrangler.toml as `DB`. */
+	/** Cloudflare D1 binding (declared in wrangler.toml as `DB`). */
 	DB?: D1DatabaseLike;
-	/** SQLite file path (Node/Bun only). `:memory:` is allowed. */
-	DB_PATH?: string;
 	/** Secret salt mixed into the visitor hash. See computeVisitorHash(). */
 	SALT?: string;
 	/** Comma-separated CORS allow-list, or `*`. Defaults to `*`. */
@@ -19,10 +17,6 @@ export interface Env {
 	THROTTLE_WINDOW_MS?: string;
 	/** `false` disables the UA keyword bot filter. Defaults to enabled. */
 	BLOCK_BOTS?: string;
-	/** Node/Bun listen port. */
-	PORT?: string;
-	/** Node/Bun listen host. */
-	HOST?: string;
 }
 
 /** Per-path counters. */
@@ -62,8 +56,7 @@ export interface HitInput {
 export type SqlValue = string | number | bigint | null | Uint8Array;
 
 /**
- * Minimal SQL surface shared by `node:sqlite`, `bun:sqlite` and D1.
- * Every driver is a ~20 line adapter; all counting logic lives in store.ts.
+ * Minimal SQL surface needed by store.ts, implemented by the D1 driver.
  */
 export interface SqlRunner {
 	execute(sql: string, params?: readonly SqlValue[]): Promise<{ changes: number }>;

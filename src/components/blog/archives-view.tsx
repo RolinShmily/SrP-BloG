@@ -131,13 +131,15 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
         <p className="text-sm text-muted-foreground">{t.archives.subheading}</p>
       </div>
 
-      {/* Stats Bar */}
+      {/* Stats Bar — flex, not grid: the PV/UV cards vanish when the analytics
+          service is unconfigured, and flex lets the remaining cards grow to fill
+          the row instead of leaving half of a 4-column grid empty. */}
       <section
-        className="section-animate-in grid grid-cols-2 md:grid-cols-4 gap-3"
+        className="section-animate-in flex flex-wrap gap-3"
         style={{ "--section-index": 1 } as React.CSSProperties}
       >
         <Card
-          className="card-animate-in card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none"
+          className="card-animate-in card-spotlight card-interactive flex-1 basis-0 min-w-[45%] md:min-w-0 border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none"
           style={{ "--stagger-index": 0 } as React.CSSProperties}
         >
           <CardContent className="relative z-10 p-4 space-y-1">
@@ -153,7 +155,7 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
         </Card>
 
         <Card
-          className="card-animate-in card-spotlight card-interactive border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none"
+          className="card-animate-in card-spotlight card-interactive flex-1 basis-0 min-w-[45%] md:min-w-0 border-border/70 bg-card/60 hover:border-border hover:bg-card/90 shadow-none"
           style={{ "--stagger-index": 1 } as React.CSSProperties}
         >
           <CardContent className="relative z-10 p-4 space-y-1">
@@ -322,7 +324,7 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
                       </div>
 
                       {/* Meta */}
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground sm:shrink-0 pl-15 sm:pl-0">
+                      <div className="flex items-center gap-2 text-xs text-muted-foreground sm:shrink-0 pl-[3.75rem] sm:pl-0">
                         <span className="font-mono text-xs">
                           {formatWordCount(post.wordCount, locale)}
                         </span>

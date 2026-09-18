@@ -3,11 +3,13 @@ import { getFriendLinks } from "@/lib/friends";
 import { getSponsors } from "@/lib/sponsors";
 import { createPageMetadata } from "@/lib/seo";
 import { FriendCard } from "@/components/blog/friend-card";
+import { FriendInfoBox } from "@/components/blog/friend-info-box";
 import { Sponsorship, SponsorList } from "@/components/blog/sponsorship";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { T } from "@/components/i18n/t";
 import { dictionaries } from "@/i18n";
+import { siteConfig } from "@/config/site";
 import { ArrowUpRight, Coffee } from "lucide-react";
 
 export const dynamic = "force-static";
@@ -74,87 +76,87 @@ export default async function FriendsPage() {
               zh={zh.friends.ourInfo}
               en={en.friends.ourInfo}
             />
-            <div className="rounded-lg border border-border bg-muted/40 p-3 font-mono text-xs text-foreground overflow-x-auto">
-              <pre>{`{
-  "name": "SrP-BloG",
-  "url": "https://blog.srprolin.top/",
-  "description": "如无必要，勿增实体。",
-  "avatar": "https://blog.srprolin.top/favicon/favicon.ico",
-  "backlink": "https://blog.srprolin.top/friends/"
-}`}</pre>
+            <FriendInfoBox />
+          </div>
+
+          {siteConfig.friendApplication?.enabled !== false && (
+            <div className="flex flex-wrap items-center gap-3 pt-1">
+              {(siteConfig.friendApplication?.issueUrl || (siteConfig.repoUrl && `${siteConfig.repoUrl}/issues/new?template=friend_link.yml`)) && (
+                <Button asChild size="sm">
+                  <a
+                    href={siteConfig.friendApplication?.issueUrl || `${siteConfig.repoUrl}/issues/new?template=friend_link.yml`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1.5"
+                  >
+                    <T zh={zh.friends.applyViaGithub} en={en.friends.applyViaGithub} />
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-70" />
+                  </a>
+                </Button>
+              )}
+
+              {(siteConfig.friendApplication?.prUrl || (siteConfig.repoUrl && `${siteConfig.repoUrl}/tree/main/content/friends`)) && (
+                <Button asChild variant="outline" size="sm">
+                  <a
+                    href={siteConfig.friendApplication?.prUrl || `${siteConfig.repoUrl}/tree/main/content/friends`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1.5"
+                  >
+                    <T zh={zh.friends.applyViaPr} en={en.friends.applyViaPr} />
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-70" />
+                  </a>
+                </Button>
+              )}
             </div>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-3 pt-1">
-            <Button asChild size="sm">
-              <a
-                href="https://github.com/RolinShmily/SrP-BloG/issues/new?template=friend_link.yml"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gap-1.5"
-              >
-                <T zh={zh.friends.applyViaGithub} en={en.friends.applyViaGithub} />
-                <ArrowUpRight className="h-3.5 w-3.5 opacity-70" />
-              </a>
-            </Button>
-
-            <Button asChild variant="outline" size="sm">
-              <a
-                href="https://github.com/RolinShmily/SrP-BloG/tree/main/content/friends"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="gap-1.5"
-              >
-                <T zh={zh.friends.applyViaPr} en={en.friends.applyViaPr} />
-                <ArrowUpRight className="h-3.5 w-3.5 opacity-70" />
-              </a>
-            </Button>
-          </div>
+          )}
         </CardContent>
       </Card>
 
       {/* Sponsorship — the target of the article page's "buy me a coffee" tab. */}
-      <section id="sponsors" className="scroll-mt-24 space-y-6">
-        <div className="space-y-1 pb-2">
-          {/* The icon sits outside <T>: Tailwind's preflight makes `svg`
-              block-level, so nesting it inside the bilingual span would push
-              the text onto its own line. */}
-          <div className="flex items-center gap-2.5">
-            <Coffee className="h-5 w-5 shrink-0 text-muted-foreground" />
+      {siteConfig.sponsorship?.enabled !== false && (
+        <section id="sponsors" className="scroll-mt-24 space-y-6">
+          <div className="space-y-1 pb-2">
+            {/* The icon sits outside <T>: Tailwind's preflight makes `svg`
+                block-level, so nesting it inside the bilingual span would push
+                the text onto its own line. */}
+            <div className="flex items-center gap-2.5">
+              <Coffee className="h-5 w-5 shrink-0 text-muted-foreground" />
+              <T
+                as="h2"
+                className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground"
+                zh={zh.sponsors.title}
+                en={en.sponsors.title}
+              />
+            </div>
             <T
-              as="h2"
-              className="text-xl sm:text-2xl font-semibold tracking-tight text-foreground"
-              zh={zh.sponsors.title}
-              en={en.sponsors.title}
+              as="p"
+              className="text-sm text-muted-foreground"
+              zh={zh.sponsors.description}
+              en={en.sponsors.description}
             />
           </div>
+
+          <Sponsorship />
+
           <T
             as="p"
-            className="text-sm text-muted-foreground"
-            zh={zh.sponsors.description}
-            en={en.sponsors.description}
+            className="text-meta text-muted-foreground"
+            zh={zh.sponsors.message}
+            en={en.sponsors.message}
           />
-        </div>
 
-        <Sponsorship />
-
-        <T
-          as="p"
-          className="text-meta text-muted-foreground"
-          zh={zh.sponsors.message}
-          en={en.sponsors.message}
-        />
-
-        <div className="space-y-3 pt-2">
-          <T
-            as="h3"
-            className="text-base font-semibold tracking-tight text-foreground"
-            zh={zh.sponsors.thanks}
-            en={en.sponsors.thanks}
-          />
-          <SponsorList sponsors={sponsors} />
-        </div>
-      </section>
+          <div className="space-y-3 pt-2">
+            <T
+              as="h3"
+              className="text-base font-semibold tracking-tight text-foreground"
+              zh={zh.sponsors.thanks}
+              en={en.sponsors.thanks}
+            />
+            <SponsorList sponsors={sponsors} />
+          </div>
+        </section>
+      )}
     </main>
   );
 }
