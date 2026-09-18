@@ -1,19 +1,33 @@
 <h1 align="center">SrP-BloG</h1>
 
-<p align="center">
-  <b>A modern personal tech blog built with Next.js 15 and exported as a fully static site</b>
-</p>
+<h4 align="center">A modern personal tech blog built with Next.js 15 and exported as a fully static site</h4>
+
+<div align="center">
+
+[![stars](https://img.shields.io/github/stars/RolinShmily/SrP-BloG.svg?style=flat&color=green)](https://github.com/RolinShmily/SrP-BloG)
+![license](https://img.shields.io/github/license/RolinShmily/SrP-BloG)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat&logo=cloudflare)](https://workers.cloudflare.com/)
+
+<br>
+
+[English](README.md) | [简体中文](README_zh.md)
+
+</div>
 
 ---
 
-## 🚀 Features
+## 🌟 Features
 
 - **Pure Static Export**: Built on Next.js 15 App Router (`output: 'export'`), pre-rendered into static HTML for instant loading and zero server runtime.
 - **Single-Source Markdown**: `content/posts/<slug>/index.md` — one directory per post with co-located media assets, automatically synchronized during build.
+- **Visual Headless CMS (Sveltia CMS)**: Integrated Git-based CMS at `/admin` for editing posts, friend links, and sponsors. Configurable master switch `siteConfig.cms.enabled` that automatically blocks the route (404) and hides footer badges when disabled.
+- **Modern Comments (Waline)**: Embedded comment area with Emoji support, Markdown editing, and theme adaptation across article detail pages and the friends page. Toggled via `siteConfig.comment.enabled`.
 - **Modern Aesthetics**: Editorial shadcn Zinc styling, cursor-tracking spotlight card glow (`Card Spotlight`), procedural winter plum canvas art (`ArtPlum`), smooth page transitions, and adaptive dark mode.
 - **Lightweight Bilingual UI**: Instant Chinese/English UI switching on the client side without route duplication or extra build overhead.
+- **Comprehensive SEO & Analytics**: Integrated Google Analytics 4 (GA4), Search Console & Bing Webmaster HTML meta verification, and automated real-time IndexNow instant indexing.
 - **Privacy-Focused Analytics (UPV)**: Optional standalone Cloudflare Workers + D1 counting service with salted daily hashing and zero IP storage; degrades silently when unconfigured.
-- **Batteries Included**: Client-side full-text search, multi-tag filtering, RSS 2.0, Sitemap, automated IndexNow submission, and automated friend-link validation workflows.
+- **Batteries Included**: Client-side full-text search, multi-tag filtering, RSS 2.0, Sitemap, and automated friend-link validation workflows.
 
 ---
 
@@ -65,9 +79,44 @@ Markdown content goes here...
 
 ---
 
-## ⚙️ Site Configuration
+## ⚙️ Site Configuration & Integrations
 
-Centralized settings live in [`src/config/site.ts`](./src/config/site.ts) — manage site title, author identity, social links, ICP filings, friend application info, and UPV counter toggles all in one place.
+Centralized settings live in [`src/config/site.ts`](./src/config/site.ts) — manage site metadata, feature toggles, and third-party service integrations in one place:
+
+### 1. Sveltia CMS (`siteConfig.cms`)
+
+Access `/admin` for a lightweight, Git-based visual content editor powered by GitHub OAuth:
+- **Post Management**: Compose articles, edit Markdown and frontmatter, and upload co-located assets directly in the browser.
+- **Friends & Sponsors**: Manage friend link entries and sponsor records with instant GitHub commits.
+- **Route Blocking**: Setting `cms.enabled = false` completely purges `out/admin` from production builds (returning 404) and hides the footer badge.
+
+### 2. Waline Comment System (`siteConfig.comment`)
+
+A modern, privacy-friendly comment section embedded across article pages and `/friends`:
+- **Theme Adaptation**: Deeply integrated with the blog's dark/light color palette, with built-in Weibo and Bilibili emoji presets.
+- **Self-Hosting (Docker Compose)**:
+  ```yaml
+  services:
+    waline:
+      image: lizheming/waline:latest
+      restart: always
+      ports:
+        - "8360:8360"
+      volumes:
+        - ./data:/app/data
+      environment:
+        SQLITE_PATH: /app/data/waline.sqlite
+        SECURE_DOMAINS: "waline.yourdomain.com,blog.yourdomain.com"
+  ```
+- **Master Switch**: Configure `comment.serverUrl` in `src/config/site.ts`; toggle `comment.enabled = false` to completely hide comment blocks and footer icons.
+
+### 3. Search Engines & Webmasters (`siteConfig.seo`)
+
+No messy verification files in `public/`. Everything is configured cleanly in `siteConfig.seo`:
+- **Bing Webmaster Tools**: Set `metaCode` to generate `<meta name="msvalidate.01">`.
+- **Google Search Console**: Set `verificationCode` to generate `<meta name="google-site-verification">`.
+- **Google Analytics 4 (GA4)**: Set `measurementId` (`G-XXXXXXXXXX`) to load GA4 asynchronously via Next.js Script.
+- **IndexNow Protocol**: Set `key` to automatically submit new URLs to search engines on every deployment via GitHub Actions.
 
 ---
 

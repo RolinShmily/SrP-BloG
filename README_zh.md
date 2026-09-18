@@ -1,19 +1,33 @@
 <h1 align="center">SrP-BloG</h1>
 
-<p align="center">
-  <b>基于 Next.js 15 构建、纯静态导出的现代化个人技术博客</b>
-</p>
+<h4 align="center">基于 Next.js 15 构建、纯静态导出的现代化个人技术博客</h4>
+
+<div align="center">
+
+[![stars](https://img.shields.io/github/stars/RolinShmily/SrP-BloG.svg?style=flat&color=green)](https://github.com/RolinShmily/SrP-BloG)
+![license](https://img.shields.io/github/license/RolinShmily/SrP-BloG)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat&logo=cloudflare)](https://workers.cloudflare.com/)
+
+<br>
+
+[English](README.md) | [简体中文](README_zh.md)
+
+</div>
 
 ---
 
-## 🚀 特性
+## 🌟 特性
 
 - **纯静态导出**：基于 Next.js 15 App Router (`output: 'export'`)，全站预渲染为 HTML，极速加载，零服务端运行时。
 - **单源 Markdown**：`content/posts/<slug>/index.md`，一文一目录，图片等资源同目录就近存放并自动同步。
+- **可视化内容管理 (Sveltia CMS)**：集成原生 Git 存储的无头 CMS，位于 `/admin`，支持文章、友链与赞助的可视化编辑。支持 `siteConfig.cms.enabled` 一键启闭，关闭时自动彻底阻断路由（404）并隐藏页脚标识。
+- **现代化互动评论 (Waline)**：文章详情页与友链页面无缝嵌入 Waline 评论区，支持微博/Bilibili 表情包、Markdown 语法与深浅双色自适应主题定制，支持 `siteConfig.comment.enabled` 一键启闭。
 - **现代化设计**：基于 shadcn Zinc 风格，内置卡片光标微光（Card Spotlight）、冬梅背景画布 (`ArtPlum`)、平滑转场与自适应暗色模式。
 - **轻量双语**：UI 界面支持中英即时切换，无额外路由前缀与重复构建开销。
+- **全方位 SEO 与统计**：原生集成 Google Analytics 4 (GA4)、Google Search Console 与 Bing Webmaster 的 Meta 标签鉴权，集成 IndexNow 增量实时推送到搜索引擎。
 - **隐私统计 (UPV)**：可选基于 Cloudflare Workers + D1 的独立统计服务，加盐哈希去重，不存明文 IP，未配置时静默降级。
-- **开箱即用**：集成客户端全文检索、多标签过滤、RSS 2.0、Sitemap、IndexNow 自动推送与友链自动校验工作流。
+- **开箱即用**：集成客户端全文检索、多标签过滤、RSS 2.0、Sitemap 与友链自动校验工作流。
 
 ---
 
@@ -65,9 +79,44 @@ Markdown 正文...
 
 ---
 
-## ⚙️ 站点配置
+## ⚙️ 站点配置与扩展功能
 
-全局站点配置统一收拢在 [`src/config/site.ts`](./src/config/site.ts)，可集中修改站点标题、作者信息、社交链接、ICP 备案号、友链申请指引及统计服务开关等。
+全局站点配置统一收拢在 [`src/config/site.ts`](./src/config/site.ts)，可集中管理站点元数据、各功能模块开关与三方服务集成：
+
+### 1. Sveltia CMS 内容管理 (`siteConfig.cms`)
+
+访问 `/admin` 即可使用基于 GitHub 存储的轻量可视化内容编辑器：
+- **文章管理**：支持在线撰写、修改 Markdown 正文、配置 Frontmatter 并就近上传配图。
+- **友链与赞助**：支持可视化增删友链与赞助记录，修改后直接通过 GitHub API 自动提交。
+- **一键阻断**：当 `cms.enabled = false` 时，构建脚本将自动清空生产 `out/admin` 产物，访问返回 404，且页脚自动隐藏该徽标。
+
+### 2. Waline 评论系统 (`siteConfig.comment`)
+
+文章与友链页集成了轻量强大的 Waline 评论系统：
+- **开箱自适应**：样式深度适配了站点的黑金/极夜浅深色调，支持微博与 Bilibili 表情包。
+- **自建推荐配置 (Docker Compose)**：
+  ```yaml
+  services:
+    waline:
+      image: lizheming/waline:latest
+      restart: always
+      ports:
+        - "8360:8360"
+      volumes:
+        - ./data:/app/data
+      environment:
+        SQLITE_PATH: /app/data/waline.sqlite
+        SECURE_DOMAINS: "waline.yourdomain.com,blog.yourdomain.com"
+  ```
+- **配置开关**：在 `src/config/site.ts` 中配置 `comment.serverUrl` 即可连通；设置 `comment.enabled = false` 可彻底隐藏全站评论区及页脚徽标。
+
+### 3. 搜索引擎与站长生态 (`siteConfig.seo`)
+
+无需在 `public/` 下堆积零散的验证文件，直接在 `siteConfig.seo` 中配置：
+- **Bing 站长平台**：配置 `metaCode` 自动生成 `<meta name="msvalidate.01">`。
+- **Google Search Console**：配置 `verificationCode` 自动生成 `<meta name="google-site-verification">`。
+- **Google Analytics (GA4)**：配置 `measurementId`（如 `G-XXXXXXXXXX`）自动异步加载 GA 脚本。
+- **IndexNow 协议**：配置 `key` 后，每次 CI 部署自动运行 `scripts/indexnow-submit.js` 将新增文章 URL 实时推送到搜索引擎。
 
 ---
 

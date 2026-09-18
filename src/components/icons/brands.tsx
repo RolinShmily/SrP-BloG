@@ -270,6 +270,7 @@ export function EsaLockup(props: BrandIconProps) {
 
 /**
  * Sveltia CMS official mark.
+ * Features the signature 10-degree tilted squircle with the dual S/V strokes.
  */
 export function SveltiaCmsIcon(props: BrandIconProps) {
   return (
@@ -283,19 +284,21 @@ export function SveltiaCmsIcon(props: BrandIconProps) {
           <rect height="800" rx="140" width="800" />
         </clipPath>
       </defs>
-      <rect fill="url(#sveltia-cms-grad)" height="800" rx="140" width="800" />
-      <g
-        style={{
-          clipPath: "url(#sveltia-cms-clip)",
-          fill: "none",
-          stroke: "#fff",
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          strokeWidth: 160,
-        }}
-      >
-        <path d="m320-80-200 320 200 320-200 320" />
-        <path d="m400 240 200 320 200-320" />
+      <g transform="translate(400, 400) rotate(10) scale(0.82) translate(-400, -400)">
+        <rect fill="url(#sveltia-cms-grad)" height="800" rx="140" width="800" />
+        <g
+          style={{
+            clipPath: "url(#sveltia-cms-clip)",
+            fill: "none",
+            stroke: "#fff",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            strokeWidth: 160,
+          }}
+        >
+          <path d="m320-80-200 320 200 320-200 320" />
+          <path d="m400 240 200 320 200-320" />
+        </g>
       </g>
     </svg>
   );
