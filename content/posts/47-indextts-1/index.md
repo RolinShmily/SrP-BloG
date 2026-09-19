@@ -3,22 +3,26 @@ title: 在WSL中快速使用IndexTTS推理 | Python | TTS
 published: 2026-07-18
 pinned: false
 description: 这是一篇IndexTTS的快速上手教程，以Windows平台的WSL子系统上，拉取源代码，下载模型，通过uv运行推理脚本。
+image: cover.png
 tags:
   - Python
   - TTS
   - WSL
 draft: false
 ---
-# 相关链接
-- [Bilibili IndexTTS 项目地址](https://github.com/index-tts/index-tts)
 
+# 相关链接
+
+- [Bilibili IndexTTS 项目地址](https://github.com/index-tts/index-tts)
 
 <iframe src="//player.bilibili.com/player.html?isOutside=true&aid=115167165677807&bvid=BV136a9zqEk5&cid=32241026475&p=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"></iframe>
 
 # 前置环境
+
 本篇WSL环境默认为Debian系。
 
 推荐使用WSL配合NVIDIA显卡。
+
 ```bash
 # 更新系统软件源
 sudo apt update && sudo apt upgrade -y
@@ -44,7 +48,9 @@ mkdir -p checkpoints inputs outputs
 ```
 
 # 模型下载
+
 现在需要去[魔搭社区](https://modelscope.cn/models/IndexTeam/IndexTTS-2)或者[HuggingFace](https://huggingface.co/IndexTeam/IndexTTS-2)中下载模型权重和配置文件，也即 `config.yaml` 和`.pth / .pt`到目录`checkpoints`中：
+
 ```bash
 # huggingface
 # 设置镜像地址环境变量
@@ -59,17 +65,21 @@ modelscope download --model IndexTeam/IndexTTS-2 --local_dir checkpoints
 ```
 
 # 安装依赖
+
 ```bash
 # 安装全部依赖(`--all-extras`)(按需配置国内镜像源)
 uv sync --all-extras --default-index "https://mirrors.aliyun.com/pypi/simple"
 ```
 
 # 推理脚本
+
 ```bash
 # 创建轮推脚本
 nano batch_tts.py
 ```
+
 脚本内容如下：
+
 ```py
 import os
 from indextts.infer_v2 import IndexTTS2
@@ -169,17 +179,20 @@ if __name__ == "__main__":
 ```
 
 在配置区域中`inputs/furina.wav`为参考音频，`inputs/text.txt`为推理文本，脚本将逐行逐步推理，文本格式如下：
+
 ```txt
 你好，这里是RoL1n~
 Hello,world!
 ```
 
 在确保`text.txt`和`furina.wav`参考音频都配置好之后，输入运行命令即可：
+
 ```bash
 uv run batch_tts.py
 ```
 
 当然也可以运行官方默认的webui：
+
 ```bash
 uv run webui.py --accel --torch_compile --fp16
 ```
