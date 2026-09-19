@@ -3,12 +3,13 @@ title: SteamCommunity 302 | Steam/Discord/GitHub 网络加速
 published: 2026-06-15
 pinned: false
 description: 面向 Steam/GitHub/Discord/Minecraft 等海外平台的 hosts + CDN 优选加速方案，无需翻墙，三步配置即可生效。
-image: ""
+image: Steam302.png
 tags:
   - Steam
   - Network
 draft: false
 ---
+
 # 相关链接
 
 - [软件官方下载地址](https://www.dogfight360.com/blog/18682/)
@@ -28,10 +29,10 @@ draft: false
 
 本指南只涉及以下功能，不涉及 DNS 重定向和系统代理配置：
 
-| 功能       | 作用                                | 是否必开 |
-| ---------- | ----------------------------------- | -------- |
-| Hosts 模式 | 修改 hosts 文件，将域名指向优选 CDN | ✅ 必开  |
-| 开机自启动 | 重启电脑后自动运行，无需手动操作    | ✅ 推荐  |
+| 功能 | 作用 | 是否必开 |
+| --- | --- | --- |
+| Hosts 模式 | 修改 hosts 文件，将域名指向优选 CDN | ✅ 必开 |
+| 开机自启动 | 重启电脑后自动运行，无需手动操作 | ✅ 推荐 |
 
 # 配置步骤
 
