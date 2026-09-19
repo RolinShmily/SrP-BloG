@@ -113,13 +113,13 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", system-ui, -apple-system, sans-serif;
+    font-family: system-ui, -apple-system, sans-serif;
     min-height: 100vh;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   code, pre, kbd, samp {
-    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+    font-family: ui-monospace, monospace;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -212,7 +212,7 @@
     overflow-x: auto;
     font-size: 0.875rem;
     line-height: 1.65;
-    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+    font-family: ui-monospace, monospace;
   }
 
   /* Light / Dark Dual Theme Shiki colors */
@@ -321,9 +321,9 @@
     white-space: nowrap;
   }
 
-  /* Author name set in Maple Mono NF CN */
+  /* Author name kept on a monospace stack for the fixed-width wordmark */
   .site-brand-author {
-    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+    font-family: ui-monospace, monospace;
     font-weight: 500;
     letter-spacing: -0.01em;
     color: hsl(var(--foreground));
@@ -483,7 +483,7 @@
   }
 
   .code-lang-label {
-    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+    font-family: ui-monospace, monospace;
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -838,7 +838,7 @@
     padding: 0.15rem 0.35rem;
     border-radius: calc(var(--radius) - 2px);
     font-size: 0.875em;
-    font-family: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono", ui-monospace, monospace;
+    font-family: ui-monospace, monospace;
   }
 
   /* Strip tailwindcss/typography default backtick quotes around inline code */

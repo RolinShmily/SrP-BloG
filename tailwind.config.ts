@@ -51,21 +51,8 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: [
-          '"Maple Mono NF CN"',
-          '"Maple Mono SC NF"',
-          '"Maple Mono"',
-          "system-ui",
-          "-apple-system",
-          "sans-serif",
-        ],
-        mono: [
-          '"Maple Mono NF CN"',
-          '"Maple Mono SC NF"',
-          '"Maple Mono"',
-          "ui-monospace",
-          "monospace",
-        ],
+        sans: ["system-ui", "-apple-system", "sans-serif"],
+        mono: ["ui-monospace", "monospace"],
       },
       /*
        * Secondary-text step, sitting between `xs` (12px) and `sm` (14px).

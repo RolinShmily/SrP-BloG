@@ -17,9 +17,9 @@ import "./globals.css";
 /**
  * Display serif for the nav wordmark only.
  *
- * The body font stack (Maple Mono NF CN) is a locally-installed face, so it has
- * no italic to lean on. This adds a real editorial serif with a genuine italic
- * for the brand, and `next/font` self-hosts it at build time — no runtime request
+ * The body stack resolves to the platform UI font, which has no editorial
+ * character of its own. This adds a real serif with a genuine italic for the
+ * brand, and `next/font` self-hosts it at build time — no runtime request
  * to Google, which matters for a site read from mainland China.
  */
 const displaySerif = Instrument_Serif({
