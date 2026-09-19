@@ -38,16 +38,19 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-      - name: Verify content
-        run: pnpm run verify-content
-
       # Card-cover pipeline: mirrors `content/posts/**` into `public/posts/**` and
       # compresses each image into a 768px WebP card thumbnail (`<name>.thumb.webp`,
       # ~95% smaller) with sharp. Opt out with `cardThumbnail: false` in
       # src/config/site.ts — that skips sharp entirely and cards use the original
       # covers, which is what you want if no pipeline step can generate thumbnails.
+      #
+      # Runs before `Verify content` so the thumbnails this step reports are the
+      # ones the verification then asserts against, rather than the other way round.
       - name: Generate card thumbnails (sharp)
         run: pnpm run sync-assets
+
+      - name: Verify content
+        run: pnpm run verify-content
 
       # `pnpm build` runs:
       #   1. tsx scripts/sync-post-assets.ts      (content/posts/** -> public/posts/**, no-op after the step above)
