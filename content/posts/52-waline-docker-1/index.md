@@ -3,7 +3,7 @@ title: Waline评论区搭建 | Docker | Nginx
 published: 2026-09-19
 pinned: false
 description: 在昨日进行博客重构后，我发现还是需要一个评论区系统，本篇以Docker+Nginx自托管的方式搭建waline。
-image: ''
+image: Waline.png
 tags:
   - Docker
   - Nginx
