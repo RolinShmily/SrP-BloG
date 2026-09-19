@@ -12,19 +12,24 @@ draft: false
 ---
 
 # 相关链接
+
 - [Waline官方手册](https://waline.js.org/guide/get-started/)
 
 本篇仅以`Docker`+`SQlite`+`Nginx`作最小部署指南
 
 # Docker-Compose
+
 登录VPS，创建应用目录:
+
 ```zsh
 cd ~/
 mkdir waline
 cd waline
 nano docker-compose.yml
 ```
+
 并编写`docker-compose.yml`：
+
 ```yaml
 services:
   waline:
@@ -50,12 +55,16 @@ services:
       # 博主邮箱 (使用此邮箱在 /ui/register 注册的首个账号将自动获得最高管理权限)
       AUTHOR_EMAIL: "<ADMIN_EMAIL>"
 ```
+
 修改一些必要的字段后，需要初始化一段SQlite数据库，可以借助python脚本来完成:
+
 ```zsh
 cd ~/waline
 nano init_db.py
 ```
+
 初始化脚本如下:
+
 ```python
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
@@ -184,14 +193,17 @@ if __name__ == "__main__":
     path = sys.argv[1] if len(sys.argv) > 1 else "data/waline.sqlite"
     success = init_waline_db(path)
     sys.exit(0 if success else 1)
-
 ```
+
 随后运行脚本初始化数据库后即可启动容器:
+
 ```zsh
 python init_db.py
 sudo docker compose up -d
 ```
+
 # Nginx配置与TLS证书
+
 ```zsh
 # 使用apt-get获取nginx、certbot
 apt-get update && apt-get install -y nginx
@@ -201,18 +213,25 @@ apt-get install -y python3-certbot-nginx
 # 开机自启动与即刻运行nginx
 systemctl enable nginx && systemctl start nginx
 ```
+
 ## 申请免费SSL证书
+
 使用certbot(自动续签)申请ssl证书(确保域名都已在DNS处解析过)：
+
 ```zsh
 # 将<your-main-domain>更换为你的主要站点域名
 sudo certbot certonly --nginx -d <your-main-domain>
 ```
+
 ## Nginx配置文件
+
 ```zsh
 cd /etc/nginx/sites-avaliable/
 nano default
 ```
+
 在`default`中新添配置字段(据具体情况修改)：
+
 ```conf
 # ==================== Waline Comment System - HTTP ====================
 server {
@@ -259,13 +278,17 @@ server {
     }
 }
 ```
+
 随后验证nginx并重载：
+
 ```zsh
 nginx -t
 sudo systemctl reload nginx
 ```
+
 # Waline后台
+
 首先访问`https://<your-main-domain>/ui/register`使用docker-compose处配置的Email进行注册，获得管理员权限。
 随后`https://<your-main-domain>/ui/`即为Waline的后台管理面板。
 
-![](./2026-09-19 125536.png)
+![](2026-09-19-125536.png)
