@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { SpotlightEffect } from "@/components/layout/spotlight";
+import { ImagePreviewer } from "@/components/blog/image-previewer";
 import { PageTransition } from "@/components/layout/page-transition";
 import { RouteProgressBar } from "@/components/layout/route-progress";
 import { BackToTop } from "@/components/layout/back-to-top";
@@ -136,6 +137,7 @@ export default function RootLayout({
             <PageTransition>{children}</PageTransition>
             <Footer />
             <BackToTop />
+            <ImagePreviewer />
           </LocaleProvider>
         </ThemeProvider>
         {siteConfig.seo?.googleAnalytics?.enabled &&

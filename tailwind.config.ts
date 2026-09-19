@@ -77,6 +77,18 @@ const config: Config = {
       fontSize: {
         meta: ["0.8125rem", { lineHeight: "1.25rem" }],
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            "code::before": {
+              content: '""',
+            },
+            "code::after": {
+              content: '""',
+            },
+          },
+        },
+      },
     },
   },
   plugins: [require("@tailwindcss/typography")],

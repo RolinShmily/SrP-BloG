@@ -84,6 +84,10 @@ export const en: Dictionary = {
     copyright: "Copyright",
     copyLink: "Copy link",
     linkCopied: "Copied",
+    humanAuthored: "Human Authored",
+    notAiGenerated: "Not by AI",
+    showAllCode: "Show all code",
+    collapseCode: "Collapse code",
   },
   stats: {
     totalPosts: "Total Posts",
@@ -179,5 +183,17 @@ export const en: Dictionary = {
     sitemap: "Sitemap",
     cdn: "CDN",
     travellings: "Travellings — link relay",
+  },
+  imageViewer: {
+    zoomIn: "Zoom In",
+    zoomOut: "Zoom Out",
+    rotateLeft: "Rotate Left 90°",
+    rotateRight: "Rotate Right 90°",
+    flipHorizontal: "Flip Horizontal",
+    flipVertical: "Flip Vertical",
+    reset: "Reset",
+    close: "Close (Esc)",
+    prev: "Previous",
+    next: "Next",
   },
 };

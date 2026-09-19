@@ -6,7 +6,6 @@ image: "./Timeline_1_01_00_02_42.jpg"
 tags: [Markdown, Obsidian, HTML]
 draft: false
 ---
-
 # 一级标题
 
 ## 二级标题
@@ -88,13 +87,11 @@ _斜体_
 ```
 
 1. 列表 1
-   子列表
 2. 列表 2
 3. 列表 3
 
 ```markdown
 1. 列表 1
-   子列表
 2. 列表 2
 3. 列表 3
 ```
@@ -108,7 +105,7 @@ _斜体_
 - [ ] 复选框（未完成）
   - [ ] 子任务复选框
 
-* [x] 复选框（已完成）
+* [X] 复选框（已完成）
 
 ```markdown
 - [ ] 复选框（未完成）
@@ -188,9 +185,6 @@ _斜体_
 
 ---
 ```
-
-    hello,world! 这是一个代码块
-    这是换行后的代码
 
 ```markdown
     hello,world! 这是一个代码块
@@ -202,8 +196,11 @@ _斜体_
 ```
 
 - 上面代码块的实现：
+
   \`\`\`c
+  
   printf("hello,world!"); //这还是一个代码块
+  
   \`\`\`
 
 引用单段代码：`hello,world!`
@@ -220,26 +217,23 @@ _斜体_
 
 > 这是一段引用文本
 
-    这是换行的第二段引用
-
 > 这是组合引用第一行
 > 这是组合引用第二行
 
 > 这是嵌套引用外层
 >
-> > 这是嵌套引用内层
+>> 这是嵌套引用内层
+
 
 ```markdown
 > 这是一段引用文本
 
-    这是换行的第二段引用
-
 > 这是组合引用第一行
 > 这是组合引用第二行
 
 > 这是嵌套引用外层
 >
-> > 这是嵌套引用内层
+>> 这是嵌套引用内层
 ```
 
 | 表头 1 | 表头 2 | 表头 3 |
@@ -400,57 +394,57 @@ $$
 
 这是亿些数学符号
 
-|         代码          |           符号           |         描述          |
-| :-------------------: | :----------------------: | :-------------------: |
-|        \not=          |         $\not=$          |        不等于         |
-|       \approx         |       $\approx$          |        约等于         |
-|        \times         |        $\times$          |         乘号          |
-|         \div          |          $\div$          |         除号          |
-|         \leq          |          $\leq$          |       小于等于        |
-|         \geq          |          $\geq$          |       大于等于        |
-|         \pm           |         $\pm$            |        正负号         |
-|         \sum          |          $\sum$          |   求和符号（累加）    |
-|        \prod          |         $\prod$          |         累乘          |
-|       \coprod         |       $\coprod$          |         累除          |
-| \overline{a + b + c}  |  $\overline{a + b + c}$  |        平均值         |
-|        \sin           |         $\sin$           |         正弦          |
-|        \cos           |         $\cos$           |         余弦          |
-|        \tan           |         $\tan$           |         正切          |
-|        \cot           |         $\cot$           |         余切          |
-|        \sec           |         $\sec$           |         正割          |
-|        \csc           |         $\csc$           |         余割          |
-|         \circ         |         $\circ$          |          度           |
-|       \infty          |        $\infty$          |         无穷          |
-|         \int          |         $\int$           |        定积分         |
-|        \iint          |         $\iint$          |       双重积分        |
-|       \iiint          |        $\iiint$          |       三重积分        |
-|        \oint          |         $\oint$          |       曲线积分        |
-|        x\prime        |        $x\prime$         |         求导          |
-|         \lim          |         $\lim$           |         极限          |
-|        \alpha         |         $\alpha$         |        阿尔法         |
-|         \beta         |         $\beta$          |         贝塔          |
-|        \gamma         |         $\gamma$         |         伽玛          |
-|        \delta         |         $\delta$         |        德尔塔         |
-|       \epsilon        |        $\epsilon$        |       艾普西龙        |
-|          \eta         |          $\eta$          |         依塔          |
-|        \theta         |         $\theta$         |         西塔          |
-|          \pi          |          $\pi$           |           派          |
-|        \omega         |         $\omega$         |        殴米伽         |
-|         \rho          |          $\rho$          |          柔           |
-|        \sigma         |         $\sigma$         |        西格玛         |
-|          \mu          |          $\mu$           |          缪           |
-|        \lambda        |        $\lambda$         |        拦姆达         |
-|         \tau          |          $\tau$          |          滔           |
-|         \psi          |          $\psi$          |         普赛          |
-|         \phi          |          $\phi$          |         傅艾          |
-|          \xi          |          $\xi$           |         柯西          |
-|       \emptyset       |       $\emptyset$        |         空集          |
-|         \in           |          $\in$           |         属于          |
-|        \notin         |        $\notin$          |        不属于         |
-|       \supset         |        $\supset$         |        真包含         |
-|       \supseteq       |       $\supseteq$        |         包含          |
-|       \bigcap         |        $\bigcap$         |         交集          |
-|       \bigcup         |        $\bigcup$         |         并集          |
-|         \log          |          $\log$          |       对数函数        |
-|         \ln           |         $\ln$            | 以 e 为底的对数函数   |
-|         \lg           |         $\lg$            | 以 10 为底的对数函数  |
+|         代码         |           符号           |         描述         |
+| :------------------: | :----------------------: | :------------------: |
+|        \not=        |  $\not=$          |        不等于        |
+|       \approx       | $\approx$         |        约等于        |
+|        \times        |  $\times$          |         乘号         |
+|         \div         |   $\div$           |         除号         |
+|         \leq         |   $\leq$           |       小于等于       |
+|         \geq         |   $\geq$           |       大于等于       |
+|         \pm         |  $\pm$            |        正负号        |
+|         \sum         |   $\sum$           |   求和符号（累加）   |
+|        \prod        |  $\prod$          |         累乘         |
+|       \coprod       | $\coprod$         |         累除         |
+| \overline{a + b + c} | $\overline{a + b + c}$ |        平均值        |
+|         \sin         |       $\sin$         |         正弦         |
+|         \cos         |       $\cos$         |         余弦         |
+|         \tan         |       $\tan$         |         正切         |
+|         \cot         |       $\cot$         |         余切         |
+|         \sec         |       $\sec$         |         正割         |
+|         \csc         |       $\csc$         |         余割         |
+|        \circ        |        $\circ$        |          度          |
+|        \infty        |      $\infty$        |         无穷         |
+|         \int         |       $\int$         |        定积分        |
+|        \iint        |       $\iint$         |       双重积分       |
+|        \iiint        |      $\iiint$        |       三重积分       |
+|        \oint        |       $\oint$         |       曲线积分       |
+|       x\prime       |       $x\prime$       |         求导         |
+|         \lim         |       $\lim$         |         极限         |
+|        \alpha        |        $\alpha$        |        阿尔法        |
+|        \beta        |        $\beta$        |         贝塔         |
+|        \gamma        |        $\gamma$        |         伽玛         |
+|        \delta        |        $\delta$        |        德尔塔        |
+|       \epsilon       |       $\epsilon$       |       艾普西龙       |
+|         \eta         |         $\eta$         |         依塔         |
+|        \theta        |        $\theta$        |         西塔         |
+|         \pi         |         $\pi$         |          派          |
+|        \omega        |        $\omega$        |        殴米伽        |
+|         \rho         |         $\rho$         |          柔          |
+|        \sigma        |        $\sigma$        |        西格玛        |
+|         \mu         |         $\mu$         |          缪          |
+|       \lambda       |       $\lambda$       |        拦姆达        |
+|         \tau         |         $\tau$         |          滔          |
+|         \psi         |         $\psi$         |         普赛         |
+|         \phi         |         $\phi$         |         傅艾         |
+|         \xi         |         $\xi$         |         柯西         |
+|      \emptyset      |      $\emptyset$      |         空集         |
+|         \in         |      $\in$          |         属于         |
+|        \notin        |      $\notin$        |        不属于        |
+|       \supset       |      $\supset$        |        真包含        |
+|      \supseteq      |      $\supseteq$      |         包含         |
+|       \bigcap       |      $\bigcap$        |         交集         |
+|       \bigcup       |      $\bigcup$        |         并集         |
+|         \log         |         $\log$         |       对数函数       |
+|         \ln         |        $\ln$          | 以 e 为底的对数函数 |
+|         \lg         |        $\lg$          | 以 10 为底的对数函数 |

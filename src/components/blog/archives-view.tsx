@@ -301,12 +301,13 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
                       : post.published;
 
                   return (
-                    <div
+                    <Link
                       key={post.slug}
-                      className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-1"
+                      href={`/posts/${post.slug}`}
+                      className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-1.5 opacity-60 hover:opacity-100 transition-opacity duration-200 no-underline cursor-pointer"
                     >
                       {/* Timeline Dot */}
-                      <div className="absolute -left-[25px] top-2.5 h-2 w-2 rounded-full bg-border group-hover:bg-foreground transition-colors" />
+                      <div className="absolute -left-[25px] top-2.5 h-2 w-2 rounded-full bg-border group-hover:bg-foreground group-hover:scale-125 transition-all" />
 
                       <div className="flex items-baseline gap-3 min-w-0">
                         {/* Month-Day */}
@@ -315,12 +316,9 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
                         </time>
 
                         {/* Title */}
-                        <Link
-                          href={`/posts/${post.slug}`}
-                          className="text-sm font-medium text-foreground hover:underline decoration-1 underline-offset-4 truncate"
-                        >
+                        <span className="text-sm font-medium text-foreground truncate">
                           {post.title}
-                        </Link>
+                        </span>
                       </div>
 
                       {/* Meta */}
@@ -329,7 +327,7 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
                           {formatWordCount(post.wordCount, locale)}
                         </span>
                       </div>
-                    </div>
+                    </Link>
                   );
                 })}
               </div>

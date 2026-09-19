@@ -83,6 +83,10 @@ export const zh = {
     copyright: "版权",
     copyLink: "复制链接",
     linkCopied: "已复制",
+    humanAuthored: "真人撰写",
+    notAiGenerated: "非AI生成",
+    showAllCode: "展开全部代码",
+    collapseCode: "收起代码",
   },
   stats: {
     totalPosts: "文章总数",
@@ -177,6 +181,18 @@ export const zh = {
     sitemap: "站点地图",
     cdn: "CDN",
     travellings: "开往 — 友链接力",
+  },
+  imageViewer: {
+    zoomIn: "放大",
+    zoomOut: "缩小",
+    rotateLeft: "向左旋转 90°",
+    rotateRight: "向右旋转 90°",
+    flipHorizontal: "水平镜像",
+    flipVertical: "垂直镜像",
+    reset: "重置",
+    close: "关闭 (Esc)",
+    prev: "上一张",
+    next: "下一张",
   },
 };
 

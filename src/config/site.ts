@@ -337,6 +337,12 @@ export const siteConfig = {
     name: "CC BY-NC-SA 4.0",
     url: "https://creativecommons.org/licenses/by-nc-sa/4.0/",
   },
+  /**
+   * Whether to display the "Human Authored / Not by AI" (真人撰写 · 非AI生成)
+   * badge on the article copyright card.
+   * Default: true.
+   */
+  humanAuthoredBadge: true,
   /** 开往 (Travellings) friend-link relay URL. Set to empty string to hide badge. */
   travellingsUrl: "https://www.travellings.cn/go.html",
   /** ICP and security filings displayed at the footer bottom. */

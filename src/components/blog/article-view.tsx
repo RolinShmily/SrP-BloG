@@ -7,6 +7,7 @@ import { useLocale } from "@/i18n/locale-provider";
 import { formatReadingTime, formatWordCount } from "@/i18n/format";
 import { ArticleContent } from "./article-content";
 import { ArticleCopyright } from "./article-copyright";
+import { openImagePreview } from "./image-previewer";
 import { MobileToc, DesktopToc } from "./toc";
 import { LocalizedUPVCounter } from "./localized-upv-counter";
 import { PreviewArrow } from "./preview-arrow";
@@ -70,14 +71,34 @@ export function ArticleView({ post }: ArticleViewProps) {
                   className="rounded-3xl object-cover blur-2xl"
                 />
               </div>
-              <div className="relative z-10 aspect-[16/9] w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/30">
+              <div
+                role="button"
+                tabIndex={0}
+                title={post.title}
+                onClick={() =>
+                  openImagePreview({
+                    images: [{ src: post.image!, alt: post.title }],
+                    initialIndex: 0,
+                  })
+                }
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    openImagePreview({
+                      images: [{ src: post.image!, alt: post.title }],
+                      initialIndex: 0,
+                    });
+                  }
+                }}
+                className="group relative z-10 aspect-[16/9] w-full cursor-zoom-in overflow-hidden rounded-2xl border border-border/60 bg-muted/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
                 <Image
                   src={post.image}
                   alt={post.title}
                   fill
                   priority
                   sizes="(max-width: 1024px) 100vw, 720px"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
             </div>

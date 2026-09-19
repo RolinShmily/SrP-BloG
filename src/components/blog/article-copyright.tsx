@@ -7,6 +7,7 @@ import { siteConfig } from "@/config/site";
 import { useLocale } from "@/i18n/locale-provider";
 import { cn } from "@/lib/utils";
 import { Copyright, Link2, Check, Coffee } from "lucide-react";
+import { HumanAuthoredBadge } from "./human-authored-badge";
 
 interface ArticleCopyrightProps {
   post: PostDetail;
@@ -66,27 +67,35 @@ export function ArticleCopyright({ post }: ArticleCopyrightProps) {
           </p>
         </div>
 
-        <dl className="flex flex-wrap items-start gap-x-8 gap-y-2">
-          {fields.map((field) => (
-            <div key={field.label} className="flex flex-col gap-0.5">
-              <dt className="text-xs text-muted-foreground">{field.label}</dt>
-              <dd className="text-meta text-foreground">
-                {field.href ? (
-                  <a
-                    href={field.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-[#f75c7e] transition-colors"
-                  >
-                    {field.value}
-                  </a>
-                ) : (
-                  field.value
-                )}
-              </dd>
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-3 sm:gap-x-8">
+          <dl className="flex flex-wrap items-start gap-x-6 gap-y-2 sm:gap-x-8">
+            {fields.map((field) => (
+              <div key={field.label} className="flex flex-col gap-0.5">
+                <dt className="text-xs text-muted-foreground">{field.label}</dt>
+                <dd className="text-meta text-foreground">
+                  {field.href ? (
+                    <a
+                      href={field.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-[#f75c7e] transition-colors"
+                    >
+                      {field.value}
+                    </a>
+                  ) : (
+                    field.value
+                  )}
+                </dd>
+              </div>
+            ))}
+          </dl>
+
+          {siteConfig.humanAuthoredBadge !== false && (
+            <div className="flex items-center">
+              <HumanAuthoredBadge />
             </div>
-          ))}
-        </dl>
+          )}
+        </div>
 
         <div className="flex items-center gap-2">
           <button

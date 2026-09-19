@@ -104,6 +104,21 @@ function rehypeExtractToc(tocList: TocItem[]) {
         if (id && text) {
           tocList.push({ id, text, level });
         }
+        if (id) {
+          if (!Array.isArray(node.children)) {
+            node.children = [];
+          }
+          node.children.unshift({
+            type: "element",
+            tagName: "a",
+            properties: {
+              className: ["header-anchor"],
+              href: `#${id}`,
+              ariaHidden: "true",
+            },
+            children: [{ type: "text", value: "#" }],
+          });
+        }
       }
     });
   };
@@ -178,6 +193,25 @@ export interface RenderResult {
 }
 
 /**
+ * Rehype plugin to preserve explicit table cell alignment (left / center / right).
+ * Sets data-align and inline text-align style so CSS resets never override table alignment.
+ */
+function rehypeTableAlignment() {
+  return (tree: any) => {
+    walkAst(tree, (node: any) => {
+      if (node.type === "element" && (node.tagName === "th" || node.tagName === "td")) {
+        const align = node.properties?.align;
+        if (align && typeof align === "string") {
+          node.properties["data-align"] = align;
+          const currentStyle = (node.properties.style as string) || "";
+          node.properties.style = `text-align: ${align}; ${currentStyle}`.trim();
+        }
+      }
+    });
+  };
+}
+
+/**
  * Parses markdown to HTML string with Unified pipeline:
  * - remark-gfm
  * - remark-math + rehype-katex
@@ -198,6 +232,7 @@ export async function renderMarkdownToHtml(markdown: string, slug?: string): Pro
     .use(rehypeKatex)
     .use(rehypeSlug)
     .use(rehypeExtractToc, toc)
+    .use(rehypeTableAlignment)
     .use(rehypePrettyCode, {
       theme: {
         light: "github-light",
