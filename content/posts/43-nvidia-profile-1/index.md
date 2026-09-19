@@ -1,21 +1,26 @@
 ---
-title: " nvidiaProfileInspector 一个高级的N卡控制面板"
+title: nvidiaProfileInspector 一个高级的N卡控制面板
 published: 2026-06-28
 pinned: false
 description: 这是一个高级版Nvidia控制面板，通过配置文件可以实现NVIDIA默认无法更改的选项，也可以直接加载别人的配置文件达到一键配置效果。
+image: Nvidia.png
 tags:
   - Nvidia
   - Config
 draft: false
 ---
+
 # 相关链接
+
 - [nvidiaProfileInspector项目地址](https://github.com/Orbmu2k/nvidiaProfileInspector)
 - [致远Neon视频地址](https://www.bilibili.com/video/BV1AG411o7Ck/)
 
 关于NVIDIA控制面板的每个选项作用详情，已经在致远的Bilibili视频中介绍了，这里贴一下致远分享的Config。
 
 # 致远Neon-gsync.nip
+
 顾名思义是开启Gsync的推荐配置：
+
 ```nip
 <?xml version="1.0" encoding="utf-16"?>
 <ArrayOfProfile>
@@ -167,7 +172,9 @@ draft: false
 ```
 
 # 致远Neon-nogsync.nip
+
 顾名思义，这是不开启Gsync的推荐配置:
+
 ```nip
 <?xml version="1.0" encoding="utf-16"?>
 <ArrayOfProfile>
