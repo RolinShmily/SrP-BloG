@@ -114,25 +114,6 @@ export interface UpvConfig {
   showArchivesStats?: boolean;
 }
 
-export interface CmsConfig {
-  /**
-   * Master switch for Sveltia CMS admin portal.
-   * If false:
-   *  - Completely blocks the `/admin` route (returns 404) by purging public/admin and out/admin
-   *  - Automatically hides Sveltia CMS from the footer tech stack
-   * Default: true.
-   */
-  enabled: boolean;
-  /**
-   * Admin route path (default: "/admin").
-   */
-  adminRoute?: string;
-  /**
-   * GitHub OAuth backend URL (e.g. "https://gh-oauth.srprolin.top").
-   */
-  oauthBaseUrl?: string;
-}
-
 export interface CommentConfig {
   /**
    * Master switch for the Waline comment system.
@@ -431,21 +412,6 @@ export const siteConfig = {
     /** Whether to display "Total Views" and "Total Visitors" cards on /archives. */
     showArchivesStats: true,
   } as UpvConfig,
-
-  // ==========================================
-  // 8. Sveltia CMS Configuration (内容管理系统配置)
-  // ==========================================
-  /**
-   * Master switch for the Sveltia CMS admin portal at /admin.
-   * When enabled: true, the admin portal is published and accessible at /admin.
-   * When enabled: false, the /admin route is completely blocked (404) and Sveltia CMS
-   * is removed from the footer tech stack.
-   */
-  cms: {
-    enabled: true,
-    adminRoute: "/admin",
-    oauthBaseUrl: "https://gh-oauth.srprolin.top",
-  } as CmsConfig,
 
   // ==========================================
   // 9. Comment System: Waline (Waline 评论系统配置)

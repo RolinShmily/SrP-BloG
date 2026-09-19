@@ -56,7 +56,6 @@ function renderItem(item: TechItem, keyPrefix = "") {
 
 export function TechStackRow() {
   const techStack = (siteConfig.techStack || []).filter((item) => {
-    if (item.icon === "sveltia" && siteConfig.cms?.enabled === false) return false;
     if (item.icon === "waline" && siteConfig.comment?.enabled === false) return false;
     if (item.icon === "google-analytics" && siteConfig.seo?.googleAnalytics?.enabled === false) return false;
     if (item.icon === "google-search" && siteConfig.seo?.googleSearch?.enabled === false) return false;

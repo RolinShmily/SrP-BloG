@@ -21,7 +21,7 @@
 
 - **纯静态导出**：基于 Next.js 15 App Router (`output: 'export'`)，全站预渲染为 HTML，极速加载，零服务端运行时。
 - **单源 Markdown**：`content/posts/<slug>/index.md`，一文一目录，图片等资源同目录就近存放并自动同步。
-- **可视化内容管理 (Sveltia CMS)**：集成原生 Git 存储的无头 CMS，位于 `/admin`，支持文章、友链与赞助的可视化编辑。支持 `siteConfig.cms.enabled` 一键启闭，关闭时自动彻底阻断路由（404）并隐藏页脚标识。
+- **可视化内容管理 (Sveltia CMS)**：集成原生 Git 存储的无头 CMS，位于 `/admin` (`public/admin/`)，支持文章、友链与赞助的可视化编辑，由独立的静态文件配置驱动。
 - **现代化互动评论 (Waline)**：文章详情页与友链页面无缝嵌入 Waline 评论区，支持微博/Bilibili 表情包、Markdown 语法与深浅双色自适应主题定制，支持 `siteConfig.comment.enabled` 一键启闭。
 - **现代化设计**：基于 shadcn Zinc 风格，内置卡片光标微光（Card Spotlight）、冬梅背景画布 (`ArtPlum`)、平滑转场与自适应暗色模式。
 - **轻量双语**：UI 界面支持中英即时切换，无额外路由前缀与重复构建开销。
@@ -84,7 +84,6 @@ Markdown 正文...
 全局配置统一收拢在 [`src/config/site.ts`](./src/config/site.ts)，集中维护全站核心元数据与服务集成开关：
 
 - **基础与展示**：站点标题、作者身份、社交媒体链接、ICP 备案号、友链申请信息及页脚技术栈。
-- **CMS 管理 (`cms`)**：集成基于 GitHub 的 Sveltia CMS，控制 `/admin` 路由及页脚标识。
 - **互动评论 (`comment`)**：集成 Waline 评论区，支持配置服务端 URL 及全站一键启闭。
 - **SEO 与站长生态 (`seo`)**：集成 Google Analytics 4、Google Search Console、Bing Webmaster 鉴权及 IndexNow 实时推送。
 - **隐私统计 (`upv`)**：集成自建 Cloudflare Workers + D1 的 PV/UV 统计服务 API。

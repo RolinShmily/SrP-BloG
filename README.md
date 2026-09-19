@@ -21,7 +21,7 @@
 
 - **Pure Static Export**: Built on Next.js 15 App Router (`output: 'export'`), pre-rendered into static HTML for instant loading and zero server runtime.
 - **Single-Source Markdown**: `content/posts/<slug>/index.md` — one directory per post with co-located media assets, automatically synchronized during build.
-- **Visual Headless CMS (Sveltia CMS)**: Integrated Git-based CMS at `/admin` for editing posts, friend links, and sponsors. Configurable master switch `siteConfig.cms.enabled` that automatically blocks the route (404) and hides footer badges when disabled.
+- **Visual Headless CMS (Sveltia CMS)**: Integrated Git-based CMS at `/admin` (`public/admin/`) for editing posts, friend links, and sponsors. Self-contained and easily configured via standard static files.
 - **Modern Comments (Waline)**: Embedded comment area with Emoji support, Markdown editing, and theme adaptation across article detail pages and the friends page. Toggled via `siteConfig.comment.enabled`.
 - **Modern Aesthetics**: Editorial shadcn Zinc styling, cursor-tracking spotlight card glow (`Card Spotlight`), procedural winter plum canvas art (`ArtPlum`), smooth page transitions, and adaptive dark mode.
 - **Lightweight Bilingual UI**: Instant Chinese/English UI switching on the client side without route duplication or extra build overhead.
@@ -84,7 +84,6 @@ Markdown content goes here...
 Centralized settings live in [`src/config/site.ts`](./src/config/site.ts) — manage site metadata, feature toggles, and service integrations in one place:
 
 - **Identity & Presentation**: Site title, author profile, social links, ICP filings, friend application info, and tech stack badges.
-- **Content Management (`cms`)**: Git-based Sveltia CMS integration with master toggle for the `/admin` route and footer badges.
 - **Interactive Comments (`comment`)**: Waline comment system with server URL binding and global toggle.
 - **SEO & Webmaster (`seo`)**: Google Analytics 4 (GA4), Google Search Console, Bing Webmaster verification, and IndexNow instant submission.
 - **Privacy Analytics (`upv`)**: Standalone Cloudflare Workers + D1 PV/UV counter service integration.

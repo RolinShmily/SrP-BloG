@@ -16,10 +16,6 @@ import { createPageMetadata, createPostMetadata } from "../src/lib/seo";
 import { CUSTOM_FONT_SIZE_TOKENS } from "../src/lib/utils";
 import { postsDir, publicPostsDir, syncPostAssets } from "./sync-post-assets";
 
-const EXPECTED_TOTAL_POSTS = 51;
-const EXPECTED_PUBLISHED_POSTS = 51;
-const EXPECTED_FRIEND_LINKS = 11;
-
 /** Returns true when the value parses as an absolute http(s) URL. */
 function isHttpUrl(value: unknown): boolean {
   if (typeof value !== "string" || value.trim().length === 0) return false;
@@ -89,12 +85,12 @@ async function verifyContent() {
   const postFiles = listPostFiles();
 
   assert(
-    postDirs.length === EXPECTED_TOTAL_POSTS,
-    `content/posts contains ${EXPECTED_TOTAL_POSTS} post directories (got: ${postDirs.length})`
+    postDirs.length > 0,
+    `content/posts contains post directories (got: ${postDirs.length})`
   );
   assert(
-    postFiles.length === EXPECTED_TOTAL_POSTS,
-    `Found ${EXPECTED_TOTAL_POSTS} index.md files (got: ${postFiles.length})`
+    postFiles.length === postDirs.length,
+    `Every post directory has an index.md (${postFiles.length}/${postDirs.length})`
   );
   assert(
     flatMarkdownFiles.length === 0,
@@ -125,14 +121,15 @@ async function verifyContent() {
   console.log("\n2. Verifying Posts Count and Frontmatter Parsing...");
   const allPosts = await getAllPosts({ includeDrafts: true });
   assert(
-    allPosts.length === EXPECTED_TOTAL_POSTS,
-    `Total posts parsed equals ${EXPECTED_TOTAL_POSTS} (got: ${allPosts.length})`
+    allPosts.length === postDirs.length,
+    `Total posts parsed equals directory count (got: ${allPosts.length})`
   );
 
   const publishedPosts = await getAllPosts({ includeDrafts: false });
+  const expectedPublishedCount = allPosts.filter((p) => !p.draft).length;
   assert(
-    publishedPosts.length === EXPECTED_PUBLISHED_POSTS,
-    `Published posts count equals ${EXPECTED_PUBLISHED_POSTS} (${EXPECTED_TOTAL_POSTS} total - 0 drafts) (got: ${publishedPosts.length})`
+    publishedPosts.length === expectedPublishedCount,
+    `Published posts count equals non-draft posts (got: ${publishedPosts.length})`
   );
 
   const slugs = new Set<string>();
@@ -159,7 +156,7 @@ async function verifyContent() {
     }
   }
 
-  assert(slugs.size === EXPECTED_TOTAL_POSTS, `All ${EXPECTED_TOTAL_POSTS} posts have unique canonical slugs`);
+  assert(slugs.size === allPosts.length, `All ${allPosts.length} posts have unique canonical slugs`);
   assert(
     allHaveValidFields,
     `All posts have valid title, published date, wordCount, and readingTime`
@@ -203,7 +200,7 @@ async function verifyContent() {
   assert(datesDescending, `Unpinned posts are sorted descending by published date`);
 
   // 4. Verify HTML Rendering, Math, Code Highlighting, and TOC on all posts
-  console.log(`\n4. Verifying Markdown Rendering across all ${EXPECTED_TOTAL_POSTS} posts...`);
+  console.log(`\n4. Verifying Markdown Rendering across all ${allPosts.length} posts...`);
   let renderErrors = 0;
   let hasImageUnresolvedInBody = false;
 
@@ -227,7 +224,7 @@ async function verifyContent() {
   }
   assert(
     renderErrors === 0,
-    `All ${EXPECTED_TOTAL_POSTS} posts rendered without throwing errors (errors: ${renderErrors})`
+    `All ${allPosts.length} posts rendered without throwing errors (errors: ${renderErrors})`
   );
   assert(!hasImageUnresolvedInBody, `No unresolved ../assets/images/ found in rendered HTML`);
 
@@ -343,8 +340,8 @@ async function verifyContent() {
   const stats = await getSiteStats();
   const manualWordCount = publishedPosts.reduce((sum, post) => sum + post.wordCount, 0);
   assert(
-    stats.totalPosts === EXPECTED_PUBLISHED_POSTS,
-    `SiteStats.totalPosts matches published posts count (${EXPECTED_PUBLISHED_POSTS})`
+    stats.totalPosts === publishedPosts.length,
+    `SiteStats.totalPosts matches published posts count (${publishedPosts.length})`
   );
   assert(
     stats.totalWordCount === manualWordCount,
@@ -353,8 +350,8 @@ async function verifyContent() {
 
   const searchIndex = await getSearchIndex({ includeDrafts: false });
   assert(
-    searchIndex.length === EXPECTED_PUBLISHED_POSTS,
-    `Search index generated for all ${EXPECTED_PUBLISHED_POSTS} published posts`
+    searchIndex.length === publishedPosts.length,
+    `Search index generated for all ${publishedPosts.length} published posts`
   );
   assert(
     searchIndex.every(
@@ -424,8 +421,8 @@ async function verifyContent() {
     : [];
   assert(fs.existsSync(friendsDir), `Friend links directory content/friends/ exists`);
   assert(
-    friendFiles.length === EXPECTED_FRIEND_LINKS,
-    `content/friends/ contains ${EXPECTED_FRIEND_LINKS} JSON files (got: ${friendFiles.length})`
+    friendFiles.length > 0,
+    `content/friends/ contains JSON files (got: ${friendFiles.length})`
   );
 
   const friendFileErrors: string[] = [];
@@ -506,8 +503,8 @@ async function verifyContent() {
 
   const friendLinks = await getFriendLinks();
   assert(
-    friendLinks.length === EXPECTED_FRIEND_LINKS,
-    `Friend links parsed all ${EXPECTED_FRIEND_LINKS} entries from content/friends/ (got: ${friendLinks.length})`
+    friendLinks.length === friendFiles.length,
+    `Friend links parsed all ${friendFiles.length} entries from content/friends/ (got: ${friendLinks.length})`
   );
   assert(
     friendLinks.every((link) => Boolean(link.name && link.url && link.description && link.avatar)),

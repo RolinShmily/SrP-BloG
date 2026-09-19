@@ -4,11 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx scripts/sync-cms-assets.ts && tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && next dev",
-    "build": "tsx scripts/sync-cms-assets.ts && tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && next build",
+    "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && next dev",
+    "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && next build",
     "start": "next start",
     "lint": "next lint",
-    "sync-cms": "tsx scripts/sync-cms-assets.ts",
     "sync-assets": "tsx scripts/sync-post-assets.ts",
     "generate-search-index": "tsx scripts/generate-search-index.ts",
     "generate-og-image": "tsx scripts/generate-og-image.ts",

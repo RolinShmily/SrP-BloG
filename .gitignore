@@ -31,9 +31,6 @@ public/posts/
 # scripts/generate-search-index.ts — client-side search index
 public/search-index.json
 
-# scripts/sync-cms-assets.ts — generated admin portal when siteConfig.cms.enabled is true
-public/admin/
-
 # ---------------------------------------------------------------------------
 # Dependencies
 # ---------------------------------------------------------------------------
