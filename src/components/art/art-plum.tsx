@@ -61,7 +61,7 @@ const MAX_BLOSSOMS_MOBILE = 28;
 /**
  * Minimum spacing between two blossoms, in px.
  */
-const BLOSSOM_MIN_DIST = 22;
+const BLOSSOM_MIN_DIST = 26;
 
 function polar2cart(x: number, y: number, r: number, theta: number): [number, number] {
   return [x + r * Math.cos(theta), y + r * Math.sin(theta)];
@@ -140,10 +140,18 @@ export function ArtPlum({ className = "" }: ArtPlumProps) {
     // Area-scaled so a phone and a 4K screen get the same visual weight.
     const areaScale = (width * height) / REF_AREA;
     let budget = Math.max(1_500, Math.round(SEGMENT_BUDGET_REF * areaScale));
+    const initialBudget = budget;
     const minSegments = Math.max(700, Math.round(MIN_SEGMENTS_REF * areaScale));
 
     function canPlace(x: number, y: number): boolean {
       if (placed.length >= maxBlossoms) return false;
+      // Dynamic lifecycle pacing: evenly distributes blossoms across the entire
+      // growth timeframe and reach of the tree, preventing early branch tips from
+      // greedily exhausting the quota into an artificial concentric cluster.
+      const progress = Math.min(1, Math.max(0, 1 - budget / initialBudget));
+      const maxAllowedNow = Math.ceil(maxBlossoms * Math.min(1, progress * 1.05 + 0.05));
+      if (placed.length >= maxAllowedNow) return false;
+
       for (const p of placed) {
         const dx = x - p.x;
         const dy = y - p.y;
@@ -268,21 +276,20 @@ export function ArtPlum({ className = "" }: ArtPlumProps) {
         children++;
       }
 
-      // Distal twig blossoming (梢头挂梅 · 绝不在根部主干结花):
-      // 1. Must be at least 220px away from the edge origin along the branch walk
-      // 2. Must be past the thick bough stage (counter.value >= 65)
-      if (nextOriginDist >= 220 && counter.value >= 65) {
+      // Organic random scattering (随机漫布 · 疏影横斜):
+      // 1. Avoid placing blossoms right on the screen border origins (nextOriginDist >= 85)
+      // 2. Uniformly sprinkle blooms across all branch depths, from inner twigs to distant canopy
+      if (nextOriginDist >= 85) {
         if (children === 0) {
-          // Terminal twig tip: outer tips bloom with high priority
-          const tipChance = counter.value >= 110 || budget <= 0 ? 0.85 : 0.40;
-          if (Math.random() < tipChance) {
+          // Terminal twig tips across the whole branch system
+          if (Math.random() < 0.15) {
             tryBlossom(nx, ny, rad, 0.72);
           }
-        } else if (nextOriginDist >= 320 && counter.value >= 90 && Math.random() < 0.02) {
-          // Rare delicate side bud on a fine outer branchlet
+        } else if (Math.random() < 0.008) {
+          // Delicate side buds along mature twigs
           const side = rad + (Math.random() < 0.5 ? 1 : -1) * (Math.PI / 3);
           const [bx, by] = polar2cart(nx, ny, 3 + Math.random() * 3, side);
-          if (inBounds(bx, by)) tryBlossom(bx, by, rad, 0.5);
+          if (inBounds(bx, by)) tryBlossom(bx, by, rad, 0.45);
         }
       }
     }
@@ -307,7 +314,6 @@ export function ArtPlum({ className = "" }: ArtPlumProps) {
     }
 
     steps = seedFromEdges();
-    const initialBudget = budget;
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
