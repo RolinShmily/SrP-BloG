@@ -7,6 +7,22 @@ name = "srp-blog-stats"
 main = "src/worker.ts"
 compatibility_date = "2025-01-01"
 
+# Production ingress. This Worker has no workers.dev hostname, so this route is
+# the ONLY URL it answers on, and it is what `siteConfig.upv.api` must point at.
+#
+# Declared here so the deployed topology is reproducible from the repo: the route
+# previously existed only in the Cloudflare dashboard, so nothing in version
+# control recorded where the service actually lived. When the frontend was left
+# pointing at the old `<name>.<subdomain>.workers.dev` hostname, every request
+# returned a bare 404 `error code: 1042` (Cloudflare's generic "nothing published
+# on this hostname" answer, not an error from this script) and every counter on
+# the blog silently rendered 0.
+routes = [
+  { pattern = "stats.srprolin.top/*", zone_name = "srprolin.top" },
+]
+# No public workers.dev endpoint: the route above is the canonical ingress.
+workers_dev = false
+
 # Workers modules with explicit .ts import specifiers are bundled by esbuild.
 # Node built-ins are NOT used by the Worker path: worker.ts -> app.ts ->
 # store.ts -> store-d1.ts only touches Web APIs and the D1 binding.
@@ -15,6 +31,9 @@ compatibility_date = "2025-01-01"
 binding = "DB"
 database_name = "srp-blog-stats"
 database_id = "427d66da-2ae5-43ff-8680-83f9065a9e64"
+# Where `wrangler d1 migrations create` writes new versioned migrations. The
+# directory is created on demand and is absent while no migrations are pending —
+# that is expected, not a missing-config error.
 migrations_dir = "migrations"
 
 [vars]

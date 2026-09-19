@@ -9,14 +9,14 @@
 	},
 	"scripts": {
 		"typecheck": "tsc --noEmit -p tsconfig.json",
-		"dev": "wrangler dev",
-		"deploy": "wrangler deploy",
-		"db:schema": "wrangler d1 execute srp-blog-stats --remote --file=./schema.sql",
-		"db:migrate:create": "wrangler d1 migrations create srp-blog-stats",
-		"db:migrate:local": "wrangler d1 migrations apply srp-blog-stats --local",
-		"db:migrate:remote": "wrangler d1 migrations apply srp-blog-stats --remote",
-		"db:migrate:list": "wrangler d1 migrations list srp-blog-stats --remote",
-		"db:export": "wrangler d1 export srp-blog-stats --remote --output=./backup-$(date +%Y%m%d).sql"
+		"dev": "wrangler dev -c wrangler.toml",
+		"deploy": "wrangler deploy -c wrangler.toml",
+		"db:schema": "wrangler d1 execute srp-blog-stats -c wrangler.toml --remote --file=./schema.sql",
+		"db:migrate:create": "wrangler d1 migrations create srp-blog-stats -c wrangler.toml",
+		"db:migrate:local": "wrangler d1 migrations apply srp-blog-stats -c wrangler.toml --local",
+		"db:migrate:remote": "wrangler d1 migrations apply srp-blog-stats -c wrangler.toml --remote",
+		"db:migrate:list": "wrangler d1 migrations list srp-blog-stats -c wrangler.toml --remote",
+		"db:export": "wrangler d1 export srp-blog-stats -c wrangler.toml --remote --output=./backup-$(date +%Y%m%d).sql"
 	},
 	"dependencies": {},
 	"devDependencies": {}

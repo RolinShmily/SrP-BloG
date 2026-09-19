@@ -418,8 +418,15 @@ export const siteConfig = {
     /**
      * Backend API URL. You can set it directly here, or leave blank to read
      * from the NEXT_PUBLIC_UPV_API environment variable.
+     *
+     * Must be a host the Worker actually answers on. `services/upv` is bound to
+     * the zone route `stats.srprolin.top/*` (see services/upv/README.md, Workers
+     * -> Domains & Routes); its `<name>.<subdomain>.workers.dev` hostname is NOT
+     * published, and a workers.dev request to an unpublished Worker returns a
+     * bare 404 `error code: 1042`, which the client can only read as "offline" —
+     * every counter then silently renders 0.
      */
-    api: "https://srp-blog-stats.rolinshmily.workers.dev",
+    api: "https://stats.srprolin.top",
     /** Whether to display the page views counter on article pages. */
     showPostCounter: true,
     /** Whether to display the page views counter on post listing cards. */

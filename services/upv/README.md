@@ -318,13 +318,24 @@ npx wrangler dev
 
 # 4. Ship it
 npm run deploy
-# -> https://srp-blog-upv.<account>.workers.dev
+# -> https://srp-blog-stats.<account>.workers.dev
 
 # 5. Verify + query D1 directly
-curl -s https://srp-blog-upv.<account>.workers.dev/api/health
+curl -s https://srp-blog-stats.<account>.workers.dev/api/health
 npx wrangler d1 execute srp-blog-stats --remote \
   --command "SELECT * FROM page_views ORDER BY views DESC LIMIT 10"
 ```
+
+> **The workers.dev hostname above is only valid while `workers_dev = true`.**
+> If that flag is off and no custom domain is bound, the Worker is reachable at
+> no URL at all, and every request 404s with a bare `error code: 1042`. That
+> body comes from Cloudflare's edge, not from this script — it is the generic
+> "no Worker published on this hostname" answer, so it is easy to misread as a
+> code bug. Confirm which hostname is live before pointing the blog at it:
+>
+> ```bash
+> curl -s https://<whatever-host>/api/health   # expect {"ok":true,...}
+> ```
 
 Production `[vars]` live in `wrangler.toml`; `ALLOWED_ORIGINS` should be
 narrowed from `*` to the blog's origin before launch, e.g.
@@ -335,7 +346,9 @@ ALLOWED_ORIGINS = "https://blog.example.com,https://www.blog.example.com"
 ```
 
 Bind a custom domain under Workers → Settings → Domains & Routes (e.g.
-`upv.example.com`), then point the blog at it (§8). `wrangler` is only needed
+`upv.example.com`), then point the blog at it (§8). **This step is not optional
+if `workers_dev` is disabled** — without a route or custom domain the service is
+unreachable and every counter on the blog reads 0. `wrangler` is only needed
 for deploys — it is not a runtime dependency and deliberately not in
 `package.json`.
 
