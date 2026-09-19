@@ -1,12 +1,16 @@
 ---
 title: 在Nginx中快速建立一个下载站
 published: 2026-06-01
-description: '利用Nginx的反代特性，将VPS中的文件经过HTTP协议路径映射，实现URL下载。'
-image: ''
-tags: [Nginx]
-draft: false 
+pinned: false
+description: 利用Nginx的反代特性，将VPS中的文件经过HTTP协议路径映射，实现URL下载。
+image: Nginx.png
+tags:
+  - Nginx
+draft: false
 ---
+
 # Nginx相关配置
+
 ```ini
 # ==================== Download - HTTP ====================
 server {
@@ -51,8 +55,11 @@ server {
     location ~ /\. { deny all; }
 }
 ```
+
 - 注：这里配置默认开启SSL，请使用Certbot申请SSL证书(详见笔者往期博文)
+
 # Shell终端操作
+
 ```bash
 # 创建下载根目录
 mkdir /var/www/downloads
@@ -64,9 +71,13 @@ nano /etc/nginx/sites-available/default
 nginx -t
 sudo systemctl reload nginx
 ```
+
 此时访问`https://<your-doman>/test.txt`即可自动下载该文件。
+
 # 特定SSH用户
+
 如果有CI/CD需求，我们可以创建一个`deploy`用户，用于进行SFTP的发布文件上传。
+
 ```bash
 # 创建用户deploy
 sudo useradd -m -s /bin/bash deploy
