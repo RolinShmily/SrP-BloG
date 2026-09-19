@@ -4,6 +4,9 @@
  * markdown references like `./cover.jpeg` resolve to `/posts/<slug>/cover.jpeg`
  * in the static export.
  *
+ * For images (.png, .jpg, .jpeg, .webp), generates an incremental, idempotent
+ * WebP thumbnail (<basename>.thumb.webp) alongside the original file using sharp.
+ *
  * The script is idempotent: files whose size and mtime are unchanged are skipped,
  * and rerunning it never fails on existing targets. CJK/space/special characters
  * in file or directory names are preserved verbatim.
@@ -13,6 +16,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import sharp from "sharp";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -22,6 +26,7 @@ export const postsDir = path.join(rootDir, "content/posts");
 export const publicPostsDir = path.join(rootDir, "public/posts");
 
 const MARKDOWN_PATTERN = /\.mdx?$/i;
+const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp"]);
 
 export interface PostAssetSyncOptions {
   /** Source directory, defaults to `content/posts`. */
@@ -42,6 +47,46 @@ export interface PostAssetSyncResult {
    * their source directory no longer exists.
    */
   pruned: string[];
+  /** Thumbnail files (relative to the destination root) written this run. */
+  thumbnailsGenerated: string[];
+  /** Thumbnail files (relative to the destination root) that were already up to date. */
+  thumbnailsSkipped: string[];
+  /** Orphan thumbnail files (relative to the destination root) removed. */
+  prunedThumbs: string[];
+}
+
+interface ThumbnailTask {
+  sourcePath: string;
+  targetPath: string;
+  relativeKey: string;
+}
+
+function isImageFile(fileName: string): boolean {
+  if (fileName.endsWith(".thumb.webp")) return false;
+  const ext = path.extname(fileName).toLowerCase();
+  return IMAGE_EXTENSIONS.has(ext);
+}
+
+function getThumbnailName(fileName: string): string {
+  const { name } = path.parse(fileName);
+  return `${name}.thumb.webp`;
+}
+
+async function runWithConcurrency<T>(
+  items: T[],
+  limit: number,
+  fn: (item: T) => Promise<void>
+): Promise<void> {
+  if (items.length === 0) return;
+  let index = 0;
+  const workerCount = Math.min(limit, items.length);
+  const workers = Array.from({ length: workerCount }, async () => {
+    while (index < items.length) {
+      const current = items[index++];
+      await fn(current);
+    }
+  });
+  await Promise.all(workers);
 }
 
 /**
@@ -86,17 +131,60 @@ function pruneOrphanDirs(source: string, destination: string, result: PostAssetS
 }
 
 /**
- * Copies post-local (co-located) assets into the public directory.
+ * Removes `.thumb.webp` files in destination if their corresponding source image
+ * in `content/posts/` has been deleted or renamed.
  */
-export function syncPostAssets(options: PostAssetSyncOptions = {}): PostAssetSyncResult {
+function pruneOrphanThumbnails(
+  destination: string,
+  expectedThumbs: Set<string>,
+  result: PostAssetSyncResult
+): void {
+  if (!fs.existsSync(destination)) return;
+
+  const walk = (dir: string): void => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        walk(fullPath);
+      } else if (entry.isFile() && entry.name.endsWith(".thumb.webp")) {
+        const relativeKey = path.relative(destination, fullPath);
+        if (!expectedThumbs.has(relativeKey)) {
+          fs.rmSync(fullPath, { force: true });
+          result.prunedThumbs.push(relativeKey);
+        }
+      }
+    }
+  };
+
+  walk(destination);
+}
+
+/**
+ * Copies post-local (co-located) assets into the public directory and generates
+ * optimized WebP thumbnails alongside any source images.
+ */
+export async function syncPostAssets(
+  options: PostAssetSyncOptions = {}
+): Promise<PostAssetSyncResult> {
   const source = options.source ?? postsDir;
   const destination = options.destination ?? publicPostsDir;
-  const result: PostAssetSyncResult = { scannedDirs: 0, copied: [], skipped: [], pruned: [] };
+  const result: PostAssetSyncResult = {
+    scannedDirs: 0,
+    copied: [],
+    skipped: [],
+    pruned: [],
+    thumbnailsGenerated: [],
+    thumbnailsSkipped: [],
+    prunedThumbs: [],
+  };
 
   if (!fs.existsSync(source)) {
     console.warn(`[sync-post-assets] Source directory not found, skipping: ${source}`);
     return result;
   }
+
+  const expectedThumbs = new Set<string>();
+  const thumbTasks: ThumbnailTask[] = [];
 
   const walk = (dir: string): void => {
     result.scannedDirs += 1;
@@ -118,46 +206,102 @@ export function syncPostAssets(options: PostAssetSyncOptions = {}): PostAssetSyn
       const targetDir = path.join(destination, relativeDir);
       const target = path.join(targetDir, entry.name);
 
+      const sourceStat = fs.statSync(fullPath);
+      let shouldCopy = true;
+
       if (fs.existsSync(target)) {
-        const sourceStat = fs.statSync(fullPath);
         const targetStat = fs.statSync(target);
         if (targetStat.size === sourceStat.size && targetStat.mtimeMs >= sourceStat.mtimeMs) {
-          result.skipped.push(relativeKey);
-          continue;
+          shouldCopy = false;
         }
       }
 
-      fs.mkdirSync(targetDir, { recursive: true });
-      fs.copyFileSync(fullPath, target);
-      result.copied.push(relativeKey);
+      if (shouldCopy) {
+        fs.mkdirSync(targetDir, { recursive: true });
+        fs.copyFileSync(fullPath, target);
+        result.copied.push(relativeKey);
+      } else {
+        result.skipped.push(relativeKey);
+      }
+
+      // Thumbnail generation for images
+      if (isImageFile(entry.name)) {
+        const thumbName = getThumbnailName(entry.name);
+        const thumbTarget = path.join(targetDir, thumbName);
+        const thumbRelativeKey = relativeDir ? path.join(relativeDir, thumbName) : thumbName;
+
+        expectedThumbs.add(thumbRelativeKey);
+
+        let shouldGenerateThumb = true;
+        if (fs.existsSync(thumbTarget)) {
+          const thumbStat = fs.statSync(thumbTarget);
+          if (thumbStat.size > 0 && thumbStat.mtimeMs >= sourceStat.mtimeMs) {
+            shouldGenerateThumb = false;
+            result.thumbnailsSkipped.push(thumbRelativeKey);
+          }
+        }
+
+        if (shouldGenerateThumb) {
+          thumbTasks.push({
+            sourcePath: fullPath,
+            targetPath: thumbTarget,
+            relativeKey: thumbRelativeKey,
+          });
+        }
+      }
     }
   };
 
   walk(source);
+
+  // Generate missing or outdated thumbnails
+  await runWithConcurrency(thumbTasks, 8, async (task) => {
+    fs.mkdirSync(path.dirname(task.targetPath), { recursive: true });
+    await sharp(task.sourcePath)
+      .rotate()
+      .resize({
+        width: 768,
+        fit: "inside",
+        withoutEnlargement: true,
+      })
+      .webp({ quality: 82 })
+      .toFile(task.targetPath);
+    result.thumbnailsGenerated.push(task.relativeKey);
+  });
+
   pruneOrphanDirs(source, destination, result);
+  pruneOrphanThumbnails(destination, expectedThumbs, result);
   return result;
 }
 
-function main(): void {
-  const result = syncPostAssets();
+async function main(): Promise<void> {
+  const result = await syncPostAssets();
   console.log(
     `[sync-post-assets] Scanned ${result.scannedDirs} directories: ` +
       `${result.copied.length} copied, ${result.skipped.length} already up to date, ` +
       `${result.pruned.length} orphaned removed.`
   );
+  if (result.thumbnailsGenerated.length > 0 || result.thumbnailsSkipped.length > 0) {
+    console.log(
+      `[sync-post-assets] Thumbnails: ${result.thumbnailsGenerated.length} generated, ` +
+        `${result.thumbnailsSkipped.length} already up to date, ` +
+        `${result.prunedThumbs.length} orphaned removed.`
+    );
+  }
   for (const file of result.copied) {
     console.log(`[sync-post-assets]   + public/posts/${file}`);
   }
   for (const dir of result.pruned) {
     console.log(`[sync-post-assets]   - public/posts/${dir} (no source directory)`);
   }
+  for (const thumb of result.prunedThumbs) {
+    console.log(`[sync-post-assets]   - public/posts/${thumb} (orphan thumbnail)`);
+  }
 }
 
 if (process.argv[1] === __filename) {
-  try {
-    main();
-  } catch (error) {
+  main().catch((error) => {
     console.error("[sync-post-assets] Failed to sync post assets:", error);
     process.exit(1);
-  }
+  });
 }

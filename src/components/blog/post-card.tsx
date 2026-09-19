@@ -35,7 +35,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
       {hasCover && (
         <div className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5">
           <Image
-            src={post.image!}
+            src={post.thumbnail || post.image!}
             alt=""
             fill
             priority={priorityImage}

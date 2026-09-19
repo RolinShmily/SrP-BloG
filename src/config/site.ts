@@ -42,6 +42,7 @@ export type TechIcon =
   | "lucide"
   | "sveltia"
   | "waline"
+  | "github-actions"
   | "google-analytics"
   | "google-search"
   | "bing"
@@ -351,6 +352,7 @@ export const siteConfig = {
     { name: "Lucide", url: "https://lucide.dev/", icon: "lucide" },
     { name: "Sveltia CMS", url: "https://sveltiacms.app/", icon: "sveltia" },
     { name: "Waline", url: "https://waline.js.org/", icon: "waline" },
+    { name: "GitHub Actions", url: "https://github.com/features/actions", icon: "github-actions" },
     { name: "Google Analytics", url: "https://analytics.google.com/", icon: "google-analytics" },
     { name: "Google Search", url: "https://search.google.com/search-console", icon: "google-search" },
     { name: "Bing Webmaster", url: "https://www.bing.com/webmasters", icon: "bing" },

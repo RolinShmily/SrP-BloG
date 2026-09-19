@@ -28,6 +28,7 @@ interface PostMeta {
   draft: boolean;
   description?: string;
   image?: string;
+  thumbnail?: string;
   tags: string[];
   lang?: string;
   pinned: boolean;
@@ -47,6 +48,18 @@ interface RawPostData {
 
 /** Matches the standard post entry file: `index.md` or `index.mdx`. */
 const POST_FILE_PATTERN = /^index\.(?:md|mdx)$/;
+const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp"]);
+
+function resolveThumbnailPath(imagePath?: string): string | undefined {
+  if (!imagePath || !imagePath.startsWith("/posts/")) return undefined;
+  if (imagePath.endsWith(".thumb.webp")) return imagePath;
+
+  const ext = path.posix.extname(imagePath).toLowerCase();
+  if (!IMAGE_EXTENSIONS.has(ext)) return undefined;
+
+  const parsed = path.posix.parse(imagePath);
+  return path.posix.join(parsed.dir, `${parsed.name}.thumb.webp`);
+}
 
 function formatDate(value: unknown): string {
   if (!value) return "";
@@ -128,13 +141,17 @@ export class LocalContentProvider implements IContentProvider {
     const title = data.title ? String(data.title).trim() : slug;
     const description = data.description ? String(data.description).trim() : undefined;
 
+    const image = resolveImagePath(typeof data.image === "string" ? data.image : undefined, slug);
+    const thumbnail = resolveThumbnailPath(image);
+
     const meta: PostMeta = {
       title,
       published: formatDate(data.published),
       updated: data.updated ? formatDate(data.updated) : undefined,
       draft: Boolean(data.draft),
       description,
-      image: resolveImagePath(typeof data.image === "string" ? data.image : undefined, slug),
+      image,
+      thumbnail,
       tags: Array.isArray(data.tags)
         ? data.tags.map((tag) => String(tag).trim()).filter(Boolean)
         : [],

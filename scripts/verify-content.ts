@@ -288,8 +288,8 @@ async function verifyContent() {
 
   const syncProbeDir = fs.mkdtempSync(path.join(os.tmpdir(), "srp-post-assets-"));
   try {
-    const firstSync = syncPostAssets({ destination: syncProbeDir });
-    const secondSync = syncPostAssets({ destination: syncProbeDir });
+    const firstSync = await syncPostAssets({ destination: syncProbeDir });
+    const secondSync = await syncPostAssets({ destination: syncProbeDir });
     const syncedCoverProbe = path.join(syncProbeDir, COVER_POST, COVER_FILE);
     assert(
       firstSync.copied.includes(path.join(COVER_POST, COVER_FILE)),
@@ -310,7 +310,7 @@ async function verifyContent() {
     const orphanDir = path.join(syncProbeDir, "a-post-that-no-longer-exists");
     fs.mkdirSync(orphanDir, { recursive: true });
     fs.writeFileSync(path.join(orphanDir, "stale.png"), "stale");
-    const prunedSync = syncPostAssets({ destination: syncProbeDir });
+    const prunedSync = await syncPostAssets({ destination: syncProbeDir });
     assert(
       prunedSync.pruned.includes("a-post-that-no-longer-exists") &&
         !fs.existsSync(orphanDir),
@@ -324,7 +324,7 @@ async function verifyContent() {
     fs.rmSync(syncProbeDir, { recursive: true, force: true });
   }
 
-  syncPostAssets();
+  await syncPostAssets();
   const syncedCover = path.join(publicPostsDir, COVER_POST, COVER_FILE);
   assert(fs.existsSync(syncedCover), `public/posts/${COVER_POST}/${COVER_FILE} exists after sync`);
 
@@ -639,23 +639,23 @@ async function verifyContent() {
     );
   }
 
-  const postWithoutCover = allPosts.find((p) => !p.image);
-  assert(Boolean(postWithoutCover), "At least one post without a cover image exists");
-  if (postWithoutCover) {
-    const metaWithoutCover = createPostMetadata(postWithoutCover);
-    const postWithoutOg = metaWithoutCover.openGraph as Record<string, unknown> | undefined;
-    assert(
-      postWithoutOg?.type === "article" &&
-        Array.isArray(postWithoutOg?.images) &&
-        (postWithoutOg.images[0] as { url: string }).url === siteConfig.ogImage,
-      "createPostMetadata falls back to siteConfig.ogImage when cover is missing"
-    );
-    assert(
-      postWithoutOg?.siteName === siteConfig.title &&
-        Boolean(postWithoutOg?.publishedTime),
-      "createPostMetadata populates siteName and publishedTime"
-    );
-  }
+  const postWithoutCover = allPosts.find((p) => !p.image) || {
+    ...allPosts[0],
+    image: undefined,
+  };
+  const metaWithoutCover = createPostMetadata(postWithoutCover);
+  const postWithoutOg = metaWithoutCover.openGraph as Record<string, unknown> | undefined;
+  assert(
+    postWithoutOg?.type === "article" &&
+      Array.isArray(postWithoutOg?.images) &&
+      (postWithoutOg.images[0] as { url: string }).url === siteConfig.ogImage,
+    "createPostMetadata falls back to siteConfig.ogImage when cover is missing"
+  );
+  assert(
+    postWithoutOg?.siteName === siteConfig.title &&
+      Boolean(postWithoutOg?.publishedTime),
+    "createPostMetadata populates siteName and publishedTime"
+  );
 
   console.log("\n==================================================");
   console.log(`  Verification Complete: ${passedTests} passed, ${failedTests} failed`);

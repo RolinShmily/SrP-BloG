@@ -6,6 +6,7 @@ export interface Post {
   draft?: boolean;
   description?: string;
   image?: string;
+  thumbnail?: string;
   tags: string[];
   lang?: string;
   pinned?: boolean;
