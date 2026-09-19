@@ -82,7 +82,6 @@ html.dark {
   border: var(--waline-border);
   background-color: var(--waline-bg-color);
   box-shadow: none;
-  overflow: hidden;
   transition: border-color 0.2s ease;
 }
 
@@ -94,6 +93,9 @@ html.dark {
 .waline-custom-container .wl-header {
   border-bottom: var(--waline-border);
   background-color: var(--waline-bg-color-light);
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+  overflow: hidden;
 }
 
 .waline-custom-container .wl-header label {
@@ -129,6 +131,7 @@ html.dark {
 /* Action Toolbar */
 .waline-custom-container .wl-footer {
   margin: 0.5rem;
+  position: relative;
 }
 
 .waline-custom-container .wl-action {
@@ -138,6 +141,28 @@ html.dark {
 
 .waline-custom-container .wl-action:hover {
   color: var(--waline-theme-color);
+}
+
+/* Emoji & Media Popups */
+.waline-custom-container .wl-emoji-popup,
+.waline-custom-container .wl-gif-popup {
+  z-index: 50;
+  border-radius: 0.5rem;
+  border: var(--waline-border);
+  background-color: var(--waline-bg-color);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.15);
+}
+
+html.dark .waline-custom-container .wl-emoji-popup,
+html.dark .waline-custom-container .wl-gif-popup {
+  background-color: #0d0d10;
+  border-color: #27272a;
+  box-shadow: 0 12px 28px -5px rgba(0, 0, 0, 0.7), 0 8px 10px -6px rgba(0, 0, 0, 0.7);
+}
+
+.waline-custom-container .wl-emoji-popup button:hover {
+  background-color: var(--waline-bg-color-hover);
+  border-radius: 0.25rem;
 }
 
 /* Primary Button (Submit) */
