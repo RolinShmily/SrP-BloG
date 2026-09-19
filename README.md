@@ -75,7 +75,7 @@ pinned: false           # Set to true to pin on the homepage
 Markdown content goes here...
 ```
 
-> **Co-located Assets**: Store images alongside the post markdown file (e.g. `./cover.png`). The build pipeline automatically syncs them to the public assets directory.
+> **Co-located Assets**: Store images alongside the post markdown file (e.g. `./cover.png`). The build pipeline syncs them into the public assets directory and compresses each one into a 768px WebP card thumbnail (`<name>.thumb.webp`, ~95% smaller) with `sharp` — the CI workflow runs that as its own step. Set `cardThumbnail: false` in `src/config/site.ts` when your build cannot run the thumbnail step, and cards load the original covers instead.
 
 ---
 
@@ -87,6 +87,7 @@ Centralized settings live in [`src/config/site.ts`](./src/config/site.ts) — ma
 - **Interactive Comments (`comment`)**: Waline comment system with server URL binding and global toggle.
 - **SEO & Webmaster (`seo`)**: Google Analytics 4 (GA4), Google Search Console, Bing Webmaster verification, and IndexNow instant submission.
 - **Privacy Analytics (`upv`)**: Standalone Cloudflare Workers + D1 PV/UV counter service integration.
+- **Image Optimization (`cardThumbnail`)**: Listing cards read build-time `sharp` WebP thumbnails instead of full-size covers — disable it when the build environment cannot run the thumbnail step.
 
 ---
 

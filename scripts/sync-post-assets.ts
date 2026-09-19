@@ -7,6 +7,10 @@
  * For images (.png, .jpg, .jpeg, .webp), generates an incremental, idempotent
  * WebP thumbnail (<basename>.thumb.webp) alongside the original file using sharp.
  *
+ * Thumbnail generation is gated by `siteConfig.cardThumbnail` (src/config/site.ts):
+ * with it set to `false` no thumbnail is created or kept, and sharp is never even
+ * imported — so a build without the dependency still succeeds.
+ *
  * The script is idempotent: files whose size and mtime are unchanged are skipped,
  * and rerunning it never fails on existing targets. CJK/space/special characters
  * in file or directory names are preserved verbatim.
@@ -16,7 +20,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import sharp from "sharp";
+import { siteConfig } from "../src/config/site";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,6 +31,13 @@ export const publicPostsDir = path.join(rootDir, "public/posts");
 
 const MARKDOWN_PATTERN = /\.mdx?$/i;
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp"]);
+
+/**
+ * Card thumbnails are opt-out: `false` means the cards read the original covers,
+ * so there is nothing to generate (and stale thumbs are pruned, keeping the
+ * destination in the exact shape the config describes).
+ */
+const THUMBNAILS_ENABLED = siteConfig.cardThumbnail !== false;
 
 export interface PostAssetSyncOptions {
   /** Source directory, defaults to `content/posts`. */
@@ -225,7 +236,7 @@ export async function syncPostAssets(
       }
 
       // Thumbnail generation for images
-      if (isImageFile(entry.name)) {
+      if (THUMBNAILS_ENABLED && isImageFile(entry.name)) {
         const thumbName = getThumbnailName(entry.name);
         const thumbTarget = path.join(targetDir, thumbName);
         const thumbRelativeKey = relativeDir ? path.join(relativeDir, thumbName) : thumbName;
@@ -254,20 +265,24 @@ export async function syncPostAssets(
 
   walk(source);
 
-  // Generate missing or outdated thumbnails
-  await runWithConcurrency(thumbTasks, 8, async (task) => {
-    fs.mkdirSync(path.dirname(task.targetPath), { recursive: true });
-    await sharp(task.sourcePath)
-      .rotate()
-      .resize({
-        width: 768,
-        fit: "inside",
-        withoutEnlargement: true,
-      })
-      .webp({ quality: 82 })
-      .toFile(task.targetPath);
-    result.thumbnailsGenerated.push(task.relativeKey);
-  });
+  // Generate missing or outdated thumbnails. `sharp` is imported lazily so a
+  // cardThumbnail:false build never needs the native dependency to be present.
+  if (thumbTasks.length > 0) {
+    const { default: sharp } = await import("sharp");
+    await runWithConcurrency(thumbTasks, 8, async (task) => {
+      fs.mkdirSync(path.dirname(task.targetPath), { recursive: true });
+      await sharp(task.sourcePath)
+        .rotate()
+        .resize({
+          width: 768,
+          fit: "inside",
+          withoutEnlargement: true,
+        })
+        .webp({ quality: 82 })
+        .toFile(task.targetPath);
+      result.thumbnailsGenerated.push(task.relativeKey);
+    });
+  }
 
   pruneOrphanDirs(source, destination, result);
   pruneOrphanThumbnails(destination, expectedThumbs, result);
@@ -286,6 +301,11 @@ async function main(): Promise<void> {
       `[sync-post-assets] Thumbnails: ${result.thumbnailsGenerated.length} generated, ` +
         `${result.thumbnailsSkipped.length} already up to date, ` +
         `${result.prunedThumbs.length} orphaned removed.`
+    );
+  } else if (!THUMBNAILS_ENABLED) {
+    console.log(
+      `[sync-post-assets] Thumbnails: disabled (siteConfig.cardThumbnail = false), ` +
+        `${result.prunedThumbs.length} stale thumbnail(s) removed.`
     );
   }
   for (const file of result.copied) {

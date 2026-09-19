@@ -19,6 +19,7 @@ import {
   resolveImagePath,
   stripMarkdown,
 } from "./markdown";
+import { siteConfig } from "@/config/site";
 
 /** Frontmatter-derived metadata for a post. */
 interface PostMeta {
@@ -50,7 +51,14 @@ interface RawPostData {
 const POST_FILE_PATTERN = /^index\.(?:md|mdx)$/;
 const IMAGE_EXTENSIONS = new Set([".png", ".jpg", ".jpeg", ".webp"]);
 
+/**
+ * Derives the sibling `.thumb.webp` path for a post cover.
+ *
+ * Returns `undefined` when `siteConfig.cardThumbnail` is off: the build then
+ * never emits a thumbnail, so advertising one would make every card a 404.
+ */
 function resolveThumbnailPath(imagePath?: string): string | undefined {
+  if (siteConfig.cardThumbnail === false) return undefined;
   if (!imagePath || !imagePath.startsWith("/posts/")) return undefined;
   if (imagePath.endsWith(".thumb.webp")) return imagePath;
 

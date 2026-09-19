@@ -75,7 +75,7 @@ pinned: false           # 为 true 时在首页置顶
 Markdown 正文...
 ```
 
-> **图片就近存放**：引用图片直接放在文章目录下（如 `./cover.png`），构建时自动同步至静态目录。
+> **图片就近存放**：引用图片直接放在文章目录下（如 `./cover.png`），构建时自动同步至静态目录，并由 `sharp` 压缩为 768px 的 WebP 卡片缩略图（`<name>.thumb.webp`，体积约减少 95%）——CI 工作流将该步骤独立执行。若构建环境无法运行缩略图步骤，请在 `src/config/site.ts` 中设置 `cardThumbnail: false`，卡片将回退使用原图。
 
 ---
 
@@ -87,6 +87,7 @@ Markdown 正文...
 - **互动评论 (`comment`)**：集成 Waline 评论区，支持配置服务端 URL 及全站一键启闭。
 - **SEO 与站长生态 (`seo`)**：集成 Google Analytics 4、Google Search Console、Bing Webmaster 鉴权及 IndexNow 实时推送。
 - **隐私统计 (`upv`)**：集成自建 Cloudflare Workers + D1 的 PV/UV 统计服务 API。
+- **图片优化 (`cardThumbnail`)**：卡片封面使用构建期 `sharp` 生成的 WebP 缩略图，无法运行缩略图步骤时可关闭并回退原图。
 
 ---
 

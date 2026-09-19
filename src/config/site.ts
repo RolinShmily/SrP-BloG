@@ -275,6 +275,19 @@ export const siteConfig = {
    * - 'none': disable ambient canvas
    */
   ambientArt: "plum" as "plum" | "dots" | "auto" | "none",
+  /**
+   * Whether listing cards load the build-time compressed card cover.
+   *
+   * - `true`  : cards request `/posts/<slug>/<name>.thumb.webp`, a 768px WebP
+   *             produced by `scripts/sync-post-assets.ts` (sharp, ~95% smaller).
+   *             This is what the bundled GitHub Actions workflow runs.
+   * - `false` : cards load the untouched original cover, and the build skips
+   *             thumbnail generation entirely — no sharp, no `.thumb.webp`.
+   *             Use this when nothing in your pipeline can run the thumbnail
+   *             step (deploying a fork without that CI, a sharp-less builder),
+   *             otherwise cards would request a file that was never generated.
+   */
+  cardThumbnail: true,
 
   // ==========================================
   // 4. Navigation & Socials (导航与社交链接)

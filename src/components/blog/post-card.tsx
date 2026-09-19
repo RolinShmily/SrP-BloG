@@ -34,6 +34,11 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
       {/* Cover art: a top band on narrow screens, a trailing-edge panel on wide. */}
       {hasCover && (
         <div className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5">
+          {/*
+           * `post.thumbnail` is only set when `siteConfig.cardThumbnail` is on and
+           * the cover is a format the pipeline can compress; `post.image` is the
+           * full-size fallback for every other case.
+           */}
           <Image
             src={post.thumbnail || post.image!}
             alt=""

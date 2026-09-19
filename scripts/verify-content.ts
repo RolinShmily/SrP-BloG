@@ -328,6 +328,24 @@ async function verifyContent() {
   const syncedCover = path.join(publicPostsDir, COVER_POST, COVER_FILE);
   assert(fs.existsSync(syncedCover), `public/posts/${COVER_POST}/${COVER_FILE} exists after sync`);
 
+  // The thumbnail contract has to hold on both sides of `siteConfig.cardThumbnail`:
+  // a card may only advertise a `.thumb.webp` the build actually emits, and with
+  // the toggle off it must fall back to the original cover instead of 404ing.
+  const coverThumbName = `${path.parse(COVER_FILE).name}.thumb.webp`;
+  const coverThumbPath = path.join(publicPostsDir, COVER_POST, coverThumbName);
+  if (siteConfig.cardThumbnail === false) {
+    assert(
+      !coverPost?.thumbnail && !fs.existsSync(coverThumbPath),
+      `cardThumbnail disabled -> no thumbnail emitted, cards use the original cover`
+    );
+  } else {
+    assert(
+      coverPost?.thumbnail === `/posts/${COVER_POST}/${coverThumbName}` &&
+        fs.existsSync(coverThumbPath),
+      `cardThumbnail enabled -> cards point at an emitted thumbnail (${coverPost?.thumbnail})`
+    );
+  }
+
   // 7. Verify Tags Aggregation
   console.log("\n7. Verifying Tags Aggregation...");
   const tags = await getAllTags();

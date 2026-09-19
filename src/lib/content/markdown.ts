@@ -37,16 +37,12 @@ export function resolveImagePath(imagePath?: string, slug?: string): string | un
     return `/${trimmed}`;
   }
 
-  // Relative to current post directory: ./cover.jpeg
-  if (trimmed.startsWith("./")) {
-    const filename = trimmed.slice(2);
-    if (slug) {
-      return `/posts/${slug}/${filename}`;
-    }
-    return `/posts/${filename}`;
+  // Relative to current post directory: ./cover.jpeg or bare filename cover.jpeg (e.g. from CMS)
+  const relativePath = trimmed.startsWith("./") ? trimmed.slice(2) : trimmed;
+  if (slug) {
+    return `/posts/${slug}/${relativePath}`;
   }
-
-  return trimmed;
+  return `/posts/${relativePath}`;
 }
 
 /**
