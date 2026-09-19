@@ -1,22 +1,31 @@
 ---
 title: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE
 published: 2026-07-08
-description: 'N100机型常见的板载无线网卡AX101, 如何在PVE虚拟系统/OpenWrt中进行上网'
-image: ''
-tags: [ax101,OpenWrt,PVE]
-draft: false 
+pinned: false
+description: N100机型常见的板载无线网卡AX101, 如何在PVE虚拟系统/OpenWrt中进行上网
+image: Intel.png
+tags:
+  - ax101
+  - OpenWrt
+  - PVE
+draft: false
 ---
+
 # 前情摘要
+
 AX101是一款Intel板载无线网卡，它本质上是一个射频模块，并不是完整网卡，接口协议是CNVio2，所以它并不是完整的PCIe网卡。
 
 在我PVE虚拟化的OpenWrt(ImmortalWrt_24.10.4)版本中，搭配`kmod`：`kmod-iwlwifi`和`iwlwifi-firmware-ax101`，出现的问题是网卡能扫描到Wi-Fi，但是无法连接，经AI分析后，判断出现兼容性问题。
 
 据此，有了这篇曲线救国的文章，主要是两套方案：
+
 1. 通过PVE系统上网，然后搭建虚拟网桥给OpenWrt系统作为Wan口。
 2. 通过OpenWrt系统底层上网，然后加入防火墙的Wan口
 
 # PVE联网+虚拟网桥WAN口(推荐)
+
 通过手机USB共享网络给PVE，这一步主要是为了更新APT并获取`network-manager`，打开PVE的Shell：
+
 ```bash
 # 列出网卡设备
 ip a
@@ -33,7 +42,9 @@ apt install network-manager -y
 # 编辑PVE网络配置
 nano /etc/network/interfaces
 ```
+
 你会看到的interfaces如下，需要删除一些字段，必要时请备份：
+
 ```ini
 ...
 # 删除gateway网关，第4行前的“--”表示删除该行
@@ -55,7 +66,9 @@ nano /etc/network/interfaces
 ++          post-down iptables -t nat -D POSTROUTING -s '10.10.10.0/24' -o wlo1 -j MASQUERADE
 ...
 ```
+
 然后`Ctrl+X`退出编辑，按`Y`保存，`Enter`退出即可，回到Shell，继续：
+
 ```bash
 # 重启PVE网络
 systemctl restart networking
@@ -92,9 +105,11 @@ nmcli device status
 nmcli device wifi rescan
 nmcli device wifi connect "<wifi-name>"
 ```
+
 现在回到PVE面板，给OpenWrt系统硬件中，添加网络设备`vmbr1`虚拟网桥，注意取消掉PVE的 **防火墙**，随后重启OpenWrt。
 
 然后设置OpenWrt的Wan口(网络 -> 接口)：
+
 - 接口名称：wan
 - 接口协议：静态地址
 - 设备：选择`eth1`(通常来说是)
@@ -106,7 +121,9 @@ nmcli device wifi connect "<wifi-name>"
 - 自定义DNS：`223.5.5.5`、`223.6.6.6`（阿里云公共DNS）
 
 # OpenWrt-SSH上网
+
 通过SSH连接OpenWrt系统：
+
 ```bash
 # 1. 自动寻找 wan 防火墙区域，并将 wlan0 强行注入
 for i in $(seq 0 5); do
@@ -173,5 +190,3 @@ wifi config
 # 安装和卸载之后均需重启
 reboot
 ```
-
-
