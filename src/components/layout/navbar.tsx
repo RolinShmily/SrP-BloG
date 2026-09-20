@@ -94,7 +94,7 @@ export function Navbar() {
   // Plain text items: no pill background, only a colour shift plus a 4px dot
   // marking the current page.
   const navLinkClass =
-    "relative inline-flex items-center gap-0.5 px-3 py-2 text-xs font-medium transition-colors hover:text-primary";
+    "relative inline-flex items-center gap-0.5 px-3 py-2 text-xs font-medium font-mono transition-colors hover:text-primary";
 
   return (
     <header
@@ -205,7 +205,7 @@ export function Navbar() {
             <div className="rounded-xl border border-border bg-background p-2 shadow-sm">
               {siteConfig.nav.map((item) => {
                 const active = !item.external && isLinkActive(item.href);
-                const itemClass = `flex w-full items-center justify-end gap-1 px-3 py-2 text-right text-sm font-medium transition-colors hover:text-primary ${
+                const itemClass = `flex w-full items-center justify-end gap-1 px-3 py-2 text-right text-sm font-medium font-mono transition-colors hover:text-primary ${
                   active ? "text-foreground" : "text-muted-foreground"
                 }`;
 
@@ -239,7 +239,7 @@ export function Navbar() {
 
               <Link
                 href="/archives#search"
-                className="flex w-full items-center justify-end gap-1.5 px-3 py-2 text-right text-sm font-medium transition-colors hover:text-primary text-muted-foreground"
+                className="flex w-full items-center justify-end gap-1.5 px-3 py-2 text-right text-sm font-medium font-mono transition-colors hover:text-primary text-muted-foreground"
                 onClick={() => {
                   setMobileMenuOpen(false);
                   if (pathname === "/archives") {

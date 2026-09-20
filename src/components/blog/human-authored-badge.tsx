@@ -19,7 +19,7 @@ export function HumanAuthoredBadge({ className }: HumanAuthoredBadgeProps) {
   return (
     <div
       className={cn(
-        "group inline-flex shrink-0 items-center gap-2.5 rounded-lg border border-border/70 bg-muted/30 px-3 py-1.5 shadow-xs select-none transition-all duration-200 hover:border-[#f75c7e]/40 hover:bg-[#f75c7e]/5",
+        "group inline-flex shrink-0 items-center gap-2.5 rounded-lg border border-border/70 bg-muted/30 px-3 py-1.5 shadow-xs select-none font-mono transition-all duration-200 hover:border-[#f75c7e]/40 hover:bg-[#f75c7e]/5",
         className
       )}
       title={`${t.post.humanAuthored} · ${t.post.notAiGenerated}`}

@@ -51,8 +51,8 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["system-ui", "-apple-system", "sans-serif"],
-        mono: ["ui-monospace", "monospace"],
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"],
       },
       /*
        * Secondary-text step, sitting between `xs` (12px) and `sm` (14px).

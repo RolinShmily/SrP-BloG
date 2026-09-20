@@ -117,7 +117,7 @@ export function SponsorList({ sponsors, progressMax = 520 }: SponsorListProps) {
                     className="h-8 w-8 shrink-0 rounded-lg object-cover"
                   />
                 )}
-                <span className="line-clamp-1 font-medium text-foreground">{sponsor.name}</span>
+                <span className="line-clamp-1 font-medium text-foreground font-mono">{sponsor.name}</span>
               </div>
 
               <div className="text-xs text-muted-foreground">

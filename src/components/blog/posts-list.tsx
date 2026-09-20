@@ -47,7 +47,7 @@ export function PostsList({ posts, pageSize = siteConfig.postsPerPage ?? 8 }: Po
             {posts.length} {t.stats.posts}
           </Badge>
         </div>
-        <div className="text-meta text-muted-foreground">
+        <div className="text-meta text-muted-foreground font-mono">
           {t.pagination.page.replace("{page}", String(currentPage))} /{" "}
           {t.pagination.of.replace("{total}", String(totalPages || 1))}
         </div>
@@ -78,7 +78,7 @@ export function PostsList({ posts, pageSize = siteConfig.postsPerPage ?? 8 }: Po
             size="sm"
             disabled={currentPage === 1}
             onClick={() => handlePageChange(currentPage - 1)}
-            className="h-8 gap-1 px-2.5 text-meta"
+            className="h-8 gap-1 px-2.5 text-meta font-mono"
           >
             <ChevronLeft className="h-3.5 w-3.5" />
             <span>{t.pagination.prev}</span>
@@ -109,7 +109,7 @@ export function PostsList({ posts, pageSize = siteConfig.postsPerPage ?? 8 }: Po
             size="sm"
             disabled={currentPage === totalPages}
             onClick={() => handlePageChange(currentPage + 1)}
-            className="h-8 gap-1 px-2.5 text-meta"
+            className="h-8 gap-1 px-2.5 text-meta font-mono"
           >
             <span>{t.pagination.next}</span>
             <ChevronRight className="h-3.5 w-3.5" />

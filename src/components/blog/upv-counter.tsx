@@ -215,7 +215,7 @@ export function UPVCounter({
 			)}
 			<span
 				className={cn(
-					"inline-flex items-center gap-1 text-xs tabular-nums text-muted-foreground",
+					"inline-flex items-center gap-1 text-xs tabular-nums text-muted-foreground font-mono",
 					className,
 				)}
 			>

@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import Script from "next/script";
-import { Instrument_Serif } from "next/font/google";
+import {
+  Instrument_Serif,
+  Inter,
+  JetBrains_Mono,
+  Noto_Sans_SC,
+} from "next/font/google";
 import { LocaleProvider } from "@/i18n/locale-provider";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
@@ -15,12 +20,18 @@ import { siteConfig } from "@/config/site";
 import "./globals.css";
 
 /**
- * Display serif for the nav wordmark only.
+ * Four-font type system (all self-hosted by `next/font` at build time — no
+ * runtime request to Google, which matters for a site read from mainland
+ * China):
  *
- * The body stack resolves to the platform UI font, which has no editorial
- * character of its own. This adds a real serif with a genuine italic for the
- * brand, and `next/font` self-hosts it at build time — no runtime request
- * to Google, which matters for a site read from mainland China.
+ * - `--font-latin`   Inter          — Latin body/prose text
+ * - `--font-cjk-sc`  Noto Sans SC   — all Chinese text (Source Han Sans)
+ * - `--font-mono-latin` JetBrains Mono — Latin/digits in code and UI chrome
+ * - `--font-display` Instrument Serif — brand-only serif (nav wordmark)
+ *
+ * These four variables are composed into the real stacks (`--font-sans`,
+ * `--font-mono`) in `globals.css`, where CJK falls back per-glyph: a Latin
+ * string resolves to Inter/JetBrains Mono, a Han string to Noto Sans SC.
  */
 const displaySerif = Instrument_Serif({
   subsets: ["latin"],
@@ -28,6 +39,28 @@ const displaySerif = Instrument_Serif({
   style: ["normal", "italic"],
   display: "swap",
   variable: "--font-display",
+});
+
+const bodyLatin = Inter({
+  subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
+  variable: "--font-latin",
+});
+
+const bodyChinese = Noto_Sans_SC({
+  subsets: ["latin"],
+  weight: "variable",
+  display: "swap",
+  variable: "--font-cjk-sc",
+});
+
+const monoLatin = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: "variable",
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-mono-latin",
 });
 
 export const metadata: Metadata = {
@@ -112,7 +145,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-CN" data-locale="zh" className={displaySerif.variable} suppressHydrationWarning>
+    <html
+      lang="zh-CN"
+      data-locale="zh"
+      className={`${displaySerif.variable} ${bodyLatin.variable} ${bodyChinese.variable} ${monoLatin.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: LOCALE_INIT_SCRIPT }} />
         <link

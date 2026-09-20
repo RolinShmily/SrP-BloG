@@ -45,6 +45,7 @@ export type TechIcon =
   | "github-actions"
   | "google-analytics"
   | "google-search"
+  | "google-fonts"
   | "bing"
   | "indexnow";
 
@@ -368,6 +369,7 @@ export const siteConfig = {
     { name: "GitHub Actions", url: "https://github.com/features/actions", icon: "github-actions" },
     { name: "Google Analytics", url: "https://analytics.google.com/", icon: "google-analytics" },
     { name: "Google Search", url: "https://search.google.com/search-console", icon: "google-search" },
+    { name: "Google Fonts", url: "https://fonts.google.com/", icon: "google-fonts" },
     { name: "Bing Webmaster", url: "https://www.bing.com/webmasters", icon: "bing" },
     { name: "IndexNow", url: "https://www.indexnow.org/", icon: "indexnow" },
   ] as TechItem[],

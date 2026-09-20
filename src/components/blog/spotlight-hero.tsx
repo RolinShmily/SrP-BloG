@@ -38,7 +38,7 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
 
       <div className="relative z-10 flex flex-col gap-3 p-6 sm:p-8 sm:pe-[38%]">
         {/* Top row: pinned flag, date, tags */}
-        <div className="flex flex-wrap items-center gap-2 text-meta">
+        <div className="flex flex-wrap items-center gap-2 text-meta font-mono">
           <Badge variant="secondary" className="gap-1 px-2 py-0.5 text-xs font-medium">
             <Pin className="h-3 w-3 text-[#f75c7e]" />
             <T zh={dictionaries.zh.post.pinned} en={dictionaries.en.post.pinned} />
@@ -86,7 +86,7 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
         )}
 
         {/* Meta stats */}
-        <div className="flex flex-wrap items-center gap-3 pt-1 text-meta text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-3 pt-1 text-meta text-muted-foreground font-mono">
           <span className="inline-flex items-center gap-1">
             <FileText className="h-3.5 w-3.5" />
             <T zh={formatWordCount(post.wordCount, "zh")} en={formatWordCount(post.wordCount, "en")} />

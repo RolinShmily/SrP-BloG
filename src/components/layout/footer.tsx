@@ -52,7 +52,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-transparent text-muted-foreground text-sm transition-colors mt-auto">
+    <footer className="bg-transparent text-muted-foreground text-sm font-mono transition-colors mt-auto">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
         {/* Top row: Quick links, Centered Travellings badge & Socials */}
         <div className="flex flex-col lg:grid lg:grid-cols-[1fr_auto_1fr] items-center gap-4">

@@ -57,7 +57,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
         )}
       >
         {/* Meta line: pinned flag, date, tags */}
-        <div className="flex flex-wrap items-center gap-2 text-meta">
+        <div className="flex flex-wrap items-center gap-2 text-meta font-mono">
           {post.pinned && (
             <Badge variant="secondary" className="gap-1 px-1.5 py-0 text-xs font-medium">
               <Pin className="h-3 w-3 text-[#f75c7e]" />
@@ -112,7 +112,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
         )}
 
         {/* Meta footer: word count, reading time */}
-        <div className="flex flex-wrap items-center gap-2.5 pt-1 text-meta text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-2.5 pt-1 text-meta text-muted-foreground font-mono">
           <span className="inline-flex items-center gap-1">
             <FileText className="h-3.5 w-3.5" />
             <T

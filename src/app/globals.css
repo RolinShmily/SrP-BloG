@@ -26,6 +26,20 @@
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
 
+  /* Font stacks (single source of truth — see layout.tsx for the loader)
+     ------------------------------------------------------------------
+     - --font-sans:  body/prose. Latin → Inter, Han → Noto Sans SC (per-glyph
+       fallback), system first-aid as a final safety net.
+     - --font-mono:  code + UI chrome. Latin/digits → JetBrains Mono, Han →
+       Noto Sans SC, then ui-monospace so shortfall never strands a glyph.
+     - --font-display: Instrument Serif, brand only. */
+  --font-sans: var(--font-latin), var(--font-cjk-sc), system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", sans-serif;
+  --font-mono: var(--font-mono-latin), var(--font-cjk-sc), ui-monospace,
+    "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", "Courier New",
+    "PingFang SC", "Microsoft YaHei", monospace;
+
   /* Signature Pink Accent Tokens (mirrored from www.srprolin.top) */
   --accent-pink: #f75c7e;
   --accent-bright: #ff7eb3;
@@ -113,13 +127,13 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family: var(--font-sans);
     min-height: 100vh;
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   code, pre, kbd, samp {
-    font-family: ui-monospace, monospace;
+    font-family: var(--font-mono);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -212,7 +226,7 @@
     overflow-x: auto;
     font-size: 0.875rem;
     line-height: 1.65;
-    font-family: ui-monospace, monospace;
+    font-family: var(--font-mono);
   }
 
   /* Light / Dark Dual Theme Shiki colors */
@@ -323,7 +337,7 @@
 
   /* Author name kept on a monospace stack for the fixed-width wordmark */
   .site-brand-author {
-    font-family: ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-weight: 500;
     letter-spacing: -0.01em;
     color: hsl(var(--foreground));
@@ -483,7 +497,7 @@
   }
 
   .code-lang-label {
-    font-family: ui-monospace, monospace;
+    font-family: var(--font-mono);
     font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.06em;
@@ -838,7 +852,7 @@
     padding: 0.15rem 0.35rem;
     border-radius: calc(var(--radius) - 2px);
     font-size: 0.875em;
-    font-family: ui-monospace, monospace;
+    font-family: var(--font-mono);
   }
 
   /* Strip tailwindcss/typography default backtick quotes around inline code */
@@ -1194,6 +1208,7 @@
    --------------------------------------------------------------------------- */
 .stroke-year {
   color: transparent;
+  font-family: var(--font-mono);
   -webkit-text-stroke: 2px rgba(113, 113, 122, 0.24);
   text-stroke: 2px rgba(113, 113, 122, 0.24);
   user-select: none;

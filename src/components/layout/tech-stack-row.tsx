@@ -16,6 +16,7 @@ import {
   GitHubActionsIcon,
   GoogleAnalyticsIcon,
   GoogleSearchConsoleIcon,
+  GoogleFontsIcon,
   BingIcon,
   IndexNowIcon,
 } from "@/components/icons/brands";
@@ -34,6 +35,7 @@ const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
   "github-actions": GitHubActionsIcon,
   "google-analytics": GoogleAnalyticsIcon,
   "google-search": GoogleSearchConsoleIcon,
+  "google-fonts": GoogleFontsIcon,
   bing: BingIcon,
   indexnow: IndexNowIcon,
 };
@@ -51,7 +53,7 @@ function renderItem(item: TechItem, keyPrefix = "") {
       className="inline-flex items-center gap-1.5 text-xs text-muted-foreground/60 hover:text-foreground grayscale hover:grayscale-0 transition-all opacity-70 hover:opacity-100 shrink-0 px-2 py-1 rounded-md hover:bg-muted/40"
     >
       <Icon className="h-3.5 w-3.5 shrink-0" />
-      <span className="font-medium whitespace-nowrap">{item.name}</span>
+      <span className="font-medium whitespace-nowrap font-mono">{item.name}</span>
     </a>
   );
 }

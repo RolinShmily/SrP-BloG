@@ -72,7 +72,7 @@ export function ArticleCopyright({ post }: ArticleCopyrightProps) {
             {fields.map((field) => (
               <div key={field.label} className="flex flex-col gap-0.5">
                 <dt className="text-xs text-muted-foreground">{field.label}</dt>
-                <dd className="text-meta text-foreground">
+                <dd className="text-meta text-foreground font-mono">
                   {field.href ? (
                     <a
                       href={field.href}
@@ -104,7 +104,7 @@ export function ArticleCopyright({ post }: ArticleCopyrightProps) {
             aria-label={t.post.copyLink}
             title={copied ? t.post.linkCopied : t.post.copyLink}
             className={cn(
-              "inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1.5 text-xs transition-colors",
+              "inline-flex items-center gap-1.5 rounded-full bg-muted px-2.5 py-1.5 text-xs transition-colors font-mono",
               copied
                 ? "text-[#f75c7e]"
                 : "text-muted-foreground hover:text-foreground"

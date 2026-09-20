@@ -45,7 +45,7 @@ export function MobileToc({ toc }: TocProps) {
         className="w-full flex items-center justify-between p-3.5 text-xs font-medium text-foreground hover:bg-muted/50 transition-colors"
         aria-expanded={mobileExpanded}
       >
-        <span className="uppercase tracking-[0.12em] text-xs text-muted-foreground">
+        <span className="uppercase tracking-[0.12em] text-xs text-muted-foreground font-mono">
           {t.post.tableOfContents}
         </span>
         <span className="flex items-center gap-2 text-muted-foreground">
@@ -177,7 +177,7 @@ export function DesktopToc({ toc }: TocProps) {
     // could only travel within the aside's own (short) height and would scroll
     // away with the header.
     <aside className="sticky top-20 hidden max-h-[calc(100vh-6rem)] w-60 shrink-0 overflow-y-auto xl:block">
-      <p className="mb-4 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <p className="mb-4 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground font-mono">
         {t.post.tableOfContents}
       </p>
 

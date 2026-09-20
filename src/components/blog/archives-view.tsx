@@ -178,9 +178,9 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
               <BookOpen className="h-3.5 w-3.5" />
               <span>{t.stats.totalPosts}</span>
             </div>
-            <div className="text-2xl font-semibold tracking-tight text-foreground">
+            <div className="text-2xl font-semibold tracking-tight text-foreground font-mono">
               {stats.totalPosts}{" "}
-              <span className="text-xs font-normal text-muted-foreground">{t.stats.posts}</span>
+              <span className="text-xs font-normal text-muted-foreground font-sans">{t.stats.posts}</span>
             </div>
           </CardContent>
         </Card>

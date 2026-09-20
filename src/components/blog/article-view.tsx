@@ -105,7 +105,7 @@ export function ArticleView({ post }: ArticleViewProps) {
           )}
 
           {/* Provenance line: pinned flag, dates, effort, readership and tags */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-meta text-muted-foreground">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-meta text-muted-foreground font-mono">
             {post.pinned && (
               <Badge variant="secondary" className="gap-1 px-1.5 py-0 text-xs font-medium">
                 <Pin className="h-3 w-3 text-[#f75c7e]" />

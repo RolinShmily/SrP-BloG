@@ -121,7 +121,7 @@ export function TagsView({ posts, tags }: TagsViewProps) {
         className="section-animate-in space-y-3"
         style={{ "--section-index": 1 } as React.CSSProperties}
       >
-        <div className="flex items-center justify-between text-xs text-muted-foreground uppercase tracking-wider">
+        <div className="flex items-center justify-between text-xs text-muted-foreground uppercase tracking-wider font-mono">
           <div className="flex items-center gap-2 font-semibold">
             <Tag className="h-3.5 w-3.5 text-[#f75c7e]" />
             <span>
@@ -159,7 +159,7 @@ export function TagsView({ posts, tags }: TagsViewProps) {
                   onClick={() => handleToggleTag(tag.name)}
                   style={{ fontSize: `${scale}rem` }}
                   className={cn(
-                    "apple-float-chip inline-flex items-center rounded-2xl px-[0.85em] py-[0.4em] font-medium transition-all duration-200 cursor-pointer select-none",
+                    "apple-float-chip inline-flex items-center rounded-2xl px-[0.85em] py-[0.4em] font-medium font-mono transition-all duration-200 cursor-pointer select-none",
                     isSelected
                       ? "border-2 border-[#f75c7e] bg-[#f75c7e]/[0.12] text-[#f75c7e] dark:text-[#f75c7e] shadow-[0_0_0_1px_rgba(247,92,126,0.35)] scale-105 font-semibold"
                       : "border border-border/80 bg-background/80 text-muted-foreground hover:text-foreground hover:border-border hover:bg-muted/40"
