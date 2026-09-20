@@ -54,6 +54,9 @@ services:
       SECURE_DOMAINS: "<WALINE_DOMAIN>,<BLOG_DOMAIN>"
       # 博主邮箱 (使用此邮箱在 /ui/register 注册的首个账号将自动获得最高管理权限)
       AUTHOR_EMAIL: "<ADMIN_EMAIL>"
+      # （可选）飞书机器人通知
+      # LARK_WEBHOOK: "https://open.feishu.cn/open-apis/bot/v2/hook/<你的hook_id>"
+      # LARK_SECRET: "<创建机器人时的签名密钥>"
 ```
 
 修改一些必要的字段后，需要初始化一段SQlite数据库，可以借助python脚本来完成:
