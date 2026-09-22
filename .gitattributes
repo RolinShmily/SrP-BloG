@@ -1,0 +1,15 @@
+# 行尾统一为 LF：本仓库同时从 Windows 与 Linux 提交，避免整文件 CRLF 抖动。
+* text=auto eol=lf
+
+# 二进制资源不做文本/行尾转换
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.pdf   binary
