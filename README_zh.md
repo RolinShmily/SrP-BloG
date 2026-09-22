@@ -42,9 +42,10 @@
 ├── CODE_OF_CONDUCT.md    # 行为准则 (Contributor Covenant 2.1)
 ├── CONTRIBUTING.md       # 贡献指南 (友链、勘误、代码、提交前检查)
 ├── SECURITY.md           # 安全政策与漏洞报告渠道
-├── LICENSE               # MIT 源码许可 + 授权范围说明 (文章/字体/第三方不在其内)
+├── LICENSE               # MIT 源码许可（保持原文，便于 GitHub 识别）
 ├── licenses/             # 第三方许可证原文 (MIT/Apache-2.0/ISC/BSD/OFL-1.1/CC-BY-4.0)
-└── .github/workflows/   # CI/CD 自动化 (部署、IndexNow、友链校验)
+├── Notice.md             # 授权范围说明 (文章/字体/第三方不在 MIT 内)
+└── .github/workflows/    # CI/CD 自动化 (部署、IndexNow、友链校验)
 ```
 
 ---
@@ -149,21 +150,17 @@ npm run db:migrate:list             # 查看迁移状态
 
 ## 📄 开源协议与致谢
 
-- 博客源码基于 **[MIT License](./LICENSE)** 开源；**授权范围以 [`LICENSE` 末尾的「授权范围说明」](./LICENSE) 为准** —— 文章内容、Web 字体与第三方组件不在 MIT 范围内。
+- 博客源码基于 **[MIT License](./LICENSE)** 开源；授权范围见 **[授权范围说明](./Notice.md)** —— 文章内容、Web 字体与第三方组件不在 MIT 范围内。
 - 博客原创文章与内容采用 **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)** 许可。
 - 参考并致谢（界面设计参考，未搬运源码）：[cworld1/astro-theme-pure](https://github.com/cworld1/astro-theme-pure)（Apache-2.0）、[Dancncn/DansBlog](https://github.com/Dancncn/DansBlog)（MIT）、[antfu/antfu.me](https://github.com/antfu/antfu.me)（MIT）。
 
 ### 第三方组件
 
-声明的义务来自"**实际分发的作品**"，所以这里只列真正触发义务的部分：
-
-- **随站点分发的第三方代码**（打包进 `out/` 的 JS）：notice 由 [`scripts/generate-third-party-licenses.ts`](./scripts/generate-third-party-licenses.ts) 在构建期生成到 `public/third-party-licenses.txt`，部署后即 [`/third-party-licenses.txt`](/third-party-licenses.txt)。它**逐包携带上游版权行**（MIT / ISC / BSD 要求"随每一份副本携带版权声明与许可"），并附全部许可原文。因为是生成的，不会随依赖升级而过期。
-- **许可原文**（逐字、未改写）：[`licenses/`](./licenses/)。
-- **仅构建期出现、不随产物分发的组件**（`devDependencies`、`sharp`/libvips 等平台二进制、`caniuse-lite` 这类构建期数据）不触发任何分发义务，故不在此声明。需要时用 `pnpm licenses list --prod --no-optional` 查看完整清单。
+随站点分发的第三方代码由 [`scripts/generate-third-party-licenses.ts`](./scripts/generate-third-party-licenses.ts) 在构建期生成声明到 `public/third-party-licenses.txt`（即 [`/third-party-licenses.txt`](/third-party-licenses.txt)），逐包携带上游版权行与全部许可原文；原文另存于 [`licenses/`](./licenses/)。仅构建期出现、不随产物分发的组件（`devDependencies`、`sharp`/libvips 等平台二进制、`caniuse-lite` 这类构建期数据）不触发分发义务，不在声明之列。
 
 ### Web 字体（OFL-1.1，随产物分发）
 
-字体是本站**唯一以二进制形式分发**的第三方作品，OFL-1.1 第 2 条要求"每一份副本都包含上述版权声明和本许可证"，因此必须署名：
+字体是本站唯一以二进制形式分发的第三方作品，OFL-1.1 第 2 条要求每一份副本都包含版权声明与本许可证，故必须署名：
 
 | 字体 | 用途 | 版权行 |
 | --- | --- | --- |
@@ -173,4 +170,4 @@ npm run db:migrate:list             # 查看迁移状态
 | [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif) | 品牌展示衬线 | Copyright (c) 2022 The Instrument Serif Project Authors |
 | **KaTeX 字体**（20 款 × `ttf`/`woff`/`woff2` = 60 个文件） | 数学公式渲染，随 `katex/dist/katex.min.css` 分发 | Copyright (c) 2009-2010, Design Science, Inc. (www.mathjax.org)；Copyright (c) 2014 Khan Academy — **with Reserved Font Name `KaTeX_Main`** 等 |
 
-KaTeX 字体随 `katex` 包发布（该 npm 包声明 MIT），但**字体二进制**依字体自身元数据以 OFL-1.1 授权（上游确认：[KaTeX/KaTeX#339](https://github.com/KaTeX/KaTeX/issues/339)）。上游没有单独的字体许可文件，故在此显式登记，避免被误认为 MIT 覆盖。
+KaTeX 字体随 `katex` 包发布（该包声明 MIT），但字体二进制依自身元数据以 OFL-1.1 授权（上游确认：[KaTeX/KaTeX#339](https://github.com/KaTeX/KaTeX/issues/339)），故在此显式登记。

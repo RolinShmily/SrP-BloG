@@ -42,9 +42,10 @@
 ├── CODE_OF_CONDUCT.md    # Code of conduct (Contributor Covenant 2.1)
 ├── CONTRIBUTING.md       # Contribution guide (friend links, corrections, code, pre-submit checks)
 ├── SECURITY.md           # Security policy and vulnerability reporting
-├── LICENSE               # MIT source license + scope note (posts/fonts/3rd-party excluded)
+├── LICENSE               # MIT source license (kept verbatim so GitHub detects it)
 ├── licenses/             # Verbatim third-party license texts (MIT/Apache-2.0/ISC/BSD/OFL-1.1/CC-BY-4.0)
-└── .github/workflows/   # CI/CD automation (deploy, IndexNow, friend-link PR checks)
+├── Notice.md             # Scope of the license (posts/fonts/3rd-party excluded)
+└── .github/workflows/    # CI/CD automation (deploy, IndexNow, friend-link PR checks)
 ```
 
 ---
@@ -144,21 +145,17 @@ Other ways to contribute (article corrections, code and UI improvements) and the
 
 ## 📄 License & Acknowledgments
 
-- Source code is released under the **[MIT License](./LICENSE)**; **its exact scope is defined by the "Scope of this license" note at the end of [`LICENSE`](./LICENSE)** — articles, web fonts and third-party components are not covered by it.
+- Source code is released under the **[MIT License](./LICENSE)**; its scope is defined by the **[license notice](./Notice.md)** — articles, web fonts and third-party components are not covered by it.
 - Original blog posts and media are licensed under **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)**.
 - Referenced and credited (UI design reference; no source file was copied): [cworld1/astro-theme-pure](https://github.com/cworld1/astro-theme-pure) (Apache-2.0), [Dancncn/DansBlog](https://github.com/Dancncn/DansBlog) (MIT), [antfu/antfu.me](https://github.com/antfu/antfu.me) (MIT).
 
 ### Third-party components
 
-An obligation exists only for what is **actually distributed**, so only that is declared here:
-
-- **Third-party code distributed with the site** (bundled into `out/`): the notice is generated at build time by [`scripts/generate-third-party-licenses.ts`](./scripts/generate-third-party-licenses.ts) into `public/third-party-licenses.txt`, served as [`/third-party-licenses.txt`](/third-party-licenses.txt). It carries **each package's upstream copyright line** (MIT / ISC / BSD require "the above copyright notice and this permission notice shall be included in all copies") plus every verbatim license text. Because it is generated, it cannot go stale when dependencies are upgraded.
-- **Verbatim license texts** (unmodified): [`licenses/`](./licenses/).
-- **Build-time-only components** (`devDependencies`, platform binaries such as `sharp`/libvips, build-time data such as `caniuse-lite`) are never distributed and trigger no obligation, so they are not declared here. For the full list run `pnpm licenses list --prod --no-optional`.
+Third-party code distributed with the site gets its notice generated at build time by [`scripts/generate-third-party-licenses.ts`](./scripts/generate-third-party-licenses.ts) into `public/third-party-licenses.txt` (served as [`/third-party-licenses.txt`](/third-party-licenses.txt)), carrying each package's upstream copyright line plus every verbatim license text; the texts are also kept in [`licenses/`](./licenses/). Build-time-only components (`devDependencies`, platform binaries such as `sharp`/libvips, build-time data such as `caniuse-lite`) are never distributed and trigger no obligation, so they are not declared.
 
 ### Web fonts (OFL-1.1, distributed with the site)
 
-Fonts are the only third-party works this site distributes **as binaries**, and clause 2 of the OFL-1.1 requires that "each copy contains the above copyright notice and this license" — so they must be credited:
+Fonts are the only third-party works this site distributes as binaries, and clause 2 of the OFL-1.1 requires each copy to contain the copyright notice and the license — so they must be credited:
 
 | Font | Role | Copyright line |
 | --- | --- | --- |
@@ -168,4 +165,4 @@ Fonts are the only third-party works this site distributes **as binaries**, and 
 | [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif) | brand-only display serif | Copyright (c) 2022 The Instrument Serif Project Authors |
 | **KaTeX fonts** (20 faces × `ttf`/`woff`/`woff2` = 60 files) | math rendering, shipped with `katex/dist/katex.min.css` | Copyright (c) 2009-2010, Design Science, Inc. (www.mathjax.org); Copyright (c) 2014 Khan Academy — **with Reserved Font Name `KaTeX_Main`** and others |
 
-The KaTeX fonts are published together with the `katex` npm package (whose `license` field says MIT), but the **font binaries** are licensed under OFL-1.1 according to the fonts' own metadata (upstream confirmation: [KaTeX/KaTeX#339](https://github.com/KaTeX/KaTeX/issues/339)). Upstream ships no separate font license file, so it is recorded explicitly here rather than being silently assumed to be MIT.
+The KaTeX fonts ship with the `katex` npm package (whose `license` field says MIT), but the font binaries are OFL-1.1 per the fonts' own metadata (upstream: [KaTeX/KaTeX#339](https://github.com/KaTeX/KaTeX/issues/339)), so they are recorded explicitly here.
