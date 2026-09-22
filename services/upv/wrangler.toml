@@ -37,8 +37,18 @@ database_id = "427d66da-2ae5-43ff-8680-83f9065a9e64"
 migrations_dir = "migrations"
 
 [vars]
-# Restrict this in production, e.g. "https://blog.example.com,https://www.blog.example.com".
-ALLOWED_ORIGINS = "*"
+# Narrowed from "*" to the blog's only origin. Evidence (2026-09-22):
+#   * `blog.srprolin.top` is the sole origin serving the blog (207 KB, has /_next/).
+#   * `www.srprolin.top` is a DIFFERENT site (title RoL1n_SrP, no /_next/), and the
+#     apex 301-redirects to it — neither calls this API.
+#   * The blog's workers.dev hostname is unpublished (HTTP 000).
+# Local dev origins belong in `.dev.vars` (see .dev.vars.example), NOT here:
+# listing localhost would let any page on a developer's localhost:3000 call this API.
+#
+# A wrong value fails SILENTLY — the client swallows the CORS TypeError and renders
+# every counter as 0 (src/lib/upv/client.ts), the same symptom as the workers.dev
+# hostname incident. Verify after every change: see services/upv/README.md §CORS.
+ALLOWED_ORIGINS = "https://blog.srprolin.top"
 # 0 = disabled. A Worker may have several live isolates, so in-memory
 # throttling is best-effort only; use Cloudflare Rate Limiting rules instead.
 THROTTLE_WINDOW_MS = "0"

@@ -195,6 +195,33 @@ GET, POST, OPTIONS`, `access-control-allow-headers: content-type, accept` and
 `access-control-max-age: 86400`. When the allow-list is not `*`, the matching
 origin is echoed and `vary: origin` is set.
 
+Production pins the blog's only origin in `wrangler.toml`, narrowed from `*` on
+2026-09-22; local dev origins belong in `.dev.vars` instead, so a developer's
+`localhost:3000` is never reachable from a deployed page.
+
+What the allow-list buys, precisely (verified in a real browser):
+
+* `POST /api/hit` carries `content-type: application/json`, so it is **not** a
+  simple request — the browser preflights it. A disallowed origin gets `204`
+  with no ACAO, and the browser then **never sends the POST**, so a third-party
+  page cannot inflate counters from a visitor's browser. Verified end to end:
+  the POST was blocked (`net::ERR_FAILED`) and the target path stayed at `0`
+  views in D1.
+* `GET /api/stats` **is** a simple request, so it is still sent — only the
+  *response* is withheld. Read-only, so nothing is lost.
+* CORS is enforced by the browser only; `curl`, scripts and bots ignore it
+  entirely. Edge rate limiting remains the real control (see "Abuse handling").
+
+A wrong value fails **silently** — the client swallows the CORS `TypeError` and
+renders every counter as `0` — so re-verify after any change:
+
+```bash
+# allowed origin is echoed, not "*"
+curl -sD- -o /dev/null -H "Origin: https://blog.srprolin.top" https://stats.srprolin.top/api/health | grep -i access-control-allow-origin
+# a foreign origin gets no ACAO at all
+curl -sD- -o /dev/null -H "Origin: https://evil.example"      https://stats.srprolin.top/api/health | grep -i access-control-allow-origin
+```
+
 ### Abuse handling (honest limits)
 
 * **Bot filter** — a keyword match on the User-Agent (`bot`, `crawler`,
@@ -337,12 +364,13 @@ npx wrangler d1 execute srp-blog-stats --remote \
 > curl -s https://<whatever-host>/api/health   # expect {"ok":true,...}
 > ```
 
-Production `[vars]` live in `wrangler.toml`; `ALLOWED_ORIGINS` should be
-narrowed from `*` to the blog's origin before launch, e.g.
+Production `[vars]` live in `wrangler.toml`. `ALLOWED_ORIGINS` is pinned to the
+blog's origin (see §CORS for what that does and does not protect); a fork should
+narrow it the same way, e.g.
 
 ```toml
 [vars]
-ALLOWED_ORIGINS = "https://blog.example.com,https://www.blog.example.com"
+ALLOWED_ORIGINS = "https://blog.example.com"
 ```
 
 Bind a custom domain under Workers → Settings → Domains & Routes (e.g.
