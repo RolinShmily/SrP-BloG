@@ -3,13 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.5",
+    "pnpm": ">=11"
+  },
   "scripts": {
-    "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && next dev",
-    "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && next build",
+    "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && tsx scripts/generate-third-party-licenses.ts && next dev",
+    "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && tsx scripts/generate-third-party-licenses.ts && next build",
     "start": "next start",
     "lint": "next lint",
     "sync-assets": "tsx scripts/sync-post-assets.ts",
     "generate-search-index": "tsx scripts/generate-search-index.ts",
+    "generate-licenses": "tsx scripts/generate-third-party-licenses.ts",
     "generate-og-image": "tsx scripts/generate-og-image.ts",
     "new-post": "node scripts/new-post.js",
     "verify-content": "tsx scripts/verify-content.ts"

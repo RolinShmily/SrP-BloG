@@ -31,6 +31,9 @@ public/posts/
 # scripts/generate-search-index.ts — client-side search index
 public/search-index.json
 
+# scripts/generate-third-party-licenses.ts — third-party notices shipped with the site
+public/third-party-licenses.txt
+
 # ---------------------------------------------------------------------------
 # Dependencies
 # ---------------------------------------------------------------------------
