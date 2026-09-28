@@ -1,7 +1,8 @@
 ---
-title: 在Windows上使用MSYS2+MinGW工具链 | gcc | gdb | cmake | make | Ninja | VScode
+title: MSYS2+MinGW工具链搭建  VScode拓展推荐 | gcc | gdb | cmake | make | Ninja
 published: 2026-05-10
-description: 通过在Windows系统上安装MSYS2模拟Linux环境，并使用pacman包管理器安装MinGW版的gcc、gdb、cmake、make工具链，并使用VScode搭建有关C/Cpp、嵌入式Stm32的开发环境。
+pinned: false
+description: 通过在Windows系统上安装MSYS2模拟Linux环境，并使用pacman包管理器安装MinGW版的gcc、gdb、cmake、make工具链，并推荐一些vscode常用的拓展插件。
 image: ./2026-0510-1413.png
 tags:
   - MSYS2
@@ -12,6 +13,7 @@ tags:
   - Stm32
 draft: false
 ---
+
 # 相关链接
 - [MSYS2官方文档](https://www.msys2.org/)
 - [VScode官网](https://code.visualstudio.com/)
