@@ -17,7 +17,7 @@ draft: true
 - [Cmake](https://cmake.org/)
 - [VScode](https://code.visualstudio.com/)
 - [Qt Extensions](https://marketplace.visualstudio.com/items?itemName=TheQtCompany.qt)
-- [KDE frameworks](https://develop.kde.org/products/frameworks
+- [KDE frameworks](https://develop.kde.org/products/frameworks)
 
 # Qt Online Installer
 
@@ -41,3 +41,34 @@ Qt是一个开源工具，提供商业许可与开源许可，使用Qt的Online-
 ![](2026-09-28%20-162530.png)
 
 # VS2022-BuildTools
+
+- [vs_BuildTools.exe](https://download.visualstudio.microsoft.com/download/pr/bc92e2cb-33de-4a0c-995d-efa817f16b16/985969f472caad75d993a5cb4c35a6a4271460cc12b343e2433b994d173aa990/vs_BuildTools.exe)
+
+上面直链下载完成后，仅勾选MSVC编译器和Windows-SDK即可：
+
+![](%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-09-28%20162813.png)
+
+# Scoop (ninja+cmake)
+
+ 为了更快速的安装，可以对scoop软件仓库进行换源，先安装一下scoop：
+
+```pwsh
+# 官方安装命令
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
+
+# 添加main仓库源(替换为南大的软仓)
+scoop bucket add main https://mirror.nju.edu.cn/git/scoop-main.git
+scoop bucket add extras https://mirror.nju.edu.cn/git/scoop-extras.git
+scoop bucket add versions https://mirror.nju.edu.cn/git/scoop-versions.git
+scoop bucket add nerd-fonts https://mirror.nju.edu.cn/git/scoop-nerd-fonts.git
+
+# 社区仓库
+scoop bucket add dorado https://github.com/chawyehsu/dorado
+
+# 安装ninja和cmake
+scoop install ninja 
+scoop install cmake
+```
+
+# VScode Settings
