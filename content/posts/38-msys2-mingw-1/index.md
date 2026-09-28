@@ -1,8 +1,8 @@
 ---
-title: MSYS2+MinGW工具链搭建  VScode拓展推荐 | gcc | gdb | cmake | make | Ninja
+title: MSYS2+MinGW工具链搭建  VScode拓展推荐 | gcc | gdb | cmake | Ninja
 published: 2026-05-10
 pinned: false
-description: 通过在Windows系统上安装MSYS2模拟Linux环境，并使用pacman包管理器安装MinGW版的gcc、gdb、cmake、make工具链，并推荐一些vscode常用的拓展插件。
+description: 通过在Windows系统上安装MSYS2搭建类Unix环境，并使用pacman包管理器安装MinGW版的gcc、gdb、cmake、ninja工具链，并推荐一些vscode常用的拓展插件。
 image: ./2026-0510-1413.png
 tags:
   - MSYS2
@@ -15,18 +15,22 @@ draft: false
 ---
 
 # 相关链接
+
 - [MSYS2官方文档](https://www.msys2.org/)
 - [VScode官网](https://code.visualstudio.com/)
 
 # MSYS2+VScode安装与配置
+
 前往[MSYS2官方文档](https://www.msys2.org/)和[VScode官网](https://code.visualstudio.com/)下载安装包，并进行安装(推荐安装路径均为默认)。
 
 ![](./Snipaste_2026-05-10_13-17-10.png)
 
 ## VScode常用插件(拓展)与设置
+
 建议登录一个Microsoft微软或GitHub账户，用于开启**同步设置**，并在**默认配置文件**或**新建配置文件**中进行常用设置，后面根据语言可以新建配置文件复制通用配置，再安装对应的拓展，进行拓展分离。
 
 VScode设置(`settings.json`)文件内容：
+
 ```jsonc
 {
   // 自动保存文件
@@ -60,9 +64,11 @@ VScode设置(`settings.json`)文件内容：
   "debug.showBreakpointsInOverviewRuler": true,
 }
 ```
+
 ![](./Snipaste_2026-05-10_13-29-00.png)
 
 打开VScode设置(`Ctrl+,`)后，点击打开`json`文件，即可粘贴设置；下面是一些常用拓展：
+
 1. [Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-zh-hans)：简中语言包。
 ![](./Snipaste_2026-05-10_13-23-46.png)
 2. [Hex Editor](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)：16进制文件查看编辑器。
@@ -93,6 +99,7 @@ VScode设置(`settings.json`)文件内容：
 ## MSYS2集成终端
 
 在[MSYS2文档中](https://www.msys2.org/docs/ides-editors/)，提供了将MSYS2终端集成到VScode的方法，便是在`settings.json`文件中添加如下字段：
+
 ```jsonc
 // 注意最外层大括号已在settings.json中存在
 // 注意该配置的路径为默认安装路径
@@ -102,29 +109,35 @@ VScode设置(`settings.json`)文件内容：
             "path": "cmd.exe",
             "args": [
                 "/c",
-                "C:\\msys64\\msys2_shell.cmd -defterm -here -no-start -ucrt64"
+                "C:\msys64\msys2_shell.cmd -defterm -here -no-start -ucrt64"
             ]
         }
     }
 }
 ```
+
 随后便可在VScode中打开MSYS2终端, 除此之外也可以在Windows搜索中输入`ucrt`打开终端：
 
 ![](./Snipaste_2026-05-10_13-52-09.png)
 
 # C/C++环境配置
+
 打开MSYS2的UCRT64终端，输入如下命令安装工具链：
+
 ```bash
 # 编译器、调试器、构建系统、构建工具
-pacman -S mingw-w64-ucrt-x86_64-{gcc,gdb,cmake,ninja,make}
+pacman -S mingw-w64-ucrt-x86_64-toolchain
+pacman -S mingw-w64-ucrt-x86_64-cmake
+pacman -S mingw-w64-ucrt-x86_64-ninja
 # 版本检查
 gcc -v
 gdb -v
 cmake --version
 ninja --version
-mingw32-make --version
 ```
+
 打开VSCODE，创建配置文件，复制继承上文中的通用配置，随后激活后，在拓展中安装：
+
 - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 - [C/C++ Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack)
 - [C/C++ Themes](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-themes)
@@ -140,18 +153,13 @@ mingw32-make --version
 
 # Stm32环境配置
 
-安装[Stm32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)用于下载固件库和创建工程。
+安装[Stm32CubeMX](https://www.st.com/en/development-tools/stm32cubemx.html#get-software)用于下载固件库和创建工程，这里选择cmake格式导出即可。
 
 打开MSYS2的UCRT64终端，输入如下命令安装工具链：
+
 ```bash
 # 交叉编译器
 pacman -S mingw-w64-ucrt-x86_64-arm-none-eabi-gcc
 # 版本检查
 arm-none-eabi-gcc --version 
 ```
-打开VSCODE，创建配置文件，复制继承上文中的通用配置，随后激活后，在拓展中安装：
-
-[STM32CubeIDE-for-Visual-Studio-Code](https://marketplace.visualstudio.com/items?itemName=stmicroelectronics.stm32-vscode-extension)
-![](./Snipaste_2026-05-10_14-09-19.png)
-
-同样的，我们已在前文中配置好了gcc、cmake等工具链，拓展在安装完必要的组件后，会自行查找所需工具路径，现在点击左侧小蝴蝶，就能用上Stm32CubeIDE的功能了。
