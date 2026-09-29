@@ -1,5 +1,5 @@
 ---
-title: Qt6在Windows下的环境搭建
+title: Qt6在Windows下的环境搭建 | Scoop
 published: 2026-09-28
 pinned: false
 description: 以VScode为IDE，结合Qt-Extensions包与Qt-SDK，用scoop获取Cmake、Ninja，编译器使用MSVC-2022，并顺手下载Windows11-SDK，搭建起Qt6开发环境，另外提供进一步使用KDE-Frameworks进行Qt项目扩展的craft安装指南。
