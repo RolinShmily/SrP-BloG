@@ -3,7 +3,7 @@ title: Qt6在Windows下的环境搭建
 published: 2026-09-28
 pinned: false
 description: 以VScode为IDE，结合Qt-Extensions包与Qt-SDK，用scoop获取Cmake、Ninja，编译器使用MSVC-2022，并顺手下载Windows11-SDK，搭建起Qt6开发环境，另外提供进一步使用KDE-Frameworks进行Qt项目扩展的craft安装指南。
-image: ''
+image: Qt6Scoop.png
 tags:
   - Qt
   - VScode
@@ -59,7 +59,7 @@ Qt是一个开源工具，提供商业许可与开源许可，使用Qt的Online-
 
  Scoop是一个Windows的包管理器，可以在powershell中使用命令快速安装软件包，为了更快速的安装，可以对scoop软件仓库进行换源，先安装一下scoop：
 
-```pwsh
+```powershell
 # 官方安装命令
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
@@ -141,7 +141,7 @@ scoop install python311
 
 在 [KDE-Frameworks](https://develop.kde.org/products/frameworks/) 中，推荐使用这个craft来安装管理kde库，因此我们需要先安装craft（需要管理员权限`powershell`）:
 
-```pwsh
+```powershell
 Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
 # 避免TLS证书问题
 python.exe -m pip install --upgrade certifi
@@ -151,7 +151,7 @@ iex ((new-object net.webclient).DownloadString('https://invent.kde.org/packaging
 
 下面是交互式终端的一些默认选项：
 
-```pwsh
+```powershell
 @Rolin ➜ ~ iex ((new-object net.webclient).DownloadString('https://invent.kde.org/packaging/craft/-/raw/master/setup/install_craft.ps1'))
 Start to boostrap Craft.
 Where to you want us to install Craft
@@ -179,13 +179,13 @@ Do you want to enable the support for colored logs
 
 在后续使用craft时，都需要加载执行环境：
 
-```pwsh
+```powershell
 C:\CraftRoot\craftenv.ps1
 ```
 
 现在，可以安装常用的KDE Frameworks软件包了：
 
-```pwsh
+```powershell
 # kconfig: 强大的配置管理系统 
 # kcoreaddons: 提供文件操作、插件加载等核心功能扩展 
 # ki18n: KDE 的多语言国际化支持 
@@ -204,7 +204,7 @@ craft kio knotifications kconfigwidgets
 
 ## Craft的卸载
 
-```pwsh
+```powershell
 # 强制终止可能引用了 Craft 路径的后台子进程
 Get-Process | Where-Object { $_.Path -like "C:\CraftRoot\*" } | Stop-Process -Force
 # 删除文件夹即可(管理员权限)
