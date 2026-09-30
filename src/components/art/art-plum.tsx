@@ -52,16 +52,6 @@ const SEGMENT_BUDGET_REF = 8_800;
  */
 const MIN_SEGMENTS_REF = 4_000;
 const REF_AREA = 1440 * 900;
-/**
- * Blossom budget. Reverted to 50% visual balance per user request (54 desktop / 28 mobile),
- * with blossoms strictly distributed onto distal twig ends (梢头挂梅) and 0% at the root.
- */
-const MAX_BLOSSOMS_DESKTOP = 54;
-const MAX_BLOSSOMS_MOBILE = 28;
-/**
- * Minimum spacing between two blossoms, in px.
- */
-const BLOSSOM_MIN_DIST = 26;
 
 function polar2cart(x: number, y: number, r: number, theta: number): [number, number] {
   return [x + r * Math.cos(theta), y + r * Math.sin(theta)];
@@ -75,9 +65,8 @@ function polar2cart(x: number, y: number, r: number, theta: number): [number, nu
  * both child branches. That tightness is the whole trick — branches keep flowing
  * outward collinearly instead of splaying into tangled clumps.
  *
- * On top of the bare branches this adds sparse theme-pink plum blossoms, capped
- * globally and spaced apart, so they read as individual flowers on a winter twig
- * rather than a dense floral mass.
+ * Blossoms were removed by request: the art is now pure bare branches, letting
+ * the sprawling twig silhouette carry the whole composition on its own.
  */
 export function ArtPlum({ className = "" }: ArtPlumProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -118,109 +107,15 @@ export function ArtPlum({ className = "" }: ArtPlumProps) {
       ? "rgba(136, 136, 136, 0.17)"
       : "rgba(88, 88, 96, 0.14)";
 
-    const petalColor = isDark
-      ? "rgba(247, 92, 126, 0.85)"
-      : "rgba(226, 62, 94, 0.80)";
-
-    const petalHalo = isDark
-      ? "rgba(247, 92, 126, 0.16)"
-      : "rgba(247, 92, 126, 0.12)";
-
-    const pistilColor = isDark
-      ? "rgba(255, 246, 249, 0.92)"
-      : "rgba(255, 255, 255, 0.95)";
-
     ctx.clearRect(0, 0, width, height);
     ctx.lineWidth = 1;
     ctx.strokeStyle = branchColor;
-
-    const maxBlossoms = width < 640 ? MAX_BLOSSOMS_MOBILE : MAX_BLOSSOMS_DESKTOP;
-    const placed: { x: number; y: number }[] = [];
 
     // Area-scaled so a phone and a 4K screen get the same visual weight.
     const areaScale = (width * height) / REF_AREA;
     let budget = Math.max(1_500, Math.round(SEGMENT_BUDGET_REF * areaScale));
     const initialBudget = budget;
     const minSegments = Math.max(700, Math.round(MIN_SEGMENTS_REF * areaScale));
-
-    function canPlace(x: number, y: number): boolean {
-      if (placed.length >= maxBlossoms) return false;
-      // Dynamic lifecycle pacing: evenly distributes blossoms across the entire
-      // growth timeframe and reach of the tree, preventing early branch tips from
-      // greedily exhausting the quota into an artificial concentric cluster.
-      const progress = Math.min(1, Math.max(0, 1 - budget / initialBudget));
-      const maxAllowedNow = Math.ceil(maxBlossoms * Math.min(1, progress * 1.05 + 0.05));
-      if (placed.length >= maxAllowedNow) return false;
-
-      for (const p of placed) {
-        const dx = x - p.x;
-        const dy = y - p.y;
-        if (dx * dx + dy * dy < BLOSSOM_MIN_DIST * BLOSSOM_MIN_DIST) return false;
-      }
-      return true;
-    }
-
-    /** A five-petal plum blossom, drawn at ~4–5px across. */
-    function drawBlossom(x: number, y: number, toward: number) {
-      ctx!.save();
-      const size = 1.55 + Math.random() * 0.35;
-      const offset = toward + Math.random() * 0.5;
-
-      // Soft halo so the pink reads against a near-black canvas
-      ctx!.beginPath();
-      ctx!.arc(x, y, size * 2.5, 0, Math.PI * 2);
-      ctx!.fillStyle = petalHalo;
-      ctx!.fill();
-
-      for (let i = 0; i < 5; i++) {
-        const a = offset + (i * Math.PI * 2) / 5;
-        ctx!.beginPath();
-        ctx!.arc(
-          x + Math.cos(a) * size * 0.78,
-          y + Math.sin(a) * size * 0.78,
-          size * 0.55,
-          0,
-          Math.PI * 2
-        );
-        ctx!.fillStyle = petalColor;
-        ctx!.fill();
-      }
-
-      ctx!.beginPath();
-      ctx!.arc(x, y, size * 0.34, 0, Math.PI * 2);
-      ctx!.fillStyle = pistilColor;
-      ctx!.fill();
-      ctx!.restore();
-    }
-
-    /** A tight winter bud — a solitary crimson droplet with a frost speck. */
-    function drawBud(x: number, y: number) {
-      ctx!.save();
-      const r = 1.05 + Math.random() * 0.35;
-
-      ctx!.beginPath();
-      ctx!.arc(x, y, r * 2.2, 0, Math.PI * 2);
-      ctx!.fillStyle = petalHalo;
-      ctx!.fill();
-
-      ctx!.beginPath();
-      ctx!.arc(x, y, r, 0, Math.PI * 2);
-      ctx!.fillStyle = petalColor;
-      ctx!.fill();
-
-      ctx!.beginPath();
-      ctx!.arc(x - r * 0.3, y - r * 0.3, r * 0.36, 0, Math.PI * 2);
-      ctx!.fillStyle = pistilColor;
-      ctx!.fill();
-      ctx!.restore();
-    }
-
-    function tryBlossom(x: number, y: number, toward: number, bloomChance: number) {
-      if (!canPlace(x, y)) return;
-      placed.push({ x, y });
-      if (Math.random() < bloomChance) drawBlossom(x, y, toward);
-      else drawBud(x, y);
-    }
 
     /** True when [nx, ny] sits inside the visible canvas plus a small margin. */
     function inBounds(nx: number, ny: number): boolean {
@@ -234,8 +129,7 @@ export function ArtPlum({ className = "" }: ArtPlumProps) {
       x: number,
       y: number,
       rad: number,
-      counter: StepCounter = { value: 0 },
-      originDist: number = 0
+      counter: StepCounter = { value: 0 }
     ) {
       if (!ctx) return;
       counter.value += 1;
@@ -243,7 +137,6 @@ export function ArtPlum({ className = "" }: ArtPlumProps) {
 
       const length = Math.random() * SEGMENT_LEN;
       const [nx, ny] = polar2cart(x, y, length, rad);
-      const nextOriginDist = originDist + length;
 
       ctx.beginPath();
       ctx.moveTo(x, y);
@@ -266,31 +159,11 @@ export function ArtPlum({ className = "" }: ArtPlumProps) {
             ? 0.8
             : MATURE_RATE;
 
-      let children = 0;
       if (Math.random() < rate) {
-        steps.push(() => step(nx, ny, rad1, counter, nextOriginDist));
-        children++;
+        steps.push(() => step(nx, ny, rad1, counter));
       }
       if (Math.random() < rate) {
-        steps.push(() => step(nx, ny, rad2, counter, nextOriginDist));
-        children++;
-      }
-
-      // Organic random scattering (随机漫布 · 疏影横斜):
-      // 1. Avoid placing blossoms right on the screen border origins (nextOriginDist >= 85)
-      // 2. Uniformly sprinkle blooms across all branch depths, from inner twigs to distant canopy
-      if (nextOriginDist >= 85) {
-        if (children === 0) {
-          // Terminal twig tips across the whole branch system
-          if (Math.random() < 0.15) {
-            tryBlossom(nx, ny, rad, 0.72);
-          }
-        } else if (Math.random() < 0.008) {
-          // Delicate side buds along mature twigs
-          const side = rad + (Math.random() < 0.5 ? 1 : -1) * (Math.PI / 3);
-          const [bx, by] = polar2cart(nx, ny, 3 + Math.random() * 3, side);
-          if (inBounds(bx, by)) tryBlossom(bx, by, rad, 0.45);
-        }
+        steps.push(() => step(nx, ny, rad2, counter));
       }
     }
 

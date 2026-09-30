@@ -270,7 +270,7 @@ export const siteConfig = {
   postsPerPage: 8,
   /**
    * Background ambient canvas art mode:
-   * - 'plum': winter plum blossom branches across all pages (default)
+   * - 'plum': winter plum bare branches across all pages (default)
    * - 'dots': always fluid wave dots
    * - 'auto': route-based dispatch
    * - 'none': disable ambient canvas
