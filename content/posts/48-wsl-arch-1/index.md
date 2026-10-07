@@ -63,11 +63,15 @@ pacman -Syu sudo base-devel git vim nano curl wget unzip
 
 ```bash
 # 创建用户(将<your_username>替换)
-useradd -m -G wheel -s /bin/bash <your_username>
+useradd -m -s /bin/bash <your_username>
 # 设置密码
 passwd <your_username>
 # 加入用户管理员组
-echo '%wheel ALL=(ALL:ALL) ALL' > /etc/sudoers.d/wheel
+usermod -aG wheel <your_username>
+# 编辑sudoers
+sudo visudo
+# User privilege specification
+%wheel ALL=(ALL:ALL) NOPASSWD: ALL
 ```
 
 ## 修改WSL启动设置
