@@ -2,7 +2,7 @@
 title: 在Linux中创建一个可局域网共享的samba文件夹 | SMB
 published: 2026-07-28
 pinned: false
-description: 以debian局域网设备为例，创建一个samba文件夹，在同一网络下，可以不用ssh隧道进行高效文件传输。
+description: "以 Debian 局域网设备为例部署 Samba 共享文件夹，说明 Windows 客户端访问方式，实现同网文件共享而无需 SSH 隧道。"
 image: SMB(6).png
 tags:
   - SMB

@@ -1,5 +1,5 @@
 ---
-title: Minecraft基础 | 虚拟局域网联机
+title: "Minecraft Java 版入门：下载、启动与 ZeroTier 局域网联机"
 published: 2024-06-22
 description: '本文将介绍游戏Minecraft(我的世界)(MC)的Java版下载，如何启动，如何用Zerotier工具实现虚拟局域网的远程联机。'
 image: './wallhaven-r2ykww.png'
@@ -31,8 +31,8 @@ draft: false
 
 > - 在这里我们能找到购买游戏的途径（Minecraft游戏其实是付费的），购买之后就能够得到 ***Java版*** 和 ***基岩版***，如果不行的话，可以去 ***Microsoft Store***（俗称微软商店）中购买
 
-![](./2024_06_22-4.png)
-![](./2024_06_22-5.png)
+![Minecraft 启动器中 Java 版与基岩版的购买选项](./2024_06_22-4.png)
+![Minecraft Java 版启动器与游戏启动界面示例](./2024_06_22-5.png)
 
 > - 购买游戏其实对 ***Java版*** 影响不大，因为微软接手后大力发展的是 在自家 ***XBox*** 平台上的 ***基岩版*** minecraft，但是购买了游戏后，***Java版*** 用户将会被分配一个唯一的 ***uuid***，用于 ***Java*** 服务器的 ***正版验证*** ，从而进行有效 ***联机***
 > - ***uuid*** 查询网站：https://mcuuid.net/

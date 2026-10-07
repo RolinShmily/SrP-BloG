@@ -1,5 +1,5 @@
 ---
-title: 基于webDAV的远程文件虚拟盘符挂载
+title: "WebDAV 远程文件挂载：RaiDrive 客户端配置"
 published: 2025-12-25
 description: 这是继上一篇关于SMB的续集，因其仅内网性，而虚拟局域网的不稳定性，也促使我去选择另一种文件共享协议，即webDAV，可以借助RaiDrive实现挂载盘符...
 image: ./2026-01-05-14-05.png

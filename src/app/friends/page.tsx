@@ -17,7 +17,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = createPageMetadata({
   title: "友情链接 (Friends)",
-  description: "优秀的独立技术博客与创作者朋友们，欢迎交换友链共同成长。",
+  description: "浏览本站交换的独立技术博客与创作者主页，查看各站点的名称、介绍与访问链接；页面还提供友链申请入口和交换须知，欢迎同主题创作者了解并提交申请。",
   path: "/friends/",
 });
 

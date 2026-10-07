@@ -108,13 +108,10 @@ export function SponsorList({ sponsors, progressMax = 520 }: SponsorListProps) {
             <div className="relative z-10">
               <div className="mb-2 flex items-center gap-2">
                 {sponsor.avatar && (
-                  <Image
-                    src={sponsor.avatar}
-                    alt=""
-                    width={32}
-                    height={32}
-                    unoptimized
-                    className="h-8 w-8 shrink-0 rounded-lg object-cover"
+                  <span
+                    aria-hidden="true"
+                    className="h-8 w-8 shrink-0 rounded-lg bg-cover bg-center"
+                    style={{ backgroundImage: `url(${JSON.stringify(sponsor.avatar)})` }}
                   />
                 )}
                 <span className="line-clamp-1 font-medium text-foreground font-mono">{sponsor.name}</span>

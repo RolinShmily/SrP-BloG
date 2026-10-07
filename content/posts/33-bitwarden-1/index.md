@@ -2,7 +2,7 @@
 title: Docker部署自建Bitwarden密码管理器 | Nginx
 published: 2026-04-18
 pinned: false
-description: 一个使用docker在Debian13服务器上搭建私人Bitwarden的部署记录。
+description: "记录在 Debian 13 上使用 Docker 与 Nginx 自建 Bitwarden 密码管理器的过程，包含服务部署、HTTPS 反向代理与基础维护。"
 image: ./2026-0418-1443.png
 tags:
   - Docker

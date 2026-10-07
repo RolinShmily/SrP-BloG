@@ -1,7 +1,7 @@
 ---
-title: 一些Markdown语法展示
+title: "Markdown 语法示例：标题、表格、代码与 HTML 图片"
 published: 2025-07-26
-description: "主要演示了一些Markdown语法的使用，每一条均有代码块进行源码展示"
+description: "通过示例演示 Markdown 标题、列表、表格、代码和 HTML 图片语法，便于对照查看常用格式的编写方式与渲染效果。"
 image: "./Timeline_1_01_00_02_42.jpg"
 tags: [Markdown, Obsidian, HTML]
 draft: false
@@ -270,7 +270,7 @@ _斜体_
 
 HTML`img`标签让照片变大：
 
-<img style="width: 300px" src="https://obsidian.md/apple-touch-icon.png">
+<img style="width: 300px" alt="Obsidian 应用图标" src="https://obsidian.md/apple-touch-icon.png">
 
 <hr>为这段内容上方添加分割线</hr>
 

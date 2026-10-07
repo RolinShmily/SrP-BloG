@@ -1,7 +1,7 @@
 ---
 title: Autoexec文件详解 | SrP-CFG | CS2
 published: 2025-11-18
-description: 本篇将详细解析autoexec.cfg文件的功能列表，和部分实现途径
+description: "逐项说明 CS2 autoexec.cfg 中的启动配置和控制台参数，介绍常用按键绑定、命令执行顺序与自动执行文件的使用方式。"
 image: ./2026-01-05-16-41.png
 tags:
   - CFG

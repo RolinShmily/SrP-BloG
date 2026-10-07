@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { ComponentType } from "react";
 import { siteConfig, type SocialIcon } from "@/config/site";
 import { dictionaries } from "@/i18n";
@@ -170,12 +169,10 @@ export function Footer() {
                 className="hover:text-foreground transition-colors inline-flex items-center gap-1"
               >
                 {f.icon && (
-                  <Image
-                    src={f.icon}
-                    alt=""
-                    width={12}
-                    height={12}
-                    className="inline-block object-contain opacity-75"
+                  <span
+                    aria-hidden="true"
+                    className="inline-block h-3 w-3 shrink-0 bg-contain bg-center bg-no-repeat opacity-75"
+                    style={{ backgroundImage: `url(${JSON.stringify(f.icon)})` }}
                   />
                 )}
                 <span>{f.name}</span>

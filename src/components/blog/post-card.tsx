@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Post } from "@/lib/content/types";
+import { tagPageHref } from "@/lib/tag-routes";
 import { Badge } from "@/components/ui/badge";
 import { T } from "@/components/i18n/t";
 import { dictionaries } from "@/i18n";
@@ -12,7 +12,6 @@ import { LocalizedUPVCounter } from "./localized-upv-counter";
 
 interface PostCardProps {
   post: Post;
-  priorityImage?: boolean;
 }
 
 /**
@@ -26,26 +25,29 @@ interface PostCardProps {
  * The card is made fully clickable with a stretched overlay link instead of
  * wrapping the markup in an anchor, which would nest the tag links illegally.
  */
-export function PostCard({ post, priorityImage = false }: PostCardProps) {
+export function PostCard({ post }: PostCardProps) {
   const hasCover = Boolean(post.image);
 
   return (
     <article className="card-spotlight card-interactive group relative overflow-hidden rounded-xl border border-border/60 bg-card/40 hover:border-border hover:bg-card/75">
       {/* Cover art: a top band on narrow screens, a trailing-edge panel on wide. */}
       {hasCover && (
-        <div className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5">
+        <div
+          aria-hidden="true"
+          className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5"
+        >
           {/*
            * `post.thumbnail` is only set when `siteConfig.cardThumbnail` is on and
            * the cover is a format the pipeline can compress; `post.image` is the
            * full-size fallback for every other case.
            */}
-          <Image
-            src={post.thumbnail || post.image!}
-            alt=""
-            fill
-            priority={priorityImage}
-            sizes="(max-width: 640px) 100vw, 420px"
-            className="object-cover opacity-45 transition-opacity duration-300 group-hover:opacity-70"
+          <div
+            className="absolute inset-0 opacity-45 transition-opacity duration-300 group-hover:opacity-70"
+            style={{
+              backgroundImage: `url(${JSON.stringify(post.thumbnail || post.image!)})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
           />
         </div>
       )}
@@ -78,7 +80,7 @@ export function PostCard({ post, priorityImage = false }: PostCardProps) {
                   // Raised above the stretched overlay link so tags stay clickable.
                   <Link
                     key={tag}
-                    href={`/tags/?tag=${encodeURIComponent(tag)}`}
+                    href={tagPageHref(tag)}
                     className="relative z-20 text-meta text-muted-foreground/80 transition-colors hover:text-[#f75c7e]"
                   >
                     #{tag}

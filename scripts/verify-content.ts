@@ -12,7 +12,7 @@ import { collectDictionaryKeys, dictionaries, getDictionary } from "../src/i18n"
 import { getFriendLinks } from "../src/lib/friends";
 import { getSponsors } from "../src/lib/sponsors";
 import { siteConfig } from "../src/config/site";
-import { createPageMetadata, createPostMetadata } from "../src/lib/seo";
+import { createArticleJsonLd, createPageMetadata, createPostMetadata } from "../src/lib/seo";
 import { CUSTOM_FONT_SIZE_TOKENS } from "../src/lib/utils";
 import { postsDir, publicPostsDir, syncPostAssets } from "./sync-post-assets";
 
@@ -166,6 +166,22 @@ async function verifyContent() {
     allPosts.every((post) => post.excerpt && post.excerpt.length > 0),
     `Every post has a non-empty excerpt`
   );
+  const normalizedTitles = publishedPosts.map((post) => post.title.trim().toLocaleLowerCase());
+  const normalizedDescriptions = publishedPosts.map((post) =>
+    (post.description || post.excerpt || "").trim().toLocaleLowerCase()
+  );
+  assert(
+    publishedPosts.every((post) => Boolean(post.description?.trim())),
+    `Every published post has an explicit, non-empty search description`
+  );
+  assert(
+    new Set(normalizedTitles).size === publishedPosts.length,
+    `Published post titles are unique (${publishedPosts.length} checked)`
+  );
+  assert(
+    new Set(normalizedDescriptions).size === publishedPosts.length,
+    `Published post descriptions are unique (${publishedPosts.length} checked)`
+  );
 
   // 3. Verify Sorting Order
   console.log("\n3. Verifying Post Sorting Order (pinned first, then date descending)...");
@@ -203,6 +219,8 @@ async function verifyContent() {
   console.log(`\n4. Verifying Markdown Rendering across all ${allPosts.length} posts...`);
   let renderErrors = 0;
   let hasImageUnresolvedInBody = false;
+  let bodyHeadingLevelErrors = 0;
+  let bodyImageAltErrors = 0;
 
   for (const post of allPosts) {
     try {
@@ -216,6 +234,19 @@ async function verifyContent() {
         console.error(`    Unresolved ../assets/images in body of ${post.slug}`);
         hasImageUnresolvedInBody = true;
       }
+      if (/<h1(?:\s|>)/i.test(detail.contentHtml)) {
+        console.error(`    Markdown body contains an H1 in ${post.slug}`);
+        bodyHeadingLevelErrors++;
+      }
+      const bodyImages = detail.contentHtml.match(/<img\b[^>]*>/gi) || [];
+      const imagesWithoutAlt = bodyImages.filter((image) => {
+        const alt = image.match(/\balt="([^"]*)"/i)?.[1];
+        return !alt?.trim();
+      });
+      if (imagesWithoutAlt.length > 0) {
+        console.error(`    ${imagesWithoutAlt.length} body image(s) lack descriptive alt text in ${post.slug}`);
+        bodyImageAltErrors += imagesWithoutAlt.length;
+      }
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
       console.error(`    Error rendering ${post.slug}: ${message}`);
@@ -227,6 +258,14 @@ async function verifyContent() {
     `All ${allPosts.length} posts rendered without throwing errors (errors: ${renderErrors})`
   );
   assert(!hasImageUnresolvedInBody, `No unresolved ../assets/images/ found in rendered HTML`);
+  assert(
+    bodyHeadingLevelErrors === 0,
+    `Markdown body headings are nested below the page title (H1 occurrences: ${bodyHeadingLevelErrors})`
+  );
+  assert(
+    bodyImageAltErrors === 0,
+    `Content images have descriptive alt text (missing/empty alt: ${bodyImageAltErrors})`
+  );
 
   // Math Rendering Verification
   const MATH_POST = "9-markdown-1";
@@ -647,6 +686,15 @@ async function verifyContent() {
   const postWithCover = allPosts.find((p) => Boolean(p.image));
   assert(Boolean(postWithCover), "At least one post with a cover image exists");
   if (postWithCover) {
+    const articleJsonLd = createArticleJsonLd(postWithCover);
+    assert(
+      articleJsonLd["@type"] === "BlogPosting" &&
+        articleJsonLd.headline === postWithCover.title &&
+        articleJsonLd.datePublished === postWithCover.published &&
+        Array.isArray(articleJsonLd.image) &&
+        articleJsonLd.image[0] === new URL(postWithCover.image!, siteConfig.url).toString(),
+      "createArticleJsonLd emits article identity, dates, and an absolute cover URL"
+    );
     const metaWithCover = createPostMetadata(postWithCover);
     const postOg = metaWithCover.openGraph as Record<string, unknown> | undefined;
     assert(

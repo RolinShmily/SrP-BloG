@@ -9,7 +9,7 @@
   },
   "scripts": {
     "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && tsx scripts/generate-third-party-licenses.ts && next dev",
-    "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && tsx scripts/generate-third-party-licenses.ts && next build",
+    "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && tsx scripts/generate-third-party-licenses.ts && next build && tsx scripts/verify-seo.ts",
     "start": "next start",
     "lint": "next lint",
     "sync-assets": "tsx scripts/sync-post-assets.ts",
@@ -17,7 +17,8 @@
     "generate-licenses": "tsx scripts/generate-third-party-licenses.ts",
     "generate-og-image": "tsx scripts/generate-og-image.ts",
     "new-post": "node scripts/new-post.js",
-    "verify-content": "tsx scripts/verify-content.ts"
+    "verify-content": "tsx scripts/verify-content.ts",
+    "verify-seo": "tsx scripts/verify-seo.ts"
   },
   "dependencies": {
     "@radix-ui/react-dropdown-menu": "^2.1.24",

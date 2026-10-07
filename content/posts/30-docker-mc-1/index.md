@@ -24,7 +24,7 @@ draft: false
 
 1. `Win`+`R`打开运行窗，输入`optionalfeatures`打开Windows功能面板，勾选 **适用于Linux的Windows子系统** 和 **虚拟机平台**：
 
-![](./Snipaste_2026-03-25_13-06-02.png)
+![Windows 功能窗口中启用 WSL 和虚拟机平台的选项](./Snipaste_2026-03-25_13-06-02.png)
 
 2. 来到 [DockerDesktop安装文档](https://docs.docker.com/desktop/setup/install/windows-install/)，选择你的架构，Windows日用机一般为`x86_64`，你也可以在这里安装 **Linux** 和 **MacOS** 的桌面版。
 
@@ -407,7 +407,7 @@ ssh root@127.0.0.1 -p 2222
 
 在这里我们并不需要下载任何 [樱花内网穿透](https://www.natfrp.com/?page=panel&module=addproxy) 的软件，在Windows和Debian系Linux中，完全可以 [下载原版frp的对应版本](https://github.com/fatedier/frp/releases)，然后配置使用`frpc`即可，配置文件由 [隧道列表](https://www.natfrp.com/tunnel/) 提供：
 
-![](./Snipaste_2026-03-27_16-31-30.png)
+![Minecraft 服务器教程中配置 frpc 内网穿透客户端的界面](./Snipaste_2026-03-27_16-31-30.png)
 
 手动下载Frp并配置，请参考笔者的往期文章: [内网穿透Frp搭建 ](https://blog.srprolin.top/posts/13-frp-1/#frpc-%E5%AE%A2%E6%88%B7%E7%AB%AF)
 

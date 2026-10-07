@@ -1,8 +1,8 @@
 ---
-title: 树莓派Pico2W实现无线DualSense手柄(PS5)的满血功能 | Raspberry Pi | Play Station5
+title: 树莓派 Pico 2 W 实现 DualSense 手柄无线连接 | PS5
 published: 2026-04-22
 pinned: false
-description: 记录一下使用树莓派Pico2W实现DualSense手柄的仿满血无线(模拟有线连接)
+description: 使用树莓派 Pico 2 W 和 DS5Dongle 为 DualSense 手柄添加无线连接，整理硬件准备、固件刷写与 PlayStation Accessories 配对步骤。
 image: ./2026-0422-1752.png
 tags:
   - DualSense

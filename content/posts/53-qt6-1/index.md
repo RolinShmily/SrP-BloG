@@ -35,17 +35,17 @@ draft: false
 
 Qt是一个开源工具，提供商业许可与开源许可，使用Qt的Online-Installer，需要在QtGroup注册一个账号，在GUI界面也需要进行登录。
 
-![](2026-09-28-160036.png)
+![Qt Group 登录与账号注册界面](2026-09-28-160036.png)
 
-![](2026-09-28%20-161831.png)
+![Qt Online Installer 中选择 Qt SDK 安装组件的界面](2026-09-28%20-161831.png)
 
 ## GUI选项
 
 仅选择Qt-SDK即可，其他可按需安装：
 
-![](2026-09-28%20-162340.png)
+![Qt 安装程序中的 GUI 组件选择项](2026-09-28%20-162340.png)
 
-![](2026-09-28%20-162530.png)
+![Qt SDK 安装向导中的组件列表示例](2026-09-28%20-162530.png)
 
 # VS2022-BuildTools
 
@@ -53,7 +53,7 @@ Qt是一个开源工具，提供商业许可与开源许可，使用Qt的Online-
 
 上面直链下载完成后，仅勾选MSVC编译器和Windows-SDK即可：
 
-![](%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-09-28%20162813.png)
+![Visual Studio 2022 Build Tools 中选择 MSVC 与 Windows SDK](%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-09-28%20162813.png)
 
 # Scoop (ninja+cmake)
 
@@ -137,7 +137,7 @@ scoop install python311
 
 # KDE-Frameworks (Craft)
 
-![](%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-09-28%20201329.png)
+![KDE Craft 安装程序的配置界面](%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202026-09-28%20201329.png)
 
 在 [KDE-Frameworks](https://develop.kde.org/products/frameworks/) 中，推荐使用这个craft来安装管理kde库，因此我们需要先安装craft（需要管理员权限`powershell`）:
 

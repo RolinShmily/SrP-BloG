@@ -79,6 +79,21 @@ function remarkResolveImages(slug?: string) {
 }
 
 /**
+ * Keeps the page title as the document's only H1 by nesting Markdown body
+ * headings one level below it. Run before slug and TOC extraction so their
+ * heading levels reflect the final rendered structure.
+ */
+function rehypeShiftBodyHeadings() {
+  return (tree: any) => {
+    walkAst(tree, (node: any) => {
+      if (node.type !== "element" || !/^h[1-6]$/.test(node.tagName)) return;
+      const level = Number(node.tagName[1]);
+      node.tagName = `h${Math.min(level + 1, 6)}`;
+    });
+  };
+}
+
+/**
  * Rehype plugin to extract headings for the table of contents.
  */
 function rehypeExtractToc(tocList: TocItem[]) {
@@ -226,6 +241,7 @@ export async function renderMarkdownToHtml(markdown: string, slug?: string): Pro
     .use(remarkResolveImages, slug)
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeKatex)
+    .use(rehypeShiftBodyHeadings)
     .use(rehypeSlug)
     .use(rehypeExtractToc, toc)
     .use(rehypeTableAlignment)

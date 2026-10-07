@@ -1,5 +1,5 @@
 ---
-title: 如何投屏和串流？
+title: "手机投屏与 PC 串流：scrcpy、Sunshine 与 Moonlight"
 published: 2024-07-25
 description: "本篇文章介绍了有关串流的流行应用——Sunshine和Moonlight组合的用法；并推荐开源项目scrcpy的投屏功能。"
 image: "./Timeline_1_01_00_01_00.jpg"
@@ -43,11 +43,11 @@ draft: false
 
 1. 在 **_moonlight_** 端发送连接请求后，会要求 **_sunshine_** 端输入对应 **_pin 码_**
 
-![](https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/PixPin_2025-04-19_10-45-24.webp)
+![Moonlight 客户端与 Sunshine 主机配对时显示的 PIN 码](https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/PixPin_2025-04-19_10-45-24.webp)
 
 ![pin](./PixPin_2025-04-19_10-47-29.webp)
 
-![](https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/PixPin_2025-04-19_10-49-15.webp)
+![Sunshine 与 Moonlight 完成配对后的连接界面](https://cdn.jsdelivr.net/gh/RolinShmily/Images@main/PixPin_2025-04-19_10-49-15.webp)
 
 # 投屏
 

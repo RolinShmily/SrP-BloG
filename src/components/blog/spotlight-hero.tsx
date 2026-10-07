@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Post } from "@/lib/content/types";
+import { tagPageHref } from "@/lib/tag-routes";
 import { Badge } from "@/components/ui/badge";
 import { T } from "@/components/i18n/t";
 import { dictionaries } from "@/i18n";
@@ -24,14 +24,17 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
   return (
     <section className="card-spotlight card-interactive group relative mb-10 overflow-hidden rounded-xl border border-border bg-card/80 hover:border-border hover:bg-card">
       {post.image && (
-        <div className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5">
-          <Image
-            src={post.image}
-            alt=""
-            fill
-            priority
-            sizes="(max-width: 640px) 100vw, 600px"
-            className="object-cover opacity-40 transition-opacity duration-300 group-hover:opacity-60"
+        <div
+          aria-hidden="true"
+          className="blend-cover pointer-events-none absolute inset-x-0 top-0 z-0 h-2/3 sm:inset-y-0 sm:left-auto sm:h-full sm:w-3/5"
+        >
+          <div
+            className="absolute inset-0 opacity-40 transition-opacity duration-300 group-hover:opacity-60"
+            style={{
+              backgroundImage: `url(${JSON.stringify(post.image)})`,
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+            }}
           />
         </div>
       )}
@@ -57,7 +60,7 @@ export function SpotlightHero({ post }: SpotlightHeroProps) {
                   // Raised above the stretched overlay link so tags stay clickable.
                   <Link
                     key={tag}
-                    href={`/tags/?tag=${encodeURIComponent(tag)}`}
+                    href={tagPageHref(tag)}
                     className="relative z-20 text-meta text-muted-foreground/80 transition-colors hover:text-[#f75c7e]"
                   >
                     #{tag}

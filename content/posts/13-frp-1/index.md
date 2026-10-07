@@ -1,7 +1,7 @@
 ---
-title: 内网穿透Frp搭建
+title: "Frp 内网穿透搭建教程：VPS 服务端与客户端配置"
 published: 2025-12-05
-description: IPv4的告尽，突破多层NAT实现内网穿透的需求增大，Frp借由公网IP服务器实现内网端口流量转发，突破内网访达限制。
+description: "说明如何通过 Frp 与公网 VPS 转发实现内网穿透，介绍 frps/frpc 配置、端口映射和客户端部署，适用于多层 NAT 网络。"
 image: ./2026-01-05-16-34.png
 tags:
   - Frp

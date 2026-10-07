@@ -107,3 +107,31 @@ export function createPostMetadata(post: Post): Metadata {
     },
   };
 }
+
+/** Creates schema.org BlogPosting data matching the visible article and metadata. */
+export function createArticleJsonLd(post: Post) {
+  const articleUrl = new URL(`/posts/${post.slug}/`, siteConfig.url).toString();
+  const imageUrl = new URL(post.image || siteConfig.ogImage, siteConfig.url).toString();
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
+    headline: post.title,
+    description: post.description || post.excerpt || siteConfig.description,
+    image: [imageUrl],
+    datePublished: post.published,
+    dateModified: post.updated || post.published,
+    author: {
+      "@type": "Person",
+      name: siteConfig.author,
+      url: siteConfig.homeUrl,
+    },
+    keywords: post.tags,
+    inLanguage: post.lang === "en" ? "en-US" : "zh-CN",
+    wordCount: post.wordCount,
+  };
+}

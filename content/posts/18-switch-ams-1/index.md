@@ -2,7 +2,7 @@
 title: "Switch系统更新 | AMS | hekate "
 published: 2026-02-05
 pinned: false
-description: 简要记述switch大气层双系统硬件破解的系统更新步骤，涉及AMS系统的简要认知。
+description: "记录 Nintendo Switch Atmosphère 双系统的更新步骤，说明升级前检查、系统版本处理及 AMS 与 hekate 环境中的注意事项。"
 image: ./2026-02-06_00-08-54.png
 tags:
   - Switch

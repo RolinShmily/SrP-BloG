@@ -2,7 +2,7 @@
 title: Waline评论区搭建 | Docker | Nginx
 published: 2026-09-19
 pinned: false
-description: 在昨日进行博客重构后，我发现还是需要一个评论区系统，本篇以Docker+Nginx自托管的方式搭建waline。
+description: "介绍通过 Docker 与 Nginx 自托管 Waline 评论系统，涵盖服务配置、数据存储、域名反向代理和后台管理界面的部署步骤。"
 image: Waline.png
 tags:
   - Docker
@@ -294,4 +294,4 @@ sudo systemctl reload nginx
 首先访问`https://<your-main-domain>/ui/register`使用docker-compose处配置的Email进行注册，获得管理员权限。
 随后`https://<your-main-domain>/ui/`即为Waline的后台管理面板。
 
-![](2026-09-19-125536.png)
+![Waline 后台管理界面的登录与控制面板示例](2026-09-19-125536.png)

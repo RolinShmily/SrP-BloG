@@ -1,7 +1,7 @@
 ---
-title: 略知OBS | 开源视频录制与直播推流
+title: "OBS 视频录制与直播推流指南 | 虚拟摄像头、即时回放与插件"
 published: 2025-07-25
-description: '本文将介绍OBS的视频录制、直播推流设置，以及虚拟摄像头、即时回放、插件的用法'
+description: "整理 OBS Studio 的录屏、直播推流与场景设置，介绍虚拟摄像头、即时回放和常用插件，并记录多机位画面切换等功能的配置方法。"
 image: './2025-07-25-0.jpg'
 tags: [OBS,FFmpeg,NVIDIA]
 draft: false

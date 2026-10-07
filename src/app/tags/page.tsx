@@ -9,7 +9,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = createPageMetadata({
   title: "标签 (Tags)",
-  description: "按关键词标签浏览全站文章，快速定位感兴趣的技术主题与实践教程。",
+  description: "浏览本站所有技术文章的主题标签和文章数量，筛选相关教程、配置记录与实践内容；选择主题后可查看该类文章，并继续追踪相关背景和操作经验。",
   path: "/tags/",
 });
 

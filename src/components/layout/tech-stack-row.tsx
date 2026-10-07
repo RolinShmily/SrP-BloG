@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect, useCallback, type ComponentType } from "react";
+import { Share2 } from "lucide-react";
 import { siteConfig, type TechIcon, type TechItem } from "@/config/site";
 import {
   CloudflareIcon,
@@ -38,6 +39,7 @@ const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
   "google-fonts": GoogleFontsIcon,
   bing: BingIcon,
   indexnow: IndexNowIcon,
+  "open-graph": Share2,
 };
 
 function renderItem(item: TechItem, keyPrefix = "") {

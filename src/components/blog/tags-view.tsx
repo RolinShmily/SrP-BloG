@@ -270,7 +270,7 @@ export function TagsView({ posts, tags }: TagsViewProps) {
                     className="card-animate-in"
                     style={{ "--stagger-index": idx } as React.CSSProperties}
                   >
-                    <PostCard post={post} priorityImage={idx === 0} />
+                    <PostCard post={post} />
                   </div>
                 ))}
               </div>

@@ -259,11 +259,10 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
             </div>
           ) : (
             <div className="space-y-4">
-              {searchedPosts.map((post, idx) => (
+              {searchedPosts.map((post) => (
                 <PostCard
                   key={post.slug}
                   post={post}
-                  priorityImage={idx < 2}
                 />
               ))}
             </div>

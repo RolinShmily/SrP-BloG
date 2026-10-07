@@ -2,7 +2,7 @@
 title: Git的初始化配置，GitHub云平台GPG密钥 | SSH
 published: 2026-08-02
 pinned: false
-description: 本篇主要聚焦于Git版本管理工具，介绍git的初始化配置，以及如何结合GitHub等云平台进行编码。
+description: "从 Git 用户名与邮箱初始化开始，介绍 GitHub SSH 连接、使用 SSH 密钥签名提交，以及相关配置文件的管理。"
 image: Git.png
 tags:
   - Git
@@ -55,7 +55,7 @@ git config --global user.email "your_email@example.com"
 
 在GitHub平台拉取代码，会看到有两种链接，一种是`HTTPS`走443端口，一种是`SSH`走22端口。
 
-![](./2026-08-02-150722.png)
+![GitHub 克隆菜单中的 HTTPS 与 SSH 地址选项](./2026-08-02-150722.png)
 
 需要在本地git中配置远程仓库：
 
@@ -70,7 +70,7 @@ git remote add <远程仓库名> <远程git链接>
 
 这里的 `GPG keys` 是用来验证每一条远程仓库的`Commit`是否属于账户本人签名过的提交，在GitHub上可以将SSH密钥也作为GPG来使用，只需在创建keys时，选择`Signing Key`签名格式，再将SSH公钥上传。
 
-![](./2026-08-02-104353.png)
+![GitHub 将 SSH 公钥添加为签名密钥的设置页面](./2026-08-02-104353.png)
 
 回到本地git，进行配置即可：
 

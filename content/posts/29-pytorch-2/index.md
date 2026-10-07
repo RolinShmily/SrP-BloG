@@ -27,7 +27,7 @@ Cuda是NVIDIA推出的并行计算平台和编程模型，安装NVIDIA显卡驱�
 
 进入 [Anaconda下载地址](https://www.anaconda.com/download/success?reg=skipped)，这里下载miniconda即可，只是用到conda来管理环境，安装过后添加系统环境变量：
 
-![](./Snipaste_2026-03-20_10-37-20.png)
+![Miniconda Windows 安装包的下载与选择界面](./Snipaste_2026-03-20_10-37-20.png)
 
 conda相关命令：
 
@@ -63,11 +63,11 @@ print(torch.cuda.is_available())
 
 按下`Ctrl`+`Shift`+`P`打开命令面板，输入`python: select interpreter`，选择到conda虚拟环境**pytorch**中的python3.11解释器。
 
-![](./Snipaste_2026-03-20_12-06-00.png)
+![在 VS Code 中选择 PyTorch Conda 环境作为 Python 解释器](./Snipaste_2026-03-20_12-06-00.png)
 
 按下`F5`，进行调试，或者`Ctrl`+`F5`直接运行，将看到如下结果，`True`即表明Pytorch-GPU安装成功。
 
-![](./Snipaste_2026-03-20_12-10-08.png)
+![PyTorch GPU 验证脚本显示 CUDA 可用的运行结果](./Snipaste_2026-03-20_12-10-08.png)
 
 # TensorFlow-GPU 安装
 
@@ -75,9 +75,9 @@ print(torch.cuda.is_available())
 
 而TensorFlow对Windows原生NVIDIA显卡支持的GPU版最终版本是TensorFlow2.10, 最新版本在笔者此时已经是2.21了，绝对不可能支持Cuda；但将该页面改为[英文指引](https://www.tensorflow.org/install/pip#windows-native)，却赫然写明了 **TensorFlow 2.10 was the last TensorFlow release that supported GPU on native-Windows.** 这让不少人踩了坑。
 
-![](./Snipaste_2026-03-20_12-20-16.png)
+![TensorFlow 官方文档标示的 Windows 原生 GPU 支持版本](./Snipaste_2026-03-20_12-20-16.png)
 
-![](./Snipaste_2026-03-20_12-27-40.png)
+![在 Windows 环境中安装 TensorFlow GPU 依赖的命令行示例](./Snipaste_2026-03-20_12-27-40.png)
 
 那么我们便按照 [英文指引](https://www.tensorflow.org/install/pip#windows-native) 来安装tensorflow-gpu版：
 

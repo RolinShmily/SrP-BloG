@@ -1,8 +1,8 @@
 ---
-title: 在WSL中安装ArchLinux并配置Dotfiles开启VibeCoding之旅 | WSL | ArchLinux | Dotfiles
+title: WSL 安装 Arch Linux 并配置 Dotfiles
 published: 2026-07-25
 pinned: false
-description: 从WSL安装Arch Linux，并初始化Arch，使用dotfiles仓库预设配置ArchLinux软件包。
+description: 从 WSL 安装 Arch Linux，完成密钥库、镜像源与基础软件配置，再通过 dotfiles 仓库部署桌面环境，记录系统初始化与配置步骤。
 image: Arch.png
 tags:
   - WSL

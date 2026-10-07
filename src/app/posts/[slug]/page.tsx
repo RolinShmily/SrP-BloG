@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
-import { createPostMetadata } from "@/lib/seo";
+import { createArticleJsonLd, createPostMetadata } from "@/lib/seo";
 import { ArticleView } from "@/components/blog/article-view";
 
 export const dynamic = "force-static";
@@ -38,8 +38,14 @@ export default async function PostDetailPage({ params }: PostPageProps) {
     notFound();
   }
 
+  const jsonLd = JSON.stringify(createArticleJsonLd(post)).replace(/</g, "\\u003c");
+
   return (
     <main className="max-w-5xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLd }}
+      />
       <ArticleView post={post} />
     </main>
   );

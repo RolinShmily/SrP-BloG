@@ -1,8 +1,8 @@
 ---
-title: Cloudflare优选原理小记
+title: "Cloudflare 优选原理与 Workers 路由配置实践"
 published: 2026-02-06
 pinned: false
-description: Cloudflare优选域名/IP原理、Workers路由应用示例。
+description: "简要解释 Cloudflare 优选域名与 IP 的基本原理，并以示例说明 DNS 映射、Workers 路由及 CDN 场景中的配置思路。"
 image: ./2026-02-06_13-36-52.png
 tags:
   - Cloudflare

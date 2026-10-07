@@ -23,7 +23,7 @@ draft: false
 
 前往[MSYS2官方文档](https://www.msys2.org/)和[VScode官网](https://code.visualstudio.com/)下载安装包，并进行安装(推荐安装路径均为默认)。
 
-![](./Snipaste_2026-05-10_13-17-10.png)
+![MSYS2 与 Visual Studio Code 的下载入口示例](./Snipaste_2026-05-10_13-17-10.png)
 
 ## VScode常用插件(拓展)与设置
 
@@ -65,36 +65,36 @@ VScode设置(`settings.json`)文件内容：
 }
 ```
 
-![](./Snipaste_2026-05-10_13-29-00.png)
+![VS Code 打开 settings.json 编辑通用编辑器配置](./Snipaste_2026-05-10_13-29-00.png)
 
 打开VScode设置(`Ctrl+,`)后，点击打开`json`文件，即可粘贴设置；下面是一些常用拓展：
 
 1. [Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=MS-CEINTL.vscode-language-pack-zh-hans)：简中语言包。
-![](./Snipaste_2026-05-10_13-23-46.png)
+![Visual Studio Code 中文语言包扩展页面](./Snipaste_2026-05-10_13-23-46.png)
 2. [Hex Editor](https://marketplace.visualstudio.com/items?itemName=ms-vscode.hexeditor)：16进制文件查看编辑器。
-![](./Snipaste_2026-05-10_13-30-57.png)
+![Visual Studio Code Hex Editor 扩展页面](./Snipaste_2026-05-10_13-30-57.png)
 3. [Error Lens](https://marketplace.visualstudio.com/items?itemName=usernamehw.errorlens)：报错高亮。
-![](./Snipaste_2026-05-10_13-33-58.png)
+![Visual Studio Code Error Lens 扩展页面](./Snipaste_2026-05-10_13-33-58.png)
 4. [GBK to UTF8 for vscode](https://marketplace.visualstudio.com/items?itemName=buuug7.GBK2UTF8)：编码格式快速转换。
-![](./Snipaste_2026-05-10_13-37-12.png)
+![Visual Studio Code GBK to UTF8 扩展页面](./Snipaste_2026-05-10_13-37-12.png)
 5. [Doxygen Documentation Generator](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen)：注释生成器。
-![](./Snipaste_2026-05-10_13-37-24.png)
+![Visual Studio Code Doxygen Documentation Generator 扩展页面](./Snipaste_2026-05-10_13-37-24.png)
 6. [Hungry Delete](https://marketplace.visualstudio.com/items?itemName=jasonlhy.hungry-delete)：快速删除空行、缩进。
-![](./Snipaste_2026-05-10_13-37-32.png)
+![Visual Studio Code Hungry Delete 扩展页面](./Snipaste_2026-05-10_13-37-32.png)
 7. [Image preview](https://marketplace.visualstudio.com/items?itemName=kisstkondoros.vscode-gutter-preview)：图片预览器。
-![](./Snipaste_2026-05-10_13-38-14.png)
+![Visual Studio Code Image Preview 扩展页面](./Snipaste_2026-05-10_13-38-14.png)
 8. [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme)：文件Icon主题美化。
-![](./Snipaste_2026-05-10_13-39-14.png)
+![Visual Studio Code Material Icon Theme 扩展页面](./Snipaste_2026-05-10_13-39-14.png)
 9. [One Dark Pro](https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme)：VScode编辑器主题美化。
-![](./Snipaste_2026-05-10_13-40-02.png)
+![Visual Studio Code One Dark Pro 扩展页面](./Snipaste_2026-05-10_13-40-02.png)
 10. [Path Intellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)：路径补全。
-![](./Snipaste_2026-05-10_13-40-39.png)
+![Visual Studio Code Path Intellisense 扩展页面](./Snipaste_2026-05-10_13-40-39.png)
 11. [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)：代码格式自动优化。
-![](./Snipaste_2026-05-10_13-41-18.png)
+![Visual Studio Code Prettier 扩展页面](./Snipaste_2026-05-10_13-41-18.png)
 12. [Remote - SSH](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh)：SSH链接远程项目地址，似本地一般的编辑体验。
-![](./Snipaste_2026-05-10_13-42-32.png)
+![Visual Studio Code Remote - SSH 扩展页面](./Snipaste_2026-05-10_13-42-32.png)
 13. [WakaTime](https://marketplace.visualstudio.com/items?itemName=WakaTime.vscode-wakatime)：代码编辑时间统计，需要登录。
-![](./Snipaste_2026-05-10_13-43-25.png)
+![Visual Studio Code WakaTime 扩展页面](./Snipaste_2026-05-10_13-43-25.png)
 
 ## MSYS2集成终端
 
@@ -118,7 +118,7 @@ VScode设置(`settings.json`)文件内容：
 
 随后便可在VScode中打开MSYS2终端, 除此之外也可以在Windows搜索中输入`ucrt`打开终端：
 
-![](./Snipaste_2026-05-10_13-52-09.png)
+![Visual Studio Code 集成终端中启动 MSYS2 UCRT64](./Snipaste_2026-05-10_13-52-09.png)
 
 # C/C++环境配置
 
@@ -143,11 +143,11 @@ ninja --version
 - [C/C++ Themes](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-themes)
 - [C/C++ DevTools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpp-devtools)
 - [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
-![](./Snipaste_2026-05-10_14-01-40.png)
-![](./Snipaste_2026-05-10_14-01-49.png)
-![](./Snipaste_2026-05-10_14-01-53.png)
-![](./Snipaste_2026-05-10_14-01-57.png)
-![](./snipaste_2026-05-10_23-42-57.png)
+![VS Code C/C++ 开发环境扩展配置示例（1）](./Snipaste_2026-05-10_14-01-40.png)
+![VS Code C/C++ 开发环境扩展配置示例（2）](./Snipaste_2026-05-10_14-01-49.png)
+![VS Code C/C++ 开发环境扩展配置示例（3）](./Snipaste_2026-05-10_14-01-53.png)
+![VS Code C/C++ 开发环境扩展配置示例（4）](./Snipaste_2026-05-10_14-01-57.png)
+![VS Code C/C++ 工具链检测与扩展配置示例（5）](./snipaste_2026-05-10_23-42-57.png)
 
 由于上文已经安装了MinGW工具链，因此拓展会自动寻找环境变量中的gcc编译器，MSYS2安装在默认位置下便无需手动配置路径了。
 

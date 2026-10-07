@@ -2,7 +2,7 @@
 title: Nintendo_Switch插件仓库列表 | AMS | RDP
 published: 2026-02-08
 pinned: false
-description: Atmosphere大气层系统Nintendo_Switch的插件及纯净整合包分享，附开源仓库链接。
+description: "分享 Nintendo Switch Atmosphère 插件仓库与纯净整合包资源，整理插件用途、开源项目地址及相关系统工具链接。"
 image: ./2026-02-08_19-50-33.png
 tags:
   - Switch

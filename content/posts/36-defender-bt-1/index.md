@@ -2,7 +2,7 @@
 title: Windows Defender 卸载程序 | Bluetooth Audio Receiver
 published: 2026-05-07
 pinned: false
-description: 安利两款Windows软件，用于卸载Windows自带的杀毒软件、将PC作为蓝牙声音接收设备收听移动设备音频。
+description: "介绍两款 Windows 实用工具：卸载系统自带的 Defender，以及使用 Bluetooth Audio Receiver 将电脑作为手机蓝牙音频接收端。"
 image: ./2026-0507-2326.png
 tags:
   - Windows
@@ -17,7 +17,7 @@ draft: false
 # Bluetooth Audio Receiver
 打开PC的蓝牙和手机蓝牙，在手机端连接PC即可；
 
-![](./snipaste_2026-05-08_00-02-13.png)
+![Bluetooth Audio Receiver 中打开已连接手机音频的界面](./snipaste_2026-05-08_00-02-13.png)
 
 随后点击这里的设备，再点击`Open Connection`即可获取手机音频；
 

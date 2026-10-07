@@ -25,7 +25,7 @@ draft: false
 ![alt text](./8c63ab7d-10da-4a7c-afeb-e55cfeefa04f.png)
 
 `Win+R`打开运行窗，输入`optionalfeatures`，打开Windows功能，确保勾选了这两项(一般安装过Docker的机器都已经开启了)：
-![](./2026-07-09-124019.png)
+![Windows 功能设置中启用适用于 Linux 的 Windows 子系统与虚拟机平台](./2026-07-09-124019.png)
 
 也可以用以下指令，在powershell管理员中运行：
 

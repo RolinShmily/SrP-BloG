@@ -1,7 +1,7 @@
 ---
 title: 安装Archlinux+ClaudeCode，PVE小主机焕发第二春
 published: 2026-03-08
-description: 在PVE中安装ArchLinux+niri桌面，并启用核显直通，安装ClaudeCode！
+description: "在 PVE 虚拟机中安装 Arch Linux 与 Niri 桌面，配置核显直通和常用软件，并记录 Claude Code 的安装与使用过程。"
 image: ./2026-03-08-1148.png
 tags:
   - ArchLinux
@@ -68,7 +68,7 @@ sudo pacman -S yay
 
 启动脚本后，一切配置默认即可，等待完成后，就可以进入到 `Shorin's Niri` 桌面了，我将带头前往Github给大佬点个Star！
 
-![](./waybar-top.png)
+![Arch Linux Niri 桌面环境中的 Waybar 顶栏](./waybar-top.png)
 
 这里是大佬脚本中所安装的软件列表：
 

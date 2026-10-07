@@ -2,7 +2,7 @@
 title: Windows中的超级管理员Administrator开启方法 | 账户丢失 | 桌面丢失 | 密码忘却
 published: 2026-07-12
 pinned: false
-description: 从Windows系统自带的本地超级管理员入手，解决账户相关问题。
+description: "整理 Windows 本地 Administrator 账户启用与系统恢复操作，涵盖高级启动、PE 命令行以及账户无法登录等场景。"
 image: Windows.png
 tags:
   - Windows
@@ -21,8 +21,8 @@ Ps: 如果有更多极客需求，可以直接安装一个PE系统，解决大�
 # 系统高级启动(非BIOS)
 
 在 Windows 11 系统的登录界面右下角，常见的关机键，我们可以按住`shift`键点击**重启**，这时便会进入Windows自带的PE系统，依次点击 **疑难解答** -> **高级选项** -> **命令提示符**
-![](./4d18767c-1215-488f-bed9-2bda1947b988.png)
-![](./2026-07-12-192025.png)
+![Windows 高级启动菜单中打开命令提示符的选项](./4d18767c-1215-488f-bed9-2bda1947b988.png)
+![Windows PE 环境中的命令提示符界面](./2026-07-12-192025.png)
 
 # PE系统下CMD命令操作
 

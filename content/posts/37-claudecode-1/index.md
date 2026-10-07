@@ -1,7 +1,7 @@
 ---
 title: ClaudeCode原生安装与使用 | Agent | CC-Switch
 published: 2026-05-09
-description: 分享使用agent工具时的一些小心得
+description: 记录 Claude Code 在 Windows 上的原生安装、更新与使用步骤，并介绍 CC-Switch 配置、Git for Windows 和日常操作经验。
 image: ./2025-0509-0012.png
 tags:
   - ClaudeCode
@@ -24,8 +24,8 @@ draft: false
 
 按`win+x`组合键，点击**终端**会打开`Windows PowerShell`终端，但这是早期的`version5`版本，我们需要在[微软应用商店](https://apps.microsoft.com/)里下载`version7`版本，应用名称为`PowerShell`。
 
-![](./Snipaste_2026-05-08_20-53-35.png)
-![](./Snipaste_2026-05-08_20-48-42.png)
+![Microsoft Store 中的 PowerShell 7 应用页面](./Snipaste_2026-05-08_20-53-35.png)
+![Windows Terminal 设置中将默认配置切换为 PowerShell](./Snipaste_2026-05-08_20-48-42.png)
 
 随后呼出终端，右键顶部选择设置，将默认终端选择为`PowerShell`，输入如下命令检查版本：
 
@@ -36,7 +36,7 @@ $PSVersionTable.PSVersion
 
 # ClaudeCode安装
 
-![](./Snipaste_2026-05-08_20-54-41.png)
+![Claude Code Windows 安装程序的终端界面](./Snipaste_2026-05-08_20-54-41.png)
 
 ## Native原生安装解耦
 
@@ -154,11 +154,11 @@ Write-Output ""
 
 随后指定版本号并执行程序即可(这一步仍需要科学上网TUN模式)：`.\claude.exe install 2.1.133`
 
-![](./Snipaste_2026-05-08_21-03-24.png)
+![将 Claude Code 安装目录添加到 Windows PATH 环境变量](./Snipaste_2026-05-08_21-03-24.png)
 
 这时，我们需要将Claude的程序目录`C:\Users\<yourname>\.local\bin\`添加进系统环境变量，以便于直接`claude`命令启动。
 
-![](./Snipaste_2026-05-08_23-10-44.png)
+![Claude Code 镜像安装脚本运行结果示例](./Snipaste_2026-05-08_23-10-44.png)
 
 ## ClaudeCode镜像安装脚本
 
@@ -444,7 +444,7 @@ Prompt-OpenSettings
 
 > CC Switch 把供应商切换、MCP / Prompts / Skills、代理接管、会话检索和云同步收进同一个桌面应用，你不再需要反复手改 JSON、TOML 或 .env。
 
-![](./Snipaste_2026-05-08_23-18-53.png)
+![CC-Switch 中 GLM Coding Plan 的 API 地址与模型配置](./Snipaste_2026-05-08_23-18-53.png)
 
 这里以`GLM Coding Plan`的配置为例，`API KEY`、**请求地址**和**主模型**是最重要的三个配置，这里也对应到`settings.json`文件中的配置，随后启动`ClaudeCode`就可以跳过登录了。
 
@@ -511,7 +511,7 @@ claude --dangerously-skip-permissions
 
 # Git For Windows
 
-![](./Snipaste_2026-05-08_23-58-15.png)
+![Git for Windows 官方下载页面](./Snipaste_2026-05-08_23-58-15.png)
 
 请前往 [Git For Windows](https://git-scm.com/install/windows) 官网进行下载，关于`Git`相关的命令可以参考[Git Book中文版](https://git-scm.com/book/zh/v2)并结合`Agent`来学习应用。
 

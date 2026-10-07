@@ -1,7 +1,7 @@
 ---
-title: 略知Zerotier | 搭建虚拟局域网
+title: "ZeroTier 虚拟局域网原理与自建节点部署"
 published: 2025-07-18
-description: 简要介绍网络知识，拆解zerotier工作逻辑，为自建中转节点服务器、节点控制器提供教程
+description: "介绍 ZeroTier 虚拟局域网与节点通信逻辑，梳理自建中转节点和控制器的部署方式，并结合网络基础说明节点互联与管理思路。"
 image: ./2025-07-18-0.jpg
 tags:
   - Zerotier

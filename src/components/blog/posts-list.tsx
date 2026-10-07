@@ -61,7 +61,7 @@ export function PostsList({ posts, pageSize = siteConfig.postsPerPage ?? 8 }: Po
             className="card-animate-in"
             style={{ "--stagger-index": idx } as React.CSSProperties}
           >
-            <PostCard post={post} priorityImage={idx < 2} />
+            <PostCard post={post} />
           </div>
         ))}
       </div>

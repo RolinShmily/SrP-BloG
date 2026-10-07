@@ -2,7 +2,7 @@
 title: 静态网页的文章管理后端！| Decap-CMS | GitHub-OAuth
 published: 2026-02-09
 pinned: false
-description: 开源CMS——DecapCMS的部署指南，及GitHub-OAuth应用部署。
+description: "介绍 Decap CMS 静态博客文章管理后端的部署，并演示创建 GitHub OAuth 应用、配置仓库后端与内容编辑流程。"
 image: ./screenshot-2026-02-09-at-14-32-42-easycover-srp.png
 tags:
   - CMS

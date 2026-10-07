@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { PostDetail } from "@/lib/content/types";
+import { tagPageHref } from "@/lib/tag-routes";
 import { useLocale } from "@/i18n/locale-provider";
 import { formatReadingTime, formatWordCount } from "@/i18n/format";
 import { ArticleContent } from "./article-content";
@@ -63,12 +64,13 @@ export function ArticleView({ post }: ArticleViewProps) {
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-x-6 -inset-y-2 z-0 opacity-50"
               >
-                <Image
-                  src={post.image}
-                  alt=""
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 720px"
-                  className="rounded-3xl object-cover blur-2xl"
+                <div
+                  className="absolute inset-0 rounded-3xl blur-2xl"
+                  style={{
+                    backgroundImage: `url(${JSON.stringify(post.image)})`,
+                    backgroundPosition: "center",
+                    backgroundSize: "cover",
+                  }}
                 />
               </div>
               <div
@@ -143,7 +145,7 @@ export function ArticleView({ post }: ArticleViewProps) {
                 {post.tags.map((tag, index) => (
                   <span key={tag} className="inline-flex items-center gap-1.5">
                     <Link
-                      href={`/tags/?tag=${encodeURIComponent(tag)}`}
+                      href={tagPageHref(tag)}
                       className="transition-colors hover:text-foreground hover:underline underline-offset-4"
                     >
                       {tag}

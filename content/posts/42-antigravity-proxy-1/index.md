@@ -2,7 +2,7 @@
 title: Antigravity Proxy 解决系统代理的不可达性
 published: 2026-06-26
 pinned: false
-description: 简要介绍一下一个开源项目，用于解决antigravity应用的系统代理问题。
+description: "介绍 Antigravity Proxy 如何处理应用无法访问系统代理的问题，并整理项目的安装、代理配置与日常使用方法。"
 image: Antigravity.png
 tags:
   - Antigravity

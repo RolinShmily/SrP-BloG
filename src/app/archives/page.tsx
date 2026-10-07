@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 
 export const metadata: Metadata = createPageMetadata({
   title: "文章归档与搜索 (Archives)",
-  description: "全站文章按年份时间线归档与多维度实时全文检索，查看建站字数与文章统计。",
+  description: "按年份与时间线浏览本站所有文章，使用全文搜索定位技术主题，并查看文章数量、总字数等归档统计，回顾已发布的教程与实践记录。",
   path: "/archives/",
 });
 

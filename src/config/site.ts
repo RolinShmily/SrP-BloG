@@ -47,7 +47,8 @@ export type TechIcon =
   | "google-search"
   | "google-fonts"
   | "bing"
-  | "indexnow";
+  | "indexnow"
+  | "open-graph";
 
 export interface TechItem {
   name: string;
@@ -372,6 +373,7 @@ export const siteConfig = {
     { name: "Google Fonts", url: "https://fonts.google.com/", icon: "google-fonts" },
     { name: "Bing Webmaster", url: "https://www.bing.com/webmasters", icon: "bing" },
     { name: "IndexNow", url: "https://www.indexnow.org/", icon: "indexnow" },
+    { name: "Open Graph", url: "https://ogp.me/", icon: "open-graph" },
   ] as TechItem[],
 
   // ==========================================

@@ -2,7 +2,7 @@
 title: Intel-ax101板载网卡上网小记(Linux上网曲线救国) | OpenWrt | PVE
 published: 2026-07-08
 pinned: false
-description: N100机型常见的板载无线网卡AX101, 如何在PVE虚拟系统/OpenWrt中进行上网
+description: "记录 Intel AX101 无线网卡在 N100 小主机上的配置过程，演示在 PVE 与 OpenWrt 中使用物理网口或 Wi-Fi 接入外网。"
 image: Intel.png
 tags:
   - ax101
