@@ -212,7 +212,7 @@ systemctl restart ssh
 
 注意，在我的`sshd_config`中有如下字段：
 
-```
+```txt
 # When systemd socket activation is used (the default), the socket
 # configuration must be re-generated after changing Port, AddressFamily, or
 # ListenAddress.

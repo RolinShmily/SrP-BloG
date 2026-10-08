@@ -67,6 +67,21 @@ export function ArticleContent({ html }: ArticleContentProps) {
         return;
       }
 
+      // A fenced code block without a language is left by rehype-pretty-code as
+      // a bare <pre> (only highlighted blocks get a <figure> wrapper). Normalise
+      // it into a figure container first: otherwise `figure` and `pre` below
+      // point at the same element and `figure.insertBefore(header, pre)` throws
+      // NotFoundError, which React turns into a full-page client exception.
+      if (figure.tagName === "PRE") {
+        const parent = figure.parentNode;
+        if (!parent) return;
+        const wrapper = document.createElement("figure");
+        wrapper.setAttribute("data-rehype-pretty-code-figure", "");
+        parent.insertBefore(wrapper, figure);
+        wrapper.appendChild(figure);
+        figure = wrapper;
+      }
+
       // Remove any legacy elements if re-running
       figure.querySelector(".code-block-header")?.remove();
       figure.querySelector(".code-bottom-expander")?.remove();
