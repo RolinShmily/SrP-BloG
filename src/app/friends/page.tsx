@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { T } from "@/components/i18n/t";
 import { dictionaries } from "@/i18n";
 import { siteConfig } from "@/config/site";
-import { ArrowUpRight, Coffee } from "lucide-react";
+import { ArrowUpRight, Coffee, MessageSquare } from "lucide-react";
 
 export const dynamic = "force-static";
 
@@ -82,16 +82,42 @@ export default async function FriendsPage() {
 
           {siteConfig.friendApplication?.enabled !== false && (
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              {(siteConfig.friendApplication?.issueUrl || (siteConfig.repoUrl && `${siteConfig.repoUrl}/issues/new?template=friend_link.yml`)) && (
+              <span data-i18n="zh">
                 <Button asChild size="sm">
                   <a
-                    href={siteConfig.friendApplication?.issueUrl || `${siteConfig.repoUrl}/issues/new?template=friend_link.yml`}
+                    href={siteConfig.friendApplication?.issueUrlZh || `${siteConfig.repoUrl}/issues/new?template=friend_link_zh.yml`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="gap-1.5"
                   >
-                    <T zh={zh.friends.applyViaGithub} en={en.friends.applyViaGithub} />
+                    <span>{zh.friends.applyViaIssue}</span>
                     <ArrowUpRight className="h-3.5 w-3.5 opacity-70" />
+                  </a>
+                </Button>
+              </span>
+
+              <span data-i18n="en">
+                <Button asChild size="sm">
+                  <a
+                    href={siteConfig.friendApplication?.issueUrlEn || `${siteConfig.repoUrl}/issues/new?template=friend_link_en.yml`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-1.5"
+                  >
+                    <span>{en.friends.applyViaIssue}</span>
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-70" />
+                  </a>
+                </Button>
+              </span>
+
+              {(siteConfig.friendApplication?.commentUrl || siteConfig.comment?.enabled !== false) && (
+                <Button asChild variant="secondary" size="sm">
+                  <a
+                    href={siteConfig.friendApplication?.commentUrl || "#comments"}
+                    className="gap-1.5"
+                  >
+                    <T zh={zh.friends.applyViaComment} en={en.friends.applyViaComment} />
+                    <MessageSquare className="h-3.5 w-3.5 opacity-70" />
                   </a>
                 </Button>
               )}

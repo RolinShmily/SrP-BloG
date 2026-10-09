@@ -8,7 +8,7 @@
 
 | 类型 | 方式 |
 | --- | --- |
-| **友链申请** | 用 [友链申请 issue 模板](https://github.com/RolinShmily/SrP-BloG/issues/new?template=friend_link.yml) 提交，或直接提 PR 新增 `content/friends/<站点名>.json` |
+| **友链申请** | 用 [友链申请 issue 模板](https://github.com/RolinShmily/SrP-BloG/issues/new/choose) 提交（支持中英分流），或直接提 PR 新增 `content/friends/<站点名>.json` |
 | **文章勘误** | 错别字、失效链接、过时命令 → 直接提 PR 修改 `content/posts/<slug>/index.md` |
 | **代码 / 界面改进** | 先开 issue 讨论方向，再动手 |
 | **文档 / 构建 / CI** | 直接提 PR |

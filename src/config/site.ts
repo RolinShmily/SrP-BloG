@@ -74,8 +74,14 @@ export interface FriendSiteInfo {
 export interface FriendApplicationConfig {
   /** Master switch to enable/disable friend link application buttons. */
   enabled: boolean;
-  /** URL for applying via GitHub Issue template. */
+  /** Custom URL for applying via Chinese issue template. */
+  issueUrlZh?: string;
+  /** Custom URL for applying via English issue template. */
+  issueUrlEn?: string;
+  /** Fallback URL for applying via GitHub Issue template. */
   issueUrl?: string;
+  /** URL or anchor for applying via the comment section (default: "#comments"). */
+  commentUrl?: string;
   /** URL for applying via GitHub Pull Request. */
   prUrl?: string;
 }
@@ -404,7 +410,9 @@ export const siteConfig = {
   /** Quick application shortcuts on the /friends page. */
   friendApplication: {
     enabled: true,
-    issueUrl: "https://github.com/RolinShmily/SrP-BloG/issues/new?template=friend_link.yml",
+    issueUrlZh: "https://github.com/RolinShmily/SrP-BloG/issues/new?template=friend_link_zh.yml",
+    issueUrlEn: "https://github.com/RolinShmily/SrP-BloG/issues/new?template=friend_link_en.yml",
+    commentUrl: "#comments",
     prUrl: "https://github.com/RolinShmily/SrP-BloG/tree/main/content/friends",
   } as FriendApplicationConfig,
   /**
