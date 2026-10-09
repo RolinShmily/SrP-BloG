@@ -5,62 +5,210 @@ on:
     types: [opened, labeled]
 
 jobs:
-  welcome:
+  process-issue:
     runs-on: ubuntu-latest
     if: contains(github.event.issue.labels.*.name, 'friend-link')
     permissions:
+      contents: write
+      pull-requests: write
       issues: write
     steps:
-      - name: Post friend link submission guide
+      - name: Process Issue and Auto-create PR
         uses: actions/github-script@v7
         with:
-          # 仅发指引评论，全程 GITHUB_TOKEN，无 PAT 依赖
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const issue = context.payload.issue;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
 
-            // 去重：opened 与 labeled 事件可能同时触发，避免重复评论
-            const existing = await github.rest.issues.listComments({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+            // 1. 去重：避免 opened 与 labeled 事件重复处理
+            const existingComments = await github.rest.issues.listComments({
+              owner,
+              repo,
               issue_number: issue.number,
-              per_page: 100
+              per_page: 100,
             });
-            if (existing.data.some((c) => c.body && c.body.includes('📮 友链申请已收到'))) {
-              console.log('guide comment already exists, skip');
+            const alreadyProcessed = existingComments.data.some(
+              (c) => c.body && (c.body.includes('Pull Request') || c.body.includes('友链申请已收到') || c.body.includes('Friend link application received'))
+            );
+            if (alreadyProcessed) {
+              console.log('Issue already processed or comment exists, skipping.');
               return;
             }
 
-            const body = [
-              '📮 友链申请已收到！感谢你的申请。',
-              '',
-              '本 Issue 仅作为申请登记（自动打上 `friend-link` 标签）。',
-              '请按以下步骤在 `content/friends/` 目录下**新增一个 JSON 文件**，提交 PR 后机器人会自动打标签并校验：',
-              '',
-              '1. Fork 本仓库',
-              '2. 在 `content/friends/` 目录下**新增一个 JSON 文件**（文件名建议用你的站点名，例如 `Example_Blog.json`；文件名不要包含 `/ \\ : * ? " < > |`），文件内容为**单个对象**（不是数组）：',
-              '',
-              '```json',
-              '{',
-              '  "name": "站点名",',
-              '  "url": "https://example.com",',
-              '  "description": "一句话简介",',
-              '  "avatar": "https://example.com/avatar.png"',
-              '}',
-              '```',
-              '',
-              '3. 提交 Pull Request（标题格式不限，机器人会自动改写）',
-              '',
-              '4. 可选：在文件中追加 `"backlink": "https://example.com/friends/"`（你网站放置本站链接的页面 URL），机器人会自动做双向链接验证；未填写时机器人会在 PR 中引导补充。',
-              '',
-              '提交后机器人自动完成：格式校验 → URL 可达性检查 → 双向链接验证，',
-              '全部通过后由站长人工合并，合并即上线。',
-              '',
-              '> 双向链接要求：`backlink` 页面必须包含本站的绝对链接 `https://blog.srprolin.top/`，否则双向验证不通过。'
-            ].join('\n');
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue.number,
-              body
-            });
+            // 2. 识别语言 (中文 / 英文)
+            const labels = (issue.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
+            const isEnglish = labels.includes('lang:en') || (issue.title && issue.title.includes('[Friend Link]'));
+
+            // 3. 从 Issue 表单中提取字段
+            const body = issue.body || '';
+
+            function extractField(text, ...headers) {
+              for (const h of headers) {
+                const escaped = h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                const regex = new RegExp(`###\\s+${escaped}\\s*\\n+([^#]+)`, 'i');
+                const match = text.match(regex);
+                if (match) {
+                  const val = match[1].trim();
+                  if (val && val !== '_No response_') return val;
+                }
+              }
+              return '';
+            }
+
+            const sitename = extractField(body, '站点名称', 'Site Name');
+            const siteurl = extractField(body, '站点链接', 'Site URL');
+            const sitedesc = extractField(body, '站点描述', 'Description');
+            const siteavatar = extractField(body, '站点头像', 'Avatar URL');
+            const sitebacklink = extractField(body, '回链地址', 'Backlink URL');
+
+            // 4. 校验基础必填项
+            const missing = [];
+            if (!sitename) missing.push(isEnglish ? 'Site Name' : '站点名称');
+            if (!siteurl) missing.push(isEnglish ? 'Site URL' : '站点链接');
+            if (!sitedesc) missing.push(isEnglish ? 'Description' : '站点描述');
+            if (!siteavatar) missing.push(isEnglish ? 'Avatar URL' : '站点头像');
+
+            if (missing.length > 0) {
+              const reply = isEnglish
+                ? `⚠️ **Incomplete application**: Missing required field(s): ${missing.join(', ')}. Please update your issue.`
+                : `⚠️ **申请信息不完整**：缺少必填字段：${missing.join('、')}。请补充后重新提交。`;
+              await github.rest.issues.createComment({ owner, repo, issue_number: issue.number, body: reply });
+              return;
+            }
+
+            // 5. 组装 JSON 数据
+            const friendData = {
+              name: sitename,
+              url: siteurl,
+              description: sitedesc,
+              avatar: siteavatar,
+            };
+            if (sitebacklink) {
+              friendData.backlink = sitebacklink;
+            }
+
+            // 6. 安全文件名
+            const safeName = sitename
+              .replace(/[/\\:*?"<>|]/g, '_')
+              .replace(/\s+/g, '_')
+              .slice(0, 50) || `friend_${issue.number}`;
+            const filePath = `content/friends/${safeName}.json`;
+            const fileContentBase64 = Buffer.from(JSON.stringify(friendData, null, 2) + '\n', 'utf8').toString('base64');
+
+            try {
+              // 7. 获取 default 分支最新 commit SHA
+              const repoInfo = await github.rest.repos.get({ owner, repo });
+              const defaultBranch = repoInfo.data.default_branch || 'main';
+              const refData = await github.rest.git.getRef({ owner, repo, ref: `heads/${defaultBranch}` });
+              const baseSha = refData.data.object.sha;
+
+              // 8. 创建独立申请分支
+              const branchName = `friend-link/issue-${issue.number}`;
+              try {
+                await github.rest.git.createRef({
+                  owner,
+                  repo,
+                  ref: `refs/heads/${branchName}`,
+                  sha: baseSha,
+                });
+              } catch (e) {
+                console.log(`Branch ${branchName} creation note:`, e.message);
+              }
+
+              // 9. 提交 content/friends/<name>.json 文件
+              let fileSha = undefined;
+              try {
+                const existingFile = await github.rest.repos.getContent({ owner, repo, path: filePath, ref: branchName });
+                if (existingFile.data && existingFile.data.sha) {
+                  fileSha = existingFile.data.sha;
+                }
+              } catch {}
+
+              await github.rest.repos.createOrUpdateFileContents({
+                owner,
+                repo,
+                path: filePath,
+                message: `chore(friends): add ${sitename} via #${issue.number}`,
+                content: fileContentBase64,
+                branch: branchName,
+                sha: fileSha,
+              });
+
+              // 10. 自动创建 Pull Request
+              const prTitle = `friend: add ${sitename}`;
+              const prBody = isEnglish
+                ? `Closes #${issue.number}\n\nAutomated friend link Pull Request generated from issue #${issue.number}.`
+                : `Closes #${issue.number}\n\n由 Issue #${issue.number} 自动生成的友链申请 PR。`;
+
+              const pr = await github.rest.pulls.create({
+                owner,
+                repo,
+                title: prTitle,
+                head: branchName,
+                base: defaultBranch,
+                body: prBody,
+              });
+
+              // 11. 在原 Issue 回复通知申请者
+              const commentBody = isEnglish
+                ? [
+                    '📮 **Friend link application received!**',
+                    '',
+                    `Our bot has automatically created a Pull Request for your site: #${pr.data.number} ([View PR](${pr.data.html_url})).`,
+                    '',
+                    'Automated validation checks (URL reachability, reciprocal backlink) will run on the PR. Once passed, the site owner will review and merge it.',
+                    '',
+                    `> Track your application status: #${pr.data.number}`,
+                  ].join('\n')
+                : [
+                    '📮 **友链申请已收到！**',
+                    '',
+                    `机器人已自动为您创建 Pull Request：#${pr.data.number}（[查看 PR](${pr.data.html_url})）。`,
+                    '',
+                    '后续自动化校验（URL 可达性、双向回链验证）将在该 PR 中执行。校验全部通过后，由站长人工合并上线。',
+                    '',
+                    `> 申请进展可在 #${pr.data.number} 中跟踪。`,
+                  ].join('\n');
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: commentBody,
+              });
+            } catch (err) {
+              console.error('Failed to auto-create PR:', err);
+              // 优雅降级回复，生成格式化 JSON，避免阻断人工审核
+              const fallbackBody = isEnglish
+                ? [
+                    '📮 **Friend link application received!**',
+                    '',
+                    'Automatic PR creation could not be completed automatically. Here is your generated JSON configuration:',
+                    '',
+                    '```json',
+                    JSON.stringify(friendData, null, 2),
+                    '```',
+                    '',
+                    `The site owner will manually place this file into \`${filePath}\`.`,
+                  ].join('\n')
+                : [
+                    '📮 **友链申请已收到！**',
+                    '',
+                    '自动创建 PR 遇到异常，已为您生成对应 JSON 配置：',
+                    '',
+                    '```json',
+                    JSON.stringify(friendData, null, 2),
+                    '```',
+                    '',
+                    `站长会在人工审核时将上述配置置入 \`${filePath}\`。`,
+                  ].join('\n');
+
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: issue.number,
+                body: fallbackBody,
+              });
+            }

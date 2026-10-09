@@ -34,14 +34,14 @@ jobs:
             const SITE_CONFIG_FILE = 'src/config/site.ts'
             const DEFAULT_SITE_URL = 'https://blog.srprolin.top'
 
-            const LABEL_FRIEND = '友链'
-            const LABEL_AVATAR_OK = '头像可达'
-            const LABEL_AVATAR_BAD = '头像不可达'
-            const LABEL_SITE_OK = '网站可达'
-            const LABEL_SITE_BAD = '网站不可达'
-            const LABEL_ALL_OK = 'URL全部可达'
-            const LABEL_BIDIR = '双向链接验证'
-            const LABEL_BIDIR_OK = '双向链接验证通过'
+            const LABEL_FRIEND = 'friend-link'
+            const LABEL_AVATAR_OK = 'avatar:reachable'
+            const LABEL_AVATAR_BAD = 'avatar:unreachable'
+            const LABEL_SITE_OK = 'site:reachable'
+            const LABEL_SITE_BAD = 'site:unreachable'
+            const LABEL_ALL_OK = 'urls:reachable'
+            const LABEL_BIDIR = 'backlink:pending'
+            const LABEL_BIDIR_OK = 'backlink:verified'
 
             const REQUIRED_FIELDS = ['name', 'url', 'description', 'avatar']
 
@@ -104,7 +104,7 @@ jobs:
 
             async function createComment(body) {
               const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
-              const footer = `\n\n---\n该评论由 Action 自动化发送，无需回复。\n\n🔗 [查看 Action](${runUrl})`
+              const footer = `\n\n---\n*This comment was generated automatically by GitHub Actions. No reply needed.*\n\n🔗 [View Action Run](${runUrl})`
               const fullBody = body + footer
               core.info(`createComment len=${String(fullBody || '').length}`)
               try {
@@ -268,11 +268,11 @@ jobs:
             if (removedFriendFiles.length) {
               await createComment(
                 [
-                  '检测到本 PR 删除了友链数据文件：',
+                  'Detected deletion of friend link data file(s):',
                   '',
                   ...removedFriendFiles.map((p) => `- \`${p}\``),
                   '',
-                  '友链数据不可静默删除，请恢复文件；如确需移除某条友链，请说明理由并等待站长人工处理。',
+                  'Friend link data cannot be silently deleted. Please restore the file(s). If you need to remove a friend link, please state the reason and wait for manual review by the maintainer.',
                 ].join('\n')
               )
               return
@@ -282,7 +282,7 @@ jobs:
             if (invalidSuffix.length) {
               await createComment(
                 [
-                  `检测到 ${FRIENDS_DIR} 目录下存在非 .json 文件，已停止处理：`,
+                  `Detected non-.json file(s) in \`${FRIENDS_DIR}\`. Processing halted:`,
                   '',
                   ...invalidSuffix.map((p) => `- ${p}`),
                 ].join('\n')
@@ -304,12 +304,12 @@ jobs:
               const raw = await getTextFileFromRepo(path, headSha)
               const parsed = parseJsonSafe(raw)
               if (!parsed.ok) {
-                errors.push(`${path}：JSON 解析失败（${parsed.error}）`)
+                errors.push(`${path}: Failed to parse JSON (${parsed.error})`)
                 continue
               }
               const entry = parsed.value
               if (!entry || typeof entry !== 'object' || Array.isArray(entry)) {
-                errors.push(`${path}：必须是单个 JSON 对象（目录型友链：一个文件一个对象，不是数组）`)
+                errors.push(`${path}: Must be a single JSON object (one object per file, not an array)`)
                 continue
               }
               changedEntries.push({ path, data: entry })
@@ -319,13 +319,13 @@ jobs:
             for (const { path, data } of changedEntries) {
               const label = isNonEmptyString(data.name) ? data.name.trim() : path
               for (const field of REQUIRED_FIELDS) {
-                if (!isNonEmptyString(data[field])) errors.push(`${label}（${path}）：缺少必填字段 ${field}`)
+                if (!isNonEmptyString(data[field])) errors.push(`${label} (${path}): Missing required field '${field}'`)
               }
               if (isNonEmptyString(data.url) && !normalizeUrl(data.url)) {
-                errors.push(`${label}（${path}）：url 不是合法的 http(s) 绝对链接（${data.url}）`)
+                errors.push(`${label} (${path}): 'url' is not a valid absolute http(s) URL (${data.url})`)
               }
               if (isNonEmptyString(data.avatar) && !normalizeUrl(data.avatar)) {
-                errors.push(`${label}（${path}）：avatar 不是合法的 http(s) 绝对链接（${data.avatar}）`)
+                errors.push(`${label} (${path}): 'avatar' is not a valid absolute http(s) URL (${data.avatar})`)
               }
               if (Object.prototype.hasOwnProperty.call(data, 'vip')) vipPaths.push(path)
             }
@@ -343,16 +343,16 @@ jobs:
                   const raw = await getTextFileFromRepo(otherPath, headSha)
                   const parsed = parseJsonSafe(raw)
                   if (parsed.ok) data = parsed.value
-                  else errors.push(`${otherPath}：JSON 解析失败（${parsed.error}）`)
+                  else errors.push(`${otherPath}: Failed to parse JSON (${parsed.error})`)
                 } catch (e) {
-                  errors.push(`${otherPath}：无法读取（${e?.message || e}）`)
+                  errors.push(`${otherPath}: Unable to read (${e?.message || e})`)
                 }
               }
               if (!data || typeof data !== 'object' || Array.isArray(data)) continue
               const key = urlKey(data)
               if (!key) continue
               if (seenUrlKeys.has(key)) {
-                errors.push(`${otherPath}：url 与其他友链文件重复（${seenUrlKeys.get(key)}，${data.url}）`)
+                errors.push(`${otherPath}: 'url' duplicates an existing friend link entry (${seenUrlKeys.get(key)}, ${data.url})`)
               } else {
                 seenUrlKeys.set(key, otherPath)
               }
@@ -360,7 +360,7 @@ jobs:
 
             if (errors.length) {
               await createComment(
-                [`检测到 \`${FRIENDS_DIR}\` 友链校验失败：`, '', ...errors.map((x) => `- ${x}`)].join('\n')
+                [`Friend link validation failed for \`${FRIENDS_DIR}\`:`, '', ...errors.map((x) => `- ${x}`)].join('\n')
               )
               return
             }
@@ -368,9 +368,9 @@ jobs:
             if (vipPaths.length) {
               await createComment(
                 [
-                  '检测到 JSON 存在 vip 字段，已终止自动流程。',
+                  'Detected forbidden \'vip\' field in JSON. Automated workflow halted.',
                   '',
-                  '请从以下文件移除 vip 字段后再 push 更新（移除后才会继续自动校验）：',
+                  'Please remove the \'vip\' field from the following file(s) and push updates:',
                   '',
                   ...vipPaths.map((p) => `- ${p}`),
                 ].join('\n')
@@ -406,7 +406,7 @@ jobs:
               owner,
               repo,
               pull_number,
-              title: `友链：${primary.name}`,
+              title: `friend: ${primary.name}`,
             })
 
             const avatarUrl = normalizeUrl(primary.avatar)
@@ -424,11 +424,11 @@ jobs:
                 })()
               : null
             if (normalizedSiteUrl === selfSite) {
-              await createComment(`检测到友链的 url 指向本站（${siteBase}），请填写你自己的网站 URL。`)
+              await createComment(`Friend link 'url' points to this blog (${siteBase}). Please provide your own website URL.`)
               return
             }
             if (normalizedBacklinkUrl === selfSite) {
-              await createComment(`检测到友链的 backlink 指向本站（${siteBase}），请填写你自己网站的友链页 URL。`)
+              await createComment(`Friend link 'backlink' points to this blog (${siteBase}). Please provide your own friend links page URL.`)
               return
             }
 
@@ -465,12 +465,10 @@ jobs:
               await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
               await createComment(
                 [
-                  '基础校验已通过，需要进行双向链接验证：',
+                  'Basic validation passed. Reciprocal backlink verification is required:',
                   '',
-                  `1) 请在你的友链页面添加本站友链（必须为绝对链接）：${siteBase}`,
-                  `2) 然后在 \`content/friends/\` 目录下新增（或更新）对应的 JSON 文件：\`${primaryPath}\`，为你新增的对象增加字段 backlink（填写你的友链页面 URL，必须是 http/https 绝对链接）`,
-                  '',
-                  '示例：',
+                  `1) Please add our blog link to your friend links page (must be an absolute URL): \`${siteBase}\``,
+                  `2) Update \`${primaryPath}\` to include the \`backlink\` field (URL of your friends page, must be http/https):`,
                   '',
                   '```json',
                   '{',
@@ -482,8 +480,8 @@ jobs:
                   '}',
                   '```',
                   '',
-                  `3) 请确保你的 backlink 页面中包含指向本站的链接 href=${siteBase} （必须完全一致的绝对链接）`,
-                  '4) push 更新后 Action 会自动重新校验，通过后由站长人工合并，无需额外评论',
+                  `3) Ensure your backlink page contains an exact link matching \`${siteBase}\``,
+                  '4) Push updates to this branch. GitHub Actions will automatically re-verify (no need to comment).',
                 ].join('\n')
               )
               return
@@ -495,13 +493,13 @@ jobs:
             } catch {
               core.info('bidir: backlink invalid url -> setLabels + comment')
               await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-              await createComment(`双向链接验证失败：backlink 不是合法的 URL（${backlink}）`)
+              await createComment(`Backlink verification failed: 'backlink' is not a valid URL (${backlink})`)
               return
             }
             if (!backlinkUrl.startsWith('http://') && !backlinkUrl.startsWith('https://')) {
               core.info('bidir: backlink not http(s) -> setLabels + comment')
               await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-              await createComment(`双向链接验证失败：backlink 必须以 http/https 开头（${backlink}）`)
+              await createComment(`Backlink verification failed: 'backlink' must start with http:// or https:// (${backlink})`)
               return
             }
 
@@ -511,7 +509,7 @@ jobs:
             } catch {
               core.info('bidir: siteUrl invalid -> setLabels + comment')
               await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
-              await createComment('双向链接验证失败：友链 JSON 中 url 无效，无法比较主域名。')
+              await createComment('Backlink verification failed: \'url\' in friend link JSON is invalid, unable to compare domains.')
               return
             }
             const backlinkHost = new URL(backlinkUrl).host.toLowerCase()
@@ -522,10 +520,10 @@ jobs:
               await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
               await createComment(
                 [
-                  '双向链接验证失败：backlink 的主域名必须与 url 的主域名一致。',
+                  'Backlink verification failed: The domain of \'backlink\' must match the domain of \'url\'.',
                   '',
-                  `url：${siteUrlObj.toString()}`,
-                  `backlink：${backlinkUrl}`,
+                  `url: ${siteUrlObj.toString()}`,
+                  `backlink: ${backlinkUrl}`,
                 ].join('\n')
               )
               return
@@ -540,11 +538,11 @@ jobs:
             }
 
             function formatBacklinkDebug(d) {
-              const lines = ['调试信息：']
-              if (isNonEmptyString(d?.finalUrl)) lines.push(`- 最终 URL：${d.finalUrl}`)
-              if (typeof d?.status === 'number') lines.push(`- 状态码：${d.status}`)
-              if (isNonEmptyString(d?.contentType)) lines.push(`- Content-Type：${d.contentType}`)
-              if (isNonEmptyString(d?.title)) lines.push(`- 标题：${d.title}`)
+              const lines = ['Debug Info:']
+              if (isNonEmptyString(d?.finalUrl)) lines.push(`- Final URL: ${d.finalUrl}`)
+              if (typeof d?.status === 'number') lines.push(`- Status Code: ${d.status}`)
+              if (isNonEmptyString(d?.contentType)) lines.push(`- Content-Type: ${d.contentType}`)
+              if (isNonEmptyString(d?.title)) lines.push(`- Page Title: ${d.title}`)
               return lines.join('\n')
             }
 
@@ -563,9 +561,9 @@ jobs:
                   await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
                   await createComment(
                     [
-                      `双向链接验证失败：无法访问 backlink（${res.status}）。`,
+                      `Backlink verification failed: Unable to access backlink page (${res.status}).`,
                       '',
-                      `backlink：${backlinkUrl}`,
+                      `backlink: ${backlinkUrl}`,
                       formatBacklinkDebug({
                         finalUrl: res.url,
                         status: res.status,
@@ -590,10 +588,10 @@ jobs:
                 await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
                 await createComment(
                   [
-                    '双向链接验证失败：访问 backlink 出错。',
+                    'Backlink verification failed: Error accessing backlink page.',
                     '',
-                    `backlink：${backlinkUrl}`,
-                    `错误：${e?.message || e}`,
+                    `backlink: ${backlinkUrl}`,
+                    `Error: ${e?.message || e}`,
                   ].join('\n')
                 )
                 return { ok: false }
@@ -624,14 +622,14 @@ jobs:
               await setLabels({ addLabels: [LABEL_BIDIR], removeLabels: [LABEL_BIDIR_OK] })
               await createComment(
                 [
-                  '双向链接验证未通过：在 backlink 页面未检测到本站友链。',
+                  'Backlink verification failed: No link pointing to our blog was found on your backlink page.',
                   '',
-                  `需要添加的绝对链接：${siteBase}`,
-                  `backlink 页面：${backlinkUrl}`,
+                  `Required link: ${siteBase}`,
+                  `Backlink page: ${backlinkUrl}`,
                   '',
                   formatBacklinkDebug(fetched),
                   '',
-                  '请添加后 push 更新（无需评论）。',
+                  'Please add our link to your page and push updates to this branch.',
                 ].join('\n')
               )
               return
@@ -643,12 +641,12 @@ jobs:
             // 自动合并已移除：验证通过后由站长在 GitHub 页面人工 Merge。
             await createComment(
               [
-                '✅ 友链申请全部校验通过：',
+                '✅ Friend link validation passed all automated checks:',
                 '',
-                '• 头像 URL 可达',
-                '• 网站 URL 可达',
-                '• 双向链接验证通过（backlink 页面已包含本站链接）',
+                '• Avatar URL is reachable',
+                '• Website URL is reachable',
+                '• Reciprocal backlink verified (your page contains our blog link)',
                 '',
-                '请站长审核后手动合并本 PR（Merge pull request），合并后友链即上线。',
+                'Waiting for manual review and merge by the site owner.',
               ].join('\n')
             )
