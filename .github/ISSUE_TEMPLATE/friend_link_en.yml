@@ -1,0 +1,60 @@
+name: Friend Link Application (English)
+description: Apply for a friend link exchange
+title: "[Friend Link] <Site Name>"
+labels: ["friend-link", "lang:en"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ### Welcome to apply for a friend link
+
+        Please fill in your site details below. We will review and process your application shortly.
+
+        > **Notice**:
+        > 1. Please ensure your website supports HTTPS and stays reliably online.
+        > 2. Please add our link to your site first (backlink) before applying.
+
+  - type: input
+    id: sitename
+    attributes:
+      label: Site Name
+      description: The name of your website or blog
+      placeholder: e.g. SrP-BloG
+    validations:
+      required: true
+
+  - type: input
+    id: siteurl
+    attributes:
+      label: Site URL
+      description: Homepage URL of your site (must start with http:// or https://)
+      placeholder: e.g. https://blog.srprolin.top/
+    validations:
+      required: true
+
+  - type: input
+    id: sitedesc
+    attributes:
+      label: Description
+      description: A brief summary or slogan of your site
+      placeholder: e.g. Entities should not be multiplied beyond necessity.
+    validations:
+      required: true
+
+  - type: input
+    id: siteavatar
+    attributes:
+      label: Avatar URL
+      description: Avatar or favicon URL of your site (must start with http:// or https://)
+      placeholder: e.g. https://blog.srprolin.top/favicon/favicon.ico
+    validations:
+      required: true
+
+  - type: input
+    id: sitebacklink
+    attributes:
+      label: Backlink URL
+      description: The page URL where our link is placed on your site (must contain https://blog.srprolin.top/)
+      placeholder: e.g. https://example.com/friends/
+    validations:
+      required: true
