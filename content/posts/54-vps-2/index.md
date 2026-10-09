@@ -1,5 +1,5 @@
 ---
-title: 关于VPS常见场景的操作总结 | Debian
+title: 关于VPS常见场景的操作总结 | Debian | Linux | Bash
 published: 2026-10-08
 pinned: false
 description: ''
@@ -10,6 +10,7 @@ tags:
   - Nginx
   - TLS
   - SSH
+  - Bash
 draft: true
 ---
 
@@ -157,6 +158,7 @@ vim ~/.ssh/config
 保存之后`ssh vps`即可快速以`rolin`登录我们的vps。
 
 # Nginx的80端口
+由于浏览器发出`http`请求到达的服务器端口默认为`80/tcp`，因此也成为早期建站的惯用端口，后来通过TLS加密手段而来的`https`，也就是我们今天浏览器针对域名的默认请求协议，到达的服务器端口为`443/tcp`。
 
 # Certbot的TLS证书申请
 
