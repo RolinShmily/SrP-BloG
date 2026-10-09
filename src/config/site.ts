@@ -87,6 +87,14 @@ export interface SponsorshipConfig {
   alipay?: string;
   /** Custom WeChat Pay QR image (default: /sponsors/wechat.png). */
   wechat?: string;
+  /** Afdian creator slug (e.g. "srprolin") or full profile URL. */
+  afdianSlug?: string;
+  /** Legacy alias for afdianSlug. */
+  afdian?: string;
+  /** Custom Afdian button SVG for Chinese locale (default: /sponsors/afdian-button-zh.svg). */
+  afdianButtonZh?: string;
+  /** Custom Afdian button SVG for English locale (default: /sponsors/afdian-button-en.svg). */
+  afdianButtonEn?: string;
 }
 
 export interface UpvConfig {
@@ -407,6 +415,9 @@ export const siteConfig = {
     enabled: true,
     alipay: "/sponsors/alipay.png",
     wechat: "/sponsors/wechat.png",
+    afdianSlug: "srprolin",
+    afdianButtonZh: "/sponsors/afdian-button-zh.svg",
+    afdianButtonEn: "/sponsors/afdian-button-en.svg",
   } as SponsorshipConfig,
 
   // ==========================================

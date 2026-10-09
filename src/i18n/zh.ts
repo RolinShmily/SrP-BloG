@@ -137,6 +137,7 @@ export const zh = {
     heading: "赞助者名单",
     alipay: "支付宝",
     wechat: "微信支付",
+    afdian: "在爱发电支持我",
     message: "赞助后请留言或主动联系我。",
     thanks: "感谢以下赞助者：",
     empty: "还没有赞助者，期待你的支持。",

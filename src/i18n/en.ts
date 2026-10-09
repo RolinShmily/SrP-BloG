@@ -138,6 +138,7 @@ export const en: Dictionary = {
     heading: "Sponsors",
     alipay: "Alipay",
     wechat: "WeChat Pay",
+    afdian: "Support me on Afdian",
     message: "Please leave a message or contact me proactively after sponsorship.",
     thanks: "Thanks to the following sponsors:",
     empty: "No sponsors yet — yours could be the first.",

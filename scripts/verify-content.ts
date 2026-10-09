@@ -608,7 +608,12 @@ async function verifyContent() {
 
   // The sponsorship section renders real payment codes; a missing file would
   // silently degrade to a broken image in production, so check the assets.
-  const sponsorQrAssets = ["public/sponsors/alipay.png", "public/sponsors/wechat.png"];
+  const sponsorQrAssets = [
+    "public/sponsors/alipay.png",
+    "public/sponsors/wechat.png",
+    "public/sponsors/afdian-button-zh.svg",
+    "public/sponsors/afdian-button-en.svg",
+  ];
   const missingQrAssets = sponsorQrAssets.filter(
     (asset) => !fs.existsSync(path.join(process.cwd(), asset))
   );

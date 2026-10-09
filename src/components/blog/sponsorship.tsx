@@ -21,6 +21,14 @@ const en = dictionaries.en;
 export function Sponsorship() {
   const alipayImg = siteConfig.sponsorship?.alipay || "/sponsors/alipay.png";
   const wechatImg = siteConfig.sponsorship?.wechat || "/sponsors/wechat.png";
+  const afdianRaw = siteConfig.sponsorship?.afdianSlug || siteConfig.sponsorship?.afdian;
+  const afdianUrl = afdianRaw
+    ? afdianRaw.startsWith("http://") || afdianRaw.startsWith("https://")
+      ? afdianRaw
+      : `https://afdian.com/a/${afdianRaw}`
+    : undefined;
+  const afdianButtonZh = siteConfig.sponsorship?.afdianButtonZh || "/sponsors/afdian-button-zh.svg";
+  const afdianButtonEn = siteConfig.sponsorship?.afdianButtonEn || "/sponsors/afdian-button-en.svg";
 
   const methods = [
     {
@@ -40,26 +48,63 @@ export function Sponsorship() {
   ];
 
   return (
-    <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-start">
-      {methods.map(({ key, image, zh: zhLabel, en: enLabel, Icon }) => (
-        <figure key={key} className="flex flex-col items-center gap-2">
-          <div className="sponsorship-card card-spotlight card-interactive relative overflow-hidden rounded-xl border border-border bg-white dark:bg-zinc-900">
-            <div className="sponsorship-card-icon absolute inset-0 z-10 items-center justify-center text-zinc-800 dark:text-zinc-100">
-              <Icon className="h-20 w-20" />
-            </div>
-            <Image
-              src={image}
-              alt={`${zhLabel} / ${enLabel}`}
-              width={400}
-              height={400}
-              className="sponsorship-card-img block h-auto w-60 max-w-full"
+    <div className="space-y-4">
+      {afdianUrl && (
+        <div className="flex justify-center sm:justify-start">
+          <a
+            href={afdianUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            aria-label={zh.sponsors.afdian}
+          >
+            <T
+              zh={
+                <Image
+                  src={afdianButtonZh}
+                  alt={zh.sponsors.afdian}
+                  width={200}
+                  height={56}
+                  unoptimized
+                  className="h-11 w-auto sm:h-12 rounded-[10px] shadow-sm transition-shadow group-hover:shadow-md group-hover:shadow-purple-500/20"
+                />
+              }
+              en={
+                <Image
+                  src={afdianButtonEn}
+                  alt={en.sponsors.afdian}
+                  width={220}
+                  height={56}
+                  unoptimized
+                  className="h-11 w-auto sm:h-12 rounded-[10px] shadow-sm transition-shadow group-hover:shadow-md group-hover:shadow-purple-500/20"
+                />
+              }
             />
-          </div>
-          <figcaption className="text-meta text-muted-foreground">
-            <T zh={zhLabel} en={enLabel} />
-          </figcaption>
-        </figure>
-      ))}
+          </a>
+        </div>
+      )}
+
+      <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:justify-start">
+        {methods.map(({ key, image, zh: zhLabel, en: enLabel, Icon }) => (
+          <figure key={key} className="flex flex-col items-center gap-2">
+            <div className="sponsorship-card card-spotlight card-interactive relative overflow-hidden rounded-xl border border-border bg-white dark:bg-zinc-900">
+              <div className="sponsorship-card-icon absolute inset-0 z-10 items-center justify-center text-zinc-800 dark:text-zinc-100">
+                <Icon className="h-20 w-20" />
+              </div>
+              <Image
+                src={image}
+                alt={`${zhLabel} / ${enLabel}`}
+                width={400}
+                height={400}
+                className="sponsorship-card-img block h-auto w-60 max-w-full"
+              />
+            </div>
+            <figcaption className="text-meta text-muted-foreground">
+              <T zh={zhLabel} en={enLabel} />
+            </figcaption>
+          </figure>
+        ))}
+      </div>
     </div>
   );
 }
