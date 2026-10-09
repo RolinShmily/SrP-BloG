@@ -1,7 +1,7 @@
 name: 友链申请 (中文)
 description: 申请交换友情链接
 title: "[友链申请] <站点名称>"
-labels: ["friend-link", "lang:zh"]
+labels: ["friend-link"]
 body:
   - type: markdown
     attributes:

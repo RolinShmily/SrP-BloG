@@ -39,7 +39,7 @@ jobs:
 
             // 2. 识别语言 (中文 / 英文)
             const labels = (issue.labels || []).map((l) => (typeof l === 'string' ? l : l.name));
-            const isEnglish = labels.includes('lang:en') || (issue.title && issue.title.includes('[Friend Link]'));
+            const isEnglish = labels.includes('lang:en') || (issue.title && issue.title.includes('[Friend Link]')) || (issue.body && issue.body.includes('### Site Name'));
 
             // 3. 从 Issue 表单中提取字段
             const body = issue.body || '';

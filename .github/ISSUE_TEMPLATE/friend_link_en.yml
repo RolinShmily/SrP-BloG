@@ -1,7 +1,7 @@
 name: Friend Link Application (English)
 description: Apply for a friend link exchange
 title: "[Friend Link] <Site Name>"
-labels: ["friend-link", "lang:en"]
+labels: ["friend-link"]
 body:
   - type: markdown
     attributes:
