@@ -2,7 +2,7 @@
 title: Waline评论区搭建 | Docker | Nginx
 published: 2026-09-19
 pinned: false
-description: "介绍通过 Docker 与 Nginx 自托管 Waline 评论系统，涵盖服务配置、数据存储、域名反向代理和后台管理界面的部署步骤。"
+description: 介绍通过 Docker 与 Nginx 自托管 Waline 评论系统，涵盖服务配置、数据存储、域名反向代理和后台管理界面的部署步骤。
 image: Waline.png
 tags:
   - Docker
@@ -247,7 +247,7 @@ server {
 
 # ==================== Waline Comment System - HTTPS ====================
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
     server_name <your-main-domain>;
 
     ssl_certificate /etc/letsencrypt/live/<your-main-domain>/fullchain.pem;
