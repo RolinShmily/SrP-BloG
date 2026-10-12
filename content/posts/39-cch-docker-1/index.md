@@ -1,6 +1,7 @@
 ---
 title: Claude Code Hub 部署 | Docker | Nginx
 published: 2026-05-20
+pinned: false
 description: ClaudeCodeHub是一个CC-Switch的团队加强版，能够统一管理API上游来源，并实现具体到Session的指标监控与API权限分发。
 image: ./2026-0523-1817.png
 tags:
@@ -9,11 +10,16 @@ tags:
   - API
 draft: false
 ---
+
 # 相关链接
+
 - [Claude Code Hub官网](https://claude-code-hub.app/)
 - [Claude Code Hub代码仓库](https://github.com/ding113/claude-code-hub)
+
 # Docker部署
+
 在官方GitHub仓库中，为我们提供了`docker-compose.yml`和`.env.example`文件，首先来看compose：
+
 ```yml
 name: ${COMPOSE_PROJECT_NAME:-claude-code-hub}
 
@@ -105,9 +111,12 @@ services:
       retries: 3
       start_period: 30s
 ```
+
 可以看到这里用了大量的`${}`环境变量，这要求我们要搭配`.env`文件来使用，来看官方的样例(重点更改)：
+
 - `ADMIN_TOKEN`:用于登录面板后台的密码
 - `DB_PASSWORD`:postgreSQL数据库密码
+
 ```ini
 # 管理员令牌（请务必更改此值以确保安全性）
 ADMIN_TOKEN=change-me
@@ -310,7 +319,9 @@ ENDPOINT_PROBE_METHOD=TCP
 ENDPOINT_PROBE_LOG_RETENTION_DAYS=1
 ENDPOINT_PROBE_LOG_CLEANUP_BATCH_SIZE=10000
 ```
+
 更改过后，只需要按如下操作在VPS里执行命令即可：
+
 ```bash
 mkdir -p ~/cch
 cd ~/cch
@@ -321,8 +332,11 @@ nano .env
 # 启动容器
 sudo docker compose up -d
 ```
+
 # Nginx配置
+
 关于SSL证书的申请和Nginx配置文件编辑，在笔者过往文章中提到很多了，这里只贴一下`server`配置：
+
 ```ini
 # ==================== Claude-Code-Hub - HTTP ====================
 server {
@@ -335,7 +349,7 @@ server {
 
 # ==================== Claude-Code-Hub - HTTPS ====================
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
     server_name <your-domain>;
 
     ssl_certificate /etc/letsencrypt/live/<your-domain>/fullchain.pem;
