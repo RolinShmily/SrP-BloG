@@ -2,20 +2,23 @@
 title: Docker部署自建Bitwarden密码管理器 | Nginx
 published: 2026-04-18
 pinned: false
-description: "记录在 Debian 13 上使用 Docker 与 Nginx 自建 Bitwarden 密码管理器的过程，包含服务部署、HTTPS 反向代理与基础维护。"
+description: 记录在 Debian 13 上使用 Docker 与 Nginx 自建 Bitwarden 密码管理器的过程，包含服务部署、HTTPS 反向代理与基础维护。
 image: ./2026-0418-1443.png
 tags:
   - Docker
   - Nginx
 draft: false
 ---
+
 # 相关链接
+
 - [Bitwarden官网](https://bitwarden.com/)
 - [VaultWarden项目](https://github.com/dani-garcia/vaultwarden)
 
 Bitwarden是有商业化服务的，理论上你可以付费享用官方提供的密码托管服务；VaultWarden是基于Bitwarden可自托管特性，开源的一个密码托管服务，在后续的手机APP、浏览器拓展里，均需访问**自托管**站点来链接到自建Vaultwarden密码库。
 
 # Docker-Compose配置
+
 ```bash
 # 进入用户目录，新建应用目录
 cd ~
@@ -24,7 +27,9 @@ mkdir bitwarden
 # 编辑compose文件(参考下文)
 nano ~/bitwarden/docker-compose.yml
 ```
+
 文件内容参考:
+
 ```yaml
 version: '3.9'
 services:
@@ -40,9 +45,11 @@ services:
         environment:
             - WEBSOCKET_ENABLED=true
 ```
+
 > 你可以提前使用`docker pull`来拉取镜像。
 
 随后，执行启动命令即可跑通该容器：
+
 ```bash
 # 进入应用目录
 cd ~/bitwarden
@@ -52,6 +59,7 @@ sudo docker compose up -d
 ```
 
 # Nginx+Certbot配置
+
 ```bash
 # 安装certbot
 apt-get install -y certbot
@@ -77,7 +85,9 @@ nginx -t
 # 重载Nginx服务
 systemctl reload nginx
 ```
+
 配置文件内容参考：
+
 ```ini
 # ==================== Bitwarden - HTTP ====================
 server {
@@ -90,7 +100,7 @@ server {
 
 # ==================== Bitwarden - HTTPS ====================
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
     server_name <your-domain>;
 
     ssl_certificate /etc/letsencrypt/live/<your-domain>/fullchain.pem;
@@ -121,7 +131,9 @@ server {
     }
 }
 ```
+
 # 结语
+
 - 上述方法建立在长期使用，且有域名的前提下，此方法不需要开放云服务器厂商处的端口。
 - 当然你可以使用宝塔、1Panel等服务器面板管理应用，一键安装配置Bitwarden
 - 如果你只是测试，可以不进行Nginx配置，只在docker容器跑通后，开放云服务器厂商的8080TCP端口，即可通过`http://ip:8080`访问vaultwarden后台。
