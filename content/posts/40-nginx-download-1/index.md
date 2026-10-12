@@ -1,8 +1,8 @@
 ---
-title: "Nginx 文件下载站搭建：VPS 反向代理与目录映射"
+title: Nginx 文件下载站搭建：VPS 反向代理与目录映射
 published: 2026-06-01
 pinned: false
-description: "说明如何用 Nginx 配置 VPS 文件下载站，包括目录映射、HTTP 下载、大文件传输、访问权限设置及站点部署所需命令。"
+description: 说明如何用 Nginx 配置 VPS 文件下载站，包括目录映射、HTTP 下载、大文件传输、访问权限设置及站点部署所需命令。
 image: Nginx.png
 tags:
   - Nginx
@@ -23,7 +23,7 @@ server {
 
 # ==================== Download - HTTPS ====================
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
     server_name d<your-domain>;
 
     ssl_certificate /etc/letsencrypt/live/<your-domain>/fullchain.pem;
