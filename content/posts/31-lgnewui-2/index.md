@@ -1,7 +1,8 @@
 ---
 title: LGnewUI-2 部署 | Docker | PHP | MySQL | Nginx | Certbot
 published: 2026-04-03
-description: "介绍使用 Docker 部署 LGnewUI-2 站点的流程，配置 PHP-FPM、MySQL 与 Nginx，并涵盖 HTTPS、反向代理和服务维护。"
+pinned: false
+description: 介绍使用 Docker 部署 LGnewUI-2 站点的流程，配置 PHP-FPM、MySQL 与 Nginx，并涵盖 HTTPS、反向代理和服务维护。
 image: ./2026-04-03-16-16.png
 tags:
   - Docker
@@ -11,6 +12,7 @@ tags:
   - Certbot
 draft: false
 ---
+
 # 相关链接
 
 - [Ki's Blog--LGnewUI作者的博客空间](https://blog.kikiw.cn/)
@@ -26,6 +28,7 @@ LGnewUI-2采用授权下载方式，需要在 [LGNewUi-Auth - 情侣小站在线
 # Docker的安装配置
 
 参考[阿里云给出的文档](https://help.aliyun.com/zh/ecs/user-guide/install-and-use-docker),按序执行即可:
+
 ```zsh
 #删除Docker相关源
 sudo rm -f /etc/apt/sources.list.d/*docker*.list
@@ -58,14 +61,19 @@ sudo systemctl enable docker
 ```
 
 配置镜像源:
+
 ```zsh
 sudo nano /etc/docker/daemon.json
 ```
+
 [轩辕镜像](https://docker.xuanyuan.me/) 一键配置脚本:
+
 ```zsh
 bash <(wget -qO- https://xuanyuan.cloud/docker.sh)
 ```
+
 镜像源配置示例：
+
 ```json
 {
   "registry-mirrors": [
@@ -78,6 +86,7 @@ bash <(wget -qO- https://xuanyuan.cloud/docker.sh)
 如果配置后仍然无法拉取(`docker pull`)镜像，请考虑使用科学上网工具。
 
 对于不同设备，可以使用以下命令传输离线镜像包：
+
 ```zsh
 # 拉取镜像(设备1)
 docker pull ...
@@ -169,6 +178,7 @@ services:
 ```
 
 可以先拉取镜像，或者参考上一节的内容，加载离线镜像包:
+
 ```zsh
 # 拉取镜像 (方式1)
 sudo docker pull mysql:5.7.44
@@ -178,14 +188,17 @@ sudo docker load -i <path>/<name>.tar
 ```
 
 随后就可以启用容器了:
+
 ```zsh
 cd ~/mysql57
 sudo docker compose up -d
 ```
 
 # PHP-FPM的compose配置
+
 > 笔者已将构建好的镜像 `rol1n/lgnewui2-php74-fpm:latest` 上传至 Docker Hub
-由于需要安装PHP的一些拓展和依赖，纯净的官方镜像并不能满足需求，所以需要：
+> 由于需要安装PHP的一些拓展和依赖，纯净的官方镜像并不能满足需求，所以需要：
+
 - 从 `Dockerfile` 配置本地构建新镜像
 
 ```zsh
@@ -331,6 +344,7 @@ sudo docker compose up -d
 # MySQL与PHP通信
 
 我们需要创建新的docker网络，用于连通php与mysql：
+
 ```zsh
 sudo docker network create mynet
 sudo docker network connect mynet php74-fpm
@@ -338,6 +352,7 @@ sudo docker network connect mynet mysql57
 ```
 
 或者也可以在两段compose里加入如下字段：
+
 ```yaml
 # ...
         networks:
@@ -350,6 +365,7 @@ networks:
 ```
 
 # Nginx、Certbot安装与配置(网站上线)
+
 ```zsh
 # 使用apt-get获取nginx、certbot
 apt-get update && apt-get install -y nginx
@@ -359,14 +375,18 @@ apt-get install -y python3-certbot-nginx
 # 开机自启动与即刻运行nginx
 systemctl enable nginx && systemctl start nginx
 ```
+
 创建源码存放目录，并上传资源：
+
 ```zsh
 # 需要以root身份
 mkdir /var/www/love
 cd /var/www/love
 # 随后通过SFTP等工具上传源码至此
 ```
+
 使用certbot(自动续签)申请ssl证书(确保域名都已在DNS处解析过)：
+
 ```zsh
 # 将<your-main-domain>更换为你的主要站点域名
 sudo certbot certonly --nginx -d <your-main-domain>
@@ -377,9 +397,11 @@ sudo certbot certificates
 # 删除证书
 sudo certbot delete --cert-name example.com
 ```
+
 - `<your-main-domain>`示例: `love.example.com` | 作为主要访问地址
 
 编辑Nginx配置文件，并上线网站:
+
 ```zsh
 # 编辑配置(参考下文)
 sudo nano /etc/nginx/sites-available/default
@@ -393,6 +415,7 @@ nginx -t
 # 重载nginx使配置生效
 sudo systemctl reload nginx
 ```
+
 Nginx(LGnewUI-2)配置文件(将`<your-main-domain>`替换为自定义域名):
 
 ```ini
@@ -407,7 +430,7 @@ server {
 
 # ==================== Love站点 - HTTPS ====================
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
     server_name <your-main-domain>;
 
     ssl_certificate /etc/letsencrypt/live/<your-main-domain>/fullchain.pem;
@@ -459,7 +482,9 @@ server {
 ```
 
 ## 防IP直连的Nginx配置(选用)
+
 直接给出配置文件新增字段：
+
 ```ini
 # ==================== 防IP访问 - HTTP ====================
 server {
@@ -473,8 +498,8 @@ server {
 
 # ==================== 防IP访问 - HTTPS ====================
 server {
-    listen 443 ssl http2 default_server;
-    listen [::]:443 ssl http2 default_server;
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
     server_name _;
 
     # 配置一个无效或自签名的 SSL 证书，或指向不存在的证书路径
@@ -486,7 +511,9 @@ server {
     return 444;
 }
 ```
+
 启用之前，需要先使用**openssl**申请自签名无效证书：
+
 ```zsh
 mkdir -p /data/customSSL
 openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
@@ -500,6 +527,7 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
 ## 路径权限问题
 
 在上文中，**PHP** 的挂载路径为`/var/www/`，而docker容器的权限身份一般是`uid=33(www-data) gid=33(www-data) groups=33(www-data)`，需要保持路径所属身份一致：
+
 ```zsh
 # 确认容器权限身份，一般为uid=33(www-data) gid=33(www-data) groups=33(www-data)
 docker exec php74-fpm id www-data
@@ -511,13 +539,16 @@ sudo chown -R 33:33 /var/www/
 ```
 
 ## MySQL数据库填写
+
 在上文的**compose**文件中，已经创建了一个数据库：
+
 - 地址：`mysql57`
 - 库名：`LGnewUI2`
 - 用户：`root`
 - 密码：`yourpassword`
 
 ## MySQL数据库备份与恢复
+
 ```bash
 # 备份数据库
 docker exec <容器名mysql57> mysqldump -u <用户名root> -p<密码yourpassword> --single-transaction --hex-blob --default-character-set=utf8mb4 --add-drop-table <数据库名LGnewUI2> > ~/backup.sql
@@ -527,6 +558,7 @@ docker exec -i <容器名mysql57> mysql -u <用户名root> -p<密码yourpassword
 ```
 
 ## 和风天气API--生成Ed25519密钥对
+
 ```zsh
 cd ~
 # 生成私钥文件
@@ -539,13 +571,17 @@ cat public.pem
 ```
 
 ## 获取CDN客户端真实IP
+
 在Nginx配置文件的`Server`字段中，添加如下配置：
+
 ```ini
 set_real_ip_from 0.0.0.0/0;
 real_ip_header X-Forwarded-For;
 real_ip_recursive on;
 ```
+
 具体功能：
+
 - 接受来自所有IP的请求(理论上该使用场景只需填写CDN的IP段)
 - 从`X-Forwarded-For`请求头获取真实IP
 - 递归搜索，从右向左排除所有信任IP段，取第一个不信任IP(当前配置下默认取最左侧第一个IP，通常为CDN自动填写的客户端真实IP)
@@ -553,7 +589,9 @@ real_ip_recursive on;
 > 阿里云ESA(开启HTTP请求头添加后)的默认请求头为`ali-real-client-ip`，如有开启请替换掉`X-Forwarded-For`。
 
 ## 敏感目录拒绝访问
+
 在Nginx配置文件的`Server`字段中，添加如下配置：
+
 ```ini
 # ── 敏感目录 ──
 location ^~ /storage/ { return 404; }
@@ -570,7 +608,9 @@ location = /config.php { return 404; }
 ```
 
 ## 服务器性能优化：添加Swap分区
+
 2G内存没有 Swap 很危险，OOM 时会直接杀进程。
+
 ```bash
 # 创建 2G swap 文件
 sudo fallocate -l 2G /swapfile
@@ -590,6 +630,7 @@ free -h
 ```
 
 # 其他工具
+
 - [DBeaver](https://dbeaver.io/) | 数据库管理(此处可用来转移、备份MySQL)
 - [WinSCP](https://winscp.net/eng/docs/lang:chs) | SFTP工具(上传文件到服务器)
 - [MobaXterm](https://mobaxterm.mobatek.net/download-home-edition.html) | SSH工具(连接服务器、编辑文件)
