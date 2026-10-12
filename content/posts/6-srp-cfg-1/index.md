@@ -1,8 +1,8 @@
 ---
 title: SrP-CFG 游戏设置预设文件 | CS2
 published: 2025-04-12
-pinned: true
-description: "介绍 CS2 SrP-CFG 预设文件的内容，说明准星、按键绑定等配置参数如何查看，并整理个人游戏设置的安装与使用方式。"
+pinned: false
+description: 介绍 CS2 SrP-CFG 预设文件的内容，说明准星、按键绑定等配置参数如何查看，并整理个人游戏设置的安装与使用方式。
 image: ./CS2_PRO_signature.jpg
 tags:
   - CS2
