@@ -1,7 +1,8 @@
 ---
 title: 使用Docker部署Umami统计服务 | Nginx | PostgreSQL
 published: 2026-04-19
-description: "记录在 Debian 13 上使用 Docker 部署 Umami 网站统计服务的过程，包含 PostgreSQL 数据库、Nginx 反向代理与 HTTPS 配置。"
+pinned: false
+description: 记录在 Debian 13 上使用 Docker 部署 Umami 网站统计服务的过程，包含 PostgreSQL 数据库、Nginx 反向代理与 HTTPS 配置。
 image: ./2026-0419-2237.png
 tags:
   - Docker
@@ -9,6 +10,7 @@ tags:
   - PostgreSQL
 draft: false
 ---
+
 # 相关链接
 
 - [Umami官网](https://umami.is/)
@@ -139,7 +141,7 @@ server {
 
 # ==================== Umami - HTTPS ====================
 server {
-    listen 443 ssl http2;
+    listen 443 ssl;
     server_name <your-domain>;
 
 
