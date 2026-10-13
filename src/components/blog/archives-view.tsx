@@ -3,6 +3,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
 import type { Post, SiteStats, SearchIndexItem } from "@/lib/content/types";
+import { sortPostsByPublishedDate } from "@/lib/content/sort";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -81,12 +82,15 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
     };
   }, [posts]);
 
+  // Archive timelines and search results stay chronological even when other pages pin posts.
+  const chronologicalPosts = useMemo(() => sortPostsByPublishedDate(posts), [posts]);
+
   const searchedPosts = useMemo(() => {
     const q = searchQuery.trim().toLowerCase();
     if (!q) return [];
 
     const terms = q.split(/\s+/).filter(Boolean);
-    const postMap = new Map<string, Post>(posts.map((p) => [p.slug, p]));
+    const postMap = new Map<string, Post>(chronologicalPosts.map((p) => [p.slug, p]));
 
     if (searchIndex.length > 0) {
       const matched: Post[] = [];
@@ -116,10 +120,10 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
           if (post) matched.push(post);
         }
       }
-      return matched;
+      return sortPostsByPublishedDate(matched);
     }
 
-    return posts.filter((post) => {
+    return chronologicalPosts.filter((post) => {
       const title = post.title.toLowerCase();
       const desc = (post.description || post.excerpt || "").toLowerCase();
       const tags = post.tags.join(" ").toLowerCase();
@@ -135,18 +139,18 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
           year === term
       );
     });
-  }, [searchQuery, searchIndex, posts]);
+  }, [searchQuery, searchIndex, chronologicalPosts]);
 
   const postsByYear = useMemo(() => {
     const map = new Map<string, Post[]>();
-    for (const post of posts) {
+    for (const post of chronologicalPosts) {
       const year = post.published.split("-")[0] || "—";
       const list = map.get(year) || [];
       list.push(post);
       map.set(year, list);
     }
     return Array.from(map.entries()).sort((a, b) => b[0].localeCompare(a[0]));
-  }, [posts]);
+  }, [chronologicalPosts]);
 
 
   return (

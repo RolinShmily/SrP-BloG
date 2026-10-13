@@ -20,6 +20,7 @@ import {
   stripMarkdown,
 } from "./markdown";
 import { siteConfig } from "@/config/site";
+import { comparePostsByPublishedDate } from "./sort";
 
 /** Frontmatter-derived metadata for a post. */
 interface PostMeta {
@@ -222,12 +223,7 @@ export class LocalContentProvider implements IContentProvider {
       if (a.pinned !== b.pinned) {
         return a.pinned ? -1 : 1;
       }
-      const timeA = new Date(a.published).getTime() || 0;
-      const timeB = new Date(b.published).getTime() || 0;
-      if (timeA !== timeB) {
-        return timeB - timeA;
-      }
-      return a.title.localeCompare(b.title, "zh-CN");
+      return comparePostsByPublishedDate(a, b);
     });
   }
 

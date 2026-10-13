@@ -15,6 +15,8 @@ import { siteConfig } from "../src/config/site";
 import { createArticleJsonLd, createPageMetadata, createPostMetadata } from "../src/lib/seo";
 import { CUSTOM_FONT_SIZE_TOKENS } from "../src/lib/utils";
 import { postsDir, publicPostsDir, syncPostAssets } from "./sync-post-assets";
+import { LocalContentProvider } from "../src/lib/content/provider";
+import { comparePostsByPublishedDate, sortPostsByPublishedDate } from "../src/lib/content/sort";
 
 /** Returns true when the value parses as an absolute http(s) URL. */
 function isHttpUrl(value: unknown): boolean {
@@ -185,35 +187,60 @@ async function verifyContent() {
 
   // 3. Verify Sorting Order
   console.log("\n3. Verifying Post Sorting Order (pinned first, then date descending)...");
-  const allPinned = allPosts.filter((post) => post.pinned);
-  assert(allPinned.length === 1, `1 pinned post found overall (including drafts)`);
   const publishedPinned = publishedPosts.filter((post) => post.pinned);
+  const publishedUnpinned = publishedPosts.filter((post) => !post.pinned);
   assert(
-    publishedPinned.length === 1,
-    `1 pinned post found among published posts (${publishedPosts[0].slug})`
+    publishedPosts.every((post, index) =>
+      index < publishedPinned.length ? post.pinned : !post.pinned
+    ),
+    `Pinned published posts precede unpinned posts (${publishedPinned.length} pinned)`
   );
-  assert(
-    publishedPosts[0].pinned === true,
-    `First published post is pinned (${publishedPosts[0].slug})`
-  );
-  assert(
-    publishedPosts[1].pinned === false,
-    `Second published post is unpinned (${publishedPosts[1].slug})`
-  );
-
-  let datesDescending = true;
-  for (let i = 1; i < publishedPosts.length - 1; i++) {
-    const d1 = new Date(publishedPosts[i].published).getTime();
-    const d2 = new Date(publishedPosts[i + 1].published).getTime();
-    if (d1 < d2) {
-      console.error(
-        `    Sorting mismatch: ${publishedPosts[i].published} < ${publishedPosts[i + 1].published}`
-      );
-      datesDescending = false;
-      break;
-    }
+  for (const [group, label] of [[publishedPinned, "Pinned"], [publishedUnpinned, "Unpinned"]] as const) {
+    assert(
+      group.every((post, index) =>
+        index === 0 || comparePostsByPublishedDate(group[index - 1], post) <= 0
+      ),
+      `${label} published posts are sorted newest first (${group.length} posts)`
+    );
   }
-  assert(datesDescending, `Unpinned posts are sorted descending by published date`);
+
+  // Exercise zero, multiple and draft-only pins independently of the current content.
+  const sortProbeDir = fs.mkdtempSync(path.join(os.tmpdir(), "srp-post-sort-"));
+  const writeProbe = (slug: string, published: string, pinned: boolean, draft = false) => {
+    const dir = path.join(sortProbeDir, slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(
+      path.join(dir, "index.md"),
+      `---\ntitle: ${slug}\npublished: ${published}\npinned: ${pinned}\ndraft: ${draft}\n---\nProbe post.\n`
+    );
+  };
+  try {
+    writeProbe("older-pinned", "2026-01-01", true);
+    writeProbe("newer-pinned", "2026-03-01", true);
+    writeProbe("newest-unpinned", "2026-04-01", false);
+    writeProbe("draft-pinned", "2026-05-01", true, true);
+    const probe = new LocalContentProvider(sortProbeDir);
+    const multiplePins = await probe.getAllPosts();
+    assert(
+      multiplePins.map((post) => post.slug).join(",") === "newer-pinned,older-pinned,newest-unpinned",
+      "Multiple pinned posts sort by date, ahead of unpinned posts; pinned drafts stay hidden"
+    );
+    assert(
+      sortPostsByPublishedDate(multiplePins).map((post) => post.slug).join(",") ===
+        "newest-unpinned,newer-pinned,older-pinned",
+      "Chronological archive order ignores pinned status"
+    );
+    writeProbe("older-pinned", "2026-01-01", false);
+    writeProbe("newer-pinned", "2026-03-01", false);
+    probe.invalidateCache();
+    assert(
+      (await probe.getAllPosts()).map((post) => post.slug).join(",") ===
+        "newest-unpinned,newer-pinned,older-pinned",
+      "Zero published pins are allowed even when a draft remains pinned"
+    );
+  } finally {
+    fs.rmSync(sortProbeDir, { recursive: true, force: true });
+  }
 
   // 4. Verify HTML Rendering, Math, Code Highlighting, and TOC on all posts
   console.log(`\n4. Verifying Markdown Rendering across all ${allPosts.length} posts...`);

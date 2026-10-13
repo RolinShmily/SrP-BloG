@@ -12,7 +12,7 @@ tags:
   - SSH
   - Bash
   - UFW
-draft: true
+draft: false
 ---
 
 # 相关链接
