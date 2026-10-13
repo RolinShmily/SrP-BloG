@@ -672,3 +672,62 @@ cd /opt/app/cert
 ls -la
 ```
 
+# Nginx非域名拒绝访问
+
+Nginx作为一个web服务器，处于公网，且有TLS为HTTP保驾护航，很多时候我们不希望可以从具体IP来访问Nginx代理的网站，包括HTTPS请求，因此我们可以制作一个虚假的SSL证书，并在`nginx.conf` 中新增两个保底server来承接IP访问：
+
+```zsh
+# 切换为root用户
+sudo su -
+# 创建自定义证书目录，-p会在缺失父目录时自动创建
+mkdir -p /etc/customTLS
+cd /etc/customTLS
+# 生成一个自签名的10年证书
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
+  -keyout /etc/customTLS/dummy.key \
+  -out /etc/customTLS/dummy.crt \
+  -subj "/CN=unused"
+```
+
+| 参数                 | 含义                                                 |
+| -------------------- | ---------------------------------------------------- |
+| `openssl req`        | 生成证书请求，配合 `-x509` 时直接生成自签名证书      |
+| `-x509`              | 直接输出自签名证书（而不是生成待签名的 CSR）         |
+| `-nodes`             | 私钥**不加密**（no DES），生成时不提示输入密码       |
+| `-days 3650`         | 有效期 3650 天（约 10 年）                           |
+| `-newkey rsa:2048`   | 同时生成一对新的 2048 位 RSA 密钥                    |
+| `-keyout ...`        | 私钥输出路径                                         |
+| `-out ...`           | 证书输出路径                                         |
+| `-subj "/CN=unused"` | 证书主题，CN 设为 unused，说明这张证书不用于真实身份 |
+
+这里的`\` 是续行符，方便在终端输入命令时，按下回车接着在下一行输入。
+
+最后，就是对`nginx.conf` 新添两段server：
+
+```conf
+# ==================== 防IP访问 - HTTP ====================
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    # 匹配所有未绑定的域名和直接 IP 访问
+    # 444直接关闭连接，不返回任何信息，比 403 更安全
+    server_name _;
+    return 444;
+}
+ 
+# ==================== 防IP访问 - HTTPS ====================
+server {
+    listen 443 ssl default_server;
+    listen [::]:443 ssl default_server;
+    server_name _;
+ 
+    # 配置一个无效或自签名的 SSL 证书
+    # 目的是让通过 IP 的 HTTPS 访问因证书错误而失败
+    ssl_certificate /etc/customTLS/dummy.crt;
+    ssl_certificate_key /etc/customTLS/dummy.key;
+ 
+    # 也可以直接返回错误，但证书错误通常能阻止连接建立
+    return 444;
+}
+```
+
