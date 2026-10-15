@@ -18,21 +18,18 @@ draft: false
 # 相关链接
 
 - [Debian 官方手册与文档](https://www.debian.org/doc/)
-
 - [OpenSSH 官方使用手册](https://www.openssh.com/manual.html)
-
 - [UFW (Uncomplicated Firewall) 官方文档](https://wiki.ubuntu.com/UFW)
-
 - [Nginx 官方文档](https://nginx.org/en/docs/)
-
 - [Certbot 官方使用指南与插件文档](https://certbot.eff.org/)
-
 - [Filesystem Hierarchy Standard (FHS 规范手册)](https://refspecs.linuxfoundation.org/FHS_3.0/fhs/index.html)
 
 本篇以`Debian13`操作系统作为讲解基础，按照行文顺序进行操作，可以基本了解Linux的一些基础操作。
 
 # SSH
+
 这是一个很难绕开的问题，也往往是VPS的开端，我们购买了一个VPS，一般厂商会提供用户名`root`，以及随机密码`<root_passwd>`，这时我们随手打开**Terminal**，诸如`Powershell`、`Git Bash`以及Linux、MacOS自带的终端界面，输入如下指令来连接VPS：
+
 ```zsh
 # server.ipv4为需替换字段
 ssh root@server.ip
@@ -41,7 +38,9 @@ ssh root@server.ip -p 22
 ```
 
 #  APT
+
 在Debian系(含Ubuntu)的操作系统上，**包管理器**为`apt`，旧时则有`apt-get`，顾名思义，这是一种管理 软件的“软件”，也就是“应用商店”，可以进行软件的安装、卸载、更新等。
+
 ```zsh
 # 更新apt软件列表
 apt update
@@ -52,14 +51,18 @@ apt update && apt upgrade
 ```
 
 # UFW
+
 `ufw`是一个防火墙工具，运行在操作系统上，而云厂商的**安全组**才是第一道关卡，但一些VPS厂商对**安全组**的策略比较放松，也即**允许**所有入站、出站流量，相当于裸奔，这就需要我们自己在VPS上进行防火墙配置。
+
 ```zsh
 # 查找ufw
 apt search ufw
 # 若没有，则安装
 apt install ufw 
 ```
+
 首先，我们需要对SSH端口进行放行，默认的`22`是常见的被扫描端口，因此可以改成不常见(非也)的`2222`，此时我们还没有运行`ufw`。
+
 ```zsh
 # 放行22、2222/tcp端口
 ufw allow 22/tcp
@@ -76,21 +79,27 @@ ufw delete allow 22/tcp
 ```
 
 # 修改SSH配置
+
 我们需要将SSH默认端口改为`2222`，并禁止`root`登录。
+
 ```zsh
 # 进入配置目录
 cd /etc/ssh
 # 编辑配置文件
 nano sshd_config
 ```
+
 `nano`是一个文本编辑器，相关快捷键如下：
+
 - `ctrl+w`搜索
 - `ctrl+o`+`Enter`保存
 - `ctrl+x`退出
 我们更改配置文件行为：`Port 2222`、`PermitRootLogin no`
 
 # User、Group
+
 在一般情况下，`root`作为最高权限用户，最好不要在**Dev**环境中长期使用，这会淡薄权限意识，也会造成不可挽救的麻烦，因此一个**临时拥有**最高权限的**普通**用户，就很有必要作为日常操作的主要角色。
+
 ```zsh
 # -m 创建/home/rolin家目录，-s 指定用户shell环境，rolin为可替换字段
 useradd  -m  -s  /bin/bash rolin
@@ -99,17 +108,22 @@ passwd rolin
 # 加入用户管理员组（debian系为sudo、arch为wheel）
 usermod -aG sudo rolin
 ```
+
 > Terminal 是 Shell 的人机交互界面，负责输入和输出；Shell 是命令解释器，负责解析命令并执行内建命令或启动外部程序。
 
 # Sudo
+
 `sudo`意味super-do，可以临时变成`root`用户进行操作。
+
 ```zsh
 # 安装sudo
 apt install sudo
 # 使用visudo编辑/etc/sudoers
 visudo
 ```
+
 这里需要编辑行，使得`sudo`用户组具备`sudo`能力：
+
 ```zsh
 # User Privilege Specification
 %sudo ALL=(ALL:ALL) ALL
@@ -119,13 +133,16 @@ visudo
 # 也可单独对某一用户
 rolin ALL=(ALL:ALL) NOPASSWD: ALL
 ```
+
 关于其中的四个“ALL”：
+
 - 1号“ALL”：表示此主机
 - 2号“ALL”：表示可以`sudo -u <user>`切换的用户(默认为`root`)
 - 3号“ALL”：表示可以`sudo -g <group>`切换的用户组
 - 4号“ALL”：表示可以`sudo <command>`执行的命令
 
 此后我们就可以切换到`rol1n`了：
+
 ```zsh
 su - rol1n
 # 回到家/home/rol1n（root的家在/root）
@@ -133,7 +150,9 @@ cd ~
 ```
 
 # SSH密钥对
+
 SSH在我们本地叫做客户端，那么VPS上的那个就是服务端，前文我们修改了服务端的一些配置，现在我们将使用密钥对，进行无密码的SSH登录。
+
 ```zsh
 # 在SSH连接的情况下，退出VPS
 exit
@@ -144,24 +163,31 @@ ssh-copy-id rolin@server.ip -p 22
 # 登录VPS
 ssh rolin@server.ip
 ```
+
 此时，我们可以对`sshd_config`进行进一步修改行：`PasswordAuthentication no`
+
 ```zsh
 # 修改配置文件（注意使用sudo）
 sudo nano /etc/ssh/sshd_config
 # 终于可以重启ssh应用配置了
 sudo systemctl restart ssh
 ```
+
 这里的`systemctl`是Debian的“服务管理器”，管理的大多是**开机自启动**和**需要热重载**的一些服务。
 
 # SSH的便捷配置
+
 如果每次连接VPS都需要`ssh rolin@server.ip -p 2222`，不仅长还难记，这时可以用我们客户端ssh的config了：
+
 ```zsh
 # 退出VPS
 exit
 # 编辑config(这里用的是vim编辑器)
 vim ~/.ssh/config
 ```
+
 如果是`Windows`用户，可以`win+r`，输入`.`，没错就是一个英文句号，然后找到`.ssh`，创建一个`config`文本文件即可 ，如下编辑：
+
 ```txt
    Host vps
        HostName server.ip             # 登录的 IP 地址
@@ -169,9 +195,11 @@ vim ~/.ssh/config
        Port 2222                      # 端口号
        IdentityFile ~/.ssh/id_ed25519 # 前文ssh-keygen生成的私钥文件
 ```
+
 保存之后`ssh vps`即可快速以`rolin`登录我们的vps。
 
 # 初识Nginx与80端口
+
 HTTP 协议的标准熟知端口为 80/TCP，因此成为了早期建站的默认端口。后来引入 SSL/TLS 加密技术衍生出了 HTTPS——这也是如今现代主流浏览器直接访问域名时的默认请求协议，其对应的标准服务端口为 443/TCP。
 
 ```zsh
@@ -253,7 +281,7 @@ server {
 
 它存放了一个`server` 块，监听着IPv4/v6的80端口，将网站根目录指向本机的`/var/www/html` 路径，并用`index` 指定了默认的根目录html文件为`index.nginx-debian.html` ，这是`debian` 为了方便，将`server` 以单独文件形式存放，但本质上令其其效果的依然还是初始的那份`nginx.conf` 文件，因此可以直接在其`http` 字段中将`include` 注释掉，把这段`server` 挪过去。
 
-```nginx.conf
+```nginx .conf
 # ...省略其他字段
 http {
     ##
@@ -318,7 +346,6 @@ http {
 # Certbot的TLS证书申请
 
 - Let’s Encrypt是一家免费、开放、自动化的公益证书颁发机构(CA)
-
 - `acme.sh` 是一套shell脚本，整体轻量依赖极轻，适用于资源紧张型设备，用于向CA申请证书、定时更新。(默认CA为zeroSSL)
 - Certbot是ACME的Python客户端，相比acme.sh而言，需要python运行环境，因此占用了一些基础资源。(默认CA为LetsEncrypt)
 
@@ -398,7 +425,7 @@ lrwxrwxrwx     - root 17 Aug 23:10   privkey.pem -> ../../archive/for.example
 
 根据上文部署好的TLS证书，我们可以对默认的`http` 站点升级到`https` ，只需修改`nginx.conf` 的`server` :
 
-```nginx.conf
+```nginx .conf
 # 80 端口：全局强制重定向至 HTTPS
 server {
     listen 80;
@@ -689,15 +716,15 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
   -subj "/CN=unused"
 ```
 
-| 参数                 | 含义                                                 |
-| -------------------- | ---------------------------------------------------- |
-| `openssl req`        | 生成证书请求，配合 `-x509` 时直接生成自签名证书      |
-| `-x509`              | 直接输出自签名证书（而不是生成待签名的 CSR）         |
-| `-nodes`             | 私钥**不加密**（no DES），生成时不提示输入密码       |
-| `-days 3650`         | 有效期 3650 天（约 10 年）                           |
-| `-newkey rsa:2048`   | 同时生成一对新的 2048 位 RSA 密钥                    |
-| `-keyout ...`        | 私钥输出路径                                         |
-| `-out ...`           | 证书输出路径                                         |
+| 参数 | 含义 |
+| --- | --- |
+| `openssl req` | 生成证书请求，配合 `-x509` 时直接生成自签名证书 |
+| `-x509` | 直接输出自签名证书（而不是生成待签名的 CSR） |
+| `-nodes` | 私钥**不加密**（no DES），生成时不提示输入密码 |
+| `-days 3650` | 有效期 3650 天（约 10 年） |
+| `-newkey rsa:2048` | 同时生成一对新的 2048 位 RSA 密钥 |
+| `-keyout ...` | 私钥输出路径 |
+| `-out ...` | 证书输出路径 |
 | `-subj "/CN=unused"` | 证书主题，CN 设为 unused，说明这张证书不用于真实身份 |
 
 这里的`\` 是续行符，方便在终端输入命令时，按下回车接着在下一行输入。
@@ -730,23 +757,40 @@ server {
     return 444;
 }
 ```
+
 ## 小型下载路由
+
 在最终匹配的server中，可以添加`location`字段，来将本地文件放在HTTP中，
+
 ```conf
 server {
     listen 443 ssl;
     listen [::]:443 ssl;
-    server_name for.example.com;
- 
+    server_name for.example.com; 
+
     ssl_certificate /etc/letsencrypt/for.example.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/for.example.com/privkey.pem;
 
     root /var/www/html;
     index index.html;
     
+    charset utf-8;
     location = /test.txt  {
         default_type text/plain;
     }
+
+    location = /file.json {
+    }
+
+    location / {
+    	try_files $uri $uri/ =404; 
+    }
 }
 ```
+
 这样访问`https://for.example.com/test.txt`就能获取服务器上的`/var/www/html/test.txt`文件了。
+
+值得说明的是，这里的`charset utf-8;`是指定文本编码格式为`UTF-8`。
+
+而location则有三种常见写法，前两种的区别在于是否显式指定类型名，但这里的写法都是合理的，原因是在`nginx.conf`的`http`段开头已经`include mime.types;`，这是专门用于将后缀名映射到指定类型的文件。
+最后一种则是使用`try_files`方法，尝试查找用户请求的文件名、目录名，若均不存在则返回`404`。
