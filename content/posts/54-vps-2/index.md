@@ -775,6 +775,7 @@ server {
     index index.html;
     
     charset utf-8;
+    add_header Content-Disposition inline;
     location = /test.txt  {
         default_type text/plain;
     }
@@ -790,7 +791,7 @@ server {
 
 这样访问`https://for.example.com/test.txt`就能获取服务器上的`/var/www/html/test.txt`文件了。
 
-值得说明的是，这里的`charset utf-8;`是指定文本编码格式为`UTF-8`。
+值得说明的是，这里的`charset utf-8;`是指定文本编码格式为`UTF-8`；`add_header Content-Disposition inline;`则是告诉浏览器，默认将请求内容直接打开，而不是下载。
 
 而location则有三种常见写法，前两种的区别在于是否显式指定类型名，但这里的写法都是合理的，原因是在`nginx.conf`的`http`段开头已经`include mime.types;`，这是专门用于将后缀名映射到指定类型的文件。
 最后一种则是使用`try_files`方法，尝试查找用户请求的文件名、目录名，若均不存在则返回`404`。
