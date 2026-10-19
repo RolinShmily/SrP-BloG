@@ -164,6 +164,12 @@ sudo headscale nodes rename -i <ID> nas
 tailscale netcheck
 # 客户端tailscale的内部DNS-Ping通信
 tailscale ping nas
+
+# 再进入其他网络中，可以进行备注（同一客户端只能进入一个虚拟组网中）
+tailscale login --nickname=friend
+# 展示可切换组网
+tailscale switch --list
+tailscale switch friend
 ```
 
 # 注意事项
