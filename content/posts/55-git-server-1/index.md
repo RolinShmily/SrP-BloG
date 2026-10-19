@@ -2,9 +2,12 @@
 title: 部署一个简单的git-server用来存放私有代码
 published: 2026-10-18
 pinned: false
-description: '通过git-master官方中文指南，在VPS上部署一个简单的git-server存放私有代码，方便多设备之间的拉取推送，进行本地测试、上线部署。'
+description: 通过git-master官方中文指南，在VPS上部署一个简单的git-server存放私有代码，方便多设备之间的拉取推送，进行本地测试、上线部署。
 image: ''
-tags: [git,vps,ssh]
+tags:
+  - git
+  - vps
+  - ssh
 draft: false
 ---
 
@@ -51,5 +54,20 @@ Host server-address
 	Port <your-real-port>
 ```
 
-
-
+# VPS本身拉取代码
+```zsh
+# 生成回环密钥
+ssh-keygen -t ed25519 -C "vps-self"
+# 放进准入名单
+cat ~/.ssh/id_ed25519.pub | sudo -u git tee -a /home/git/.ssh/authorized_keys
+# 编辑ssh配置
+vim ~/.ssh/config
+```
+```conf
+Host 127.0.0.1 localhost
+	Port <your-real-port>
+```
+```zsh
+# 随后ssh 127.0.0.1即可
+git remote add origin git@127.0.0.1:repos/example.git
+```
