@@ -51,11 +51,12 @@ derp:
     stun_listen_addr: "0.0.0.0:3478" 
     private_key_path: /var/lib/headscale/derp_server_private.key
     ipv4: 198.51.100.1              # 这里一定要改成VPS真实的IP地址，默认是美国旧金山的
-    ipv6: 2001:db8::1               # ipv6一般不用，直接注释掉即可
+    # ipv6: 2001:db8::1               # ipv6一般不用，直接注释掉即可
     
 dns:
   magic_dns: true
   base_domain: tail.net             # 这里配置一个内网DNS的解析根域名
+  override_local_dns: false         # 防止覆盖掉VPS自身的DNS
   nameservers:
     global:
       - 223.5.5.5                   # 补一个国内阿里云DNS
