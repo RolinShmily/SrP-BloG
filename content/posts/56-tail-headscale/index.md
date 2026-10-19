@@ -2,16 +2,19 @@
 title: tailscale与headscale协同组网并启用derp中继
 published: 2026-10-19
 pinned: false
-description: '本篇是快速上手操作简记，要求是有一台VPS，并以此来搭建完全自主可控的tailscale组网服务，如果使用tailscale官方提供的商业版面板，可以忽略本篇'
+description: 本篇是快速上手操作简记，要求是有一台VPS，并以此来搭建完全自主可控的tailscale组网服务，如果使用tailscale官方提供的商业版面板，可以忽略本篇
 image: ''
-tags: [TailScale,HeadScale,Network,Nginx]
+tags:
+  - TailScale
+  - HeadScale
+  - Network
+  - Nginx
 draft: false
 ---
 
 # 相关链接
 
 - [TailScale 官网](https://tailscale.com/)
-
 - [HeadScale官网](https://headscale.net/)
 
 # 部署操作
@@ -155,7 +158,7 @@ sudo headscale auth register --auth-id <id> --user home
 # 查看当前headscale下的节点
 sudo headscale nodes list
 # 给某些设备节点一个别名，比如nas
-sudo headsacle nodes rename -i <ID> nas
+sudo headscale nodes rename -i <ID> nas
 
 # 客户端tailscale进行网络检查
 tailscale netcheck
@@ -169,6 +172,3 @@ tailscale在运行网络检查后，遇到的UDP打不通情况，需要检查�
 
 - 关闭TUN代理，仅系统代理，在必要时声明
 - 在TUN代理的规则集与IP中添加白名单：tailscale虚拟网段、headscale服务端地址、内部DNS服务器地址等
-
-
-
