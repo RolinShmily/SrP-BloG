@@ -53,21 +53,3 @@ vim ~/.ssh/config
 Host server-address
 	Port <your-real-port>
 ```
-
-# VPS本身拉取代码
-```zsh
-# 生成回环密钥
-ssh-keygen -t ed25519 -C "vps-self"
-# 放进准入名单
-cat ~/.ssh/id_ed25519.pub | sudo -u git tee -a /home/git/.ssh/authorized_keys
-# 编辑ssh配置
-vim ~/.ssh/config
-```
-```conf
-Host 127.0.0.1 localhost
-	Port <your-real-port>
-```
-```zsh
-# 随后ssh 127.0.0.1即可
-git remote add origin git@127.0.0.1:repos/example.git
-```
