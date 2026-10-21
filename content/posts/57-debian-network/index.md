@@ -136,6 +136,18 @@ EOF
 systemctl enable --now dnsmasq
 systemctl restart dnsmasq
 ```
+## 静态租约
+```zsh
+# 查看当前租约表，找到路由器的MAC地址
+cat /var/lib/misc/dnsmasq.leases
+# 1718900000 00:e0:4c:68:01:23 192.168.22.105 XiaoQiang 01:00:e0:4c:68:01:23
+# 这里的00:e0:4c:68:01:23为MAC地址
+
+# 编辑配置
+sudo nano /etc/dnsmasq.conf
+# 在末尾写一行
+dhcp-host=00:e0:4c:68:01:23,192.168.22.2,Router,infinite
+```
 
 # 防火墙与NAT转换、IP转发(精简nftables)
 
