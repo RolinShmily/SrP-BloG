@@ -56,6 +56,7 @@
     "https://blog.srprolin.top/posts/54-vps-2/",
     "https://blog.srprolin.top/posts/55-git-server-1/",
     "https://blog.srprolin.top/posts/56-tail-headscale/",
+    "https://blog.srprolin.top/posts/57-debian-network/",
     "https://blog.srprolin.top/posts/6-srp-cfg-1/",
     "https://blog.srprolin.top/posts/7-zerotier-1/",
     "https://blog.srprolin.top/posts/8-obs-1/",
@@ -69,6 +70,7 @@
     "https://blog.srprolin.top/tags/CS2/",
     "https://blog.srprolin.top/tags/ClaudeCode/",
     "https://blog.srprolin.top/tags/Cpp/",
+    "https://blog.srprolin.top/tags/Debian/",
     "https://blog.srprolin.top/tags/Docker/",
     "https://blog.srprolin.top/tags/Frp/",
     "https://blog.srprolin.top/tags/Git/",
@@ -92,5 +94,5 @@
     "https://blog.srprolin.top/tags/Windows/",
     "https://blog.srprolin.top/tags/Zerotier/"
   ],
-  "timestamp": 1792402815035
+  "timestamp": 1792595034061
 }
