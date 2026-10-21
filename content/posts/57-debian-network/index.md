@@ -1,10 +1,13 @@
 ---
 title: 在Debian13中用命令行连接网络并配置路由功能
-published: 2026-10-13
+published: 2026-10-21
 pinned: false
-description: '由于OpenWrt的功能过于丰富，我发现其实我并不需要，因此选择以Debian13作为单系统来承载路由转发，通过network-manager、dnsmasq、nftables搭建一套基于wifi-WAN口，双物理网口bridge-lan的路由系统。'
+description: 由于OpenWrt的功能过于丰富，我发现其实我并不需要，因此选择以Debian13作为单系统来承载路由转发，通过network-manager、dnsmasq、nftables搭建一套基于wifi-WAN口，双物理网口bridge-lan的路由系统。
 image: ''
-tags: [Network,Debian,Linux]
+tags:
+  - Network
+  - Debian
+  - Linux
 draft: false
 ---
 
@@ -179,4 +182,3 @@ systemctl restart nftables
 ```
 
 随后可以用PC打开校园网认证页面，进行账密传输，完成认证。
-
