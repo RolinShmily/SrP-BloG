@@ -100,8 +100,8 @@ ip -br addr show wlo1
 # 创建网桥 br-lan 并关闭 STP
 nmcli connection add type bridge con-name br-lan ifname br-lan bridge.stp no
 
-# 配置下游网关 IP（192.168.10.1/24）并设为开机自启
-nmcli connection modify br-lan ipv4.addresses 192.168.10.1/24 ipv4.method manual connection.autoconnect yes
+# 配置下游网关 IP（192.168.22.1/24）并设为开机自启
+nmcli connection modify br-lan ipv4.addresses 192.168.22.1/24 ipv4.method manual connection.autoconnect yes
 
 # 将两个物理有线口 enp1s0 和 enp3s0 加入 br-lan
 nmcli connection add type ethernet slave-type bridge con-name br-lan-port1 ifname enp1s0 master br-lan connection.autoconnect yes
@@ -125,9 +125,9 @@ mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak 2>/dev/null
 cat << 'EOF' > /etc/dnsmasq.conf
 interface=br-lan
 bind-dynamic
-dhcp-range=192.168.10.100,192.168.10.200,255.255.255.0,12h
-dhcp-option=3,192.168.10.1
-dhcp-option=6,192.168.10.1
+dhcp-range=192.168.22.100,192.168.22.200,255.255.255.0,12h
+dhcp-option=3,192.168.22.1
+dhcp-option=6,192.168.22.1
 server=223.5.5.5
 server=119.29.29.29
 cache-size=1500
