@@ -723,9 +723,10 @@ openssl req -x509 -nodes -days 3650 -newkey rsa:2048 \
 | `-nodes` | 私钥**不加密**（no DES），生成时不提示输入密码 |
 | `-days 3650` | 有效期 3650 天（约 10 年） |
 | `-newkey rsa:2048` | 同时生成一对新的 2048 位 RSA 密钥 |
-| `-keyout ...` | 私钥输出路径 |
-| `-out ...` | 证书输出路径 |
-| `-subj "/CN=unused"` | 证书主题，CN 设为 unused，说明这张证书不用于真实身份 |
+
+| `-keyout ...` | 私钥输出路径 |\`
+`| `-out ...` | 证书输出路径 |`
+`| `-subj "/CN=unused"\` | 证书主题，CN 设为 unused，说明这张证书不用于真实身份 |
 
 这里的`\` 是续行符，方便在终端输入命令时，按下回车接着在下一行输入。
 
@@ -774,8 +775,11 @@ server {
     root /var/www/html;
     index index.html;
     
+    default_type text/plain;
     charset utf-8;
+    charset_types text/css text/plain application/javascript application/json text/yaml application/x-yaml;
     add_header Content-Disposition inline;
+
     location = /test.txt  {
         default_type text/plain;
     }
