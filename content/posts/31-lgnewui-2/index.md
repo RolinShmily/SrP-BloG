@@ -592,6 +592,13 @@ sudo sysctl -p
 # 验证
 free -h
 ```
+## 源码/容器重装
+```zsh
+# 创建install.lock避开安装流程
+touch ./install/install.lock
+# 填写数据库信息和安全码
+vim ./panel/Config_DB.php
+```
 
 # 其他工具
 
