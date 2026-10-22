@@ -99,7 +99,75 @@ docker save -o <path>/<name>.tar <image_name>
 docker load -i <path>/<name>.tar
 ```
 
-# MySQL的compose配置
+# 使用Docker部署PHP-FPM和MySQL
+这里给一个最简单的方法，使用`docker-compose.yml`进行编排：
+```zsh
+# 创建应用目录
+mkdir ~/Apps/lgnewui2
+# 编辑文件
+nano docker-compose.yml
+```
+内容参考如下(注意修改数据库密码)：
+```yaml
+services:
+  mysql:
+    image: mysql:5.7.44
+    container_name: mysql57
+    restart: always
+    environment:
+      MYSQL_DATABASE: LGnewUI2
+      # Replace with the existing root password if /data/mysql already contains data.
+      MYSQL_ROOT_PASSWORD: yourpassword
+    volumes:
+      - /data/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - mysqladmin ping -h 127.0.0.1 -uroot -p"$${MYSQL_ROOT_PASSWORD}" --silent
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # Set ownership of the application directory before PHP-FPM starts.
+  php-permissions:
+    image: rol1n/lgnewui2-php74-fpm:latest
+    user: "0:0"
+    restart: "no"
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - chown -R 33:33 /var/www/love
+    volumes:
+      - /var/www/love:/var/www/love
+
+  php:
+    image: rol1n/lgnewui2-php74-fpm:latest
+    container_name: php74-fpm
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+      php-permissions:
+        condition: service_completed_successfully
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - /var/www:/var/www
+
+```
+```zsh
+# 先拉取镜像
+sudo docker compose pull
+# 启动
+sudo docker compose up -d
+```
+随后进行Nginx的配置，即可打开网站进行安装。
+
+后面是按照分开的镜像容器部署方法，以及php-fpm的本地构建细节，可看可不看。
+
+## MySQL的compose配置
 
 ```zsh
 # 创建docker文件夹
@@ -143,7 +211,7 @@ cd ~/mysql57
 sudo docker compose up -d
 ```
 
-# PHP-FPM的compose配置
+## PHP-FPM的compose配置
 
 > 笔者已将构建好的镜像 `rol1n/lgnewui2-php74-fpm:latest` 上传至 Docker Hub
 > 由于需要安装PHP的一些拓展和依赖，纯净的官方镜像并不能满足需求，所以需要：
@@ -237,7 +305,7 @@ sudo docker compose build
 sudo docker compose up -d
 ```
 
-# MySQL与PHP通信
+## MySQL与PHP通信
 
 我们需要创建新的docker网络，用于连通php与mysql：
 
