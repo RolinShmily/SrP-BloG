@@ -720,9 +720,9 @@
     opacity: 0.5;
   }
 
-  /* Heading ladder: h1 is the darkest, h2 one step down, and h3 is derived from
-     the body color via opacity so the three levels read as a smooth ramp
-     instead of three identical blacks. */
+  /* Heading ladder: h1 and h2 use the deepest foreground, h3 steps down to
+     deep foreground with full opacity so headings remain distinctly legible and
+     prominent above body copy. */
   .article-body a {
     transition: color 0.15s ease, text-decoration-color 0.15s ease;
   }
@@ -741,7 +741,7 @@
   }
 
   .article-body h2 {
-    color: hsl(var(--article-fg-deep));
+    color: hsl(var(--article-fg-deeper));
     font-size: 1.45rem;
     font-weight: 700;
     line-height: 1.35;
@@ -752,8 +752,7 @@
   }
 
   .article-body h3 {
-    color: inherit;
-    opacity: 0.75;
+    color: hsl(var(--article-fg-deep));
     font-size: 1.2rem;
     font-weight: 600;
     line-height: 1.55;
