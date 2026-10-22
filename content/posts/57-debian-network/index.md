@@ -200,9 +200,9 @@ systemctl restart nftables
 # Debian本机DNS
 
 ```zsh
-# 给本机的DNS客户端添加指向dnsmasq的信息
+# 编辑本机DNS配置
 nano /etc/resolv.conf
 
-# 添加下面这一行
+# 添加下面这一行，将请求发给本地，让dnsmasq接管
 nameserver 127.0.0.1
 ```
