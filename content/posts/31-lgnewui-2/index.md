@@ -18,6 +18,7 @@ draft: false
 - [Ki's Blog--LGnewUI作者的博客空间](https://blog.kikiw.cn/)
 - [LG_Demo - 演示站](https://loveli.kikiw.cn/)
 - [LGNewUi-Auth - 情侣小站在线授权系统](https://auth-love.kikiw.cn/)
+- [LGNewUI2 - 产品展示页](https://www.kikiw.cn/)
 
 本教程基于Debian13的阿里云服务器，使用Docker部署项目适配的 **PHP7.4**、**MySQL5.7** (其实是APT包已经不支持这两个老版本...)，并在宿主机安装 **Nginx**+**Certbot** 实现站点上线。
 
