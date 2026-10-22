@@ -136,7 +136,9 @@ EOF
 systemctl enable --now dnsmasq
 systemctl restart dnsmasq
 ```
+
 ## 静态租约
+
 ```zsh
 # 查看当前租约表，找到路由器的MAC地址
 cat /var/lib/misc/dnsmasq.leases
@@ -194,3 +196,13 @@ systemctl restart nftables
 ```
 
 随后可以用PC打开校园网认证页面，进行账密传输，完成认证。
+
+# Debian本机DNS
+
+```zsh
+# 给本机的DNS客户端添加指向dnsmasq的信息
+nano /etc/resolv.conf
+
+# 添加下面这一行
+nameserver 127.0.0.1
+```
