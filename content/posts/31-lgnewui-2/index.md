@@ -105,46 +105,8 @@ docker load -i <path>/<name>.tar
 # 创建docker文件夹
 mkdir ~/mysql57
 
-# [2h2g3m小水管服务器] 创建 MySQL 自定义优化配置文件(参考下文给出的 low-memory.cnf)
-sudo mkdir -p /data/mysql/conf
-sudo nano /data/mysql/conf/low-memory.cnf
-
 # 编辑mysql的docker-compose(参考下文给出的 docker-compose.yml)
 nano ~/mysql57/docker-compose.yml
-```
-
-```ini
-# low-memory.cnf
-[mysqld]
-# ===== 内存核心调优 =====
-innodb_buffer_pool_size = 256M
-innodb_buffer_pool_instances = 1
-
-# ===== 连接优化 =====
-max_connections = 30            
-thread_cache_size = 4
-table_open_cache = 64
-table_definition_cache = 256
-
-# ===== 临时表和排序 =====
-tmp_table_size = 16M
-max_heap_table_size = 16M
-sort_buffer_size = 256K        
-join_buffer_size = 256K
-read_buffer_size = 128K
-read_rnd_buffer_size = 128K
-
-# ===== 日志优化 =====
-innodb_log_file_size = 32M
-innodb_log_buffer_size = 4M
-innodb_flush_log_at_trx_commit = 2
-sync_binlog = 0                 
-
-# ===== 其他 =====
-performance_schema = OFF        
-innodb_flush_method = O_DIRECT
-skip-name-resolve    
-max_allowed_packet = 64M
 ```
 
 ```yaml
@@ -155,8 +117,6 @@ services:
         image: 'mysql:5.7.44'
         volumes:
             - '/data/mysql:/var/lib/mysql'
-            # 优化配置文件
-            - '/data/mysql/conf:/etc/mysql/conf.d'
         environment:
             - MYSQL_DATABASE=LGnewUI2
             - MYSQL_ROOT_PASSWORD=yourpassword
@@ -164,18 +124,6 @@ services:
             - '3306:3306'
         restart: always
         container_name: mysql57
-        # 内存限制(优化)
-        deploy:
-            resources:
-                limits:
-                    memory: 512M
-                reservations:
-                    memory: 256M
-        # MySQL启动参数(优化)
-        command: >
-            --character-set-server=utf8mb4
-            --collation-server=utf8mb4_general_ci
-            --default-storage-engine=InnoDB
 ```
 
 可以先拉取镜像，或者参考上一节的内容，加载离线镜像包:
@@ -216,14 +164,6 @@ wget https://raw.githubusercontent.com/BaseMax/sourceguardian-loader-linux-x86-6
 # 创建构建目录并编辑 Dockerfile(参考下文给出的 Dockerfile)
 mkdir -p ~/php74-fpm/build  
 nano ~/php74-fpm/build/Dockerfile
-
-# [2h2g3m小水管服务器] 创建 PHP-FPM 自定义优化配置(参考下文给出的 zz-cusom.conf)
-sudo mkdir -p /data/php/conf
-sudo nano /data/php/conf/zz-custom.conf
-
-# [2h2g3m小水管服务器] 创建 PHP 自定义优化 ini 配置(参考下文给出的 performance.ini)
-sudo mkdir -p /data/php/php-conf
-sudo nano /data/php/php-conf/performance.ini
 
 # 编辑php-fpm的docker-compose(参考下文给出的 docker-compose.yml)
 nano ~/php74-fpm/docker-compose.yml
@@ -269,40 +209,6 @@ RUN echo "extension=ixed.7.4.lin" > /usr/local/etc/php/conf.d/ixed.ini \
 RUN echo "upload_max_filesize = 100M" > /usr/local/etc/php/conf.d/custom.ini  && echo "post_max_size = 100M" >> /usr/local/etc/php/conf.d/custom.ini  && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/custom.ini  && echo "max_execution_time = 300" >> /usr/local/etc/php/conf.d/custom.ini
 ```
 
-```ini
-; zz-cusom.conf
-[www]
-; 进程管理 - 动态模式
-pm = dynamic
-pm.max_children = 8             
-pm.start_servers = 2
-pm.min_spare_servers = 1
-pm.max_spare_servers = 3
-pm.max_requests = 200      
-
-; 慢日志（排查问题用）
-slowlog = /var/log/php-fpm-slow.log
-request_slowlog_timeout = 3s
-```
-
-```ini
-; performance.ini
-; 内存限制
-memory_limit = 128M              
-; OPcache 优化
-[opcache]
-opcache.enable = 1
-opcache.memory_consumption = 32        
-opcache.interned_strings_buffer = 4
-opcache.max_accelerated_files = 2000    
-opcache.validate_timestamps = 0        
-opcache.save_comments = 1
-opcache.fast_shutdown = 1
-; 执行时间限制
-max_execution_time = 120
-max_input_time = 120
-```
-
 ```yaml
 # docker-compose.yml
 version: '3.9'
@@ -315,20 +221,9 @@ services:
         ports:
             - '9000:9000'
         volumes:
-            - '/var/www:/var/www'
-            # PHP-FPM优化配置
-            - '/data/php/conf/zz-custom.conf:/usr/local/etc/php-fpm.d/zz-custom.conf'  
-            # PHP优化配置
-            - '/data/php/php-conf:/usr/local/etc/php/conf.d/custom-performance'          
+            - '/var/www:/var/www'       
         restart: always
         container_name: php74-fpm
-        # 内存限制(优化)
-        deploy:
-            resources:
-                limits:
-                    memory: 512M
-                reservations:
-                    memory: 256M
 ```
 
 ```zsh
