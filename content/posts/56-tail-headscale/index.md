@@ -23,6 +23,8 @@ draft: false
 
 headscale就相当于一个自建的 tailscale面板，并内置了一个derp节点，在3478/udp上运行stun服务。
 
+需要预先在VPS防火墙中开放41641/udp（wireguard直连端口（tailscale底层））以及3478/udp。
+
 ## headscale安装配置
 
 首先到headscale官方仓库release：https://github.com/juanfont/headscale/releases/latest
