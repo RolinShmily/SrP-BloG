@@ -100,14 +100,18 @@ docker load -i <path>/<name>.tar
 ```
 
 # 使用Docker部署PHP-FPM和MySQL
+
 这里给一个最简单的方法，使用`docker-compose.yml`进行编排：
+
 ```zsh
 # 创建应用目录
 mkdir ~/Apps/lgnewui2
 # 编辑文件
 nano docker-compose.yml
 ```
+
 内容参考如下(注意修改数据库密码)：
+
 ```yaml
 services:
   mysql:
@@ -138,7 +142,16 @@ services:
     restart: "no"
     entrypoint: ["/bin/sh", "-c"]
     command:
-      - chown -R 33:33 /var/www/love
+      - |
+        set -eu
+        site_dir=/var/www/love
+        mkdir -p "$$site_dir/storage/updates"
+        for directory in jobs packages staging backups logs; do
+          mkdir -p "$$site_dir/storage/updates/$$directory"
+          chmod 755 "$$site_dir/storage/updates/$$directory"
+        done
+        chown -R 33:33 "$$site_dir"
+        chmod 755 "$$site_dir/storage" "$$site_dir/storage/updates"
     volumes:
       - /var/www/love:/var/www/love
 
@@ -155,14 +168,15 @@ services:
       - "127.0.0.1:9000:9000"
     volumes:
       - /var/www:/var/www
-
 ```
+
 ```zsh
 # 先拉取镜像
 sudo docker compose pull
 # 启动
 sudo docker compose up -d
 ```
+
 随后进行Nginx的配置，即可打开网站进行安装。
 
 后面是按照分开的镜像容器部署方法，以及php-fpm的本地构建细节，可看可不看。
@@ -592,7 +606,9 @@ sudo sysctl -p
 # 验证
 free -h
 ```
+
 ## 源码/容器重装
+
 ```zsh
 # 创建install.lock避开安装流程
 touch ./install/install.lock
