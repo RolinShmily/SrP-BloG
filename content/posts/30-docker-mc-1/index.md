@@ -1,6 +1,7 @@
 ---
 title: 通过Docker搭建Minecraft服务器 | MacMini、ArchLinux实战
 published: 2026-03-25
+pinned: false
 description: 详细介绍Docker的安装配置、Frp的安装配置，涵盖各个操作系统，并提供Minecraft镜像的两种compose版本，以供搭建MC服务器作为参考。
 image: ./2026-03-27-1111.png
 tags:
@@ -10,7 +11,9 @@ tags:
   - Mac
 draft: false
 ---
+
 # 相关链接
+
 - [DockerDesktop安装文档](https://docs.docker.com/desktop/setup/install/windows-install/)
 - [get-docker脚本](https://get.docker.com/)
 - [轩辕镜像](https://docker.xuanyuan.me/)
@@ -31,6 +34,7 @@ draft: false
 随后在我们要使用docker命令时，需要保持 **DockerDesktop** 运行中。
 
 ## Debian系安装docker
+
 ```zsh
 # 获取官方脚本
 curl -fsSL https://get.docker.com -o install-docker.sh
@@ -43,6 +47,7 @@ sudo systemctl start docker
 ```
 
 [阿里云服务器参考教程](https://help.aliyun.com/zh/ecs/user-guide/install-and-use-docker):
+
 ```zsh
 #删除Docker相关源
 sudo rm -f /etc/apt/sources.list.d/*docker*.list
@@ -75,6 +80,7 @@ sudo systemctl enable docker
 ```
 
 ## ArchLinux安装docker
+
 ```zsh
 # 使用pacman直接安装
 sudo pacman -S docker docker-compose
@@ -84,6 +90,7 @@ sudo systemctl start docker
 ```
 
 ## MacOS安装docker
+
 ```zsh
 # 检查版本
 brew --version
@@ -96,6 +103,7 @@ brew install --cask orbstack docker docker-compose
 ```
 
 **orbstack** 相关命令(使用docker时保持开启)：
+
 ```zsh
 # 开机
 orb start
@@ -130,11 +138,13 @@ orb config docker
 ```
 
 [轩辕镜像](https://docker.xuanyuan.me/) 一键配置脚本:
+
 ```zsh
 bash <(wget -qO- https://xuanyuan.cloud/docker.sh)
 ```
 
 镜像源配置示例：
+
 ```json
 {
   "registry-mirrors": [
@@ -145,6 +155,7 @@ bash <(wget -qO- https://xuanyuan.cloud/docker.sh)
 ```
 
 ## 常用的docker命令
+
 ```zsh
   # 查看镜像列表
   docker image ls
@@ -217,9 +228,11 @@ bash <(wget -qO- https://xuanyuan.cloud/docker.sh)
 ```
 
 # minecraft-server镜像
+
 [itzg/docker-minecraft-server](https://github.com/itzg/docker-minecraft-server) 是一个提供Minecraft镜像的一个仓库，我们只需根据 [minecraft-server文档](https://docker-minecraft-server.readthedocs.io/en/latest/)，选择合适的镜像和配置，即可完成一键启动Minecraft服务器。
 
 根据 [Docker-Hub的镜像仓库](https://hub.docker.com/r/itzg/minecraft-server) 选择不同Java版本的镜像。本文将以 **Minecraft-Paper-1.21.4**  和 **BetterMCv54-Forge-1.20.1** 这两个服务器举例，并分别部署在 **ArchLinux** 和 **MacMini** 上，所选用的 **Java** 版本为 `java21`，作者还提供了一个用于备份的镜像 [mc-backup](https://hub.docker.com/r/itzg/mc-backup)，这里我选择使用`2026.3.2`版本。
+
 ```zsh
 # 拉取docker镜像(必要时使用sudo)
 docker pull itzg/minecraft-server:java21
@@ -227,9 +240,11 @@ docker pull itzg/mc-backup:2026.3.2
 ```
 
 ## BetterMCv54的compose配置
+
 在作者的GitHub仓库中，提供了这么一个示例配置：[docker-compose-forge-bettermcplus](https://github.com/itzg/docker-minecraft-server/blob/master/examples/docker-compose-forge-bettermcplus)
 
 笔者在此基础上结合[docker-mc-backup](https://github.com/itzg/docker-mc-backup)进行了进一步配置，请确保文件名为`docker-compose.yml`：
+
 ```yaml
 services:
 
@@ -306,12 +321,14 @@ services:
       INITIAL_DELAY: 30m                     # 在启动后30min才执行计时/备份
       PAUSE_IF_NO_PLAYERS: false             # 是否在无玩家时暂停计时/备份
       PLAYERS_ONLINE_CHECK_INTERVAL: 5m      # 间隔5分钟检查服务器中是否有玩家
+      EXCLUDES: "cache,logs,*.tmp,.cache"    # 显式覆盖排除项，只排除缓存、日志和临时文件，保留 jar 包和库
     volumes:
       - ./minecraft-data:/data:ro            # 只读服务器文件数据
       - ./mc-backups:/backups                # 备份文件目录
 ```
 
 备份机制是这样的 (备份并不需要关闭服务器):
+
 - 发送游戏指令`save-off`，禁用自动保存
 - 执行`save-all`，将所有数据写入磁盘
 - 对服务器目录进行全量打包，并备份至备份文件夹
@@ -322,6 +339,7 @@ services:
 ## Paper插件服的compose配置
 
 相比于 **BetterMC**，**Paper** 的配置会简单不少，因此笔者只对不同部分做注释：
+
 ```yaml
 version: "3"
 services:
@@ -378,13 +396,16 @@ services:
       INITIAL_DELAY: 30m
       PAUSE_IF_NO_PLAYERS: false
       PLAYERS_ONLINE_CHECK_INTERVAL: 5m
+      EXCLUDES: "cache,logs,*.tmp,.cache"    # 显式覆盖排除项，只排除缓存、日志和临时文件，保留 jar 包和库
     volumes:
       - ./minecraft-data:/data:ro
       - ./mc-backups:/backups
 ```
 
 ## Docker启动与命令通信
+
 当一切准备就绪，就可以使用docker-compose命令来启动服务器了：
+
 ```zsh
 # 进入docker-compose.yml所在目录
 cd ...
@@ -392,7 +413,9 @@ cd ...
 # 启动容器链，并持久化运行(必要时sudo提权)
 docker compose up -d
 ```
+
 `itzg/minecraft-server`镜像默认有一个开启在`2222`端口上的SSH，直接连接到容器内部的游戏服务器，你可以通过ssh命令连接服务器，查看游戏实时日志并发送命令：
+
 ```zsh
 # ssh命令标准
 ssh <username>@<server_address> -p 2222
@@ -403,6 +426,7 @@ ssh root@127.0.0.1 -p 2222
 ```
 
 # 内网穿透Frp
+
 如果你能够租到10M及以上带宽的云服务器，那么你可以使用自建内网穿透，否则还是直接使用 [樱花内网穿透](https://www.natfrp.com/?page=panel&module=addproxy) 服务吧。
 
 在这里我们并不需要下载任何 [樱花内网穿透](https://www.natfrp.com/?page=panel&module=addproxy) 的软件，在Windows和Debian系Linux中，完全可以 [下载原版frp的对应版本](https://github.com/fatedier/frp/releases)，然后配置使用`frpc`即可，配置文件由 [隧道列表](https://www.natfrp.com/tunnel/) 提供：
@@ -412,6 +436,7 @@ ssh root@127.0.0.1 -p 2222
 手动下载Frp并配置，请参考笔者的往期文章: [内网穿透Frp搭建 ](https://blog.srprolin.top/posts/13-frp-1/#frpc-%E5%AE%A2%E6%88%B7%E7%AB%AF)
 
 ## Mac中安装frp与配置樱花映射
+
 ```zsh
 # 使用brew安装
 brew install frpc
@@ -431,6 +456,7 @@ brew services list
 ```
 
 ## ArchLinux中安装frp与配置樱花映射
+
 ```zsh
 # 使用pacman安装
 sudo pacman -S frpc
@@ -449,4 +475,3 @@ systemctl start frpc
 # 查看状态
 systemctl status frpc
 ```
-
