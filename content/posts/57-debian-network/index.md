@@ -102,6 +102,9 @@ nmcli connection add type bridge con-name br-lan ifname br-lan bridge.stp no
 
 # 配置下游网关 IP（192.168.22.1/24）并设为开机自启
 nmcli connection modify br-lan ipv4.addresses 192.168.22.1/24 ipv4.method manual connection.autoconnect yes
+# （可选）注入策略路由：让 br-lan 流量直出主路由表，彻底隔离本机旁路代理
+nmcli connection modify br-lan +ipv4.routing-rules "priority 100 iif br-lan table 254"
+
 
 # 将两个物理有线口 enp1s0 和 enp3s0 加入 br-lan
 nmcli connection add type ethernet slave-type bridge con-name br-lan-port1 ifname enp1s0 master br-lan connection.autoconnect yes
@@ -176,10 +179,10 @@ table inet filter {
     }
 
     chain forward {
-        type filter hook forward priority filter; policy drop;
+        type filter hook forward priority filter; policy accept;
         tcp flags syn tcp option maxseg size set rt mtu
         ct state vmap { established : accept, related : accept, invalid : drop }
-        iifname "br-lan" accept
+        iifname "wlo1" drop
     }
 }
 
