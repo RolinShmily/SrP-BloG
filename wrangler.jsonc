@@ -6,16 +6,17 @@
 		"directory": "./out",
 		"not_found_handling": "404-page"
 	},
-	// Attached as a Workers "Custom Domain" instead of a bare route pattern:
-	// on `wrangler deploy` Cloudflare creates the proxied DNS record and issues
-	// the TLS certificate for the hostname itself. A route-only entry deploys
-	// successfully but leaves the hostname unresolvable when the zone has no DNS
-	// record — which is exactly the state of the freshly delegated
-	// `srprolin.com` zone. Custom domains accept a hostname only (no `/*`).
+	// Route mode (not a Workers "Custom Domain").
+	//
+	// The route only intercepts traffic that already reaches Cloudflare under
+	// this hostname, so `blog.srprolin.com` MUST have a proxied DNS record in the
+	// `srprolin.com` zone (e.g. AAAA 100::, orange cloud). Unlike `custom_domain:
+	// true`, deploying a route does NOT create that record or issue the
+	// certificate for you — without it the hostname simply does not resolve.
 	"routes": [
 		{
-			"pattern": "blog.srprolin.com",
-			"custom_domain": true
+			"pattern": "blog.srprolin.com/*",
+			"zone_name": "srprolin.com"
 		}
 	]
 }
