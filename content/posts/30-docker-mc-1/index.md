@@ -433,7 +433,7 @@ ssh root@127.0.0.1 -p 2222
 
 ![Minecraft 服务器教程中配置 frpc 内网穿透客户端的界面](./Snipaste_2026-03-27_16-31-30.png)
 
-手动下载Frp并配置，请参考笔者的往期文章: [内网穿透Frp搭建 ](https://blog.srprolin.top/posts/13-frp-1/#frpc-%E5%AE%A2%E6%88%B7%E7%AB%AF)
+手动下载Frp并配置，请参考笔者的往期文章: [内网穿透Frp搭建 ](https://blog.srprolin.com/posts/13-frp-1/#frpc-%E5%AE%A2%E6%88%B7%E7%AB%AF)
 
 ## Mac中安装frp与配置樱花映射
 

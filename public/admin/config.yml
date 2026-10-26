@@ -5,7 +5,7 @@ backend:
   name: github
   repo: RolinShmily/SrP-BloG
   branch: main
-  base_url: https://gh-oauth.srprolin.top
+  base_url: https://gh-oauth.srprolin.com
   auth_endpoint: auth
   commit_messages:
     create: 'content: create {{collection}} "{{slug}}"'
@@ -14,9 +14,9 @@ backend:
     uploadMedia: 'assets: upload "{{path}}"'
     deleteMedia: 'assets: delete "{{path}}"'
 
-site_url: https://blog.srprolin.top
-display_url: https://blog.srprolin.top
-logo_url: https://blog.srprolin.top/favicon/favicon.ico
+site_url: https://blog.srprolin.com
+display_url: https://blog.srprolin.com
+logo_url: https://blog.srprolin.com/favicon/favicon.ico
 
 # 全局媒体回退目录
 media_folder: "public/images"

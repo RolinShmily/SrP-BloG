@@ -165,14 +165,14 @@ Write-Output ""
 根据上文解耦的内容，并结合[mitmproxy](https://www.mitmproxy.org/)分析，我制作了如下的镜像安装脚本，你只需要在`powershell7`中运行命令即可：
 
 ```bash
-irm https://blog.srprolin.top/install-claude-mirror.ps1 | iex
+irm https://blog.srprolin.com/install-claude-mirror.ps1 | iex
 ```
 
 目前，该脚本的`claude.exe`已经不再提供支持，仅给出如下的离线脚本内容：
 
 ```PowerShell
 # Claude Code 国内镜像安装脚本
-# 用法: irm https://blog.srprolin.top/install.ps1 | iex
+# 用法: irm https://blog.srprolin.com/install.ps1 | iex
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
@@ -180,7 +180,7 @@ $ProgressPreference = 'SilentlyContinue'
 
 $VERSION = "2.1.181"
 $DOWNLOAD_URL = "https://path/to/claude.exe"
-$REFERER = "https://blog.srprolin.top"
+$REFERER = "https://blog.srprolin.com"
 
 if (-not [Environment]::Is64BitProcess) {
     Write-Error "Claude Code does not support 32-bit Windows."

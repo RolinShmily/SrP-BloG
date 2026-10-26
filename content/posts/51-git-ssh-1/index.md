@@ -66,7 +66,7 @@ git remote add <远程仓库名> <远程git链接>
 
 一般在编码场景，也就是个人远程仓库，推荐使用`SSH`链接，可以免密码进行代码推送。
 
-根据博文 [如何安全地使用SSH、SFTP？ ](https://blog.srprolin.top/posts/11-ssh-1/)可以创建好一个SSH密钥对，只需要将公钥pub内容，在GitHub的 [SSH and GPG keys](https://github.com/settings/keys) 页面上传`Authentication Key`验证格式即可。
+根据博文 [如何安全地使用SSH、SFTP？ ](https://blog.srprolin.com/posts/11-ssh-1/)可以创建好一个SSH密钥对，只需要将公钥pub内容，在GitHub的 [SSH and GPG keys](https://github.com/settings/keys) 页面上传`Authentication Key`验证格式即可。
 
 这里的 `GPG keys` 是用来验证每一条远程仓库的`Commit`是否属于账户本人签名过的提交，在GitHub上可以将SSH密钥也作为GPG来使用，只需在创建keys时，选择`Signing Key`签名格式，再将SSH公钥上传。
 

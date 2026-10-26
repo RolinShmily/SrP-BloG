@@ -10,7 +10,7 @@ tags:
 draft: false
 ---
 # 前言
-之前发布过一篇在MacMini上借助mcsmanager管理Minecraft服务器的文章: [使用MacMini搭建Minecraft服务器](https://blog.srprolin.top/posts/14-mac-mc-1/) ，但是对于betterMC这样的大型forge整合包，通过JVM运行通常已经很吃内存了。
+之前发布过一篇在MacMini上借助mcsmanager管理Minecraft服务器的文章: [使用MacMini搭建Minecraft服务器](https://blog.srprolin.com/posts/14-mac-mc-1/) ，但是对于betterMC这样的大型forge整合包，通过JVM运行通常已经很吃内存了。
 
 又因为实测下来mcsmanager的管理操作其实并不是很好用，他在指令层也会套一层壳，这导致我前段时间误判了服务端JVM已经关闭，但是其并没有释放，在查看硬件后台之后才发现同时运行了多个JVM，导致负载极高且卡顿。
 
@@ -115,7 +115,7 @@ exec "${JAVA_EXEC}" ${JAVA_ARGS} @"${FORGE_UNIX_ARGS}" nogui
 注意：
 - 请将SERVER_DIR变量更改为你的服务器目录值
 - 请将JAVA_EXEC变量更改为你将使用的JAVA路径值
-- JAVA的安装和路径查找请到上篇文章 [使用MacMini搭建Minecraft服务器](https://blog.srprolin.top/posts/14-mac-mc-1/) 中自行查找
+- JAVA的安装和路径查找请到上篇文章 [使用MacMini搭建Minecraft服务器](https://blog.srprolin.com/posts/14-mac-mc-1/) 中自行查找
 
 随后我们可以将整个文件夹打包，上传至MacMini的SERVER_DIR目录并解压。
 

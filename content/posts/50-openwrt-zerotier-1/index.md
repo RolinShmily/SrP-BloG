@@ -13,8 +13,8 @@ draft: false
 
 # 相关链接
 
-- [略知Zerotier | 搭建虚拟局域网 ](https://blog.srprolin.top/posts/7-zerotier-1/)
-- [PVE虚拟系统与OpenWrt配置](https://blog.srprolin.top/posts/26-pve-openwrt-1/)
+- [略知Zerotier | 搭建虚拟局域网 ](https://blog.srprolin.com/posts/7-zerotier-1/)
+- [PVE虚拟系统与OpenWrt配置](https://blog.srprolin.com/posts/26-pve-openwrt-1/)
 
 # 正文
 

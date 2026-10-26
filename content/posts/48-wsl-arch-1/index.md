@@ -21,7 +21,7 @@ draft: false
 
 # WSL初始化
 
-参考[在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL ](https://blog.srprolin.top/posts/45-immortalwrt-1/)中关于WSL的安装即可，安装好Arch Linux。
+参考[在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL ](https://blog.srprolin.com/posts/45-immortalwrt-1/)中关于WSL的安装即可，安装好Arch Linux。
 
 ## 设置终端
 

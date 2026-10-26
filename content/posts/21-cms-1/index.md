@@ -73,7 +73,7 @@ backend:
     openAuthoring: "CMS:{{message}}"
 
 # Decap-CMS的首页logo
-logo_url: https://blog.srprolin.top/favicon/favicon.ico
+logo_url: https://blog.srprolin.com/favicon/favicon.ico
 
 # 您的网站地址链接(带HTTPS协议头)
 site_url: <your-site-url>

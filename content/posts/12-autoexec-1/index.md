@@ -14,7 +14,7 @@ draft: false
 
 在Bilibili平台已发布该文件的部分功能的游戏实现演示，请移步访问：[BV19pCQB6EPZ](https://www.bilibili.com/video/BV19pCQB6EPZ/)
 
-如果您未知CFG是什么？或者SrP-CFG是什么？请移步访问前篇：[SrP-CFG 游戏设置预设文件 | CS2](https://blog.srprolin.top/posts/6-srp-cfg-1/)
+如果您未知CFG是什么？或者SrP-CFG是什么？请移步访问前篇：[SrP-CFG 游戏设置预设文件 | CS2](https://blog.srprolin.com/posts/6-srp-cfg-1/)
 
 截止文章发布时，最新版本为**v1.1.0**，以此为例进行功能说明。
 
@@ -26,10 +26,10 @@ draft: false
 
 因此该文件，也可以脱离**SrP-CFG**进行使用，但是我将不会提供单独的下载链接，如有需要，还请前往文档页进行下载**SrP-CFG**，再从中提取出**autoexec.cfg**单独使用：
 
-- [项目说明书](https://doc.srprolin.top/posts/6-srp-cfg-1/srpcfg-1.html) | 本项目的一些废话
-- [下载地址](https://doc.srprolin.top/posts/6-srp-cfg-1/srpcfg-2.html) | 顾名思义
-- [使用指南](https://doc.srprolin.top/posts/6-srp-cfg-1/srpcfg-3.html) | 按键、控制台命令功能表
-- [更新日志](https://doc.srprolin.top/posts/6-srp-cfg-1/srpcfg-4.html) | 查看最新更新
+- [项目说明书](https://doc.srprolin.com/posts/6-srp-cfg-1/srpcfg-1.html) | 本项目的一些废话
+- [下载地址](https://doc.srprolin.com/posts/6-srp-cfg-1/srpcfg-2.html) | 顾名思义
+- [使用指南](https://doc.srprolin.com/posts/6-srp-cfg-1/srpcfg-3.html) | 按键、控制台命令功能表
+- [更新日志](https://doc.srprolin.com/posts/6-srp-cfg-1/srpcfg-4.html) | 查看最新更新
 
 文件功能定义分区：
 - 鼠标相关设置
@@ -419,7 +419,7 @@ echo      \___ \  | '__| | |_) |  _____  | |     | |_    | |  _
 echo       ___) | | |    |  __/  |_____| | |___  |  _|   | |_| |
 echo      |____/  |_|    |_|              \____| |_|      \____|
 echo ══════════════════════════════════════════════════════════════════
-echo 文档地址：https://doc.srprolin.top/posts/6-srp-cfg-1/srpcfg-1.html
+echo 文档地址：https://doc.srprolin.com/posts/6-srp-cfg-1/srpcfg-1.html
 echo autoexec Enabled!
 echo ═════════════════════════════════════════════════════════════
 echo ──────────────────────  更新报告  ─────────────────────────────

@@ -28,7 +28,7 @@ body:
     attributes:
       label: 站点链接
       description: 你的网站首页链接 (需以 http:// 或 https:// 开头)
-      placeholder: 例如：https://blog.srprolin.top/
+      placeholder: 例如：https://blog.srprolin.com/
     validations:
       required: true
 
@@ -46,7 +46,7 @@ body:
     attributes:
       label: 站点头像
       description: 你的网站图标或头像链接 (需以 http:// 或 https:// 开头)
-      placeholder: 例如：https://blog.srprolin.top/favicon/favicon.ico
+      placeholder: 例如：https://blog.srprolin.com/favicon/favicon.ico
     validations:
       required: true
 
@@ -54,7 +54,7 @@ body:
     id: sitebacklink
     attributes:
       label: 回链地址
-      description: 贵站放置了本站链接的页面地址 (用于双向验证；需包含 https://blog.srprolin.top/)
+      description: 贵站放置了本站链接的页面地址 (用于双向验证；需包含 https://blog.srprolin.com/)
       placeholder: 例如：https://example.com/friends/
     validations:
       required: true

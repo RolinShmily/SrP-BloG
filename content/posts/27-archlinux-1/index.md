@@ -17,7 +17,7 @@ draft: false
 - [ZCF - Zero-Config Code Flow ](https://zcf.ufomiao.com/zh-CN/)
 
 # PVE创建ArchLinux虚拟机
-> 以下过程，继承自上篇文章 [PVE虚拟系统与OpenWrt配置 ](https://blog.srprolin.top/posts/26-pve-openwrt-1/) 安装好的PVE9.1
+> 以下过程，继承自上篇文章 [PVE虚拟系统与OpenWrt配置 ](https://blog.srprolin.com/posts/26-pve-openwrt-1/) 安装好的PVE9.1
 
 首先需要安装一个ArchLinux的镜像ISO文件，下面提供 [清华大学开源软件镜像站](https://mirrors.tuna.tsinghua.edu.cn/) 的下载地址:
 - [点击下载最新版 ArchLinux-x86_64.iso](https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/latest/archlinux-x86_64.iso)

@@ -28,7 +28,7 @@ body:
     attributes:
       label: Site URL
       description: Homepage URL of your site (must start with http:// or https://)
-      placeholder: e.g. https://blog.srprolin.top/
+      placeholder: e.g. https://blog.srprolin.com/
     validations:
       required: true
 
@@ -46,7 +46,7 @@ body:
     attributes:
       label: Avatar URL
       description: Avatar or favicon URL of your site (must start with http:// or https://)
-      placeholder: e.g. https://blog.srprolin.top/favicon/favicon.ico
+      placeholder: e.g. https://blog.srprolin.com/favicon/favicon.ico
     validations:
       required: true
 
@@ -54,7 +54,7 @@ body:
     id: sitebacklink
     attributes:
       label: Backlink URL
-      description: The page URL where our link is placed on your site (must contain https://blog.srprolin.top/)
+      description: The page URL where our link is placed on your site (must contain https://blog.srprolin.com/)
       placeholder: e.g. https://example.com/friends/
     validations:
       required: true

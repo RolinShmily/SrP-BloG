@@ -32,7 +32,7 @@ jobs:
             // 友链数据：目录型布局，每人一个 JSON 文件（content/friends/<站点名>.json）。
             const FRIENDS_DIR = 'content/friends/'
             const SITE_CONFIG_FILE = 'src/config/site.ts'
-            const DEFAULT_SITE_URL = 'https://blog.srprolin.top'
+            const DEFAULT_SITE_URL = 'https://blog.srprolin.com'
 
             const LABEL_FRIEND = 'friend-link'
             const LABEL_AVATAR_OK = 'avatar:reachable'

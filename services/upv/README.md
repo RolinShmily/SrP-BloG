@@ -217,9 +217,9 @@ renders every counter as `0` — so re-verify after any change:
 
 ```bash
 # allowed origin is echoed, not "*"
-curl -sD- -o /dev/null -H "Origin: https://blog.srprolin.top" https://stats.srprolin.top/api/health | grep -i access-control-allow-origin
+curl -sD- -o /dev/null -H "Origin: https://blog.srprolin.com" https://stats.srprolin.com/api/health | grep -i access-control-allow-origin
 # a foreign origin gets no ACAO at all
-curl -sD- -o /dev/null -H "Origin: https://evil.example"      https://stats.srprolin.top/api/health | grep -i access-control-allow-origin
+curl -sD- -o /dev/null -H "Origin: https://evil.example"      https://stats.srprolin.com/api/health | grep -i access-control-allow-origin
 ```
 
 ### Abuse handling (honest limits)

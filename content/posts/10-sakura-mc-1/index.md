@@ -11,7 +11,7 @@ draft: false
 
 该文章列写了`SrP-Sakura`的客户端和服务端所用的各种资源，详细的命令、按键功能、插件管理说明请到`Wiki`文档中查看:
 
-- [The Wiki For SrP-Sakura](https://doc.srprolin.top/posts/10-sakura-mc-1/ssmc-1.html) | (一个用`vitepress`搭建的文档页)
+- [The Wiki For SrP-Sakura](https://doc.srprolin.com/posts/10-sakura-mc-1/ssmc-1.html) | (一个用`vitepress`搭建的文档页)
 
 # SrP-Sakura 服务端
 
@@ -27,8 +27,8 @@ draft: false
 这并不是一个由公共服务器搭建的 Minecraft 游戏服，它仅搭建在我自己使用的设备上，因此它并不是 24h 开机，随我个人的意志开关服。
 服务器采用两种方案来提供网络地址：
 
-- 内网地址(需联系本人加入内网)：`lin.srprolin.top`
-- 外网地址(需联系本人开启服务器)：`minecraft.srprolin.top`
+- 内网地址(需联系本人加入内网)：`lin.srprolin.com`
+- 外网地址(需联系本人开启服务器)：`minecraft.srprolin.com`
 
 ## 核心与版本
 
@@ -104,7 +104,7 @@ draft: false
 
 # SrP-Sakura 客户端
 
-该**纯净生存辅助整合包**下载地址在[Wiki的附属整合包页](https://doc.srprolin.top/posts/10-sakura-mc-1/ssmc-2.html)中提供。
+该**纯净生存辅助整合包**下载地址在[Wiki的附属整合包页](https://doc.srprolin.com/posts/10-sakura-mc-1/ssmc-2.html)中提供。
 
 ## 启动器推荐
 

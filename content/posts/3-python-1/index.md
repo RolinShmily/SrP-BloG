@@ -11,7 +11,7 @@ tags:
 draft: false
 ---
 
-# [ ](https://blog.srprolin.top/posts/29-pytorch-2/)
+# [ ](https://blog.srprolin.com/posts/29-pytorch-2/)
 
 # **_搭建Python与Pytorch(含Cuda)环境 | VSCode_**
 

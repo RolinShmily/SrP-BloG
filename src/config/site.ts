@@ -110,7 +110,7 @@ export interface UpvConfig {
    */
   enabled: boolean;
   /**
-   * Base API URL of the UPV counting service (e.g. "https://upv.srprolin.top" or Workers URL).
+   * Base API URL of the UPV counting service (e.g. "https://upv.srprolin.com" or Workers URL).
    * If omitted or empty, automatically falls back to `process.env.NEXT_PUBLIC_UPV_API`.
    */
   api?: string;
@@ -141,7 +141,7 @@ export interface CommentConfig {
    */
   enabled: boolean;
   /**
-   * Waline server backend URL (e.g. "https://waline.srprolin.top" or Docker self-hosted endpoint).
+   * Waline server backend URL (e.g. "https://waline.srprolin.com" or Docker self-hosted endpoint).
    */
   serverUrl: string;
   /**
@@ -262,9 +262,9 @@ export const siteConfig = {
   /** Path to site favicon. */
   avatar: "/favicon/favicon.ico",
   /** Canonical base URL of the blog without trailing slash. */
-  url: "https://blog.srprolin.top",
+  url: "https://blog.srprolin.com",
   /** Personal homepage / external about link. */
-  homeUrl: "https://www.srprolin.top",
+  homeUrl: "https://www.srprolin.com",
   /** Open source repository URL of this blog. */
   repoUrl: "https://github.com/RolinShmily/SrP-BloG",
 
@@ -313,7 +313,7 @@ export const siteConfig = {
     { name: "Tags", href: "/tags", i18nKey: "tags" },
     { name: "Archives", href: "/archives", i18nKey: "archives" },
     { name: "Friends", href: "/friends", i18nKey: "friends" },
-    { name: "About", href: "https://www.srprolin.top", external: true, i18nKey: "about" },
+    { name: "About", href: "https://www.srprolin.com", external: true, i18nKey: "about" },
   ] as NavItem[],
   socials: [
     {
@@ -399,13 +399,13 @@ export const siteConfig = {
    */
   friendSiteInfo: {
     name: "SrP-BloG",
-    url: "https://blog.srprolin.top/",
+    url: "https://blog.srprolin.com/",
     description: {
       zh: "如无必要，勿增实体。",
       en: "Entities should not be multiplied unnecessarily.",
     },
-    avatar: "https://blog.srprolin.top/favicon/favicon.ico",
-    backlink: "https://blog.srprolin.top/friends/",
+    avatar: "https://blog.srprolin.com/favicon/favicon.ico",
+    backlink: "https://blog.srprolin.com/friends/",
   } as FriendSiteInfo,
   /** Quick application shortcuts on the /friends page. */
   friendApplication: {
@@ -443,13 +443,13 @@ export const siteConfig = {
      * from the NEXT_PUBLIC_UPV_API environment variable.
      *
      * Must be a host the Worker actually answers on. `services/upv` is bound to
-     * the zone route `stats.srprolin.top/*` (see services/upv/README.md, Workers
+     * the zone route `stats.srprolin.com/*` (see services/upv/README.md, Workers
      * -> Domains & Routes); its `<name>.<subdomain>.workers.dev` hostname is NOT
      * published, and a workers.dev request to an unpublished Worker returns a
      * bare 404 `error code: 1042`, which the client can only read as "offline" —
      * every counter then silently renders 0.
      */
-    api: "https://stats.srprolin.top",
+    api: "https://stats.srprolin.com",
     /** Whether to display the page views counter on article pages. */
     showPostCounter: true,
     /** Whether to display the page views counter on post listing cards. */
@@ -467,7 +467,7 @@ export const siteConfig = {
    */
   comment: {
     enabled: true,
-    serverUrl: "https://waline.srprolin.top",
+    serverUrl: "https://waline.srprolin.com",
     emoji: [
       "https://unpkg.com/@waline/emojis@1.4.0/weibo",
       "https://unpkg.com/@waline/emojis@1.4.0/bilibili",
