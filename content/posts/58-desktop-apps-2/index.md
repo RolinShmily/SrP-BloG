@@ -22,7 +22,7 @@ draft: false
 
 支持`windows`、`linux`、`macos`三平台，一个小而美的给视频加上运动模糊的工具，可以对参数进行精细化调整，下面是仓库展示的经渲染后的CS:GO画面：
 
-![](https://camo.githubusercontent.com/a643e163f68f669b1ef2539b2f2c618ea6eaa04e1ed6476dbcbfe1082e07bd5e/68747470733a2f2f692e696d6775722e636f6d2f486b30584950652e6a7067)
+![Blur 渲染后的 CS:GO 运动模糊效果演示](https://camo.githubusercontent.com/a643e163f68f669b1ef2539b2f2c618ea6eaa04e1ed6476dbcbfe1082e07bd5e/68747470733a2f2f692e696d6775722e636f6d2f486b30584950652e6a7067)
 
 # Video2X
 - [Github地址：k4yt3x/video2x](https://github.com/k4yt3x/video2x)
