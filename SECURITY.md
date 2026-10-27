@@ -1,6 +1,6 @@
 # 安全政策
 
-> English readers: report privately to rol1n@srprolin.com — do **not** open a public issue.
+> English readers: report privately to contact@srprolin.com — do **not** open a public issue.
 
 ## 支持范围
 
@@ -10,7 +10,7 @@
 
 **请勿开公开 issue**：公开披露会让问题在修复前就暴露。
 
-**首选：邮件 [rol1n@srprolin.com](mailto:rol1n@srprolin.com)**（主题写 `[SECURITY] 一句话简述`，正文说明影响范围与复现步骤）。
+**首选：邮件 [contact@srprolin.com](mailto:contact@srprolin.com)**（主题写 `[SECURITY] 一句话简述`，正文说明影响范围与复现步骤）。
 
 **备选：GitHub 私有漏洞报告** —— 直接访问 <https://github.com/RolinShmily/SrP-BloG/security/advisories/new>，或仓库页面 → **Security** → **Report a vulnerability**（该功能需在仓库设置中开启；若看不到入口即为未开启）。
 
