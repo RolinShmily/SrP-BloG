@@ -359,11 +359,6 @@ export const siteConfig = {
   /** ICP and security filings displayed at the footer bottom. */
   filing: [
     {
-      name: "豫ICP备2025140316号-1",
-      url: "https://beian.miit.gov.cn/",
-      icon: "/favicon/foot-icp.png",
-    },
-    {
       name: "萌ICP备20259601号",
       url: "https://icp.gov.moe/?keyword=20259601",
       icon: "/favicon/foot-meng.ico",
