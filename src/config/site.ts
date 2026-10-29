@@ -482,12 +482,12 @@ export const siteConfig = {
     /** Bing Webmaster Tools (支持 HTML Meta 标签鉴权) */
     bingWebmaster: {
       enabled: true,
-      metaCode: "5DB2C9A2A7E7F356A6BC4294D57820DA",
+      metaCode: "",
     },
     /** Google Search Console (DNS验证为主，支持嵌入 HTML Meta 标签验证) */
     googleSearch: {
       enabled: true,
-      verificationCode: "2fcc9d4a94d0a3f7",
+      verificationCode: "",
     },
     /** Google Analytics 4 (GA4) */
     googleAnalytics: {
@@ -497,7 +497,7 @@ export const siteConfig = {
     /** IndexNow 实时推送协议（配合 Bing / Yandex / Seznam） */
     indexNow: {
       enabled: true,
-      key: "e6d05f27754c43a6b547e1df433311df",
+      key: "3ee8d9aea4be42768bc5c55f1732e31e",
       apiUrl: "https://api.indexnow.org/indexnow",
       batchSize: 10000,
     },
