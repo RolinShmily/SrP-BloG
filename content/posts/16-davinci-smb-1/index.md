@@ -1,6 +1,7 @@
 ---
 title: 基于SMB和Postgres的Davinci协同工作
 published: 2025-12-21
+updated: 2025-12-21
 description: "本文将SMB、PostgreSQL和达芬奇应用结合起来，实现了多人远程协同剪辑工作，案例平台均为Windows，需要处于内网环境。"
 image: "./davinci.jpeg"
 tags: [SMB, PostgresSQL, Davinci]

@@ -21,6 +21,7 @@ import {
   BingIcon,
   IndexNowIcon,
   PagefindIcon,
+  SatoriIcon,
 } from "@/components/icons/brands";
 
 const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
@@ -41,6 +42,7 @@ const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
   bing: BingIcon,
   indexnow: IndexNowIcon,
   pagefind: PagefindIcon,
+  satori: SatoriIcon,
   "open-graph": Share2,
 };
 

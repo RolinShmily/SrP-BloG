@@ -1,6 +1,7 @@
 ---
 title: tailscale与headscale协同组网并启用derp中继
 published: 2026-10-19
+updated: 2026-10-19
 pinned: false
 description: 本篇是快速上手操作简记，要求是有一台VPS，并以此来搭建完全自主可控的tailscale组网服务，如果使用tailscale官方提供的商业版面板，可以忽略本篇
 image: ''

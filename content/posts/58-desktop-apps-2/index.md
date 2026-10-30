@@ -1,6 +1,7 @@
 ---
 title: 安利一些新老开源实用桌面应用 | blur、Video2X、MPC-HC、Hatoba、PrismLauncher
 published: 2026-10-25
+updated: 2026-10-25
 pinned: false
 description: 近来使用过、并一直在使用的软件推荐
 image: ''

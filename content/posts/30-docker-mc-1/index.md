@@ -1,6 +1,7 @@
 ---
 title: 通过Docker搭建Minecraft服务器 | MacMini、ArchLinux实战
 published: 2026-03-25
+updated: 2026-03-25
 pinned: false
 description: 详细介绍Docker的安装配置、Frp的安装配置，涵盖各个操作系统，并提供Minecraft镜像的两种compose版本，以供搭建MC服务器作为参考。
 image: ./2026-03-27-1111.png

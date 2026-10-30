@@ -69,7 +69,7 @@ export function createPostMetadata(post: Post): Metadata {
         alt: post.title,
       }
     : {
-        url: siteConfig.ogImage,
+        url: `/og/posts/${post.slug}.png`,
         width: 1200,
         height: 630,
         alt: post.title,
@@ -111,7 +111,10 @@ export function createPostMetadata(post: Post): Metadata {
 /** Creates schema.org BlogPosting data matching the visible article and metadata. */
 export function createArticleJsonLd(post: Post) {
   const articleUrl = new URL(`/posts/${post.slug}/`, siteConfig.url).toString();
-  const imageUrl = new URL(post.image || siteConfig.ogImage, siteConfig.url).toString();
+  const imageUrl = new URL(
+    post.image || `/og/posts/${post.slug}.png`,
+    siteConfig.url
+  ).toString();
 
   return {
     "@context": "https://schema.org",

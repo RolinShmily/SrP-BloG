@@ -1,6 +1,7 @@
 ---
 title: nvidiaProfileInspector 一个高级的N卡控制面板
 published: 2026-06-28
+updated: 2026-06-28
 pinned: false
 description: 这是一个高级版Nvidia控制面板，通过配置文件可以实现NVIDIA默认无法更改的选项，也可以直接加载别人的配置文件达到一键配置效果。
 image: Nvidia.png

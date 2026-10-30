@@ -204,6 +204,26 @@ export interface RenderResult {
 }
 
 /**
+ * Rehype plugin to automatically inject loading="lazy" and decoding="async"
+ * onto content images to minimize CLS and defer offscreen image requests.
+ */
+function rehypeOptimizeImages() {
+  return (tree: any) => {
+    walkAst(tree, (node: any) => {
+      if (node.type === "element" && node.tagName === "img") {
+        node.properties = node.properties || {};
+        if (!node.properties.loading) {
+          node.properties.loading = "lazy";
+        }
+        if (!node.properties.decoding) {
+          node.properties.decoding = "async";
+        }
+      }
+    });
+  };
+}
+
+/**
  * Rehype plugin to preserve explicit table cell alignment (left / center / right).
  * Sets data-align and inline text-align style so CSS resets never override table alignment.
  */
@@ -245,6 +265,7 @@ export async function renderMarkdownToHtml(markdown: string, slug?: string): Pro
     .use(rehypeSlug)
     .use(rehypeExtractToc, toc)
     .use(rehypeTableAlignment)
+    .use(rehypeOptimizeImages)
     .use(rehypePrettyCode, {
       theme: {
         light: "github-light",

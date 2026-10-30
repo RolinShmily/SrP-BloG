@@ -36,9 +36,11 @@ licensed under the MIT License, and the MIT License grants no rights in them:
    texts — is generated at build time into `public/third-party-licenses.txt`
    (served as `/third-party-licenses.txt`); the verbatim texts are kept in
    `licenses/`. This includes embedded search engine runtimes and WebAssembly
-   binaries (such as Pagefind in `out/pagefind/`, licensed under MIT). Where a
-   third-party work is included in this repository or in the built site, that
-   work's own license governs it and prevails over the MIT License.
+   binaries (such as Pagefind in `out/pagefind/`, licensed under MIT), as well as
+   social card generation powered by Vercel Satori (licensed under Mozilla
+   Public License 2.0, see `licenses/MPL-2.0.txt`). Where a third-party work is
+   included in this repository or in the built site, that work's own license
+   governs it and prevails over the MIT License.
 
 4. Names and marks / 名称与标识
    The site name, domain name, avatar and brand marks identifying this site

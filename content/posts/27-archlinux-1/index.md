@@ -1,6 +1,7 @@
 ---
 title: 安装Archlinux+ClaudeCode，PVE小主机焕发第二春
 published: 2026-03-08
+updated: 2026-03-08
 description: "在 PVE 虚拟机中安装 Arch Linux 与 Niri 桌面，配置核显直通和常用软件，并记录 Claude Code 的安装与使用过程。"
 image: ./2026-03-08-1148.png
 tags:

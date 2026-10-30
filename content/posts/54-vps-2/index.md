@@ -1,6 +1,7 @@
 ---
 title: 关于VPS常见场景的操作总结(ssh、apt、ufw、nginx、tls)
 published: 2026-10-08
+updated: 2026-10-08
 pinned: true
 description: 基于 Debian 13 的 VPS 基础运维与加固实战指南，系统梳理从初始化连接、SSH 安全加固、APT 软件管理、UFW 防火墙策略，到 Nginx 站点上线、Certbot 自动化申请与续签 TLS 证书，以及 Linux 权限机制与第三方应用目录规范
 image: ./DebianLinux.png

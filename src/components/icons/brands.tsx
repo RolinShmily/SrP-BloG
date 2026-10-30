@@ -408,6 +408,18 @@ export function GitHubActionsIcon(props: BrandIconProps) {
 }
 
 /**
+ * Satori (Vercel) brand mark (SVG OG generation engine).
+ * viewBox="0 0 24 24"
+ */
+export function SatoriIcon(props: BrandIconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
+      <path d="M24 22.525H0l12-21.05 12 21.05z" />
+    </svg>
+  );
+}
+
+/**
  * Pagefind official brand mark (search engine).
  * viewBox="0 0 120 120"
  */

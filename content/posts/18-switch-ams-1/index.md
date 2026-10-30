@@ -1,6 +1,7 @@
 ---
 title: "Switch系统更新 | AMS | hekate "
 published: 2026-02-05
+updated: 2026-02-05
 pinned: false
 description: "记录 Nintendo Switch Atmosphère 双系统的更新步骤，说明升级前检查、系统版本处理及 AMS 与 hekate 环境中的注意事项。"
 image: ./2026-02-06_00-08-54.png

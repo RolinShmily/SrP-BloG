@@ -1,6 +1,7 @@
 ---
 title: "Markdown 语法示例：标题、表格、代码与 HTML 图片"
 published: 2025-07-26
+updated: 2025-07-26
 description: "通过示例演示 Markdown 标题、列表、表格、代码和 HTML 图片语法，便于对照查看常用格式的编写方式与渲染效果。"
 image: "./Timeline_1_01_00_02_42.jpg"
 tags: [Markdown, Obsidian, HTML]

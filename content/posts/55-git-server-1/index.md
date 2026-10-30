@@ -1,6 +1,7 @@
 ---
 title: 部署一个简单的git-server用来存放私有代码
 published: 2026-10-18
+updated: 2026-10-18
 pinned: false
 description: 通过git-master官方中文指南，在VPS上部署一个简单的git-server存放私有代码，方便多设备之间的拉取推送，进行本地测试、上线部署。
 image: ''

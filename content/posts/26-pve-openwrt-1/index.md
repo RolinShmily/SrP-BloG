@@ -1,6 +1,7 @@
 ---
 title: "PVE + OpenWrt 一体机部署：N100 网络与无线配置"
 published: 2026-03-07
+updated: 2026-03-07
 pinned: false
 description: "基于 N100 小主机安装 PVE 并部署 OpenWrt，演示 WAN 网桥、无线网卡上网、路由器 AP 桥接与校园网认证配置。"
 image: ./2026-03-07-1408.png

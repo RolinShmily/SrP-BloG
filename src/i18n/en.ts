@@ -31,6 +31,8 @@ export const en: Dictionary = {
     retry: "Retry",
     language: "Language",
     switchLanguage: "Switch language",
+    imageFailed: "Failed to load image",
+    viewOriginal: "View original link",
   },
   pages: {
     home: {
@@ -88,6 +90,8 @@ export const en: Dictionary = {
     notAiGenerated: "Not by AI",
     showAllCode: "Show all code",
     collapseCode: "Collapse code",
+    outdatedNotice: "This post was last updated {years} year(s) ago. Some technical details, commands, or dependencies may be outdated.",
+    outdatedNoticePublished: "This post was published {years} year(s) ago. Some technical details, commands, or dependencies may be outdated.",
   },
   stats: {
     totalPosts: "Total Posts",

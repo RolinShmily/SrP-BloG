@@ -1,6 +1,7 @@
 ---
 title: "VS Code C/C++ 开发环境配置：MinGW-w64、编译与调试"
 published: 2024-07-14
+updated: 2024-07-14
 description: "面向 C/C++ 初学者配置 VS Code 开发环境，安装 MinGW-w64 编译器、设置 Windows PATH，并建立单文件与多文件项目配置。"
 image: "./2024-07-14-0.jpg"
 tags: [C, C++, VSCode]

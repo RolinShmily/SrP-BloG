@@ -47,6 +47,15 @@ collections:
           time_format: false,
         }
       - {
+          label: "更新日期 (可选)",
+          name: "updated",
+          widget: "datetime",
+          format: "YYYY-MM-DD",
+          date_format: "YYYY-MM-DD",
+          time_format: false,
+          required: false,
+        }
+      - {
           label: "置顶",
           name: "pinned",
           widget: "boolean",

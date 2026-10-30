@@ -1,6 +1,7 @@
 ---
 title: SrP-Sakura For Minecraft | 自用插件服务器
 published: 2025-10-13
+updated: 2025-10-13
 description: "介绍自建的 SrP-Sakura Minecraft 插件服务器及其整合包，整理服务器功能、所用 Mod 与资源，并说明客户端连接方式。"
 image: "./PixPin_2025-08-04_15-10-35.png"
 tags: [Minecraft]

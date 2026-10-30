@@ -29,6 +29,15 @@ jobs:
           node-version: "22"
           cache: "pnpm"
 
+      # Satori needs real font binaries to rasterise the Open Graph cards.
+      # They are downloaded once from jsDelivr and cached here so routine builds
+      # do not pay for ~3 MB of font traffic on every push.
+      - name: Cache Satori fonts
+        uses: actions/cache@v4
+        with:
+          path: .cache/satori-fonts
+          key: satori-fonts-v1
+
       # `--ignore-scripts` blocks dependency lifecycle scripts (supply-chain hygiene).
       # The build chain (next/esbuild/sharp-free) ships prebuilt platform binaries as
       # optionalDependencies, so no postinstall step is required.
@@ -54,10 +63,11 @@ jobs:
 
       # `pnpm build` runs:
       #   1. tsx scripts/sync-post-assets.ts          (content/posts/** -> public/posts/**, no-op after the step above)
-      #   2. tsx scripts/generate-third-party-licenses.ts
-      #   3. next build                               (output: 'export' -> out/)
-      #   4. tsx scripts/build-pagefind.ts            (Rust-powered full-text search indexing -> out/pagefind)
-      #   5. tsx scripts/verify-seo.ts
+      #   2. tsx scripts/generate-og-image.ts         (Satori -> social cards for the site and every post)
+      #   3. tsx scripts/generate-third-party-licenses.ts
+      #   4. next build                               (output: 'export' -> out/)
+      #   5. tsx scripts/build-pagefind.ts            (Rust-powered full-text search indexing -> out/pagefind)
+      #   6. tsx scripts/verify-seo.ts
       - name: Build static export
         run: pnpm build
 

@@ -927,7 +927,50 @@
     height: auto;
     display: block;
     cursor: zoom-in;
-    transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease, box-shadow 0.2s ease;
+    background-color: hsl(var(--muted) / 0.4);
+  }
+
+  .article-body img.img-loading {
+    opacity: 0.15;
+    filter: blur(4px);
+    background: linear-gradient(
+      90deg,
+      hsl(var(--muted) / 0.4) 0%,
+      hsl(var(--muted) / 0.8) 50%,
+      hsl(var(--muted) / 0.4) 100%
+    );
+    background-size: 200% 100%;
+    animation: image-shimmer 1.8s infinite ease-in-out;
+  }
+
+  .article-body img.img-loaded {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  .article-body .img-error-box {
+    margin: 1.5rem auto;
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    border: 1px dashed hsl(var(--border));
+    background-color: hsl(var(--muted) / 0.3);
+    color: hsl(var(--muted-foreground));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+    max-width: 24rem;
+  }
+
+  @keyframes image-shimmer {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 
   .article-body img:hover {

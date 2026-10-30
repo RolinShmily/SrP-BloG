@@ -1,6 +1,7 @@
 ---
 title: 树莓派 Pico 2 W 实现 DualSense 手柄无线连接 | PS5
 published: 2026-04-22
+updated: 2026-04-22
 pinned: false
 description: 使用树莓派 Pico 2 W 和 DS5Dongle 为 DualSense 手柄添加无线连接，整理硬件准备、固件刷写与 PlayStation Accessories 配对步骤。
 image: ./2026-0422-1752.png

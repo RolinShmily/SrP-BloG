@@ -7,7 +7,6 @@ import type {
   Post,
   PostDetail,
   PostQueryOptions,
-  SearchIndexItem,
   SiteStats,
   TagInfo,
   TocItem,
@@ -358,32 +357,6 @@ export class LocalContentProvider implements IContentProvider {
       totalWordCount,
     };
   }
-
-  /**
-   * Returns a lightweight search index payload for client-side search.
-   */
-  public async getSearchIndex(
-    localeOrOptions?: ContentQueryArg,
-    maybeOptions?: PostQueryOptions
-  ): Promise<SearchIndexItem[]> {
-    const options = this.resolveOptions(localeOrOptions, maybeOptions);
-    const rawMap = this.loadRawPosts();
-    const posts = await this.getAllPosts(options);
-
-    return posts.map((post) => {
-      const raw = rawMap.get(post.slug);
-
-      return {
-        slug: post.slug,
-        title: post.title,
-        description: post.description,
-        tags: post.tags,
-        date: post.published,
-        wordCount: post.wordCount,
-        plainText: raw ? raw.plainText : "",
-      };
-    });
-  }
 }
 
 // Singleton default instance
@@ -408,7 +381,3 @@ export const getSiteStats = (
   localeOrOptions?: ContentQueryArg,
   options?: PostQueryOptions
 ): Promise<SiteStats> => contentProvider.getSiteStats(localeOrOptions, options);
-export const getSearchIndex = (
-  localeOrOptions?: ContentQueryArg,
-  options?: PostQueryOptions
-): Promise<SearchIndexItem[]> => contentProvider.getSearchIndex(localeOrOptions, options);

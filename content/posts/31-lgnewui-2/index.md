@@ -1,6 +1,7 @@
 ---
 title: LGnewUI-2 部署 | Docker | PHP | MySQL | Nginx | Certbot
 published: 2026-04-03
+updated: 2026-04-03
 pinned: false
 description: 介绍使用 Docker 部署 LGnewUI-2 站点的流程，配置 PHP-FPM、MySQL 与 Nginx，并涵盖 HTTPS、反向代理和服务维护。
 image: ./2026-04-03-16-16.png

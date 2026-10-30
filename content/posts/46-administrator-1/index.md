@@ -1,6 +1,7 @@
 ---
 title: Windows中的超级管理员Administrator开启方法 | 账户丢失 | 桌面丢失 | 密码忘却
 published: 2026-07-12
+updated: 2026-07-12
 pinned: false
 description: "整理 Windows 本地 Administrator 账户启用与系统恢复操作，涵盖高级启动、PE 命令行以及账户无法登录等场景。"
 image: Windows.png

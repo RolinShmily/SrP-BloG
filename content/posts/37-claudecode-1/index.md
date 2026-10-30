@@ -1,6 +1,7 @@
 ---
 title: ClaudeCode原生安装与使用 | Agent | CC-Switch
 published: 2026-05-09
+updated: 2026-05-09
 description: 记录 Claude Code 在 Windows 上的原生安装、更新与使用步骤，并介绍 CC-Switch 配置、Git for Windows 和日常操作经验。
 image: ./2025-0509-0012.png
 tags:

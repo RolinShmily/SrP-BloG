@@ -1,6 +1,7 @@
 ---
 title: WSL 安装 Arch Linux 并配置 Dotfiles
 published: 2026-07-25
+updated: 2026-07-25
 pinned: false
 description: 从 WSL 安装 Arch Linux，完成密钥库、镜像源与基础软件配置，再通过 dotfiles 仓库部署桌面环境，记录系统初始化与配置步骤。
 image: Arch.png

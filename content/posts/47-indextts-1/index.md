@@ -1,6 +1,7 @@
 ---
 title: 在WSL中快速使用IndexTTS推理 | Python | TTS
 published: 2026-07-18
+updated: 2026-07-18
 pinned: false
 description: 这是一篇IndexTTS的快速上手教程，以Windows平台的WSL子系统上，拉取源代码，下载模型，通过uv运行推理脚本。
 image: cover.png

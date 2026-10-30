@@ -1,6 +1,7 @@
 ---
 title: MSYS2+MinGW工具链搭建  VScode拓展推荐 | gcc | gdb | cmake | Ninja
 published: 2026-05-10
+updated: 2026-05-10
 pinned: false
 description: 通过在Windows系统上安装MSYS2搭建类Unix环境，并使用pacman包管理器安装MinGW版的gcc、gdb、cmake、ninja工具链，并推荐一些vscode常用的拓展插件。
 image: ./2026-0510-1413.png

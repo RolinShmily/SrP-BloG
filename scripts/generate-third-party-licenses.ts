@@ -50,6 +50,12 @@ const EMBEDDED_ASSETS = [
     "Client-side full-text search engine & WebAssembly index chunks in out/pagefind/",
     "Copyright (c) 2022 Liam Bigelow",
   ],
+  [
+    "Satori (Vercel)",
+    "MPL-2.0",
+    "Open Graph HTML/CSS to SVG engine for dynamic social cards in public/og/",
+    "Copyright (c) 2022 Vercel, Inc.",
+  ],
 ] as const;
 
 /** Font license family whose text must be present in licenses/ for the fonts above. */
@@ -258,12 +264,13 @@ export function generateThirdPartyLicenses(): void {
     WEB_FONTS.map(([name, role, copyright]) => `  ${name}\n      ${role}\n      ${copyright}`).join("\n"),
     "",
     RULE,
-    "EMBEDDED SEARCH ENGINE & RUNTIME ASSETS (MIT)",
+    "EMBEDDED SEARCH ENGINE & SOCIAL CARD ASSETS (MIT / MPL-2.0)",
     RULE,
     "",
     "Static search runtime scripts and WebAssembly binaries in out/pagefind/ are generated",
-    "at build time by Pagefind and distributed with the site. The MIT license requires",
-    "each copy to retain the copyright notice and permission notice.",
+    "at build time by Pagefind (MIT). Dynamic social preview cards are generated using",
+    "Vercel Satori (Mozilla Public License 2.0). Upstream licenses require copyright notices",
+    "and applicable license terms to accompany distributions.",
     "",
     EMBEDDED_ASSETS.map(([name, _lic, role, copyright]) => `  ${name}\n      ${role}\n      ${copyright}`).join("\n"),
     "",
@@ -276,6 +283,10 @@ export function generateThirdPartyLicenses(): void {
     `### ${FONT_LICENSE} — licenses/${FONT_LICENSE}.txt (web fonts)`,
     "",
     fontText,
+    "",
+    "### MPL-2.0 — licenses/MPL-2.0.txt (Vercel Satori)",
+    "",
+    readLicenseText("MPL-2.0"),
     "",
   ].join("\n");
 

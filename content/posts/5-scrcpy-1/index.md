@@ -1,6 +1,7 @@
 ---
 title: "手机投屏与 PC 串流：scrcpy、Sunshine 与 Moonlight"
 published: 2024-07-25
+updated: 2024-07-25
 description: "本篇文章介绍了有关串流的流行应用——Sunshine和Moonlight组合的用法；并推荐开源项目scrcpy的投屏功能。"
 image: "./Timeline_1_01_00_01_00.jpg"
 tags: [Sunshine, Moonlight, Scrcpy, Network]

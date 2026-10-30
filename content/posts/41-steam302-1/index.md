@@ -1,6 +1,7 @@
 ---
 title: SteamCommunity 302 | Steam/Discord/GitHub 网络加速
 published: 2026-06-15
+updated: 2026-06-15
 pinned: false
 description: 面向 Steam/GitHub/Discord/Minecraft 等海外平台的 hosts + CDN 优选加速方案，无需翻墙，三步配置即可生效。
 image: Steam302.png

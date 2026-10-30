@@ -30,6 +30,8 @@ export const zh = {
     retry: "重试",
     language: "语言",
     switchLanguage: "切换语言",
+    imageFailed: "图片加载失败",
+    viewOriginal: "查看原图链接",
   },
   pages: {
     home: {
@@ -87,6 +89,8 @@ export const zh = {
     notAiGenerated: "非AI生成",
     showAllCode: "展开全部代码",
     collapseCode: "收起代码",
+    outdatedNotice: "本文最后更新于 {years} 年前，其中涉及的技术环境、配置或版本可能已发生变化，请注意甄别。",
+    outdatedNoticePublished: "本文发布于 {years} 年前，其中涉及的技术环境、配置或版本可能已发生变化，请注意甄别。",
   },
   stats: {
     totalPosts: "文章总数",

@@ -3,6 +3,70 @@ export interface LocalizedText {
   en: string;
 }
 
+/**
+ * Open Graph & Social Share Card Generator Configuration.
+ */
+export interface OgCardConfig {
+  /**
+   * Card visual template preset:
+   * - 'modern'    : Linear & Raycast style dark card with subtle mesh glow, frosted pill badges, and floating frame.
+   * - 'editorial' : Swiss typographic poster style with bold contrast, kicker taxonomy, and hairline footer.
+   * - 'terminal'  : macOS geek developer window with traffic lights, breadcrumb prompt, and code frame.
+   * - 'matrix'    : Technical blueprint with crosshairs, dashed guide frames, and sci-fi coordinate accents.
+   */
+  template: "modern" | "editorial" | "terminal" | "matrix";
+  /**
+   * Primary brand accent color for card glows, badges, rules, and highlights.
+   * e.g. '#F75C7E' (rose), '#3B82F6' (blue), '#10B981' (emerald), '#8B5CF6' (violet), '#F59E0B' (amber), '#06B6D4' (cyan)
+   */
+  accentColor: string;
+  /**
+   * Card background color palette:
+   * - 'obsidian': Deep midnight black (#0A0A0C)
+   * - 'zinc'    : Sleek modern dark zinc (#09090B)
+   * - 'slate'   : Cool navy slate (#0B0F19)
+   * - 'pure'    : Pure pitch OLED black (#000000)
+   */
+  theme: "obsidian" | "zinc" | "slate" | "pure";
+  /**
+   * Ambient background pattern:
+   * - 'glow' : Dual ambient corner radial flares (subtle colorful lighting)
+   * - 'grid' : Subtle technical grid coordinate mesh
+   * - 'dots' : Subtle dot matrix pattern
+   * - 'clean': Pure minimal solid background
+   */
+  backgroundPattern: "glow" | "grid" | "dots" | "clean";
+  /**
+   * Label shown in the top header badge or status pill (e.g. "PERSONAL TECH BLOG").
+   */
+  siteBadge: string;
+  /**
+   * Subtle background watermark brand text (e.g. "SRP" or site initials).
+   * Leave empty "" to disable watermark.
+   */
+  watermark?: string;
+  /**
+   * Whether to display post excerpt/description on cards.
+   */
+  showDescription: boolean;
+  /**
+   * Whether to display estimated reading time on cards.
+   */
+  showReadingTime: boolean;
+  /**
+   * Whether to display publication / updated date on cards.
+   */
+  showDate: boolean;
+  /**
+   * Whether to display author display name on cards.
+   */
+  showAuthor: boolean;
+  /**
+   * Whether to display the canonical website domain on cards.
+   */
+  showDomain: boolean;
+}
+
 export interface NavItem {
   name: string;
   href: string;
@@ -49,6 +113,7 @@ export type TechIcon =
   | "bing"
   | "indexnow"
   | "pagefind"
+  | "satori"
   | "open-graph";
 
 export interface TechItem {
@@ -260,8 +325,8 @@ export const siteConfig = {
   brandTitle: "BloG",
   /** Short biography / motto displayed in social cards and about contexts. */
   bio: "Entities should not be multiplied unnecessarily.",
-  /** Path to site favicon. */
-  avatar: "/favicon/favicon.ico",
+  /** Path to site favicon / avatar. */
+  avatar: "/avatar.png",
   /** Canonical base URL of the blog without trailing slash. */
   url: "https://blog.srprolin.com",
   /** Personal homepage / external about link. */
@@ -270,10 +335,27 @@ export const siteConfig = {
   repoUrl: "https://github.com/RolinShmily/SrP-BloG",
 
   // ==========================================
-  // 2. SEO & Feed (SEO与订阅输出)
+  // 2. SEO, Feed & Open Graph (SEO、订阅与社交分享卡片)
   // ==========================================
   /** Default Open Graph image (1200x630) used for social cards and embeds. */
   ogImage: "/og/og.png",
+  /**
+   * Open Graph image generator visual configuration.
+   * Controls template presets, accent colors, background themes, patterns, and content toggles.
+   */
+  ogCard: {
+    template: "modern", // "modern" | "editorial" | "terminal" | "matrix"
+    accentColor: "#F75C7E",
+    theme: "obsidian",
+    backgroundPattern: "glow",
+    siteBadge: "PERSONAL TECH BLOG",
+    watermark: "SRP",
+    showDescription: true,
+    showReadingTime: true,
+    showDate: true,
+    showAuthor: true,
+    showDomain: true,
+  } as OgCardConfig,
   /** Absolute-site-relative path of the RSS 2.0 feed. */
   rssUrl: "/rss.xml",
   /** Absolute-site-relative path of the generated sitemap. */
@@ -384,6 +466,7 @@ export const siteConfig = {
     { name: "Bing Webmaster", url: "https://www.bing.com/webmasters", icon: "bing" },
     { name: "IndexNow", url: "https://www.indexnow.org/", icon: "indexnow" },
     { name: "Pagefind", url: "https://pagefind.app/", icon: "pagefind" },
+    { name: "Satori", url: "https://github.com/vercel/satori", icon: "satori" },
     { name: "Open Graph", url: "https://ogp.me/", icon: "open-graph" },
   ] as TechItem[],
 
@@ -401,7 +484,7 @@ export const siteConfig = {
       zh: "如无必要，勿增实体。",
       en: "Entities should not be multiplied unnecessarily.",
     },
-    avatar: "https://blog.srprolin.com/favicon/favicon.ico",
+    avatar: "https://blog.srprolin.com/avatar.png",
     backlink: "https://blog.srprolin.com/friends/",
   } as FriendSiteInfo,
   /** Quick application shortcuts on the /friends page. */

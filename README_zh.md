@@ -28,6 +28,7 @@
 - **全方位 SEO 与统计**：原生集成 Google Analytics 4 (GA4)、Google Search Console 与 Bing Webmaster 的 Meta 标签鉴权，集成 IndexNow 增量实时推送到搜索引擎。
 - **隐私统计 (UPV)**：可选基于 Cloudflare Workers + D1 的独立统计服务，加盐哈希去重，不存明文 IP，未配置时静默降级。
 - **全文智能检索 (Pagefind)**：基于 Rust 打造的客户端离线全文索引引擎，支持 `Cmd+K` / `Ctrl+K` 全局快捷键呼出、关键词上下文片段高亮（Snippet）、分块渐进加载与中英文分词检索。
+- **动态社交分享卡片 (Satori)**：基于 Vercel Satori 与 Sharp 构建期预渲染，为每篇文章生成 1200×630 高清专属社交分享图（macOS 极客视窗风格，含标题、标签与阅读时长）。
 - **开箱即用**：多标签过滤、RSS 2.0、Sitemap 与友链自动校验工作流。
 
 ---

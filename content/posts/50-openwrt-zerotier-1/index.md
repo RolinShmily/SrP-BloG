@@ -1,6 +1,7 @@
 ---
 title: 在OpenWrt中搭建Zerotier双子网互通
 published: 2026-07-28
+updated: 2026-07-28
 pinned: false
 description: 结合之前的zerotier文章，利用在公网上搭建的ztncui面板，以及openwrt系统插件，实现真实局域网和虚拟局域网的双向互通。
 image: OpenWrt.png

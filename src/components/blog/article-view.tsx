@@ -23,6 +23,7 @@ import {
   Pin,
   ArrowLeft,
   RefreshCw,
+  AlertCircle,
 } from "lucide-react";
 
 interface ArticleViewProps {
@@ -42,6 +43,13 @@ export function ArticleView({ post }: ArticleViewProps) {
   const minutes = formatReadingTime(post.readingTime, post.wordCount, locale);
   const words = formatWordCount(post.wordCount, locale);
   const standfirst = post.description || post.excerpt;
+
+  // Check if article is older than 1 year (strictly prioritizes `updated` date)
+  const isExplicitlyUpdated = Boolean(post.updated && post.updated !== post.published);
+  const effectiveDateStr = post.updated || post.published;
+  const effectiveTimestamp = new Date(effectiveDateStr).getTime();
+  const diffDays = Math.floor((Date.now() - effectiveTimestamp) / (1000 * 60 * 60 * 24));
+  const yearsAgo = Math.floor(diffDays / 365);
 
   return (
     <>
@@ -115,15 +123,15 @@ export function ArticleView({ post }: ArticleViewProps) {
               </Badge>
             )}
 
-            <span className="inline-flex items-center gap-1">
+            <span className="inline-flex items-center gap-1" title={`${t.post.publishedAt}: ${post.published}`}>
               <Calendar className="h-3.5 w-3.5" />
-              <time className="font-mono">{post.published}</time>
-              {post.updated && (
-                <>
+              <time className="font-mono" dateTime={post.published}>{post.published}</time>
+              {post.updated && post.updated !== post.published && (
+                <span className="inline-flex items-center gap-1" title={`${t.post.updatedAt}: ${post.updated}`}>
                   <span className="opacity-50">/</span>
                   <RefreshCw className="h-3 w-3" />
-                  <time className="font-mono">{post.updated}</time>
-                </>
+                  <time className="font-mono" dateTime={post.updated}>{post.updated}</time>
+                </span>
               )}
             </span>
 
@@ -174,6 +182,22 @@ export function ArticleView({ post }: ArticleViewProps) {
 
           {/* Dividing rule: deliberately short so it reads as a flourish */}
           <div className="mt-5 w-1/2 border-t border-border sm:mt-6 sm:w-1/3" />
+
+          {/* Outdated Notice (if older than 1 year, based on updated date) */}
+          {yearsAgo >= 1 && (
+            <div
+              data-pagefind-ignore
+              className="mt-6 flex items-start gap-2.5 rounded-xl border border-amber-500/25 bg-amber-500/10 px-4 py-3 text-xs text-amber-600 dark:text-amber-400 leading-relaxed"
+            >
+              <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
+              <p>
+                {(isExplicitlyUpdated
+                  ? t.post.outdatedNotice
+                  : t.post.outdatedNoticePublished
+                ).replace("{years}", String(yearsAgo))}
+              </p>
+            </div>
+          )}
 
           {/* Body */}
           <div id="article-content" className="mt-8 min-w-0">

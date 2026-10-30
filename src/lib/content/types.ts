@@ -28,16 +28,6 @@ export interface PostDetail extends Post {
   nextPost?: { slug: string; title: string };
 }
 
-export interface SearchIndexItem {
-  slug: string;
-  title: string;
-  description?: string;
-  tags: string[];
-  date: string;
-  wordCount: number;
-  plainText: string;
-}
-
 export interface SiteStats {
   totalPosts: number;
   totalWordCount: number;
@@ -63,8 +53,4 @@ export interface IContentProvider {
   ): Promise<PostDetail | null>;
   getAllTags(localeOrOptions?: ContentQueryArg, options?: PostQueryOptions): Promise<TagInfo[]>;
   getSiteStats(localeOrOptions?: ContentQueryArg, options?: PostQueryOptions): Promise<SiteStats>;
-  getSearchIndex(
-    localeOrOptions?: ContentQueryArg,
-    options?: PostQueryOptions
-  ): Promise<SearchIndexItem[]>;
 }

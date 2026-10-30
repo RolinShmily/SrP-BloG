@@ -1,6 +1,7 @@
 ---
 title: Git的初始化配置，GitHub云平台GPG密钥 | SSH
 published: 2026-08-02
+updated: 2026-08-02
 pinned: false
 description: "从 Git 用户名与邮箱初始化开始，介绍 GitHub SSH 连接、使用 SSH 密钥签名提交，以及相关配置文件的管理。"
 image: Git.png

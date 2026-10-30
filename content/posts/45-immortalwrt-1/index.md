@@ -1,6 +1,7 @@
 ---
 title: 在WSL上编译你的OpenWrt固件 | ImmortalWrt | WSL
 published: 2026-07-09
+updated: 2026-07-09
 pinned: false
 description: 手把手在Windows上安装WSL，并编译一组全面基础可用的ImmortalWrt(OpenWrt)固件，包含基础包(Luci、Opkg)+拓展插件(Frp、Zerotier、V2ray)
 image: OpenWrt.png

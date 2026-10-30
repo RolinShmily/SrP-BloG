@@ -28,6 +28,7 @@
 - **Comprehensive SEO & Analytics**: Integrated Google Analytics 4 (GA4), Search Console & Bing Webmaster HTML meta verification, and automated real-time IndexNow instant indexing.
 - **Privacy-Focused Analytics (UPV)**: Optional standalone Cloudflare Workers + D1 counting service with salted daily hashing and zero IP storage; degrades silently when unconfigured.
 - **Full-Text Search (Pagefind)**: Rust-powered client-side search with instant snippet highlighting, keyboard shortcuts (`Cmd+K` / `Ctrl+K`), chunked zero-runtime indexing, and automatic Chinese/English tokenization.
+- **Dynamic Open Graph Cards (Satori)**: Pre-rendered 1200×630 high-res social preview cards for every post powered by Vercel Satori and Sharp, featuring a macOS terminal window layout with dedicated tags and metadata.
 - **Batteries Included**: Multi-tag filtering, RSS 2.0, Sitemap, and automated friend-link validation workflows.
 
 ---

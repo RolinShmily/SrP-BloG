@@ -264,7 +264,7 @@ export function ArticleContent({ html }: ArticleContentProps) {
       }
     });
 
-    // 5. Clickable image preview for article images
+    // 5. Image lazy loading, shimmer skeleton & click preview
     const images = Array.from(
       containerRef.current.querySelectorAll<HTMLImageElement>("img")
     );
@@ -276,6 +276,59 @@ export function ArticleContent({ html }: ArticleContentProps) {
         "title",
         img.getAttribute("alt") || t.common.viewAll || "Preview"
       );
+
+      // Lazy load & decoding async safety check
+      if (!img.getAttribute("loading")) {
+        img.setAttribute("loading", "lazy");
+      }
+      if (!img.getAttribute("decoding")) {
+        img.setAttribute("decoding", "async");
+      }
+
+      // Skeleton & smooth transition handling
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add("img-loaded");
+      } else {
+        img.classList.add("img-loading");
+
+        const onLoad = () => {
+          img.classList.remove("img-loading");
+          img.classList.add("img-loaded");
+          img.removeEventListener("load", onLoad);
+        };
+
+        const onError = () => {
+          img.classList.remove("img-loading");
+          img.classList.add("img-failed");
+
+          // Build graceful fallback placeholder
+          const fallback = document.createElement("div");
+          fallback.className = "img-error-box";
+          const altText = img.getAttribute("alt") || "Image";
+          const rawSrc = img.getAttribute("src") || "";
+
+          fallback.innerHTML = `
+            <div class="flex items-center gap-1.5 text-xs text-muted-foreground font-mono">
+              <svg class="h-4 w-4 text-amber-500/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <span>${t.common.imageFailed}: ${altText}</span>
+            </div>
+            ${rawSrc ? `<a href="${rawSrc}" target="_blank" rel="noopener noreferrer" class="text-[11px] text-primary/80 hover:underline font-mono">${t.common.viewOriginal} &rarr;</a>` : ""}
+          `;
+
+          if (img.parentNode) {
+            img.parentNode.insertBefore(fallback, img);
+            img.style.display = "none";
+          }
+          img.removeEventListener("error", onError);
+        };
+
+        img.addEventListener("load", onLoad);
+        img.addEventListener("error", onError);
+      }
 
       const handleImgClick = (e: MouseEvent) => {
         // If image is inside a non-image link, let default navigation proceed
@@ -290,6 +343,7 @@ export function ArticleContent({ html }: ArticleContentProps) {
         }
 
         const previewList = images
+          .filter((el) => !el.classList.contains("img-failed"))
           .map((el) => ({
             src: el.currentSrc || el.getAttribute("src") || "",
             alt: el.getAttribute("alt") || el.getAttribute("title") || "",

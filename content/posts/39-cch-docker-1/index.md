@@ -1,6 +1,7 @@
 ---
 title: Claude Code Hub 部署 | Docker | Nginx
 published: 2026-05-20
+updated: 2026-05-20
 pinned: false
 description: ClaudeCodeHub是一个CC-Switch的团队加强版，能够统一管理API上游来源，并实现具体到Session的指标监控与API权限分发。
 image: ./2026-0523-1817.png

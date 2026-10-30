@@ -1,6 +1,7 @@
 ---
 title: "机器学习基础笔记：监督学习、深度学习与常用框架"
 published: 2024-07-24
+updated: 2024-07-24
 pinned: false
 description: 从机器学习与深度学习的关系出发，整理监督学习、回归与分类等基础概念，并概览常见 Python 数据处理、可视化和机器学习框架。
 image: ./s33771410.jpg

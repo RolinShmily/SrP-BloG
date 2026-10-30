@@ -1,6 +1,7 @@
 ---
 title: "Frp 内网穿透搭建教程：VPS 服务端与客户端配置"
 published: 2025-12-05
+updated: 2025-12-05
 description: "说明如何通过 Frp 与公网 VPS 转发实现内网穿透，介绍 frps/frpc 配置、端口映射和客户端部署，适用于多层 NAT 网络。"
 image: ./2026-01-05-16-34.png
 tags:
