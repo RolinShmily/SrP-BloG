@@ -1,17 +1,16 @@
 "use client";
 
-import { useState, useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import Link from "next/link";
-import type { Post, SiteStats, SearchIndexItem } from "@/lib/content/types";
+import type { Post, SiteStats } from "@/lib/content/types";
 import { sortPostsByPublishedDate } from "@/lib/content/sort";
-import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { SiteUpvCards } from "./site-upv-cards";
 import { useLocale } from "@/i18n/locale-provider";
 import { formatWordCount } from "@/i18n/format";
-import { Search, SearchX, X, FileText, BookOpen } from "lucide-react";
-import { PostCard } from "./post-card";
+import { Search, FileText, BookOpen } from "lucide-react";
+import { openSearch } from "./search-dialog";
 
 interface ArchivesViewProps {
   stats: SiteStats;
@@ -20,126 +19,24 @@ interface ArchivesViewProps {
 
 export function ArchivesView({ stats, posts }: ArchivesViewProps) {
   const { t, locale } = useLocale();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [searchIndex, setSearchIndex] = useState<SearchIndexItem[]>([]);
-  const [isLoadingIndex, setIsLoadingIndex] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const handleHashFocus = () => {
+    const handleHashTrigger = () => {
       if (
         window.location.hash === "#search" ||
         window.location.hash === "#archive-search-input"
       ) {
-        setTimeout(() => {
-          if (searchInputRef.current) {
-            searchInputRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-            searchInputRef.current.focus({ preventScroll: true });
-          }
-        }, 150);
+        openSearch();
       }
     };
 
-    handleHashFocus();
-    window.addEventListener("hashchange", handleHashFocus);
-    return () => window.removeEventListener("hashchange", handleHashFocus);
+    handleHashTrigger();
+    window.addEventListener("hashchange", handleHashTrigger);
+    return () => window.removeEventListener("hashchange", handleHashTrigger);
   }, []);
 
-  useEffect(() => {
-    let isMounted = true;
-    setIsLoadingIndex(true);
-
-    fetch("/search-index.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Search index not found");
-        return res.json();
-      })
-      .then((data: SearchIndexItem[]) => {
-        if (isMounted) {
-          setSearchIndex(data);
-          setIsLoadingIndex(false);
-        }
-      })
-      .catch((err) => {
-        console.warn("Falling back to client-side post search:", err);
-        if (isMounted) {
-          const fallbackIndex: SearchIndexItem[] = posts.map((p) => ({
-            slug: p.slug,
-            title: p.title,
-            description: p.description || p.excerpt,
-            tags: p.tags,
-            date: p.published,
-            wordCount: p.wordCount,
-            plainText: p.excerpt || "",
-          }));
-          setSearchIndex(fallbackIndex);
-          setIsLoadingIndex(false);
-        }
-      });
-
-    return () => {
-      isMounted = false;
-    };
-  }, [posts]);
-
-  // Archive timelines and search results stay chronological even when other pages pin posts.
+  // Archive timelines stay chronological
   const chronologicalPosts = useMemo(() => sortPostsByPublishedDate(posts), [posts]);
-
-  const searchedPosts = useMemo(() => {
-    const q = searchQuery.trim().toLowerCase();
-    if (!q) return [];
-
-    const terms = q.split(/\s+/).filter(Boolean);
-    const postMap = new Map<string, Post>(chronologicalPosts.map((p) => [p.slug, p]));
-
-    if (searchIndex.length > 0) {
-      const matched: Post[] = [];
-      const seen = new Set<string>();
-
-      for (const item of searchIndex) {
-        const title = (item.title || "").toLowerCase();
-        const desc = (item.description || "").toLowerCase();
-        const plain = (item.plainText || "").toLowerCase();
-        const tags = (item.tags || []).join(" ").toLowerCase();
-        const date = (item.date || "").toLowerCase();
-        const year = date.split("-")[0] || "";
-
-        const isMatch = terms.every(
-          (term) =>
-            title.includes(term) ||
-            desc.includes(term) ||
-            plain.includes(term) ||
-            tags.includes(term) ||
-            date.includes(term) ||
-            year === term
-        );
-
-        if (isMatch && !seen.has(item.slug)) {
-          seen.add(item.slug);
-          const post = postMap.get(item.slug);
-          if (post) matched.push(post);
-        }
-      }
-      return sortPostsByPublishedDate(matched);
-    }
-
-    return chronologicalPosts.filter((post) => {
-      const title = post.title.toLowerCase();
-      const desc = (post.description || post.excerpt || "").toLowerCase();
-      const tags = post.tags.join(" ").toLowerCase();
-      const date = post.published.toLowerCase();
-      const year = date.split("-")[0] || "";
-
-      return terms.every(
-        (term) =>
-          title.includes(term) ||
-          desc.includes(term) ||
-          tags.includes(term) ||
-          date.includes(term) ||
-          year === term
-      );
-    });
-  }, [searchQuery, searchIndex, chronologicalPosts]);
 
   const postsByYear = useMemo(() => {
     const map = new Map<string, Post[]>();
@@ -151,7 +48,6 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
     }
     return Array.from(map.entries()).sort((a, b) => b[0].localeCompare(a[0]));
   }, [chronologicalPosts]);
-
 
   return (
     <div className="space-y-10">
@@ -166,9 +62,7 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
         <p className="text-sm text-muted-foreground">{t.archives.subheading}</p>
       </div>
 
-      {/* Stats Bar — flex, not grid: the PV/UV cards vanish when the analytics
-          service is unconfigured, and flex lets the remaining cards grow to fill
-          the row instead of leaving half of a 4-column grid empty. */}
+      {/* Stats Bar */}
       <section
         className="section-animate-in flex flex-wrap gap-3"
         style={{ "--section-index": 1 } as React.CSSProperties}
@@ -207,137 +101,101 @@ export function ArchivesView({ stats, posts }: ArchivesViewProps) {
           </CardContent>
         </Card>
 
-        {/* Site-wide PV and UV — both cards, or nothing when analytics are down. */}
         <SiteUpvCards />
       </section>
 
-      {/* Search Input Bar */}
+      {/* Search Trigger Bar */}
       <section
         id="search"
         className="section-animate-in space-y-3"
         style={{ "--section-index": 2 } as React.CSSProperties}
       >
-        <div className="relative flex items-center">
-          <Search className="absolute left-3 h-4 w-4 text-muted-foreground pointer-events-none" />
-          <Input
-            id="archive-search-input"
-            ref={searchInputRef}
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={t.search.placeholder}
-            className="pl-9 pr-9 h-10 rounded-lg bg-card/60 text-sm"
-          />
-          {searchQuery && (
-            <button
-              type="button"
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3 text-muted-foreground hover:text-foreground"
-              aria-label={t.search.clear}
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
-
-        {searchQuery.trim() !== "" && (
-          <div className="text-meta text-muted-foreground px-1 flex items-center justify-between">
-            <span>
-              {t.search.found.replace("{count}", String(searchedPosts.length))}
-            </span>
-            {isLoadingIndex && <span className="opacity-70">({t.common.loading})</span>}
+        <div
+          id="archive-search-input"
+          role="button"
+          tabIndex={0}
+          onClick={openSearch}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              openSearch();
+            }
+          }}
+          className="group relative flex h-11 w-full cursor-pointer items-center justify-between rounded-xl border border-border/80 bg-card/60 px-3.5 text-sm text-muted-foreground transition-all hover:border-primary/50 hover:bg-card/90 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        >
+          <div className="flex items-center gap-2.5">
+            <Search className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors" />
+            <span>{t.search.placeholder}</span>
           </div>
-        )}
+
+          <div className="flex items-center gap-1 font-mono text-[11px]">
+            <kbd className="hidden sm:inline-flex h-5 items-center rounded border border-border bg-muted/80 px-1.5 text-[10px] text-muted-foreground">
+              ⌘K
+            </kbd>
+          </div>
+        </div>
       </section>
 
-      {/* Search Results Display */}
-      {searchQuery.trim() !== "" ? (
-        <section className="space-y-4">
-          {searchedPosts.length === 0 ? (
-            <div className="p-12 text-center rounded-xl border border-border bg-card text-muted-foreground space-y-2">
-              <SearchX className="mx-auto h-6 w-6 opacity-50" />
-              <p className="text-sm">
-                {t.search.empty}: <span className="text-foreground">{searchQuery}</span>
-              </p>
-              <p className="text-meta">{t.search.tip}</p>
+      {/* Chronological Timeline */}
+      <section className="space-y-16">
+        {postsByYear.map(([year, yearPosts]) => (
+          <div key={year} className="relative space-y-4">
+            {/* Antfu-style Big Background Year Watermark Header */}
+            <div className="relative h-16 sm:h-20 select-none pointer-events-none flex items-end justify-between pb-2 border-b border-border/40">
+              <span
+                aria-hidden="true"
+                className="absolute -left-2 sm:-left-6 -top-6 sm:-top-10 font-mono text-7xl sm:text-8xl md:text-[8.5rem] font-black tracking-tight leading-none text-transparent stroke-year"
+              >
+                {year}
+              </span>
+              <span className="sr-only">{year}</span>
+              <Badge
+                variant="secondary"
+                className="relative z-10 text-xs px-2.5 py-0.5 font-normal ml-auto pointer-events-auto"
+              >
+                {yearPosts.length} {t.stats.posts}
+              </Badge>
             </div>
-          ) : (
-            <div className="space-y-4">
-              {searchedPosts.map((post) => (
-                <PostCard
-                  key={post.slug}
-                  post={post}
-                />
-              ))}
+
+            {/* Timeline Items */}
+            <div className="relative z-10 border-l border-border ml-2 pl-5 space-y-4">
+              {yearPosts.map((post) => {
+                const dateParts = post.published.split("-");
+                const monthDay =
+                  dateParts.length >= 3
+                    ? `${dateParts[1]}-${dateParts[2]}`
+                    : post.published;
+
+                return (
+                  <Link
+                    key={post.slug}
+                    href={`/posts/${post.slug}`}
+                    className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-1.5 opacity-60 hover:opacity-100 transition-opacity duration-200 no-underline cursor-pointer"
+                  >
+                    <div className="absolute -left-[25px] top-2.5 h-2 w-2 rounded-full bg-border group-hover:bg-foreground group-hover:scale-125 transition-all" />
+
+                    <div className="flex items-baseline gap-3 min-w-0">
+                      <time className="font-mono text-xs text-muted-foreground w-12 shrink-0">
+                        {monthDay}
+                      </time>
+
+                      <span className="text-sm font-medium text-foreground truncate">
+                        {post.title}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-xs text-muted-foreground sm:shrink-0 pl-[3.75rem] sm:pl-0">
+                      <span className="font-mono text-xs">
+                        {formatWordCount(post.wordCount, locale)}
+                      </span>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
-          )}
-        </section>
-      ) : (
-        /* Chronological Timeline */
-        <section className="space-y-16">
-          {postsByYear.map(([year, yearPosts]) => (
-            <div key={year} className="relative space-y-4">
-              {/* Antfu-style Big Background Year Watermark Header */}
-              <div className="relative h-16 sm:h-20 select-none pointer-events-none flex items-end justify-between pb-2 border-b border-border/40">
-                <span
-                  aria-hidden="true"
-                  className="absolute -left-2 sm:-left-6 -top-6 sm:-top-10 font-mono text-7xl sm:text-8xl md:text-[8.5rem] font-black tracking-tight leading-none text-transparent stroke-year"
-                >
-                  {year}
-                </span>
-                <span className="sr-only">{year}</span>
-                <Badge
-                  variant="secondary"
-                  className="relative z-10 text-xs px-2.5 py-0.5 font-normal ml-auto pointer-events-auto"
-                >
-                  {yearPosts.length} {t.stats.posts}
-                </Badge>
-              </div>
-
-              {/* Timeline Items */}
-              <div className="relative z-10 border-l border-border ml-2 pl-5 space-y-4">
-                {yearPosts.map((post) => {
-                  const dateParts = post.published.split("-");
-                  const monthDay =
-                    dateParts.length >= 3
-                      ? `${dateParts[1]}-${dateParts[2]}`
-                      : post.published;
-
-                  return (
-                    <Link
-                      key={post.slug}
-                      href={`/posts/${post.slug}`}
-                      className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-1 py-1.5 opacity-60 hover:opacity-100 transition-opacity duration-200 no-underline cursor-pointer"
-                    >
-                      {/* Timeline Dot */}
-                      <div className="absolute -left-[25px] top-2.5 h-2 w-2 rounded-full bg-border group-hover:bg-foreground group-hover:scale-125 transition-all" />
-
-                      <div className="flex items-baseline gap-3 min-w-0">
-                        {/* Month-Day */}
-                        <time className="font-mono text-xs text-muted-foreground w-12 shrink-0">
-                          {monthDay}
-                        </time>
-
-                        {/* Title */}
-                        <span className="text-sm font-medium text-foreground truncate">
-                          {post.title}
-                        </span>
-                      </div>
-
-                      {/* Meta */}
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground sm:shrink-0 pl-[3.75rem] sm:pl-0">
-                        <span className="font-mono text-xs">
-                          {formatWordCount(post.wordCount, locale)}
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </section>
-      )}
+          </div>
+        ))}
+      </section>
     </div>
   );
 }

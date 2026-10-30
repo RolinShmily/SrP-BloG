@@ -27,7 +27,8 @@
 - **轻量双语**：UI 界面支持中英即时切换，无额外路由前缀与重复构建开销。
 - **全方位 SEO 与统计**：原生集成 Google Analytics 4 (GA4)、Google Search Console 与 Bing Webmaster 的 Meta 标签鉴权，集成 IndexNow 增量实时推送到搜索引擎。
 - **隐私统计 (UPV)**：可选基于 Cloudflare Workers + D1 的独立统计服务，加盐哈希去重，不存明文 IP，未配置时静默降级。
-- **开箱即用**：集成客户端全文检索、多标签过滤、RSS 2.0、Sitemap 与友链自动校验工作流。
+- **全文智能检索 (Pagefind)**：基于 Rust 打造的客户端离线全文索引引擎，支持 `Cmd+K` / `Ctrl+K` 全局快捷键呼出、关键词上下文片段高亮（Snippet）、分块渐进加载与中英文分词检索。
+- **开箱即用**：多标签过滤、RSS 2.0、Sitemap 与友链自动校验工作流。
 
 ---
 

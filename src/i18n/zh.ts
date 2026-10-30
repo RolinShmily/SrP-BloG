@@ -110,6 +110,11 @@ export const zh = {
     clear: "清空",
     found: "共找到 {count} 篇相关文章",
     tip: "请尝试更简短的关键词，或搜索年份、技术标签。",
+    keyboardNavigate: "选择",
+    keyboardOpen: "打开",
+    keyboardClose: "关闭",
+    searching: "正在检索…",
+    devNotice: "开发环境提示：尚未找到 Pagefind 索引，请运行 pnpm pagefind 或 pnpm build",
   },
   pagination: {
     prev: "上一页",

@@ -53,9 +53,11 @@ jobs:
         run: pnpm run verify-content
 
       # `pnpm build` runs:
-      #   1. tsx scripts/sync-post-assets.ts      (content/posts/** -> public/posts/**, no-op after the step above)
-      #   2. tsx scripts/generate-search-index.ts (-> public/search-index.json)
-      #   3. next build                           (output: 'export' -> out/)
+      #   1. tsx scripts/sync-post-assets.ts          (content/posts/** -> public/posts/**, no-op after the step above)
+      #   2. tsx scripts/generate-third-party-licenses.ts
+      #   3. next build                               (output: 'export' -> out/)
+      #   4. tsx scripts/build-pagefind.ts            (Rust-powered full-text search indexing -> out/pagefind)
+      #   5. tsx scripts/verify-seo.ts
       - name: Build static export
         run: pnpm build
 

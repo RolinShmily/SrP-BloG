@@ -111,6 +111,11 @@ export const en: Dictionary = {
     clear: "Clear",
     found: "Found {count} matching posts",
     tip: "Try a shorter keyword, or search by year or technology tag.",
+    keyboardNavigate: "Navigate",
+    keyboardOpen: "Open",
+    keyboardClose: "Close",
+    searching: "Searching…",
+    devNotice: "Dev hint: Pagefind index not found yet. Run pnpm pagefind or pnpm build",
   },
   pagination: {
     prev: "Previous",

@@ -20,6 +20,7 @@ import {
   GoogleFontsIcon,
   BingIcon,
   IndexNowIcon,
+  PagefindIcon,
 } from "@/components/icons/brands";
 
 const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
@@ -39,6 +40,7 @@ const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
   "google-fonts": GoogleFontsIcon,
   bing: BingIcon,
   indexnow: IndexNowIcon,
+  pagefind: PagefindIcon,
   "open-graph": Share2,
 };
 

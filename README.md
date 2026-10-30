@@ -27,7 +27,8 @@
 - **Lightweight Bilingual UI**: Instant Chinese/English UI switching on the client side without route duplication or extra build overhead.
 - **Comprehensive SEO & Analytics**: Integrated Google Analytics 4 (GA4), Search Console & Bing Webmaster HTML meta verification, and automated real-time IndexNow instant indexing.
 - **Privacy-Focused Analytics (UPV)**: Optional standalone Cloudflare Workers + D1 counting service with salted daily hashing and zero IP storage; degrades silently when unconfigured.
-- **Batteries Included**: Client-side full-text search, multi-tag filtering, RSS 2.0, Sitemap, and automated friend-link validation workflows.
+- **Full-Text Search (Pagefind)**: Rust-powered client-side search with instant snippet highlighting, keyboard shortcuts (`Cmd+K` / `Ctrl+K`), chunked zero-runtime indexing, and automatic Chinese/English tokenization.
+- **Batteries Included**: Multi-tag filtering, RSS 2.0, Sitemap, and automated friend-link validation workflows.
 
 ---
 

@@ -56,7 +56,7 @@ export function ArticleView({ post }: ArticleViewProps) {
       </div>
 
       <div className="flex flex-col gap-10 xl:flex-row xl:items-start">
-        <article className="min-w-0 flex-1">
+        <article className="min-w-0 flex-1" data-pagefind-body>
           {/* Cover art, with a blurred copy blooming out from behind the frame */}
           {post.image && (
             <div className="relative mb-6">
@@ -158,7 +158,10 @@ export function ArticleView({ post }: ArticleViewProps) {
           </div>
 
           {/* Headline */}
-          <h1 className="mt-4 text-2xl font-semibold tracking-tight text-foreground leading-tight sm:mt-5 sm:text-3xl lg:text-4xl">
+          <h1
+            data-pagefind-meta="title"
+            className="mt-4 text-2xl font-semibold tracking-tight text-foreground leading-tight sm:mt-5 sm:text-3xl lg:text-4xl"
+          >
             {post.title}
           </h1>
 
@@ -174,49 +177,55 @@ export function ArticleView({ post }: ArticleViewProps) {
 
           {/* Body */}
           <div id="article-content" className="mt-8 min-w-0">
-            <MobileToc toc={post.toc} />
+            <div data-pagefind-ignore>
+              <MobileToc toc={post.toc} />
+            </div>
             <ArticleContent html={post.contentHtml} />
           </div>
 
-          {/* Provenance card, then the neighbouring posts */}
-          <ArticleCopyright post={post} />
+          <div data-pagefind-ignore>
+            {/* Provenance card, then the neighbouring posts */}
+            <ArticleCopyright post={post} />
 
-          <footer className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-between">
-            {post.prevPost ? (
-              <Link
-                href={`/posts/${post.prevPost.slug}`}
-                className="group flex min-w-0 items-center gap-x-2 rounded-xl px-4 py-2 transition-colors duration-300 hover:bg-muted max-sm:max-w-[80%]"
-              >
-                <PreviewArrow className="rotate-180 text-muted-foreground transition-colors group-hover:text-foreground" />
-                <span className="truncate text-sm font-medium text-foreground">
-                  {post.prevPost.title}
-                </span>
-              </Link>
-            ) : (
-              <span className="hidden sm:block" />
-            )}
+            <footer className="mt-6 flex flex-col gap-2 sm:flex-row sm:justify-between">
+              {post.prevPost ? (
+                <Link
+                  href={`/posts/${post.prevPost.slug}`}
+                  className="group flex min-w-0 items-center gap-x-2 rounded-xl px-4 py-2 transition-colors duration-300 hover:bg-muted max-sm:max-w-[80%]"
+                >
+                  <PreviewArrow className="rotate-180 text-muted-foreground transition-colors group-hover:text-foreground" />
+                  <span className="truncate text-sm font-medium text-foreground">
+                    {post.prevPost.title}
+                  </span>
+                </Link>
+              ) : (
+                <span className="hidden sm:block" />
+              )}
 
-            {post.nextPost ? (
-              <Link
-                href={`/posts/${post.nextPost.slug}`}
-                className="group flex min-w-0 items-center gap-x-2 rounded-xl px-4 py-2 transition-colors duration-300 hover:bg-muted max-sm:ms-auto max-sm:max-w-[80%] sm:text-right"
-              >
-                <span className="truncate text-sm font-medium text-foreground">
-                  {post.nextPost.title}
-                </span>
-                <PreviewArrow className="text-muted-foreground transition-colors group-hover:text-foreground" />
-              </Link>
-            ) : (
-              <span className="hidden sm:block" />
-            )}
-          </footer>
+              {post.nextPost ? (
+                <Link
+                  href={`/posts/${post.nextPost.slug}`}
+                  className="group flex min-w-0 items-center gap-x-2 rounded-xl px-4 py-2 transition-colors duration-300 hover:bg-muted max-sm:ms-auto max-sm:max-w-[80%] sm:text-right"
+                >
+                  <span className="truncate text-sm font-medium text-foreground">
+                    {post.nextPost.title}
+                  </span>
+                  <PreviewArrow className="text-muted-foreground transition-colors group-hover:text-foreground" />
+                </Link>
+              ) : (
+                <span className="hidden sm:block" />
+              )}
+            </footer>
 
-          {/* Waline Comments Section */}
-          <WalineComments path={`/posts/${post.slug}`} />
+            {/* Waline Comments Section */}
+            <WalineComments path={`/posts/${post.slug}`} />
+          </div>
         </article>
 
         {/* Table of contents, spanning the header and the body */}
-        <DesktopToc toc={post.toc} />
+        <div data-pagefind-ignore>
+          <DesktopToc toc={post.toc} />
+        </div>
       </div>
     </>
   );

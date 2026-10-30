@@ -8,11 +8,12 @@
     "pnpm": ">=11"
   },
   "scripts": {
-    "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && tsx scripts/generate-third-party-licenses.ts && next dev",
-    "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-search-index.ts && tsx scripts/generate-third-party-licenses.ts && next build && tsx scripts/verify-seo.ts",
+    "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-third-party-licenses.ts && next dev",
+    "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-third-party-licenses.ts && next build && tsx scripts/build-pagefind.ts && tsx scripts/verify-seo.ts",
     "start": "next start",
     "lint": "next lint",
     "sync-assets": "tsx scripts/sync-post-assets.ts",
+    "pagefind": "tsx scripts/build-pagefind.ts",
     "generate-search-index": "tsx scripts/generate-search-index.ts",
     "generate-licenses": "tsx scripts/generate-third-party-licenses.ts",
     "generate-og-image": "tsx scripts/generate-og-image.ts",
@@ -60,6 +61,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-next": "15.1.7",
+    "pagefind": "^1.5.2",
     "postcss": "^8.5.2",
     "sharp": "^0.35.4",
     "tailwindcss": "^3.4.17",

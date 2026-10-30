@@ -38,6 +38,20 @@ const WEB_FONTS = [
   ],
 ] as const;
 
+/**
+ * Standalone browser-side runtime and WebAssembly assets distributed with the site.
+ * Pagefind compiles search indexes and ships its runtime script + WASM binary into
+ * out/pagefind/, so MIT distribution requirements apply.
+ */
+const EMBEDDED_ASSETS = [
+  [
+    "Pagefind (Extended WASM & JS Runtime)",
+    "MIT",
+    "Client-side full-text search engine & WebAssembly index chunks in out/pagefind/",
+    "Copyright (c) 2022 Liam Bigelow",
+  ],
+] as const;
+
 /** Font license family whose text must be present in licenses/ for the fonts above. */
 const FONT_LICENSE = "OFL-1.1";
 
@@ -242,6 +256,16 @@ export function generateThirdPartyLicenses(): void {
     "with the site. OFL-1.1 requires each copy to contain the copyright notice and the license.",
     "",
     WEB_FONTS.map(([name, role, copyright]) => `  ${name}\n      ${role}\n      ${copyright}`).join("\n"),
+    "",
+    RULE,
+    "EMBEDDED SEARCH ENGINE & RUNTIME ASSETS (MIT)",
+    RULE,
+    "",
+    "Static search runtime scripts and WebAssembly binaries in out/pagefind/ are generated",
+    "at build time by Pagefind and distributed with the site. The MIT license requires",
+    "each copy to retain the copyright notice and permission notice.",
+    "",
+    EMBEDDED_ASSETS.map(([name, _lic, role, copyright]) => `  ${name}\n      ${role}\n      ${copyright}`).join("\n"),
     "",
     RULE,
     "VERBATIM LICENSE TEXTS",
