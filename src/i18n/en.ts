@@ -64,6 +64,11 @@ export const en: Dictionary = {
       title: "Page not found",
       description: "The page you are looking for does not exist or has been moved.",
     },
+    error: {
+      title: "Something went wrong",
+      description: "An unexpected error occurred while rendering this page. You can try refreshing or go home.",
+      retry: "Try again",
+    },
     postNotFound: {
       title: "Post not found",
       description: "This post does not exist or has not been published yet.",

@@ -76,6 +76,7 @@ export const metadata: Metadata = {
   creator: siteConfig.author,
   icons: {
     icon: "/favicon/favicon.ico",
+    apple: "/avatar.png",
   },
   alternates: {
     types: {

@@ -1331,6 +1331,27 @@ export async function generateAllOgImages() {
 }
 
 /**
+ * Lightweight dev-mode generator: generates the main site card if missing and skips
+ * all 59 post cards, cutting ~3-4 seconds off `pnpm run dev` startup time.
+ */
+export async function generateDevOgImages() {
+  const ogDir = path.join(rootDir, "public", "og");
+  const sitePngPath = path.join(ogDir, "og.png");
+
+  if (fs.existsSync(sitePngPath)) {
+    console.log(`[og] Dev mode: site card already exists, skipping full generation.`);
+    return;
+  }
+
+  fs.mkdirSync(ogDir, { recursive: true });
+  const fonts = await loadFonts();
+  const cfg = siteConfig.ogCard;
+  const sitePng = await renderPng(renderCard(siteToCardData(), cfg), fonts);
+  fs.writeFileSync(sitePngPath, sitePng);
+  console.log(`[og] Dev mode: rendered site card -> ${path.relative(rootDir, sitePngPath)}`);
+}
+
+/**
  * Preview renderer: generates sample cards for each template into a specified directory.
  */
 export async function renderPreviews(outDir: string, samplePost?: Post) {
@@ -1378,6 +1399,11 @@ if (process.argv[1] === __filename) {
     const previewDir = path.join(rootDir, ".cache", "og-previews");
     renderPreviews(previewDir).catch((error) => {
       console.error("[og] Failed to render previews:", error);
+      process.exit(1);
+    });
+  } else if (process.argv.includes("--dev")) {
+    generateDevOgImages().catch((error) => {
+      console.error("[og] Failed to render dev OG card:", error);
       process.exit(1);
     });
   } else {

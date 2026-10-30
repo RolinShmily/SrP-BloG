@@ -144,7 +144,7 @@ async function verifyContent() {
     }
     slugs.add(post.slug);
 
-    if (!post.title || !post.published || post.wordCount <= 0 || !post.readingTime) {
+    if (!post.title || !post.published || !post.updated || post.wordCount <= 0 || !post.readingTime) {
       console.error(`    Invalid post metadata in slug: ${post.slug}`);
       allHaveValidFields = false;
     }
@@ -160,8 +160,27 @@ async function verifyContent() {
   assert(slugs.size === allPosts.length, `All ${allPosts.length} posts have unique canonical slugs`);
   assert(
     allHaveValidFields,
-    `All posts have valid title, published date, wordCount, and readingTime`
+    `All posts have valid title, published date, updated date, wordCount, and readingTime`
   );
+
+  const isoDateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  let allDatesValid = true;
+  for (const post of allPosts) {
+    if (!isoDateRegex.test(post.published)) {
+      console.error(`    Invalid published date format: ${post.published} in ${post.slug}`);
+      allDatesValid = false;
+    }
+    if (!post.updated || !isoDateRegex.test(post.updated)) {
+      console.error(`    Invalid updated date format: ${post.updated} in ${post.slug}`);
+      allDatesValid = false;
+    } else if (post.updated < post.published) {
+      console.error(
+        `    Updated date (${post.updated}) is before published date (${post.published}) in ${post.slug}`
+      );
+      allDatesValid = false;
+    }
+  }
+  assert(allDatesValid, `All posts have valid ISO published and updated dates with updated >= published`);
   assert(allImagesResolved, `All frontmatter image paths resolved to browser-ready paths`);
   assert(
     allPosts.every((post) => post.excerpt && post.excerpt.length > 0),

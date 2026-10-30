@@ -52,6 +52,7 @@ fs.mkdirSync(targetDir, { recursive: true })
 const content = `---
 title: ${slug}
 published: ${getDate()}
+updated: ${getDate()}
 description: ''
 image: ''
 tags: []

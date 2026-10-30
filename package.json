@@ -8,7 +8,7 @@
     "pnpm": ">=11"
   },
   "scripts": {
-    "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-og-image.ts && tsx scripts/generate-third-party-licenses.ts && next dev",
+    "dev": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-og-image.ts --dev && tsx scripts/generate-third-party-licenses.ts && next dev",
     "build": "tsx scripts/sync-post-assets.ts && tsx scripts/generate-og-image.ts && tsx scripts/generate-third-party-licenses.ts && next build && tsx scripts/build-pagefind.ts && tsx scripts/verify-seo.ts",
     "start": "next start",
     "lint": "next lint",

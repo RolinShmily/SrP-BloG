@@ -38,7 +38,14 @@ export async function GET() {
     (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()
   );
 
-  const lastBuildDate = ordered[0]?.published ?? new Date().toISOString();
+  // Find the latest content revision timestamp across all posts (both published and updated).
+  const latestTimestamp = posts.reduce((latest, post) => {
+    const postTime = new Date(post.updated || post.published).getTime();
+    return Number.isFinite(postTime) && postTime > latest ? postTime : latest;
+  }, 0);
+
+  const lastBuildDate =
+    latestTimestamp > 0 ? new Date(latestTimestamp).toISOString() : new Date().toISOString();
   const feedUrl = `${siteConfig.url}${siteConfig.rssUrl}`;
 
   const items = ordered

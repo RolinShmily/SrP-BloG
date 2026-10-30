@@ -63,6 +63,11 @@ export const zh = {
       title: "页面未找到",
       description: "你访问的页面不存在或已被移动。",
     },
+    error: {
+      title: "页面遇到意外错误",
+      description: "在渲染该页面时发生了意外异常，你可以尝试重新加载或返回首页。",
+      retry: "重新尝试",
+    },
     postNotFound: {
       title: "文章未找到",
       description: "该文章不存在或尚未发布。",
