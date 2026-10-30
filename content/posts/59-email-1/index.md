@@ -5,7 +5,10 @@ updated: 2026-10-27
 pinned: false
 description: 在网站上展示与网站域名相同的邮箱地址，是较为可信的做法，因此萌生搭建一个简易域名邮箱的收发服务，好在cloudflare+resend可以免费提供相应支持，只需稍加操作。
 image: ''
-tags: []
+tags:
+  - CloudFlare
+  - Resend
+  - Email
 draft: false
 ---
 
