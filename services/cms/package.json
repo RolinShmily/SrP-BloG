@@ -8,10 +8,11 @@
     "node": ">=22.5"
   },
   "scripts": {
-    "check": "node --check src/worker.js && node --check src/auth.js",
+    "check": "node --check src/worker.js && node --check src/auth.js && node --check scripts/prepare-secrets.mjs && node --check scripts/verify-auth.mjs",
     "test": "node --test test/*.test.js",
     "dev": "npx --yes wrangler@4.152.0 dev --config wrangler.toml",
     "deploy": "npx --yes wrangler@4.152.0 deploy --config wrangler.toml",
-    "deploy:dry-run": "npx --yes wrangler@4.152.0 deploy --config wrangler.toml --dry-run"
+    "deploy:dry-run": "npx --yes wrangler@4.152.0 deploy --config wrangler.toml --dry-run",
+    "verify:auth": "node scripts/verify-auth.mjs"
   }
 }

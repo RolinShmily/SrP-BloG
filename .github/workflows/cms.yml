@@ -67,7 +67,15 @@ jobs:
             fi
           done
 
-      - name: Deploy Worker and bind OAuth secrets
+      - name: Prepare temporary OAuth secrets file
+        env:
+          CMS_GITHUB_CLIENT_ID: ${{ secrets.CMS_GITHUB_CLIENT_ID }}
+          CMS_GITHUB_CLIENT_SECRET: ${{ secrets.CMS_GITHUB_CLIENT_SECRET }}
+        run: node services/cms/scripts/prepare-secrets.mjs "${RUNNER_TEMP}/cms-oauth-secrets.json"
+
+      # Bind secrets in the same command that explicitly selects the CMS config.
+      # The action's automatic secret upload has no --config and may select the root Worker.
+      - name: Deploy Worker with OAuth secrets
         uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -75,10 +83,12 @@ jobs:
           workingDirectory: services/cms
           wranglerVersion: "4.152.0"
           packageManager: npm
-          command: deploy --config wrangler.toml
-          secrets: |
-            GITHUB_CLIENT_ID
-            GITHUB_CLIENT_SECRET
-        env:
-          GITHUB_CLIENT_ID: ${{ secrets.CMS_GITHUB_CLIENT_ID }}
-          GITHUB_CLIENT_SECRET: ${{ secrets.CMS_GITHUB_CLIENT_SECRET }}
+          command: deploy --config wrangler.toml --secrets-file ${{ runner.temp }}/cms-oauth-secrets.json
+
+      - name: Verify OAuth authorization redirect
+        working-directory: services/cms
+        run: npm run verify:auth -- https://gh-oauth.srprolin.com https://blog.srprolin.com
+
+      - name: Remove temporary OAuth secrets file
+        if: always()
+        run: rm -f "${RUNNER_TEMP}/cms-oauth-secrets.json"

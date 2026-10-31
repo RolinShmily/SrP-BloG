@@ -28,7 +28,9 @@ services/cms/
 ├── LICENSE.txt           # Upstream MIT license and copyright notice
 ├── src/auth.js           # Pinned upstream authenticator with local changes
 ├── src/worker.js         # Worker entry point, health check, and response headers
-└── test/auth.test.js     # Native Node tests with mocked GitHub token requests
+├── scripts/prepare-secrets.mjs # Private temporary secrets file for CI deployment
+├── scripts/verify-auth.mjs # Live OAuth redirect readiness check
+└── test/                 # OAuth and deployment tests with dummy credentials
 ```
 
 `src/auth.js` is based on [sveltia/sveltia-cms-auth](https://github.com/sveltia/sveltia-cms-auth),
@@ -117,7 +119,8 @@ The independent workflow is [`.github/workflows/cms.yml`](../../.github/workflow
 - Changes to `services/cms/**`, `public/admin/**`, or the workflow trigger checks.
 - Pull requests run syntax checks, mocked OAuth tests, and a Wrangler deployment dry run without production Secrets.
 - Pushes to `main`, or manual workflow runs on `main`, deploy the Worker after checks pass.
-- Deployment uses the `services/cms` working directory and its `wrangler.toml`.
+- Deployment explicitly selects `services/cms/wrangler.toml` and binds OAuth Secrets in the same Wrangler command.
+- A post-deployment check requires `/auth` to redirect to GitHub with the expected callback; a reachable Worker alone is insufficient.
 - Wrangler is pinned to `4.152.0`; the root dependencies and lockfile are unaffected.
 
 Configure these repository Secrets under **Settings → Secrets and variables → Actions**:
@@ -130,10 +133,17 @@ Configure these repository Secrets under **Settings → Secrets and variables �
 | `CMS_GITHUB_CLIENT_SECRET` | GitHub OAuth App Client secret |
 
 GitHub does not allow repository Secret names starting with `GITHUB_`, so the
-OAuth credentials use a `CMS_` prefix. The deployment action maps them to Worker
-Secrets named `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET`. Credentials are kept
-out of `[vars]` and static build output. CI checks that all four values are present
+OAuth credentials use a `CMS_` prefix. CI maps them to `GITHUB_CLIENT_ID` and
+`GITHUB_CLIENT_SECRET` in a temporary JSON file with mode `0600`, then deploys
+with `--config wrangler.toml --secrets-file <temporary-file>`. The file is removed
+when the job finishes, including on failure. Credentials are kept out of logs,
+`[vars]`, and static build output. CI checks that all four values are present
 and reports only the names of missing Secrets.
+
+Every Wrangler operation must explicitly select its configuration. The action's
+automatic `secrets` upload does not inherit `--config` from the deploy command
+and can select the repository-root blog Worker in this monorepo, so this workflow
+passes the Secrets file directly to the configured CMS deployment instead.
 
 Changes limited to the CMS service or its workflow skip the blog's `deploy.yml`
 and `indexnow.yml` builds. Changes to `public/admin/` still deploy the blog's static
@@ -187,9 +197,14 @@ After deployment:
 ```bash
 curl https://auth.example.com/api/health
 # {"ok":true,"service":"srp-blog-cms"}
+
+npm run verify:auth -- https://auth.example.com https://blog.example.com
 ```
 
-The health check confirms that the Worker is reachable. Complete verification by
+The health check confirms that the Worker is reachable. The readiness check
+requires a valid GitHub authorization redirect and does not follow it or print
+credential values. It detects missing Worker credentials before a user attempts
+to sign in. Complete verification by
 signing in from `https://blog.example.com/admin/`, checking the GitHub callback
 origin, and confirming that existing content loads in the CMS. The automated tests
 mock GitHub exchanges and popup messages; real sign-in must be checked separately.
