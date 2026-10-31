@@ -17,6 +17,44 @@
 
 ---
 
+## Preview
+
+![Homepage in light mode](docs/previews/home-light.webp)
+
+<details>
+<summary>More screenshots: dark mode, article reader, archives, tags, search, and mobile</summary>
+
+### Dark mode with English UI
+
+![Homepage in dark mode with English navigation](docs/previews/home-dark.webp)
+
+### Article reader
+
+![Article reader with a sticky table of contents and syntax-highlighted code](docs/previews/article.webp)
+
+### Archives
+
+![Article timeline and site statistics](docs/previews/archives.webp)
+
+### Tag filtering
+
+![Tag cloud with multiple topics selected](docs/previews/tags.webp)
+
+### Full-text search
+
+![Pagefind search results with highlighted matches](docs/previews/search.webp)
+
+### Mobile layout
+
+<p align="center">
+  <img src="docs/previews/home-mobile.webp" alt="Mobile homepage" width="360" />
+  <img src="docs/previews/article-mobile.webp" alt="Mobile article with the table of contents expanded" width="360" />
+</p>
+
+</details>
+
+---
+
 ## 🌟 Features
 
 - **Pure Static Export**: Built on Next.js 15 App Router (`output: 'export'`), pre-rendered into static HTML for instant loading and zero server runtime.
@@ -37,6 +75,7 @@
 
 ```
 ├── content/              # Content source: posts/, friends/, sponsors/
+├── docs/previews/        # Frontend screenshots used in the READMEs
 ├── public/               # Static assets & generated covers, search index, third-party notices
 ├── scripts/              # Utility scripts (asset sync, search index, third-party notices, content verification)
 ├── services/cms/         # Standalone Sveltia CMS GitHub OAuth service (Cloudflare Workers)

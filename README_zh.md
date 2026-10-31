@@ -17,6 +17,44 @@
 
 ---
 
+## 界面预览
+
+![浅色模式首页](docs/previews/home-light.webp)
+
+<details>
+<summary>展开更多截图：深色模式、文章阅读、归档、标签、搜索与手机端</summary>
+
+### 深色模式与英文界面
+
+![深色模式首页与英文导航](docs/previews/home-dark.webp)
+
+### 文章阅读
+
+![文章阅读界面，包含吸附目录和代码高亮](docs/previews/article.webp)
+
+### 文章归档
+
+![文章时间线与站点统计](docs/previews/archives.webp)
+
+### 标签筛选
+
+![支持多主题筛选的标签云](docs/previews/tags.webp)
+
+### 全文搜索
+
+![Pagefind 全文搜索与关键词高亮](docs/previews/search.webp)
+
+### 手机端布局
+
+<p align="center">
+  <img src="docs/previews/home-mobile.webp" alt="手机端首页" width="360" />
+  <img src="docs/previews/article-mobile.webp" alt="手机端文章与展开的目录" width="360" />
+</p>
+
+</details>
+
+---
+
 ## 🌟 特性
 
 - **纯静态导出**：基于 Next.js 15 App Router (`output: 'export'`)，全站预渲染为 HTML，极速加载，零服务端运行时。
@@ -37,6 +75,7 @@
 
 ```
 ├── content/              # 内容源：posts/ (文章)、friends/ (友链)、sponsors/ (赞助)
+├── docs/previews/        # README 中使用的前端预览截图
 ├── public/               # 静态资源与自动生成的封面、搜索索引、第三方声明
 ├── scripts/              # 辅助脚本 (资源同步、搜索索引、第三方声明、内容校验等)
 ├── services/cms/         # Sveltia CMS 的独立 GitHub OAuth 认证服务 (Cloudflare Workers)
