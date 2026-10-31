@@ -39,6 +39,7 @@
 ├── content/              # 内容源：posts/ (文章)、friends/ (友链)、sponsors/ (赞助)
 ├── public/               # 静态资源与自动生成的封面、搜索索引、第三方声明
 ├── scripts/              # 辅助脚本 (资源同步、搜索索引、第三方声明、内容校验等)
+├── services/cms/         # Sveltia CMS 的独立 GitHub OAuth 认证服务 (Cloudflare Workers)
 ├── services/upv/         # 可选的独立 PV/UV 统计服务 (Cloudflare Workers + D1)
 ├── src/                  # 核心源码 (app, components, config, i18n, lib)
 ├── CODE_OF_CONDUCT.md    # 行为准则 (Contributor Covenant 2.1)
@@ -129,6 +130,18 @@ npm run db:migrate:local            # 本地沙箱测试
 npm run db:migrate:remote           # 部署到线上 D1
 npm run db:migrate:list             # 查看迁移状态
 ```
+
+### 3. CMS GitHub OAuth 认证服务
+
+`/admin/` 的 Sveltia CMS 通过独立的 [`services/cms/`](./services/cms/README.md) Worker 登录 GitHub，
+认证域名示例为 `auth.example.com`，OAuth App 回调地址示例为 `https://auth.example.com/callback`。
+请将 `services/cms/wrangler.toml` 和 `public/admin/config.yml` 中的域名同步替换为自己的域名；
+接管已有 Worker 时，保留其实际名称。
+
+- 新增仓库 Secrets：`CMS_GITHUB_CLIENT_ID`、`CMS_GITHUB_CLIENT_SECRET`，并复用已有 Cloudflare 部署 Secrets。
+- `.github/workflows/cms.yml` 在 PR 中执行 OAuth 测试与 dry run，只在 `main` 上部署认证服务。
+- 仅修改 CMS 服务时跳过博客和 IndexNow 整站构建；通过 CMS 保存文章仍正常触发博客发布。
+- 服务无运行时依赖；在 `services/cms/` 下运行 `npm test` 可执行模拟认证测试。
 
 ---
 

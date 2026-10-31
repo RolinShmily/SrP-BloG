@@ -1,0 +1,17 @@
+{
+  "name": "srp-blog-cms",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Independent Cloudflare Worker for Sveltia CMS GitHub OAuth, with no runtime dependencies.",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "check": "node --check src/worker.js && node --check src/auth.js",
+    "test": "node --test test/*.test.js",
+    "dev": "npx --yes wrangler@4.152.0 dev --config wrangler.toml",
+    "deploy": "npx --yes wrangler@4.152.0 deploy --config wrangler.toml",
+    "deploy:dry-run": "npx --yes wrangler@4.152.0 deploy --config wrangler.toml --dry-run"
+  }
+}

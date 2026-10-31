@@ -39,6 +39,7 @@
 ├── content/              # Content source: posts/, friends/, sponsors/
 ├── public/               # Static assets & generated covers, search index, third-party notices
 ├── scripts/              # Utility scripts (asset sync, search index, third-party notices, content verification)
+├── services/cms/         # Standalone Sveltia CMS GitHub OAuth service (Cloudflare Workers)
 ├── services/upv/         # Optional standalone PV/UV service (Cloudflare Workers + D1)
 ├── src/                  # Application source code (app, components, config, i18n, lib)
 ├── CODE_OF_CONDUCT.md    # Code of conduct (Contributor Covenant 2.1)
@@ -125,6 +126,18 @@ npm run db:migrate:local            # Test in local sandbox
 npm run db:migrate:remote           # Apply to remote production D1
 npm run db:migrate:list             # List migration status
 ```
+
+### 3. CMS GitHub OAuth Service
+
+Sveltia CMS at `/admin/` signs into GitHub through the independent [`services/cms/`](./services/cms/README.md)
+Worker, for example at `auth.example.com`, with `https://auth.example.com/callback` as the OAuth App callback.
+Replace the example domain in both `services/cms/wrangler.toml` and `public/admin/config.yml`.
+When taking over an existing Worker, keep its actual name in `wrangler.toml`.
+
+- Add repository secrets `CMS_GITHUB_CLIENT_ID` and `CMS_GITHUB_CLIENT_SECRET`; reuse the existing Cloudflare deployment secrets.
+- `.github/workflows/cms.yml` tests OAuth and performs a deployment dry run on PRs, then deploys the service only on `main`.
+- CMS-service-only changes skip the blog and IndexNow builds. Saving content through the CMS still triggers normal blog publication.
+- The service has no runtime dependencies; run `npm test` inside `services/cms/` for mocked authentication tests.
 
 ---
 

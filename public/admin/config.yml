@@ -5,6 +5,9 @@ backend:
   name: github
   repo: RolinShmily/SrP-BloG
   branch: main
+  site_domain: blog.srprolin.com
+  # This repository is public; content editing does not need private-repo or workflow scopes.
+  auth_scope: public_repo
   base_url: https://gh-oauth.srprolin.com
   auth_endpoint: auth
   commit_messages:

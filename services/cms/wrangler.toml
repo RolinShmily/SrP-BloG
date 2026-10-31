@@ -1,0 +1,21 @@
+# Independent GitHub OAuth service for Sveltia CMS at /admin/.
+# If taking over an existing Worker, use its exact name to preserve its secrets.
+name = "gh-oauth"
+main = "src/worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = false
+preview_urls = false
+
+# Route mode requires an existing proxied DNS record in the srprolin.com zone.
+# Deploying this route does not create DNS. The OAuth App callback uses /callback.
+routes = [
+  { pattern = "gh-oauth.srprolin.com/*", zone_name = "srprolin.com" },
+]
+
+[vars]
+# site_id is checked before redirecting; the popup separately checks its actual opener.
+ALLOWED_DOMAINS = "blog.srprolin.com"
+CMS_ORIGIN = "https://blog.srprolin.com"
+
+# GITHUB_CLIENT_ID and GITHUB_CLIENT_SECRET are Worker secrets, never plain-text vars.
+# Local: .dev.vars. CI: CMS_GITHUB_CLIENT_ID / CMS_GITHUB_CLIENT_SECRET repository secrets.

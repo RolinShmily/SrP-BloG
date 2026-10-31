@@ -3,6 +3,9 @@ name: Deploy to Cloudflare Workers
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "services/cms/**"
+      - ".github/workflows/cms.yml"
   workflow_dispatch:
 
 concurrency:

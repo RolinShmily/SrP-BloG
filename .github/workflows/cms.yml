@@ -1,0 +1,84 @@
+name: CMS OAuth Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "services/cms/**"
+      - "public/admin/**"
+      - ".github/workflows/cms.yml"
+  pull_request:
+    paths:
+      - "services/cms/**"
+      - "public/admin/**"
+      - ".github/workflows/cms.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cms-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    name: Check OAuth service
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: services/cms
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # Native Web APIs and node:test only; no dependency install or blog build.
+      - name: Check JavaScript syntax
+        run: npm run check
+      - name: Test OAuth flow and popup origin checks
+        run: npm test
+      - name: Validate Worker bundle and configuration
+        run: npm run deploy:dry-run
+
+  deploy:
+    name: Deploy OAuth service
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check deployment secrets
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CMS_GITHUB_CLIENT_ID: ${{ secrets.CMS_GITHUB_CLIENT_ID }}
+          CMS_GITHUB_CLIENT_SECRET: ${{ secrets.CMS_GITHUB_CLIENT_SECRET }}
+        run: |
+          for secret_name in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID CMS_GITHUB_CLIENT_ID CMS_GITHUB_CLIENT_SECRET; do
+            if [ -z "${!secret_name}" ]; then
+              echo "::error::Missing repository secret: ${secret_name}"
+              exit 1
+            fi
+          done
+
+      - name: Deploy Worker and bind OAuth secrets
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: services/cms
+          wranglerVersion: "4.152.0"
+          packageManager: npm
+          command: deploy --config wrangler.toml
+          secrets: |
+            GITHUB_CLIENT_ID
+            GITHUB_CLIENT_SECRET
+        env:
+          GITHUB_CLIENT_ID: ${{ secrets.CMS_GITHUB_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.CMS_GITHUB_CLIENT_SECRET }}

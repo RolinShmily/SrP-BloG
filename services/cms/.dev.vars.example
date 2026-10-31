@@ -1,0 +1,8 @@
+# Placeholders only. Copy to .dev.vars for local development; never commit real values.
+GITHUB_CLIENT_ID=replace-with-local-oauth-app-client-id
+GITHUB_CLIENT_SECRET=replace-with-local-oauth-app-client-secret
+
+# For local sign-in, use a separate OAuth App with a localhost callback.
+# Set backend.site_domain to localhost in a local copy of public/admin/config.yml.
+ALLOWED_DOMAINS=localhost
+CMS_ORIGIN=http://localhost:3000
