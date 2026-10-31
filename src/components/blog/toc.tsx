@@ -81,8 +81,9 @@ export function MobileToc({ toc }: TocProps) {
                 href={`#${item.id}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToHeading(item.id);
                   setMobileExpanded(false);
+                  // Measure after the expanded directory leaves the layout.
+                  requestAnimationFrame(() => scrollToHeading(item.id));
                 }}
                 style={{ paddingLeft: `${indent}px` }}
                 className="block text-sm py-1 text-muted-foreground hover:text-foreground transition-colors truncate"
@@ -122,18 +123,17 @@ export function DesktopToc({ toc }: TocProps) {
     if (headings.length === 0) return;
 
     const windowHeight = window.innerHeight;
-    const pageOffset = window.scrollY - (article?.offsetTop ?? 0);
-    // Fall back to the article's own extent when a heading has no successor.
-    const endOffset = (article?.offsetHeight ?? 0) + 127;
-
+    // Keep headings and the article's end in viewport coordinates. offsetTop
+    // depends on each element's offset parent, including the page transition.
+    const bounds = headings.map((el) => el.getBoundingClientRect());
+    const articleBottom = article?.getBoundingClientRect().bottom;
     const next: Record<string, HeadingProgress> = {};
 
     headings.forEach((el, index) => {
-      const nextTop = headings[index + 1]?.offsetTop ?? endOffset;
-      const rangeStart = el.offsetTop - pageOffset;
-      const rangeEnd = nextTop - pageOffset - el.offsetHeight;
-      const span = rangeEnd - rangeStart;
-      const raw = span === 0 ? 1 : (windowHeight - rangeStart) / span;
+      const rangeStart = bounds[index].top;
+      const rangeEnd = bounds[index + 1]?.top ?? articleBottom ?? bounds[index].bottom;
+      const span = Math.max(1, rangeEnd - rangeStart);
+      const raw = (windowHeight - rangeStart) / span;
 
       next[el.id] = {
         inView: rangeStart < windowHeight && rangeEnd > 0,
@@ -157,7 +157,13 @@ export function DesktopToc({ toc }: TocProps) {
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
 
+    // Lazy images and code expansion can move headings without a scroll event.
+    const article = document.getElementById("article-content");
+    const observer = new ResizeObserver(onScroll);
+    if (article) observer.observe(article);
+
     return () => {
+      observer.disconnect();
       cancelAnimationFrame(frame.current);
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
@@ -173,10 +179,11 @@ export function DesktopToc({ toc }: TocProps) {
   };
 
   return (
-    // The sticky positioning lives on the <aside> itself: an inner sticky child
-    // could only travel within the aside's own (short) height and would scroll
-    // away with the header.
-    <aside className="sticky top-20 hidden max-h-[calc(100vh-6rem)] w-60 shrink-0 overflow-y-auto xl:block">
+    // Keep the aside a direct flex child so sticky can follow the full article.
+    <aside
+      data-pagefind-ignore
+      className="sticky top-20 hidden max-h-[calc(100vh-6rem)] w-60 shrink-0 overflow-y-auto xl:block"
+    >
       <p className="mb-4 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground font-mono">
         {t.post.tableOfContents}
       </p>

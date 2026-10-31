@@ -247,9 +247,7 @@ export function ArticleView({ post }: ArticleViewProps) {
         </article>
 
         {/* Table of contents, spanning the header and the body */}
-        <div data-pagefind-ignore>
-          <DesktopToc toc={post.toc} />
-        </div>
+        <DesktopToc toc={post.toc} />
       </div>
     </>
   );
