@@ -16,7 +16,7 @@ draft: false
 
 到Cloudflare账户主页，访问 **联网** -> **Tunnels** ，创建一个tunnel，然后按照提示，配置安装服务端cloudflared：
 
-![](%E5%9B%BE%E7%89%87.png)
+![Cloudflare Tunnel 设置环境与安装 cloudflared 命令页面](%E5%9B%BE%E7%89%87.png)
 
 最后等待连接成功后，创建完成。
 
@@ -24,7 +24,7 @@ draft: false
 
 进入该tunnel后，选择给这个tunnel添加路由，选择已发布的应用程序，如图配置即可：
 
-![](%E5%9B%BE%E7%89%87-1.png)
+![Cloudflare Tunnel 配置已发布的 SSH 应用程序路由](%E5%9B%BE%E7%89%87-1.png)
 
 需自行修改ssh端口、主机名，最后就是配置ssh客户端的配置（以Windows为例）：
 
@@ -70,6 +70,6 @@ Host ssh-tunnel
 然后回到DNS处，删除自动创建的`nginx`记录，改成仅DNS的CNAME指向`cdn.example.com`；
 再通过自定义主机名创建规则层：
 
-![](%E5%9B%BE%E7%89%87-2.png)
+![Cloudflare SSL/TLS 添加自定义主机名与源服务器规则](%E5%9B%BE%E7%89%87-2.png)
 
 随后便可通过`nginx.example.com`进行优选域名的访问。

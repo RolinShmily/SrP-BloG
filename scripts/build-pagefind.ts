@@ -20,6 +20,7 @@ export function runPagefind() {
   execFileSync("pnpm", ["exec", "pagefind", "--site", "out"], {
     cwd: rootDir,
     stdio: "inherit",
+    shell: process.platform === "win32",
   });
 
   const outPagefind = path.join(outDir, "pagefind");
