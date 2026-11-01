@@ -60,6 +60,7 @@
     "https://blog.srprolin.com/posts/58-desktop-apps-2/",
     "https://blog.srprolin.com/posts/59-email-1/",
     "https://blog.srprolin.com/posts/6-srp-cfg-1/",
+    "https://blog.srprolin.com/posts/60-aria2-1/",
     "https://blog.srprolin.com/posts/7-zerotier-1/",
     "https://blog.srprolin.com/posts/8-obs-1/",
     "https://blog.srprolin.com/posts/9-markdown-1/",
@@ -95,7 +96,8 @@
     "https://blog.srprolin.com/tags/VSCode/",
     "https://blog.srprolin.com/tags/WSL/",
     "https://blog.srprolin.com/tags/Windows/",
-    "https://blog.srprolin.com/tags/Zerotier/"
+    "https://blog.srprolin.com/tags/Zerotier/",
+    "https://blog.srprolin.com/tags/scoop/"
   ],
-  "timestamp": 1793348201285
+  "timestamp": 1793535567728
 }
