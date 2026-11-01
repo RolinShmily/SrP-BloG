@@ -64,6 +64,7 @@ sudo ufw allow 443/tcp
 sudo ufw allow 8443/tcp
 sudo ufw allow 443/tcp
 ```
+
 ```zsh
 sudo apt install nginx
 sudo nano /etc/nginx/conf.d/sing-box.conf
@@ -71,6 +72,7 @@ sudo nano /etc/nginx/conf.d/sing-box.conf
 sudo systemctl enable --now nginx
 sudo systemctl restart nginx
 ```
+
 ```conf
 server {
     listen 80;
@@ -178,3 +180,11 @@ sudo systemctl enable --now sing-box
 sudo systemctl restart sing-box
 ```
 
+# Client
+
+```zsh
+curl -LO https://github.com/MetaCubeX/mihomo/releases/download/v1.19.33/mihomo-linux-amd64-v3-v1.19.33.deb
+sudo apt install ./mihomo-linux-amd64-v3-*.deb
+sudo vim /etc/mihomo/config.yaml
+sudo systemctl enable --now mihomo
+```
