@@ -187,4 +187,9 @@ curl -LO https://github.com/MetaCubeX/mihomo/releases/download/v1.19.33/mihomo-l
 sudo apt install ./mihomo-linux-amd64-v3-*.deb
 sudo vim /etc/mihomo/config.yaml
 sudo systemctl enable --now mihomo
+
+# API
+curl -i -H "Authorization: Bearer <Secret>" http://127.0.0.1:9090/version
+# UI
+curl -s -D - -o /dev/null http://127.0.0.1:9090/ui/
 ```
