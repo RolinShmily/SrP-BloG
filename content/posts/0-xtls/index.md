@@ -186,6 +186,7 @@ sudo systemctl restart sing-box
 curl -LO https://github.com/MetaCubeX/mihomo/releases/download/v1.19.33/mihomo-linux-amd64-v3-v1.19.33.deb
 sudo apt install ./mihomo-linux-amd64-v3-*.deb
 sudo vim /etc/mihomo/config.yaml
+sudo mihomo -t -d /etc/mihomo
 sudo systemctl enable --now mihomo
 
 # API
