@@ -1,7 +1,7 @@
 ---
 title: 使用AriaNg给Windows搭建aria2的web面板 | 高速下载器 | 种子下载
-published: 2026-10-26
-updated: 2026-10-27
+published: 2026-10-31
+updated: 2026-10-31
 pinned: false
 description: Aria2是一个简单开源高效的多平台下载器，具有非常强大的下载功能，也能识别种子链接，而ariang是一个webui面板，方便管理下载列表；本文需要Windows拥有scoop、nodejs和npm环境，搭建起一个后台服务型aria2下载器，经由封装的rpc，打开下载面板即可进行下载。
 image: ''
@@ -69,4 +69,3 @@ pm2.cmd start .\ecosystem.config.cjs
 |         `pm2 resurrect`         |    恢复记忆的进程列表    |
 |           `pm2 logs`            |         查看日志         |
 |           `pm2 init`            |     生成配置文件模板     |
-
