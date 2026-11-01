@@ -103,7 +103,7 @@ DEST_USER="sing-box"
 DEST_GROUP="sing-box"
 DIR_MODE="0750"
 FILE_MODE="0640"
-RELOAD_CMD="systemctl reload sing-box"
+RELOAD_CMD="sudo systemctl restart nginx"
 
 if [ "${RENEWED_LINEAGE:-}" != "/etc/letsencrypt/live/${CERT_NAME}" ]; then
     exit 0
