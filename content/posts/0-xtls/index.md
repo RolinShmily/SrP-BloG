@@ -175,6 +175,13 @@ sing-box generate uuid
 # <Hysteria2-secret> / <API-Control-Key>
 sing-box generate rand --hex 8
 
+mkdir ~/singbox-server
+curl -fsSLO https://gh-proxy.org/https://raw.githubusercontent.com/RolinShmily/sub-rule/refs/heads/main/.custom/singbox-dual443/server/server_v4only.json
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/singbox-dual443/Update-SingboxDual443.py
+vim Update-SingboxDual443.py
+uv run Update-SingboxDual443.py
+sudo cp server_v4only.json /etc/sing-box/config.json
+
 sing-box check -c /etc/sing-box/config.json
 sudo systemctl enable --now sing-box
 sudo systemctl restart sing-box
@@ -185,7 +192,14 @@ sudo systemctl restart sing-box
 ```zsh
 curl -LO https://github.com/MetaCubeX/mihomo/releases/download/v1.19.33/mihomo-linux-amd64-v3-v1.19.33.deb
 sudo apt install ./mihomo-linux-amd64-v3-*.deb
-sudo vim /etc/mihomo/config.yaml
+
+mkdir ~/mihomo-client
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/singbox-dual443/client/mihomo-clash-v4only.yaml
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/singbox-dual443/Update-SingboxDual443.py
+vim Update-SingboxDual443.py
+uv run Update-SingboxDual443.py
+sudo cp server_v4only.json /etc/mihomo/config.yaml
+
 sudo mihomo -t -d /etc/mihomo
 sudo systemctl enable --now mihomo
 
