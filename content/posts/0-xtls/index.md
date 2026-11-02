@@ -67,22 +67,6 @@ sudo ufw allow 443/udp
 
 ```zsh
 sudo apt install nginx
-sudo nano /etc/nginx/conf.d/sing-box.conf
-
-sudo systemctl enable --now nginx
-sudo systemctl restart nginx
-```
-
-```conf
-server {
-    listen 80;
-    listen [::]:80;
-    server_name www.example.com;
-    return 301 https://$host$request_uri;
-}
-```
-
-```zsh
 sudo apt install certbot python3-certbot-nginx python3-certbot-dns-cloudflare
 
 sudo nano /etc/letsencrypt/cloudflare.ini
@@ -139,15 +123,8 @@ sudo nginx -t && systemctl reload nginx
 
 ```conf
 server {
-    listen 80;
-    listen [::]:80;
-    server_name www.example.com;
-    return 301 https://$host$request_uri;
-}
- 
-server {
     listen 127.0.0.1:8080;
-    server_name localhost;
+    server_name _;
  
     root /var/www/singbox;
     index index.html index.htm index.nginx-debian.html;
