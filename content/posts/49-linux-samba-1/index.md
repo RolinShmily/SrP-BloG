@@ -3,7 +3,7 @@ title: 在Linux中创建一个可局域网共享的samba文件夹 | SMB
 published: 2026-07-28
 updated: 2026-07-28
 pinned: false
-description: "以 Debian 局域网设备为例部署 Samba 共享文件夹，说明 Windows 客户端访问方式，实现同网文件共享而无需 SSH 隧道。"
+description: 以 Debian 局域网设备为例部署 Samba 共享文件夹，说明 Windows 客户端访问方式，实现同网文件共享而无需 SSH 隧道。
 image: SMB(6).png
 tags:
   - SMB
@@ -18,20 +18,20 @@ draft: false
 首先安装一下samba软件包：
 
 ```bash
-apt-get update
-apt-get install -y samba
+sudo apt update
+sudo apt install -y samba
 ```
 
 设定登录samba共享文件夹的用户为`root`，并设置密码：
 
 ```bash
-smbpasswd -a root
+sudo smbpasswd -a root
 ```
 
 接着编辑samba配置文件：
 
 ```bash
-nano /etc/samba/smb.conf
+sudo nano /etc/samba/smb.conf
 ```
 
 内容大致如下：
@@ -61,7 +61,7 @@ nano /etc/samba/smb.conf
 随后重启服务：
 
 ```bash
-systemctl restart smbd nmbd
+sudo systemctl restart smbd nmbd
 ```
 
 # 如何在Windows中访问？
