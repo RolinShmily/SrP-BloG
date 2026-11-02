@@ -153,7 +153,9 @@ server {
     index index.html index.htm index.nginx-debian.html;
  
     autoindex off;
+    default_type text/plain;
     charset utf-8;
+    charset_types text/css text/plain application/javascript application/json text/yaml application/x-yaml;
     add_header Content-Disposition inline;
  
     location / {
