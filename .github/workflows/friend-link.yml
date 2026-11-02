@@ -4,10 +4,16 @@ on:
   issues:
     types: [opened, labeled]
 
+concurrency:
+  group: friend-link-issue-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
 jobs:
   process-issue:
     runs-on: ubuntu-latest
-    if: contains(github.event.issue.labels.*.name, 'friend-link')
+    if: |
+      contains(github.event.issue.labels.*.name, 'friend-link') &&
+      (github.event.action == 'opened' || (github.event.action == 'labeled' && github.event.label.name == 'friend-link'))
     permissions:
       contents: write
       pull-requests: write
@@ -22,18 +28,27 @@ jobs:
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
-            // 1. 去重：避免 opened 与 labeled 事件重复处理
-            const existingComments = await github.rest.issues.listComments({
-              owner,
-              repo,
-              issue_number: issue.number,
-              per_page: 100,
-            });
+            // 1. 去重：避免 opened 与 labeled 并发或多次重复处理
+            const branchName = `friend-link/issue-${issue.number}`;
+            const [existingComments, existingPrs] = await Promise.all([
+              github.rest.issues.listComments({
+                owner,
+                repo,
+                issue_number: issue.number,
+                per_page: 100,
+              }),
+              github.rest.pulls.list({
+                owner,
+                repo,
+                head: `${owner}:${branchName}`,
+                state: 'all',
+              }),
+            ]);
             const alreadyProcessed = existingComments.data.some(
               (c) => c.body && (c.body.includes('Pull Request') || c.body.includes('友链申请已收到') || c.body.includes('Friend link application received'))
             );
-            if (alreadyProcessed) {
-              console.log('Issue already processed or comment exists, skipping.');
+            if (alreadyProcessed || existingPrs.data.length > 0) {
+              console.log('Issue already processed or PR already exists, skipping.');
               return;
             }
 
@@ -105,7 +120,6 @@ jobs:
               const baseSha = refData.data.object.sha;
 
               // 8. 创建独立申请分支
-              const branchName = `friend-link/issue-${issue.number}`;
               try {
                 await github.rest.git.createRef({
                   owner,
@@ -119,22 +133,32 @@ jobs:
 
               // 9. 提交 content/friends/<name>.json 文件
               let fileSha = undefined;
+              let shouldCommit = true;
               try {
                 const existingFile = await github.rest.repos.getContent({ owner, repo, path: filePath, ref: branchName });
                 if (existingFile.data && existingFile.data.sha) {
                   fileSha = existingFile.data.sha;
+                  if (existingFile.data.content) {
+                    const cleanExisting = existingFile.data.content.replace(/\s+/g, '');
+                    const cleanNew = fileContentBase64.replace(/\s+/g, '');
+                    if (cleanExisting === cleanNew) {
+                      shouldCommit = false;
+                    }
+                  }
                 }
               } catch {}
 
-              await github.rest.repos.createOrUpdateFileContents({
-                owner,
-                repo,
-                path: filePath,
-                message: `chore(friends): add ${sitename} via #${issue.number}`,
-                content: fileContentBase64,
-                branch: branchName,
-                sha: fileSha,
-              });
+              if (shouldCommit) {
+                await github.rest.repos.createOrUpdateFileContents({
+                  owner,
+                  repo,
+                  path: filePath,
+                  message: `chore(friends): add ${sitename} via #${issue.number}`,
+                  content: fileContentBase64,
+                  branch: branchName,
+                  sha: fileSha,
+                });
+              }
 
               // 10. 自动创建 Pull Request
               const prTitle = `friend: add ${sitename}`;
@@ -142,14 +166,26 @@ jobs:
                 ? `Closes #${issue.number}\n\nAutomated friend link Pull Request generated from issue #${issue.number}.`
                 : `Closes #${issue.number}\n\n由 Issue #${issue.number} 自动生成的友链申请 PR。`;
 
-              const pr = await github.rest.pulls.create({
+              let pr;
+              const checkPrs = await github.rest.pulls.list({
                 owner,
                 repo,
-                title: prTitle,
-                head: branchName,
-                base: defaultBranch,
-                body: prBody,
+                head: `${owner}:${branchName}`,
+                state: 'open',
               });
+              if (checkPrs.data.length > 0) {
+                pr = checkPrs.data[0];
+              } else {
+                const prRes = await github.rest.pulls.create({
+                  owner,
+                  repo,
+                  title: prTitle,
+                  head: branchName,
+                  base: defaultBranch,
+                  body: prBody,
+                });
+                pr = prRes.data;
+              }
 
               // 11. 在原 Issue 回复通知申请者
               const commentBody = isEnglish
