@@ -35,11 +35,11 @@ draft: true
 
 # Server
 
-> Vless+XTLS-Vision+Reality (+) Hysteria2
+> Vless+XTLS-Vision+Reality (+) Hysteria2 (+) Vless+WebSocket+TLS
 >
-> via 443 tcp/udp
+> via 443 tcp/udp and 8443 tcp 
 >
-> on Debian13
+> on Debian13 with the kernel of sing-box
 
 ```zsh
 sudo mkdir -p /etc/apt/keyrings &&
@@ -62,7 +62,7 @@ sudo apt install ufw
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 8443/tcp
-sudo ufw allow 443/tcp
+sudo ufw allow 443/udp
 ```
 
 ```zsh
@@ -83,8 +83,13 @@ server {
 ```
 
 ```zsh
-sudo apt install certbot python3-certbot-nginx 
-sudo certbot certonly --nginx -d www.example.com
+sudo apt install certbot python3-certbot-nginx python3-certbot-dns-cloudflare
+
+sudo nano /etc/letsencrypt/cloudflare.ini
+dns_cloudflare_api_token = <Cloudflare_API_Token>
+sudo chmod 600 /etc/letsencrypt/cloudflare.ini
+ 
+sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini -d "example.com" -d "*.example.com"
 ```
 
 ```zsh
@@ -100,7 +105,7 @@ sudo certbot renew --dry-run --run-deploy-hooks
 set -eu
 
 CERT_NAME="www.example.com"
-DEST_DIR="/opt/app/cert"
+DEST_DIR="/etc/sing-box/certs"
 DEST_USER="sing-box"
 DEST_GROUP="sing-box"
 DIR_MODE="0750"
@@ -141,14 +146,10 @@ server {
 }
  
 server {
-    listen 8443 ssl;
-    listen [::]:8443 ssl;
-    server_name www.example.com;
+    listen 127.0.0.1:8080;
+    server_name localhost;
  
-    ssl_certificate     /etc/letsencrypt/live/www.example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/www.example.com/privkey.pem;
- 
-    root /var/www/html;
+    root /var/www/singbox;
     index index.html index.htm index.nginx-debian.html;
  
     autoindex off;
@@ -159,6 +160,7 @@ server {
         try_files $uri $uri/ =404;
     }
 }
+
 ```
 
 ```zsh
@@ -198,7 +200,7 @@ curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/ref
 curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/singbox-dual443/Update-SingboxDual443.py
 vim Update-SingboxDual443.py
 uv run Update-SingboxDual443.py
-sudo cp server_v4only.json /etc/mihomo/config.yaml
+sudo cp mihomo-clash-v4only.yaml /etc/mihomo/config.yaml
 
 sudo mihomo -t -d /etc/mihomo
 sudo systemctl enable --now mihomo
