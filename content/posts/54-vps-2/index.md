@@ -422,6 +422,25 @@ lrwxrwxrwx     - root 17 Aug 23:10   privkey.pem -> ../../archive/for.example
 
 可以看到他们是一个个`link` ，值得注意的是`cert.pem` 拼接上`chain.pem` 就是`fullchain.pem` ，因此真正重要的就是`fullchain.pem` 与`privkey.pem` 了。
 
+## Certbot+Cloudflare泛域名证书
+
+如果你使用cloudflare的DNS服务，可以直接申请泛域名证书：
+
+```zsh
+# 安装dns插件
+sudo apt update && apt install -y python3-certbot-dns-cloudflare
+
+# 编写配置
+sudo nano /etc/letsencrypt/cloudflare.ini
+# 内容如下(api-token需要DNS的编辑权和读取权)
+dns_cloudflare_api_token = <Cloudflare_API_Token>
+# 确认权限
+sudo chmod 600 /etc/letsencrypt/cloudflare.ini
+
+# 申请泛域名证书
+sudo certbot certonly --dns-cloudflare --dns-cloudflare-credentials /etc/letsencrypt/cloudflare.ini -d "example.com" -d "*.example.com"
+```
+
 # Nginx的网站上线
 
 根据上文部署好的TLS证书，我们可以对默认的`http` 站点升级到`https` ，只需修改`nginx.conf` 的`server` :
