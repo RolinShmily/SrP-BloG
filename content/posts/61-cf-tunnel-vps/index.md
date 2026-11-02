@@ -47,7 +47,12 @@ Host ssh-tunnel
 最重要的就是**ProxyCommand** ，配置完成后可以通过`ssh ssh-tunnel`进行VPS连接。
 
 ## SMB-Tunnel
-照葫芦画瓢，把ServiceURL改成`smb://127.0.0.1:445`即可。
+
+照葫芦画瓢，把ServiceURL改成`smb://127.0.0.1:445`即可，然后运行命令：
+
+```pwsh
+cloudflared access tcp --hostname smb.example.com --url localhost:445
+```
 
 # Nginx-Tunnel与优选
 
@@ -69,7 +74,7 @@ Host ssh-tunnel
 ## 橙云CDN可回源的主机端口
 
 | HTTP | HTTPS |
-|:---:|:---:|
+| :---: | :---: |
 | 80 | 443 |
 | 8080 | 2053 |
 | 8880 | 2083 |
