@@ -1,6 +1,7 @@
 {
   "name": "南风未起",
-  "url": "https://aly.lbool.site/",
-  "description": "云原生/Go技术分享站",
-  "avatar": "https://www.lbool.site/MyBlog/head.jpg"
+  "url": "https://lbool.site",
+  "description": "君子敬其在己者，而不慕其在天者，是以日进也",
+  "avatar": "https://qny.lbool.site/MyBlog/head.jpg",
+  "backlink": "https://lbool.site/links"
 }
