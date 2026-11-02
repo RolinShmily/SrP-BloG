@@ -46,14 +46,6 @@ Host ssh-tunnel
 
 最重要的就是**ProxyCommand** ，配置完成后可以通过`ssh ssh-tunnel`进行VPS连接。
 
-## SMB-Tunnel
-
-照葫芦画瓢，把ServiceURL改成`smb://127.0.0.1:445`即可，然后运行命令：
-
-```pwsh
-cloudflared access tcp --hostname smb.example.com --url localhost:445
-```
-
 # Nginx-Tunnel与优选
 
 还有一种常见场景就是Nginx等反向代理应用程序，可以非常简单的运行在`http://127.0.0.1:80`端口上，这种情况下是不需要客户端也用cloudflared的，但如果仅仅如此就是照葫芦画瓢了，接下来要说明一下cloudflare的优选。
