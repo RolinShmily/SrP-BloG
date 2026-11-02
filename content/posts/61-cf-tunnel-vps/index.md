@@ -61,7 +61,7 @@ Host ssh-tunnel
 首先到DNS处设置一个经过CDN的fake-ip解析，比如`saas.example.com`->`192.0.2.1`；
 然后到**SSL/TLS**->**自定义主机名**，填入回退源`saas.example.com`；
 
-记得将**SSL/TLS**边缘证书加密方式配置为**灵活**；
+记得将**SSL/TLS**边缘证书加密方式配置为**灵活** （当然如果你的源站vps申请的有TLS证书则可以保持完整）；
 
 ## Tunnel优选路由创建
 
