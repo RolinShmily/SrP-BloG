@@ -5,6 +5,7 @@
 @tailwind utilities;
 
 :root {
+  color-scheme: light;
   --background: 0 0% 100%;
   --foreground: 240 10% 3.9%;
   --card: 0 0% 100%;
@@ -69,6 +70,7 @@
 }
 
 .dark {
+  color-scheme: dark;
   /* antfu.me-inspired deep obsidian canvas (#050505) */
   --background: 0 0% 2%;
   --foreground: 0 0% 98%;
@@ -121,8 +123,12 @@
   }
 
   ::selection {
-    background-color: rgba(247, 92, 126, 0.22);
-    color: inherit;
+    background-color: #b3d4fc;
+  }
+
+  html.dark ::selection,
+  .dark ::selection {
+    background-color: #084c59;
   }
 
   body {

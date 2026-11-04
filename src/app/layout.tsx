@@ -162,7 +162,7 @@ export default function RootLayout({
           href={siteConfig.rssUrl}
         />
       </head>
-      <body className="antialiased min-h-screen flex flex-col bg-background text-foreground font-sans selection:bg-primary selection:text-primary-foreground">
+      <body className="antialiased min-h-screen flex flex-col bg-background text-foreground font-sans">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
