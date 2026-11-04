@@ -416,7 +416,7 @@ export const siteConfig = {
     },
     {
       name: "Folo",
-      url: "https://app.folo.is/share/feeds/248766985642333184",
+      url: "https://app.folo.is/share/feeds/1353092435001338055",
       icon: "folo",
     },
   ] as SocialItem[],
