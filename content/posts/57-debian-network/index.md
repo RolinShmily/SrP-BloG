@@ -1,14 +1,15 @@
 ---
-title: 在Debian13中用命令行连接网络并配置路由功能
+title: 在Debian13、Fedora45中用命令行连接网络并配置路由功能
 published: 2026-10-21
-updated: 2026-10-21
+updated: 2026-11-08
 pinned: false
-description: 由于OpenWrt的功能过于丰富，我发现其实我并不需要，因此选择以Debian13作为单系统来承载路由转发，通过network-manager、dnsmasq、nftables搭建一套基于wifi-WAN口，双物理网口bridge-lan的路由系统。
+description: 由于OpenWrt的功能过于丰富，我发现其实我并不需要，因此选择以Debian13作为单系统来承载路由转发，通过network-manager、dnsmasq、nftables（firewalld）搭建一套基于wifi-WAN口，双物理网口bridge-lan的路由系统。
 image: ''
 tags:
   - Network
   - Debian
   - Linux
+  - Fedora
 draft: false
 ---
 
@@ -58,16 +59,21 @@ ip -br link
 apt update
 apt install -y network-manager wpasupplicant dnsmasq nftables firmware-iwlwifi rfkill curl git
 ```
+## Fedora安装包
+```zsh
+sudo dnf install -y NetworkManager-wifi wpa_supplicant dnsmasq rfkill curl git
+```
 
 # WAN端连接wifi网络
 
 ```zsh
+# 这里只有Debian系需要，fedora不需要
 # 清理一下原始网络配置（一般新机器不用管）
 nano /etc/network/interfaces
 # 这里就是删掉之前看到的那些，即将被配置的网络设备的配置段；随后重启一下服务
 systemctl restart networking
 
-# 将网络管理权交给`network-manager`
+# 将网络管理权交给`network-manager`（fedora默认）
 sed -i 's/managed=false/managed=true/g' /etc/NetworkManager/NetworkManager.conf
 # 查看管理的设备
 nmcli device status
@@ -105,7 +111,6 @@ nmcli connection add type bridge con-name br-lan ifname br-lan bridge.stp no
 nmcli connection modify br-lan ipv4.addresses 192.168.22.1/24 ipv4.method manual connection.autoconnect yes
 # （可选）注入策略路由：让 br-lan 流量直出主路由表，彻底隔离本机旁路代理
 nmcli connection modify br-lan +ipv4.routing-rules "priority 100 iif br-lan table 254"
-
 
 # 将两个物理有线口 enp1s0 和 enp3s0 加入 br-lan
 nmcli connection add type ethernet slave-type bridge con-name br-lan-port1 ifname enp1s0 master br-lan connection.autoconnect yes
@@ -201,6 +206,26 @@ systemctl restart nftables
 
 随后可以用PC打开校园网认证页面，进行账密传输，完成认证。
 
+## Fedora原生firewalld配置
+```zsh
+# 开启内核IP转发
+echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/99-router.conf
+sudo sysctl --system
+
+# 配置zone
+sudo firewall-cmd --permanent --zone=external --change-interface=wlo1
+sudo firewall-cmd --permanent --zone=trusted --change-interface=br-lan
+
+# 开启WAN NAT
+sudo firewall-cmd --permanent --zone=external --add-masquerade
+
+# 允许DNS与LAN DHCP
+sudo firewall-cmd --permanent --zone=trusted --add-service=dhcp
+sudo firewall-cmd --permanent --zone=trusted --add-service=dns
+
+# 应用配置
+sudo firewall-cmd --reload
+```
 # Debian本机DNS
 
 ```zsh
