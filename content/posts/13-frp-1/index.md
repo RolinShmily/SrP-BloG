@@ -1,8 +1,9 @@
 ---
-title: "Frp 内网穿透搭建教程：VPS 服务端与客户端配置"
+title: Frp 内网穿透搭建教程：VPS 服务端与客户端配置
 published: 2025-12-05
 updated: 2025-12-05
-description: "说明如何通过 Frp 与公网 VPS 转发实现内网穿透，介绍 frps/frpc 配置、端口映射和客户端部署，适用于多层 NAT 网络。"
+pinned: false
+description: 说明如何通过 Frp 与公网 VPS 转发实现内网穿透，介绍 frps/frpc 配置、端口映射和客户端部署，适用于多层 NAT 网络。
 image: ./2026-01-05-16-34.png
 tags:
   - Frp
@@ -36,7 +37,7 @@ draft: false
 
 命令行操作(关于`wget`网络问题，可以自行下载好压缩包之后，通过`sftp`上传至服务器)：
 
-```
+```plain
 # 在用户目录下(不必使用sudo)，获取并解压官方amd64(服务器系统框架)版本最新压缩包：
 cd ~
 wget https://github.com/fatedier/frp/releases/download/v0.65.0/frp_0.65.0_linux_amd64.tar.gz
@@ -55,7 +56,7 @@ rm frpc.toml
 
 文件内容大致如下：
 
-```
+```plain
 # frps.toml
 
 bindAddr = "0.0.0.0"
@@ -74,7 +75,7 @@ webServer.user = "admin"
 webServer.password = "admin"
 
 # 这是用于连通客户端与服务端的凭证码，请设置复杂些
-auth.token = "Jdag0XDeMnzcPI"
+auth.token = "ghTqWl^Q7FU88!rPJv$9"
 ```
 
 现在按照官方用法，只需要执行`./frps -c ./frps.toml`便可开启服务，并在 7500 端口查看 frps 的 web 页面。
@@ -83,7 +84,7 @@ auth.token = "Jdag0XDeMnzcPI"
 
 因此按照官方文档的推荐方法，可以将 frps 注册为 systemd 系统服务，跑在服务器后台。
 
-```
+```plain
 # 安装systemd(一般会内置)
 sudo apt install systemd
 
@@ -93,7 +94,7 @@ sudo nano /etc/systemd/system/frps.service
 
 内容大致如下：
 
-```
+```plain
 # frps.service
 
 [Unit]
@@ -113,7 +114,7 @@ WantedBy = multi-user.target
 
 随后通过`systemctl`启动`frps`服务(`systemctl`常用参数:`start`、`stop`、`restart`、`status`)：
 
-```
+```plain
 # 启动frps，可访问7500端口或用status参数查看是否运行成功
 sudo systemctl start frps
 
@@ -139,7 +140,7 @@ sudo systemctl enable frps
 
 编辑`frpc.toml`内容如下：
 
-```
+```plain
 # frpc.toml
 
 # 请写入你的服务器公网IP或者域名替换"<IP>"
@@ -149,7 +150,7 @@ serverAddr = "<IP>"
 serverPort = 7000
 
 # 这里填写刚才在frps.toml中填写的认证凭证token
-auth.token = "Jdag0XDeMnzcPI"
+auth.token = "ghTqWl^Q7FU88!rPJv$9"
 
 # 默认Web界面使用本机7400端口
 webServer.addr = "127.0.0.1"
@@ -166,7 +167,7 @@ webServer.password = "admin"
 
 在该目录下创建`start_frpc.bat`文件，编辑内容如下：
 
-```
+```plain
 @echo off
 title FRP Client
 echo starting frp client...
@@ -189,7 +190,7 @@ if %errorlevel% neq 0 (
 
 创建`start_frpc.vbs`文件，编辑内容如下：
 
-```
+```plain
 Set objShell = CreateObject("WScript.Shell")
 objShell.Run "cmd /c start_frpc.bat", 0, False
 ```
@@ -210,7 +211,7 @@ objShell.Run "cmd /c start_frpc.bat", 0, False
 
 按照此格式写入后，点击`upload`即可更新配置文件，便可实现内网穿透：
 
-```
+```plain
 [[proxies]]
 name = "minecraft"
 type = "tcp"
