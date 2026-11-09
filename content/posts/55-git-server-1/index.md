@@ -52,5 +52,6 @@ vim ~/.ssh/config
 
 ```txt
 Host server-address
+        User git
 	Port <your-real-port>
 ```
