@@ -19,9 +19,8 @@ const CONFIG = {
   host: process.env.INDEXNOW_HOST || host,
   apiUrl: process.env.INDEXNOW_API_URL || indexNowConfig?.apiUrl || 'https://api.indexnow.org/indexnow',
   batchSize: indexNowConfig?.batchSize || 10000,
-  // Static export directory containing sitemap.xml. Defaults to the Next.js
-  // output for compatibility; CI passes `SITEMAP_DIR=build/client`.
-  outDir: process.env.SITEMAP_DIR || 'out',
+  // Static export directory containing sitemap.xml.
+  outDir: process.env.SITEMAP_DIR || 'build/client',
   lastUrlsFile: '.last-urls.json',
 };
 

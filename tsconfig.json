@@ -11,23 +11,18 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/*": ["./src/*"],
       "@nav": ["./src/lib/navigation/index.ts"]
     }
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".react-router/types/**/*"
   ],
   "exclude": [
     "node_modules",

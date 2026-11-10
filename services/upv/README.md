@@ -14,7 +14,7 @@ and `src/worker.ts` (the Workers entry point). There is nothing to keep patched.
 
 ```
                        ┌───────────────────────────────────────┐
-   blog (Next.js)      │  src/app.ts  — Web-standard handler   │
+   blog (Vite)         │  src/app.ts  — Web-standard handler   │
    src/lib/upv/client ──►  GET /api/health  /api/stats           │
    <UPVCounter />       │  POST /api/hit   + CORS + throttle    │
                        └───────────────┬───────────────────────┘
@@ -463,7 +463,7 @@ upv: {
 ```
 
 `siteConfig.upv.api` takes precedence over the build-time
-`NEXT_PUBLIC_UPV_API`; leaving both empty keeps the components mounted but
+`VITE_UPV_API`; leaving both empty keeps the components mounted but
 reading zeros, so the layout never shifts.
 
 * `src/lib/upv/client.ts` — `UPVAdapter { getStats(paths), hit(path) }`,
@@ -498,9 +498,9 @@ import { UPVCounter } from "@/components/blog/upv-counter";
 />
 ```
 
-**`NEXT_PUBLIC_UPV_API` is inlined at build time** — changing it requires a
-rebuild and redeploy on Cloudflare Pages. The `siteConfig.upv.api` route avoids
-that by being read from the exported bundle instead.
+**`VITE_UPV_API` is inlined at build time** — changing it requires a
+rebuild and redeploy on Cloudflare Workers. The `siteConfig.upv.api` route
+avoids that by being read from the exported bundle instead.
 
 ---
 

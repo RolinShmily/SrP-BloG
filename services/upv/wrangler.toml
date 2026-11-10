@@ -38,7 +38,7 @@ migrations_dir = "migrations"
 
 [vars]
 # Narrowed from "*" to the blog's only origin. Evidence (2026-10-26, .com zone):
-#   * `blog.srprolin.com` is the sole origin serving the blog (Next.js export).
+#   * `blog.srprolin.com` is the sole origin serving the blog (static export).
 #   * The homepage (`www.srprolin.com` / apex) is a SEPARATE site and does not
 #     call this API.
 #   * The blog's workers.dev hostname is unpublished (HTTP 000).

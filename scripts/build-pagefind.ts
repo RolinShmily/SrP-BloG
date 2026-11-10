@@ -8,13 +8,13 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, "..");
 
 /**
- * Static output to index. The Next.js build writes `out/`; the Vite /
- * React Router build writes `build/client/`. Callers pass the directory:
+ * Static output to index. The React Router / Vite build writes `build/client/`;
+ * an optional argument overrides it:
  *
- *   tsx scripts/build-pagefind.ts            # Next.js default: out/
- *   tsx scripts/build-pagefind.ts build/client
+ *   tsx scripts/build-pagefind.ts            # build/client/
+ *   tsx scripts/build-pagefind.ts some/dir
  */
-const siteArg = process.argv[2] ?? "out";
+const siteArg = process.argv[2] ?? "build/client";
 const siteDir = path.isAbsolute(siteArg) ? siteArg : path.join(rootDir, siteArg);
 const siteRelative = path.relative(rootDir, siteDir);
 const publicPagefind = path.join(rootDir, "public/pagefind");

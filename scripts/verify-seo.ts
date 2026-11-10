@@ -13,12 +13,13 @@ interface ExportedPage {
 }
 
 /**
- * Static export directory to audit. Defaults to the Next.js output (`out/`);
- * the Vite / React Router pipeline passes `build/client`:
+ * Static export directory to audit. Defaults to the React Router / Vite output
+ * (`build/client/`); an argument overrides it:
  *
- *   tsx scripts/verify-seo.ts build/client
+ *   tsx scripts/verify-seo.ts
+ *   tsx scripts/verify-seo.ts some/dir
  */
-const outputArg = process.argv[2] ?? "out";
+const outputArg = process.argv[2] ?? "build/client";
 const outputDir = path.isAbsolute(outputArg)
   ? outputArg
   : path.join(process.cwd(), outputArg);
