@@ -63,9 +63,10 @@ export async function getPagefind(): Promise<PagefindInstance | null> {
   if (!pagefindInitPromise) {
     pagefindInitPromise = (async () => {
       try {
-        // Dynamically import from the browser root; both bundled runtimes must
-        // leave this specifier alone (Next: webpackIgnore, Vite: @vite-ignore).
-        const pf = (await import(/* webpackIgnore: true */ /* @vite-ignore */ PAGEFIND_URL)) as PagefindInstance;
+        // Dynamically import from the browser root. `@vite-ignore` keeps the
+        // specifier out of Vite's dependency graph; the file lives in public/
+        // and is served as-is in both dev and production.
+        const pf = (await import(/* @vite-ignore */ PAGEFIND_URL)) as PagefindInstance;
         if (pf && typeof pf.init === "function") {
           await pf.init();
           pagefindInstance = pf;

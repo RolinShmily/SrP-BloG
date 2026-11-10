@@ -29,7 +29,7 @@ function postUrl(slug: string): string {
   return `${siteConfig.url}/posts/${encodeURI(slug)}/`;
 }
 
-/** Builds the RSS 2.0 feed, newest-first, matching the Next.js route exactly. */
+/** Builds the RSS 2.0 feed, newest-first, in the site's established format. */
 function buildRssXml(posts: Post[]): string {
   const ordered = [...posts].sort(
     (a, b) => new Date(b.published).getTime() - new Date(a.published).getTime()

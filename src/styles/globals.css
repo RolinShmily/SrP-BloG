@@ -27,7 +27,7 @@
   --ring: 240 5.9% 10%;
   --radius: 0.5rem;
 
-  /* Font stacks (single source of truth — see layout.tsx for the loader)
+  /* Font stacks (the `--font-*` variables are defined in fonts.css)
      ------------------------------------------------------------------
      - --font-sans:  body/prose. Latin → Inter, Han → Noto Sans SC (per-glyph
        fallback), system first-aid as a final safety net.
@@ -152,12 +152,12 @@
   }
 
   /*
-   * Bilingual DOM switching for `output: "export"`.
+   * Bilingual DOM switching for the prerendered site.
    *
-   * Server components render both languages via <T> (inner spans carry
-   * `data-i18n`), while the pre-paint inline script in `app/layout.tsx` writes
-   * the active locale to `<html data-locale>`. Only the active language is
-   * displayed, so there is no hydration mismatch and no flash of the wrong
+   * Components render both languages via <T> (inner spans carry
+   * `data-i18n`), while the pre-paint inline script in `src/router/root.tsx`
+   * writes the active locale to `<html data-locale>`. Only the active language
+   * is displayed, so there is no hydration mismatch and no flash of the wrong
    * language. Note the two attributes are deliberately distinct (`data-locale`
    * marks the page language, `data-i18n` marks each text node’s language).
    */

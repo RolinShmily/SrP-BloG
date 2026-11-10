@@ -164,7 +164,7 @@ export function stripMarkdown(content: string): string {
     .replace(/^(?:---|\*\*\*|___)\s*$/gm, "")
     // Remove KaTeX math blocks and inline markers
     .replace(/\$\$[\s\S]*?\$\$/g, " ")
-    .replace(/\$([^\$\n]+)\$/g, "$1")
+    .replace(/\$([^$\n]+)\$/g, "$1")
     // Normalize whitespace
     .replace(/\s+/g, " ")
     .trim();

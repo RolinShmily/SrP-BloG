@@ -1,12 +1,11 @@
 import { index, route, type RouteConfig } from "@react-router/dev/routes";
 
 /**
- * Route table for the Vite runtime.
+ * Route table for the React Router (framework mode) runtime.
  *
- * Note: the Next.js App Router lives in `src/app/`; `src/router` belongs to
- * React Router only. Paths are declared without trailing slashes: React
- * Router matches `/tags` and `/tags/` alike, and the prerender pass writes
- * `<path>/index.html`, which is the layout the static host serves.
+ * Paths are declared without trailing slashes: React Router matches `/tags`
+ * and `/tags/` alike, and the prerender pass writes `<path>/index.html`, which
+ * is the layout the static host serves.
  */
 export default [
   index("routes/home.tsx"),

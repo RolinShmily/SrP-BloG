@@ -12,7 +12,7 @@
  *     for the archives page.
  *
  * Configure with (see the repository-root `.env.example`):
- *   NEXT_PUBLIC_UPV_API=https://upv.example.com
+ *   VITE_UPV_API=https://upv.example.com
  */
 
 import { siteConfig } from "@/config/site";
@@ -415,10 +415,10 @@ function parseHitPayload(raw: unknown, fallbackPath: string): UPVStats | null {
 
 /**
  * Pick an adapter for the current environment. Returns the no-op adapter when
- * `NEXT_PUBLIC_UPV_API` is missing/blank, so the app works without analytics.
+ * `VITE_UPV_API` is missing/blank, so the app works without analytics.
  *
- * NOTE: the env var must be referenced literally for Next.js to inline it into
- * the client bundle — do not refactor this into a dynamic lookup.
+ * NOTE: Vite only exposes client-side variables prefixed with `VITE_`, and
+ * they must be referenced literally so they can be inlined at build time.
  */
 export function createUPVClient(
 	apiBaseUrl: string | undefined,
@@ -441,9 +441,9 @@ export function resolveUpvApiUrl(): string | undefined {
 	if (configApi && configApi.length > 0) {
 		return configApi;
 	}
-	// NOTE: process.env.NEXT_PUBLIC_UPV_API must be referenced literally
-	// for Next.js to inline it into client bundles at build time.
-	const envApi = process.env.NEXT_PUBLIC_UPV_API?.trim();
+	// NOTE: import.meta.env.VITE_UPV_API must be referenced literally so Vite
+	// can inline it into client bundles at build time.
+	const envApi = import.meta.env?.VITE_UPV_API?.trim();
 	return envApi && envApi.length > 0 ? envApi : undefined;
 }
 

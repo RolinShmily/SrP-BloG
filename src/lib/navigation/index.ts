@@ -1,10 +1,7 @@
 /**
- * Default resolution for the framework-neutral navigation primitives.
+ * Framework-neutral navigation primitives shared by the site's components.
  *
- * - Next.js (via the tsconfig `@nav` path) resolves here, which forwards to
- *   the native Next.js primitives.
- * - Vite overrides `@nav` with `src/lib/navigation/react-router.tsx`.
- * - `tsc` type-checks against the Next.js signatures; both implementations
- *   share the same props surface.
+ * The implementation targets React Router; the shared `href` prop is kept so
+ * content components stay independent of router-specific prop names.
  */
-export { Image, Link, notFound, usePathname, useRouter, useSearchParams } from "./next";
+export { Image, Link, notFound, usePathname, useRouter, useSearchParams } from "./react-router";

@@ -212,7 +212,7 @@ export function ArticleContent({ html }: ArticleContentProps) {
             const currentHeight = pre.offsetHeight;
             pre.style.maxHeight = `${currentHeight}px`;
             // Trigger reflow
-            pre.offsetHeight;
+            pre.getBoundingClientRect();
             const fullHeight = pre.scrollHeight;
             pre.style.maxHeight = `${fullHeight}px`;
 
@@ -231,7 +231,7 @@ export function ArticleContent({ html }: ArticleContentProps) {
             // Smooth collapse
             const fullHeight = pre.scrollHeight;
             pre.style.maxHeight = `${fullHeight}px`;
-            pre.offsetHeight; // force reflow
+            pre.getBoundingClientRect(); // force reflow
             pre.style.maxHeight = "380px";
 
             figure.classList.remove("is-expanded");

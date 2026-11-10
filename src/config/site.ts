@@ -97,8 +97,9 @@ export interface SocialItem {
 /** Brand mark icon for tech stack badge in the footer marquee. */
 export type TechIcon =
   | "cloudflare"
-  | "nextjs"
+  | "vite"
   | "react"
+  | "react-router"
   | "typescript"
   | "tailwind"
   | "shadcn"
@@ -177,7 +178,7 @@ export interface UpvConfig {
   enabled: boolean;
   /**
    * Base API URL of the UPV counting service (e.g. "https://upv.srprolin.com" or Workers URL).
-   * If omitted or empty, automatically falls back to `process.env.NEXT_PUBLIC_UPV_API`.
+   * If omitted or empty, automatically falls back to `import.meta.env.VITE_UPV_API`.
    */
   api?: string;
   /**
@@ -248,7 +249,7 @@ export interface GoogleSearchConfig {
   enabled: boolean;
   /**
    * HTML meta verification code (<meta name="google-site-verification" content="..." />).
-   * Automatically emitted into Next.js metadata.verification.google.
+   * Emitted by the root document when enabled and non-empty.
    */
   verificationCode?: string;
 }
@@ -450,8 +451,9 @@ export const siteConfig = {
   /** Tech stack badges rendered in the footer marquee row. */
   techStack: [
     { name: "Cloudflare", url: "https://www.cloudflare.com/", icon: "cloudflare" },
-    { name: "Next.js", url: "https://nextjs.org/", icon: "nextjs" },
+    { name: "Vite", url: "https://vite.dev/", icon: "vite" },
     { name: "React", url: "https://react.dev/", icon: "react" },
+    { name: "React Router", url: "https://reactrouter.com/", icon: "react-router" },
     { name: "TypeScript", url: "https://www.typescriptlang.org/", icon: "typescript" },
     { name: "Tailwind CSS", url: "https://tailwindcss.com/", icon: "tailwind" },
     { name: "shadcn/ui", url: "https://ui.shadcn.com/", icon: "shadcn" },
@@ -520,7 +522,7 @@ export const siteConfig = {
     enabled: true,
     /**
      * Backend API URL. You can set it directly here, or leave blank to read
-     * from the NEXT_PUBLIC_UPV_API environment variable.
+     * from the VITE_UPV_API environment variable.
      *
      * Must be a host the Worker actually answers on. `services/upv` is bound to
      * the zone route `stats.srprolin.com/*` (see services/upv/README.md, Workers

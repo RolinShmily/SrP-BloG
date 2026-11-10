@@ -1,15 +1,16 @@
 import type { ElementType, HTMLAttributes, ReactNode } from "react";
 
 /**
- * Server-renderable bilingual text node.
+ * Prerender-safe bilingual text node.
  *
- * `output: "export"` pre-renders pages at build time, so a server component
- * cannot read the client-side locale state. Instead both languages are emitted
- * into the DOM and `globals.css` hides the inactive one via the
- * `html[data-locale]` attribute written by the pre-paint inline script.
+ * The site is prerendered at build time, so a component cannot read the
+ * client-side locale state. Instead both languages are emitted into the DOM and
+ * `globals.css` hides the inactive one via the `html[data-locale]` attribute
+ * written by the pre-paint inline script.
  *
- * Use `<T>` in server components. Client components should prefer
- * `useLocale().t` so only one language string is shipped to the client.
+ * Use `<T>` in route components and other prerendered components. Client
+ * components should prefer `useLocale().t` so only one language string is
+ * shipped to the client.
  */
 export interface TProps extends Omit<HTMLAttributes<HTMLElement>, "children"> {
   /** Text shown when the active locale is `zh`. */

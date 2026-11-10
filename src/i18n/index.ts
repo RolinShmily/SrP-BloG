@@ -1,5 +1,5 @@
 import { en } from "./en";
-import { DEFAULT_LOCALE, LOCALES, isLocale } from "./types";
+import { DEFAULT_LOCALE } from "./types";
 import type { Locale } from "./types";
 import { zh } from "./zh";
 import type { Dictionary } from "./zh";

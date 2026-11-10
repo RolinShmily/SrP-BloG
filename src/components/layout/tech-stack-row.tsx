@@ -5,8 +5,9 @@ import { Share2 } from "lucide-react";
 import { siteConfig, type TechIcon, type TechItem } from "@/config/site";
 import {
   CloudflareIcon,
-  NextjsIcon,
+  ViteIcon,
   ReactIcon,
+  ReactRouterIcon,
   TypeScriptIcon,
   TailwindIcon,
   ShadcnIcon,
@@ -26,8 +27,9 @@ import {
 
 const techIcons: Record<TechIcon, ComponentType<{ className?: string }>> = {
   cloudflare: CloudflareIcon,
-  nextjs: NextjsIcon,
+  vite: ViteIcon,
   react: ReactIcon,
+  "react-router": ReactRouterIcon,
   typescript: TypeScriptIcon,
   tailwind: TailwindIcon,
   shadcn: ShadcnIcon,

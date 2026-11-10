@@ -1,0 +1,19 @@
+/*
+ * Font stacks backed by the self-hosted WOFF2 families.
+ *
+ * `scripts/fetch-fonts.ts` downloads Inter, Noto Sans SC, JetBrains Mono and
+ * Instrument Serif from Google Fonts and writes the matching @font-face rules
+ * to `public/fonts/font-faces.css` (linked from the root document). The files
+ * are served from this origin, so readers in mainland China never depend on
+ * fonts.googleapis.com.
+ *
+ * Each variable intentionally names only the self-hosted family. globals.css
+ * appends the system fallbacks after both the Latin and CJK families, which
+ * preserves per-glyph fallback: Latin resolves to Inter, Han to Noto Sans SC.
+ */
+:root {
+  --font-latin: "Inter";
+  --font-cjk-sc: "Noto Sans SC";
+  --font-mono-latin: "JetBrains Mono";
+  --font-display: "Instrument Serif";
+}

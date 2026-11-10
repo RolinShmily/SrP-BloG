@@ -13,8 +13,8 @@ export async function loader() {
 
 export const meta: MetaFunction = () =>
   pageMeta({
-    // The home page uses the site's default title rather than the `%s | site`
-    // template Next.js applied to child pages.
+    // The home page supplies its own complete title rather than the site's
+    // `%s | site` suffix used by child pages.
     title: `${siteConfig.title} - ${siteConfig.subtitle}`,
     description: siteConfig.description,
     path: "/",

@@ -8,8 +8,8 @@ import { groupTagInfos, normalizeTagKey } from "@/lib/tag-routes";
 import { pageMeta } from "../seo";
 
 /**
- * React Router's `matchPath` leaves dynamic params percent-encoded, so a tag
- * route still has to decode its own param (same as the Next.js page did).
+ * React Router's `matchPath` leaves dynamic params percent-encoded, so the tag
+ * route has to decode its own param.
  */
 function decodeTag(value: string): string {
   try {

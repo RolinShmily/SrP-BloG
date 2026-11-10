@@ -16,9 +16,6 @@ import { getAllPosts, getAllTags } from "./src/lib/content/provider";
 import { groupTagInfos } from "./src/lib/tag-routes";
 
 export default {
-  // Kept out of the repo-root `app/` on purpose: Next.js treats a top-level
-  // `app/` as its App Router and would stop seeing `src/app/`. `src/router`
-  // exists only for the Vite runtime.
   appDirectory: "src/router",
   ssr: false,
 

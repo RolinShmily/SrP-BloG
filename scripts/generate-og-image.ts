@@ -1150,7 +1150,7 @@ function renderMatrixTemplate(data: CardData, cfg: OgCardConfig): El {
                     ].filter(Boolean) as unknown[])
                   : null,
                 data.isSite
-                  ? text({}, `STACK: Next.js 15`)
+                  ? text({}, `STACK: Vite · React Router`)
                   : cfg.showDate && data.date
                   ? text({}, `DATE: ${data.date}`)
                   : null,
@@ -1299,7 +1299,7 @@ function siteToCardData(): CardData {
     tags: siteConfig.keywords || [],
     author: siteConfig.author,
     avatar: globalAvatarUri,
-    date: "Next.js 15",
+    date: "Vite · React Router",
     readingTime: "Satori · Pagefind",
     domain: cleanDomain(siteConfig.url),
     slug: "site",

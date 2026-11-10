@@ -11,11 +11,24 @@ import { collectDictionaryKeys, dictionaries, getDictionary } from "../src/i18n"
 import { getFriendLinks } from "../src/lib/friends";
 import { getSponsors } from "../src/lib/sponsors";
 import { siteConfig } from "../src/config/site";
-import { createArticleJsonLd, createPageMetadata, createPostMetadata } from "../src/lib/seo";
+import { articleJsonLd, pageMeta, postMeta } from "../src/router/seo";
 import { CUSTOM_FONT_SIZE_TOKENS } from "../src/lib/utils";
 import { postsDir, publicPostsDir, syncPostAssets } from "./sync-post-assets";
 import { LocalContentProvider } from "../src/lib/content/provider";
 import { comparePostsByPublishedDate, sortPostsByPublishedDate } from "../src/lib/content/sort";
+
+/** Reads one meta descriptor's `content` by its `name` or `property` key. */
+function metaContent(
+  descriptors: readonly object[],
+  field: "name" | "property",
+  value: string
+): unknown {
+  for (const descriptor of descriptors) {
+    const record = descriptor as Record<string, unknown>;
+    if (record[field] === value) return record.content;
+  }
+  return undefined;
+}
 
 /** Returns true when the value parses as an absolute http(s) URL. */
 function isHttpUrl(value: unknown): boolean {
@@ -710,43 +723,40 @@ async function verifyContent() {
     `siteConfig.ogImage is configured as absolute path (${siteConfig.ogImage})`
   );
 
-  const pageMeta = createPageMetadata({
+  const pageDescriptors = pageMeta({
     title: "测试页面",
     description: "测试描述",
     path: "/test/",
   });
-  const pageOg = pageMeta.openGraph as Record<string, unknown> | undefined;
-  const pageTwitter = pageMeta.twitter as Record<string, unknown> | undefined;
   assert(
-    pageOg?.type === "website" &&
-      pageOg?.siteName === siteConfig.title &&
-      pageOg?.url === "/test/",
-    "createPageMetadata produces valid website Open Graph metadata"
+    metaContent(pageDescriptors, "property", "og:type") === "website" &&
+      metaContent(pageDescriptors, "property", "og:site_name") === siteConfig.title &&
+      metaContent(pageDescriptors, "property", "og:url") === `${siteConfig.url}/test/`,
+    "pageMeta produces valid website Open Graph metadata"
   );
   assert(
-    Boolean(pageTwitter?.card === "summary_large_image"),
-    "createPageMetadata produces summary_large_image Twitter card"
+    metaContent(pageDescriptors, "name", "twitter:card") === "summary_large_image",
+    "pageMeta produces summary_large_image Twitter card"
   );
 
   const postWithCover = allPosts.find((p) => Boolean(p.image));
   assert(Boolean(postWithCover), "At least one post with a cover image exists");
   if (postWithCover) {
-    const articleJsonLd = createArticleJsonLd(postWithCover);
+    const articleData = articleJsonLd(postWithCover);
     assert(
-      articleJsonLd["@type"] === "BlogPosting" &&
-        articleJsonLd.headline === postWithCover.title &&
-        articleJsonLd.datePublished === postWithCover.published &&
-        Array.isArray(articleJsonLd.image) &&
-        articleJsonLd.image[0] === new URL(postWithCover.image!, siteConfig.url).toString(),
-      "createArticleJsonLd emits article identity, dates, and an absolute cover URL"
+      articleData["@type"] === "BlogPosting" &&
+        articleData.headline === postWithCover.title &&
+        articleData.datePublished === postWithCover.published &&
+        Array.isArray(articleData.image) &&
+        articleData.image[0] === new URL(postWithCover.image!, siteConfig.url).toString(),
+      "articleJsonLd emits article identity, dates, and an absolute cover URL"
     );
-    const metaWithCover = createPostMetadata(postWithCover);
-    const postOg = metaWithCover.openGraph as Record<string, unknown> | undefined;
+    const postDescriptors = postMeta(postWithCover);
+    const coverUrl = new URL(postWithCover.image!, siteConfig.url).toString();
     assert(
-      postOg?.type === "article" &&
-        Array.isArray(postOg?.images) &&
-        (postOg.images[0] as { url: string }).url === postWithCover.image,
-      "createPostMetadata uses post.image when cover exists"
+      metaContent(postDescriptors, "property", "og:type") === "article" &&
+        metaContent(postDescriptors, "property", "og:image") === coverUrl,
+      "postMeta uses post.image when cover exists"
     );
   }
 
@@ -754,19 +764,17 @@ async function verifyContent() {
     ...allPosts[0],
     image: undefined,
   };
-  const metaWithoutCover = createPostMetadata(postWithoutCover);
-  const postWithoutOg = metaWithoutCover.openGraph as Record<string, unknown> | undefined;
+  const descriptorsWithoutCover = postMeta(postWithoutCover);
   assert(
-    postWithoutOg?.type === "article" &&
-      Array.isArray(postWithoutOg?.images) &&
-      ((postWithoutOg.images[0] as { url: string }).url === `/og/posts/${postWithoutCover.slug}.png` ||
-       (postWithoutOg.images[0] as { url: string }).url === siteConfig.ogImage),
-    "createPostMetadata generates dedicated post OG card or falls back to siteConfig.ogImage"
+    metaContent(descriptorsWithoutCover, "property", "og:type") === "article" &&
+      metaContent(descriptorsWithoutCover, "property", "og:image") ===
+        `${siteConfig.url}/og/posts/${postWithoutCover.slug}.png`,
+    "postMeta generates a dedicated post OG card"
   );
   assert(
-    postWithoutOg?.siteName === siteConfig.title &&
-      Boolean(postWithoutOg?.publishedTime),
-    "createPostMetadata populates siteName and publishedTime"
+    metaContent(descriptorsWithoutCover, "property", "og:site_name") === siteConfig.title &&
+      Boolean(metaContent(descriptorsWithoutCover, "property", "article:published_time")),
+    "postMeta populates siteName and publishedTime"
   );
 
   console.log("\n==================================================");

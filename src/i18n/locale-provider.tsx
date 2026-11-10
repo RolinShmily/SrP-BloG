@@ -77,10 +77,11 @@ export interface LocaleProviderProps {
 }
 
 /**
- * Client-side locale provider compatible with `output: "export"`.
+ * Client-side locale provider for the prerendered site.
  *
  * All state lives in the browser (no cookies/middleware), so every page is
- * statically renderable while language switching still works without navigation.
+ * statically prerenderable while language switching still works without
+ * navigation.
  */
 export function LocaleProvider({ children, initialLocale }: LocaleProviderProps) {
   const [locale, setLocaleState] = useState<Locale>(initialLocale ?? DEFAULT_LOCALE);

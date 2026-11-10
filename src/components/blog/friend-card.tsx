@@ -26,7 +26,6 @@ export function FriendCard({ friend }: FriendCardProps) {
           {/* Avatar */}
           <div className="h-11 w-11 rounded-lg overflow-hidden shrink-0 border border-border/80 bg-muted/50 flex items-center justify-center">
             {!imageError && friend.avatar ? (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={friend.avatar}
                 alt={friend.name}

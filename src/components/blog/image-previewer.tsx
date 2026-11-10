@@ -349,7 +349,6 @@ export function ImagePreviewer() {
           onMouseDown={handleMouseDown}
           onDoubleClick={handleDoubleClick}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={currentImage.src}
             alt={currentImage.alt || ""}
