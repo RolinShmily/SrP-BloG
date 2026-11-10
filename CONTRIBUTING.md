@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢你有兴趣为 SrP-BloG 做出贡献。本文件约定贡献方式与验收标准。
+感谢你有兴趣为 SrP-BloG 做出贡献。本文件约定贡献方式与验收标准；项目的架构、设计、开发与配置规范见 [docs/README.md](./docs/README.md)。
 
 > 参与本项目即表示你同意遵守 **[行为准则](./CODE_OF_CONDUCT.md)**（Contributor Covenant 2.1）：友善待人，尊重不同观点，不对他人进行人身攻击。
 
