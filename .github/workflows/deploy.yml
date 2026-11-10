@@ -32,6 +32,14 @@ jobs:
           node-version: "22"
           cache: "pnpm"
 
+      # Self-hosted web fonts are downloaded once from Google Fonts and reused
+      # across builds; scripts/fetch-fonts.ts skips the network when intact.
+      - name: Cache self-hosted fonts
+        uses: actions/cache@v4
+        with:
+          path: public/fonts
+          key: fonts-${{ hashFiles('scripts/fetch-fonts.ts') }}
+
       # Satori needs real font binaries to rasterise the Open Graph cards.
       # They are downloaded once from jsDelivr and cached here so routine builds
       # do not pay for ~3 MB of font traffic on every push.
@@ -42,13 +50,17 @@ jobs:
           key: satori-fonts-v1
 
       # `--ignore-scripts` blocks dependency lifecycle scripts (supply-chain hygiene).
-      # The build chain (next/esbuild/sharp-free) ships prebuilt platform binaries as
-      # optionalDependencies, so no postinstall step is required.
+      # The build chain (React Router / Vite / esbuild / sharp) ships prebuilt
+      # platform binaries as optionalDependencies, so no postinstall step is required.
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: Lint
         run: pnpm run lint
+
+      # The Vite build does not typecheck; run it explicitly before the build.
+      - name: Typecheck
+        run: pnpm run typecheck
 
       # Card-cover pipeline: mirrors `content/posts/**` into `public/posts/**` and
       # compresses each image into a 768px WebP card thumbnail (`<name>.thumb.webp`,
@@ -64,16 +76,17 @@ jobs:
       - name: Verify content
         run: pnpm run verify-content
 
-      # `pnpm build:vite` runs:
-      #   1. tsx scripts/sync-post-assets.ts          (content/posts/** -> public/posts/**, no-op after the step above)
-      #   2. tsx scripts/generate-og-image.ts         (Satori -> social cards for the site and every post)
-      #   3. tsx scripts/generate-third-party-licenses.ts
-      #   4. react-router build                       (prerender -> build/client/)
-      #   5. tsx scripts/build-pagefind.ts build/client (Rust-powered full-text search indexing)
-      #   6. tsx scripts/finalize-vite-build.ts       (404.html for Cloudflare, drop SPA fallback)
-      #   7. tsx scripts/verify-seo.ts build/client
+      # `pnpm build` runs:
+      #   1. tsx scripts/fetch-fonts.ts               (self-hosted WOFF2 -> public/fonts/)
+      #   2. tsx scripts/sync-post-assets.ts          (content/posts/** -> public/posts/**, no-op after the step above)
+      #   3. tsx scripts/generate-og-image.ts         (Satori -> social cards for the site and every post)
+      #   4. tsx scripts/generate-third-party-licenses.ts
+      #   5. react-router build                       (prerender -> build/client/)
+      #   6. tsx scripts/build-pagefind.ts            (Rust-powered full-text search indexing)
+      #   7. tsx scripts/finalize-vite-build.ts       (404.html for Cloudflare, drop SPA fallback)
+      #   8. tsx scripts/verify-seo.ts
       - name: Build static export
-        run: pnpm build:vite
+        run: pnpm build
 
       - name: Deploy to Cloudflare Workers
         env:

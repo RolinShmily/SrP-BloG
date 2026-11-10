@@ -13,7 +13,7 @@ const outPath = path.join(rootDir, "public/third-party-licenses.txt");
 /**
  * The scope boundary is defined by the tool, not by hand:
  * `--prod --no-optional` = the production dependency closure, minus
- * platform-specific optional binaries (sharp / libvips / @next/swc). Those run
+ * platform-specific optional binaries (such as sharp / libvips). Those run
  * on the build machine only and are never bundled into the site, so they carry
  * no distribution obligation. Using the flag instead of a hand-kept exclusion
  * list means the boundary cannot silently drift.
@@ -21,10 +21,10 @@ const outPath = path.join(rootDir, "public/third-party-licenses.txt");
 const PNPM_ARGS = ["licenses", "list", "--prod", "--no-optional", "--json"];
 
 /**
- * Self-hosted web fonts are not npm packages, so the dependency scan cannot see
- * them — but their binaries *do* ship inside the site, and OFL-1.1 clause 2
- * requires "each copy contains the above copyright notice and this license".
- * Keep this list in sync with the `next/font` faces in `src/app/layout.tsx`.
+ * Web-font binaries that ship inside the site, which the npm dependency scan
+ * cannot see. OFL-1.1 clause 2 requires "each copy contains the above copyright
+ * notice and this license". The four text families are generated into
+ * public/fonts/ by scripts/fetch-fonts.ts; KaTeX ships from its npm package.
  */
 const WEB_FONTS = [
   ["Inter", "Latin body/prose text", "Copyright (c) 2016-2023 The Inter Project Authors"],
@@ -41,13 +41,13 @@ const WEB_FONTS = [
 /**
  * Standalone browser-side runtime and WebAssembly assets distributed with the site.
  * Pagefind compiles search indexes and ships its runtime script + WASM binary into
- * out/pagefind/, so MIT distribution requirements apply.
+ * build/client/pagefind/, so MIT distribution requirements apply.
  */
 const EMBEDDED_ASSETS = [
   [
     "Pagefind (Extended WASM & JS Runtime)",
     "MIT",
-    "Client-side full-text search engine & WebAssembly index chunks in out/pagefind/",
+    "Client-side full-text search engine & WebAssembly index chunks in build/client/pagefind/",
     "Copyright (c) 2022 Liam Bigelow",
   ],
   [
@@ -239,7 +239,7 @@ export function generateThirdPartyLicenses(): void {
     "",
     `Scope: the production dependency closure (\`pnpm ${PNPM_ARGS.join(" ")}\`)`,
     `       — ${totalPackages} packages / ${totalInstances} version instances across ${families.length} license families.`,
-    "       Platform-specific optional binaries (sharp / libvips / @next/swc) are",
+    "       Platform-specific optional binaries (such as sharp / libvips) are",
     "       excluded: they run on the build machine and are never bundled into the site.",
     "",
     "The MIT, ISC and BSD licenses require the copyright notice and the license text to",
@@ -247,7 +247,7 @@ export function generateThirdPartyLicenses(): void {
     "site's bundled JavaScript, so each entry carries its upstream copyright line, and the",
     "verbatim license texts follow at the end of this file.",
     "",
-    "The self-hosted web fonts are not npm packages; their notices are in the next section.",
+    "Self-hosted webfonts in public/fonts/ and bundled KaTeX faces have notices in the next section.",
     "",
     RULE,
     "PACKAGES BY LICENSE",
@@ -259,8 +259,9 @@ export function generateThirdPartyLicenses(): void {
     "WEB FONTS (SIL Open Font License 1.1)",
     RULE,
     "",
-    "Font binaries are self-hosted in out/_next/static/media/ and are therefore distributed",
-    "with the site. OFL-1.1 requires each copy to contain the copyright notice and the license.",
+    "The text families are self-hosted in public/fonts/ by scripts/fetch-fonts.ts;",
+    "KaTeX math faces are bundled from katex/dist. OFL-1.1 requires each copy to",
+    "contain the copyright notice and the license.",
     "",
     WEB_FONTS.map(([name, role, copyright]) => `  ${name}\n      ${role}\n      ${copyright}`).join("\n"),
     "",
@@ -268,7 +269,7 @@ export function generateThirdPartyLicenses(): void {
     "EMBEDDED SEARCH ENGINE & SOCIAL CARD ASSETS (MIT / MPL-2.0)",
     RULE,
     "",
-    "Static search runtime scripts and WebAssembly binaries in out/pagefind/ are generated",
+    "Static search runtime scripts and WebAssembly binaries in build/client/pagefind/ are generated",
     "at build time by Pagefind (MIT). Dynamic social preview cards are generated using",
     "Vercel Satori (Mozilla Public License 2.0). Upstream licenses require copyright notices",
     "and applicable license terms to accompany distributions.",
