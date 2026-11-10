@@ -20,36 +20,36 @@
 
 ## 界面预览
 
-![浅色模式首页](docs/previews/home-light.webp)
+![浅色模式首页](docs/screenshot/home-light.webp)
 
 <details>
 <summary>展开更多截图：深色模式、文章阅读、归档、标签、搜索与手机端</summary>
 
 ### 深色模式与英文界面
 
-![深色模式首页与英文导航](docs/previews/home-dark.webp)
+![深色模式首页与英文导航](docs/screenshot/home-dark.webp)
 
 ### 文章阅读
 
-![文章阅读界面，包含吸附目录和代码高亮](docs/previews/article.webp)
+![文章阅读界面，包含吸附目录和代码高亮](docs/screenshot/article.webp)
 
 ### 文章归档
 
-![文章时间线与站点统计](docs/previews/archives.webp)
+![文章时间线与站点统计](docs/screenshot/archives.webp)
 
 ### 标签筛选
 
-![支持多主题筛选的标签云](docs/previews/tags.webp)
+![支持多主题筛选的标签云](docs/screenshot/tags.webp)
 
 ### 全文搜索
 
-![Pagefind 全文搜索与关键词高亮](docs/previews/search.webp)
+![Pagefind 全文搜索与关键词高亮](docs/screenshot/search.webp)
 
 ### 手机端布局
 
 <p align="center">
-  <img src="docs/previews/home-mobile.webp" alt="手机端首页" width="360" />
-  <img src="docs/previews/article-mobile.webp" alt="手机端文章与展开的目录" width="360" />
+  <img src="docs/screenshot/home-mobile.webp" alt="手机端首页" width="360" />
+  <img src="docs/screenshot/article-mobile.webp" alt="手机端文章与展开的目录" width="360" />
 </p>
 
 </details>
@@ -73,11 +73,23 @@
 
 ---
 
+## 📚 文档
+
+文档按关注点划分：
+
+- [架构规范](docs/architecture/README.md) — 渲染模型、构建管线、数据流与部署拓扑。
+- [设计规范](docs/design/README.md) — 视觉语言、字体、布局、动效与可访问性。
+- [开发规范](docs/development/README.md) — 环境、编码约定、内容流程与提交前检查。
+- [参考规范](docs/reference/README.md) — 命令、环境变量、站点配置与内容 schema。
+- [截图目录](docs/screenshot/) — README 使用的界面截图。
+
+---
+
 ## 📁 目录结构
 
 ```
 ├── content/              # 内容源：posts/ (文章)、friends/ (友链)、sponsors/ (赞助)
-├── docs/previews/        # README 中使用的前端预览截图
+├── docs/                 # 文档体系（架构/设计/开发/参考）与 README 截图
 ├── public/               # 静态资源与自动生成的封面、字体、搜索索引、第三方声明
 ├── scripts/              # 辅助脚本 (资源同步、搜索索引、第三方声明、内容校验等)
 ├── services/cms/         # Sveltia CMS 的独立 GitHub OAuth 认证服务 (Cloudflare Workers)
@@ -97,7 +109,7 @@
 ## ⚡ 快速上手
 
 ```bash
-pnpm install            # 安装依赖
+pnpm install --ignore-scripts # 安装依赖（不执行生命周期脚本）
 pnpm dev                # 启动 Vite 开发服务 (http://localhost:5173)
 pnpm build              # 静态预渲染构建 (产物位于 build/client/)
 pnpm typecheck          # 生成路由类型并运行 tsc --noEmit
@@ -119,6 +131,7 @@ pnpm new-post -- <slug> # 创建新文章模板目录
 ---
 title: 文章标题
 published: 2026-01-01
+updated: 2026-01-01      # 必填，且不得早于 published
 description: 文章简介（用于摘要、搜索与 SEO）
 image: ./cover.png       # 可选：同目录下图片相对路径
 tags: [Vite, Web]        # 可选：标签

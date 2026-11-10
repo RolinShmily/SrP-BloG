@@ -20,36 +20,36 @@
 
 ## Preview
 
-![Homepage in light mode](docs/previews/home-light.webp)
+![Homepage in light mode](docs/screenshot/home-light.webp)
 
 <details>
 <summary>More screenshots: dark mode, article reader, archives, tags, search, and mobile</summary>
 
 ### Dark mode with English UI
 
-![Homepage in dark mode with English navigation](docs/previews/home-dark.webp)
+![Homepage in dark mode with English navigation](docs/screenshot/home-dark.webp)
 
 ### Article reader
 
-![Article reader with a sticky table of contents and syntax-highlighted code](docs/previews/article.webp)
+![Article reader with a sticky table of contents and syntax-highlighted code](docs/screenshot/article.webp)
 
 ### Archives
 
-![Article timeline and site statistics](docs/previews/archives.webp)
+![Article timeline and site statistics](docs/screenshot/archives.webp)
 
 ### Tag filtering
 
-![Tag cloud with multiple topics selected](docs/previews/tags.webp)
+![Tag cloud with multiple topics selected](docs/screenshot/tags.webp)
 
 ### Full-text search
 
-![Pagefind search results with highlighted matches](docs/previews/search.webp)
+![Pagefind search results with highlighted matches](docs/screenshot/search.webp)
 
 ### Mobile layout
 
 <p align="center">
-  <img src="docs/previews/home-mobile.webp" alt="Mobile homepage" width="360" />
-  <img src="docs/previews/article-mobile.webp" alt="Mobile article with the table of contents expanded" width="360" />
+  <img src="docs/screenshot/home-mobile.webp" alt="Mobile homepage" width="360" />
+  <img src="docs/screenshot/article-mobile.webp" alt="Mobile article with the table of contents expanded" width="360" />
 </p>
 
 </details>
@@ -73,11 +73,23 @@
 
 ---
 
+## 📚 Documentation
+
+The docs are organized by concern:
+
+- [Architecture](docs/architecture/README.md) — rendering model, build pipeline, data flow and deployment topology.
+- [Design](docs/design/README.md) — visual language, typography, layout, motion and accessibility.
+- [Development](docs/development/README.md) — environment, coding conventions, content workflow and pre-submit checks.
+- [Reference](docs/reference/README.md) — commands, environment variables, site configuration and content schemas.
+- [Screenshots](docs/screenshot/) — UI captures used by the READMEs.
+
+---
+
 ## 📁 Directory Structure
 
 ```
 ├── content/              # Content source: posts/, friends/, sponsors/
-├── docs/previews/        # Frontend screenshots used in the READMEs
+├── docs/                 # Documentation hub (architecture, design, development, reference) + screenshots
 ├── public/               # Static assets & generated covers, fonts, search index, third-party notices
 ├── scripts/              # Utility scripts (asset sync, search index, third-party notices, content verification)
 ├── services/cms/         # Standalone Sveltia CMS GitHub OAuth service (Cloudflare Workers)
@@ -97,7 +109,7 @@
 ## ⚡ Quick Start
 
 ```bash
-pnpm install            # Install dependencies
+pnpm install --ignore-scripts # Install dependencies (no lifecycle scripts)
 pnpm dev                # Start the Vite dev server (http://localhost:5173)
 pnpm build              # Static prerender for deployment (output to build/client/)
 pnpm typecheck          # Generate route types and run tsc --noEmit
@@ -119,6 +131,7 @@ Use `pnpm new-post -- <slug>` or create a directory directly under `content/post
 ---
 title: Post Title
 published: 2026-01-01
+updated: 2026-01-01      # Required; must not be earlier than published
 description: A short summary for listings, search, and SEO.
 image: ./cover.png       # Optional: relative path to a co-located image
 tags: [Vite, Web]        # Optional: tags for filtering
