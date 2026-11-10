@@ -1,0 +1,8 @@
+minimumReleaseAgeExclude:
+  - vite@7.3.8
+# These packages ship prebuilt platform binaries through optionalDependencies;
+# their lifecycle scripts are not needed. Marking them ignored keeps
+# `--ignore-scripts` installs reproducible under pnpm 12's policy check.
+allowBuilds:
+  esbuild: false
+  sharp: false

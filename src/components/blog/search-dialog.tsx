@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@nav";
 import { useLocale } from "@/i18n/locale-provider";
 import {
   searchWithPagefind,

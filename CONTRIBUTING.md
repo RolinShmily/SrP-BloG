@@ -24,17 +24,17 @@
 
 ```bash
 pnpm install --ignore-scripts   # 一律不执行依赖生命周期脚本（供应链卫生）
-pnpm dev                        # http://localhost:3000
+pnpm dev:vite                   # http://localhost:5173
 ```
 
-`pnpm dev` 会自动完成文章资源同步、搜索索引生成与第三方许可声明生成，无需手动执行。
+`pnpm dev:vite` 会自动完成文章资源同步、OG 卡片生成与第三方许可声明生成，无需手动执行。
 
 ## 提交前必须通过
 
 ```bash
 pnpm lint            # ESLint (next/core-web-vitals)
 pnpm verify-content  # 内容管线完整性校验（78 项）
-pnpm build           # 静态导出；改动构建链、配置或依赖时必跑
+pnpm build:vite      # 静态预渲染；改动构建链、配置或依赖时必跑
 ```
 
 CI 执行同样这几步，本地过了基本就能过。

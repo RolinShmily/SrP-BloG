@@ -1,8 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, usePathname } from "@nav";
 import { siteConfig, type NavItem } from "@/config/site";
 import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { LocaleToggle } from "@/components/i18n/locale-toggle";

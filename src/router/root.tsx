@@ -1,0 +1,181 @@
+import type { LinksFunction, MetaFunction } from "react-router";
+import {
+  Links,
+  Meta,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  isRouteErrorResponse,
+  useRouteError,
+} from "react-router";
+import { ThemeProvider } from "@/components/theme/theme-provider";
+import { LocaleProvider } from "@/i18n/locale-provider";
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { PageTransition } from "@/components/layout/page-transition";
+import { RouteProgressBar } from "@/components/layout/route-progress";
+import { AmbientArt } from "@/components/art/ambient-art";
+import { SpotlightEffect } from "@/components/layout/spotlight";
+import { BackToTop } from "@/components/layout/back-to-top";
+import { ImagePreviewer } from "@/components/blog/image-previewer";
+import { SearchDialog } from "@/components/blog/search-dialog";
+import { siteConfig } from "@/config/site";
+import { NotFoundView } from "./not-found-view";
+import stylesheet from "@/app/globals.css?url";
+import fontsOverride from "./vite-fonts.css?url";
+
+export const links: LinksFunction = () => [
+  { rel: "stylesheet", href: stylesheet },
+  // Must follow globals.css: it only overrides the font variables.
+  { rel: "stylesheet", href: fontsOverride },
+  { rel: "icon", href: "/favicon/favicon.ico" },
+  { rel: "apple-touch-icon", href: "/avatar.png" },
+  {
+    rel: "alternate",
+    type: "application/rss+xml",
+    title: `${siteConfig.title} RSS`,
+    href: siteConfig.rssUrl,
+  },
+];
+
+/**
+ * Root metadata is only used by routes without their own `meta` export (and by
+ * the error boundary). React Router does not merge parent meta with a child's,
+ * so the page modules under `routes/` return the full descriptor set.
+ */
+export const meta: MetaFunction = () => [
+  { title: `${siteConfig.title} - ${siteConfig.subtitle}` },
+  { name: "description", content: siteConfig.description },
+  { name: "keywords", content: siteConfig.keywords.join(",") },
+  { name: "author", content: siteConfig.author },
+  { name: "creator", content: siteConfig.author },
+  { property: "og:type", content: "website" },
+  { property: "og:site_name", content: siteConfig.title },
+  { property: "og:locale", content: "zh_CN" },
+  { property: "og:image", content: `${siteConfig.url}${siteConfig.ogImage}` },
+  { name: "twitter:card", content: "summary_large_image" },
+  { name: "twitter:creator", content: siteConfig.author },
+];
+
+/**
+ * Pre-paint locale bootstrap. Mirrors `LocaleProvider.readInitialLocale`
+ * exactly: `?lang=` → `localStorage["srp-locale"]` → `zh`. Runs before first
+ * paint so the CSS `html[data-locale] [data-i18n]` rules never flash the
+ * wrong language.
+ */
+const LOCALE_INIT_SCRIPT = `(function(){try{var p=new URLSearchParams(location.search).get("lang");var v=(p==="zh"||p==="en")?p:null;if(!v){var s=localStorage.getItem("srp-locale");if(s==="zh"||s==="en")v=s;}if(!v)v="zh";document.documentElement.dataset.locale=v;document.documentElement.lang=v==="en"?"en":"zh-CN";}catch(e){document.documentElement.dataset.locale="zh";document.documentElement.lang="zh-CN";}})();`;
+
+const GA_MEASUREMENT_ID =
+  siteConfig.seo?.googleAnalytics?.enabled && siteConfig.seo.googleAnalytics.measurementId
+    ? siteConfig.seo.googleAnalytics.measurementId
+    : undefined;
+
+/**
+ * The document shell, shared by the normal layout and the error boundary.
+ * React Router renders the root `ErrorBoundary` in place of the root route
+ * component, so that boundary must render the complete `<html>` document.
+ */
+function Document({
+  children,
+  noindex = false,
+}: {
+  children: React.ReactNode;
+  noindex?: boolean;
+}) {
+  return (
+    <html
+      lang="zh-CN"
+      data-locale="zh"
+      data-runtime="vite"
+      suppressHydrationWarning
+    >
+      <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <Meta />
+        {noindex && <meta name="robots" content="noindex" />}
+        <Links />
+        <script dangerouslySetInnerHTML={{ __html: LOCALE_INIT_SCRIPT }} />
+      </head>
+      <body className="antialiased min-h-screen flex flex-col bg-background text-foreground font-sans">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <LocaleProvider>
+            <AmbientArt />
+            <RouteProgressBar />
+            <SpotlightEffect />
+            <Navbar />
+            <PageTransition>{children}</PageTransition>
+            <Footer />
+            <BackToTop />
+            <ImagePreviewer />
+            <SearchDialog />
+          </LocaleProvider>
+        </ThemeProvider>
+        <ScrollRestoration />
+        <Scripts />
+        {GA_MEASUREMENT_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');`,
+              }}
+            />
+          </>
+        )}
+      </body>
+    </html>
+  );
+}
+
+export default function Root() {
+  return (
+    <Document>
+      <Outlet />
+    </Document>
+  );
+}
+
+/** Generic error body; message detail is only exposed in development. */
+function UnexpectedError({ error }: { error: unknown }) {
+  const detail = isRouteErrorResponse(error)
+    ? `${error.status} ${error.statusText}`.trim()
+    : error instanceof Error
+      ? error.message
+      : String(error);
+
+  return (
+    <main className="flex min-h-[70vh] flex-col items-center justify-center px-4 py-16 text-center select-none space-y-3">
+      <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight text-foreground">
+        Something went wrong
+      </h1>
+      <p className="text-sm text-muted-foreground">
+        页面暂时无法显示，请稍后重试。
+      </p>
+      {import.meta.env.DEV && detail && (
+        <pre className="max-w-full overflow-x-auto rounded-lg border border-border bg-muted/40 p-3 text-left font-mono text-xs text-muted-foreground">
+          {detail}
+        </pre>
+      )}
+    </main>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  const isNotFound = isRouteErrorResponse(error) && error.status === 404;
+
+  return (
+    <Document noindex>
+      {isNotFound ? <NotFoundView /> : <UnexpectedError error={error} />}
+    </Document>
+  );
+}

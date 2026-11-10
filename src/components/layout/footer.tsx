@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@nav";
 import type { ComponentType } from "react";
 import { siteConfig, type SocialIcon } from "@/config/site";
 import { dictionaries } from "@/i18n";

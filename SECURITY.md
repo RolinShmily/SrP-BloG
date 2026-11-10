@@ -18,7 +18,7 @@
 
 ## 本项目包含什么
 
-- 一个**纯静态站点**（`out/`）：无服务端运行时、无用户登录、无数据库。
+- 一个**纯静态站点**（`build/client/`）：无服务端运行时、无用户登录、无数据库。
 - 一个**可选的独立统计服务** `services/upv/`（Cloudflare Workers + D1）：加盐哈希去重，不存明文 IP，独立部署。
 - 密钥（D1 `SALT`、Cloudflare API Token）只存在于 Cloudflare 与 GitHub Secrets，**不在本仓库内**；`.env` 系列已被 `.gitignore` 覆盖，`.env.example` 只有占位符。
 
@@ -28,7 +28,7 @@
 - `services/upv` 的注入、越权访问或数据泄露
 - **供应链问题**：依赖被投毒、`pnpm-lock.yaml` 被篡改、构建脚本注入（本仓库刻意使用 `pnpm install --ignore-scripts` 阻断依赖生命周期脚本）
 - 前端 XSS：文章 Markdown 渲染、Waline 评论、搜索索引等注入面
-- 发布产物 `out/` 中泄露了本不应公开的内容
+- 发布产物 `build/client/` 中泄露了本不应公开的内容
 
 ## 响应
 

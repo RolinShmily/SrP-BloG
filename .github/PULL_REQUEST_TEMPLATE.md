@@ -13,7 +13,7 @@
 
 - [ ] 本地测试通过 / Passed `pnpm lint`
 - [ ] 内容校验通过 / Passed `pnpm verify-content`
-- [ ] 构建测试通过 / Passed `pnpm build` (改动构建链、配置或依赖时 / when touching build, config, or deps)
+- [ ] 构建测试通过 / Passed `pnpm build:vite` (改动构建链、配置或依赖时 / when touching build, config, or deps)
 - [ ] 外部依赖已确认 / External dependencies confirmed via issue (if adding new deps)
 
 详见 / See [CONTRIBUTING.md](../CONTRIBUTING.md).

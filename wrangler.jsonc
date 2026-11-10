@@ -3,7 +3,7 @@
 	"name": "srp-blog",
 	"compatibility_date": "2025-01-05",
 	"assets": {
-		"directory": "./out",
+		"directory": "./build/client",
 		"not_found_handling": "404-page"
 	},
 	// Route mode (not a Workers "Custom Domain").

@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
+import { Image, Link } from "@nav";
 import type { PostDetail } from "@/lib/content/types";
 import { tagPageHref } from "@/lib/tag-routes";
 import { useLocale } from "@/i18n/locale-provider";

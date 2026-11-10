@@ -36,14 +36,16 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts
 
-      # Produces out/sitemap.xml (Next.js `app/sitemap.ts`), which is the URL
-      # source for the submission below.
+      # Produces build/client/sitemap.xml (React Router resource route), which
+      # is the URL source for the submission below.
       - name: Build static export
-        run: pnpm build
+        run: pnpm build:vite
 
-      # Reads every <loc> from out/sitemap.xml, diffs it against
+      # Reads every <loc> from build/client/sitemap.xml, diffs it against
       # .last-urls.json and submits the new URLs to IndexNow.
       - name: Submit to IndexNow
+        env:
+          SITEMAP_DIR: build/client
         run: node scripts/indexnow-submit.js
 
       - name: Commit URL record

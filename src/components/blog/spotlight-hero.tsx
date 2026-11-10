@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Link } from "@nav";
 import type { Post } from "@/lib/content/types";
 import { tagPageHref } from "@/lib/tag-routes";
 import { Badge } from "@/components/ui/badge";

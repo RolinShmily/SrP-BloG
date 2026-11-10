@@ -19,7 +19,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@nav": ["./src/lib/navigation/index.ts"]
     }
   },
   "include": [

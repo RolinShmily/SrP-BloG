@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "@nav";
 import type { Post, TagInfo } from "@/lib/content/types";
 import { PostCard } from "./post-card";
 import { Badge } from "@/components/ui/badge";

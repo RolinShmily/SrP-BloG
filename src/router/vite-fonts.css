@@ -1,0 +1,20 @@
+/*
+ * Vite-runtime font fallbacks.
+ *
+ * The Next.js layout self-hosts Inter / Noto Sans SC / JetBrains Mono /
+ * Instrument Serif through `next/font`. The Vite runtime has no equivalent
+ * yet, so these variables fall back to locally installed / system fonts.
+ * Scoped to `html[data-runtime="vite"]` so the Next.js build (which sets the
+ * same variables through generated font classes) is unaffected.
+ *
+ * TODO(migration): self-host the four families as WOFF2 and replace this file.
+ */
+html[data-runtime="vite"] {
+  --font-latin: "Inter", "Inter Variable", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-cjk-sc: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+    "Noto Sans CJK SC", "Source Han Sans SC", "Noto Sans SC", sans-serif;
+  --font-mono-latin: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas,
+    "Liberation Mono", "Courier New", monospace;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+}

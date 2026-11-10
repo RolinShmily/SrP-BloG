@@ -96,8 +96,8 @@
 
 ```bash
 pnpm install            # 安装依赖
-pnpm dev                # 启动本地开发服务 (http://localhost:3000)
-pnpm build              # 静态导出构建 (产物位于 out/)
+pnpm dev:vite           # 启动 Vite 开发服务 (http://localhost:5173)
+pnpm build:vite         # 静态预渲染构建 (产物位于 build/client/)
 pnpm lint               # 代码规范检查
 pnpm verify-content     # 内容管线完整性校验 (78 项检测)
 pnpm new-post -- <slug> # 创建新文章模板目录
@@ -146,7 +146,7 @@ Markdown 正文...
 通过 `.github/workflows/deploy.yml` 自动构建部署：
 
 - 在 GitHub 仓库中配置 Secrets：`CLOUDFLARE_API_TOKEN` 与 `CLOUDFLARE_ACCOUNT_ID`。
-- 推送至 `main` 分支即可自动构建并部署至 Cloudflare Workers（基于 `wrangler.jsonc` 静态资产托管）。
+- 推送至 `main` 分支即可自动执行 Vite/React Router 预渲染并部署至 Cloudflare Workers（基于 `wrangler.jsonc` 静态资产托管，目录为 `build/client/`）。
 
 ### 2. （可选）UPV 统计服务与 D1 迁移
 

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { Image } from "@nav";
 import type { Sponsor } from "@/lib/sponsors";
 import { siteConfig } from "@/config/site";
 import { T } from "@/components/i18n/t";

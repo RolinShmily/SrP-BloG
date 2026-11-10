@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@nav";
 import type { PostDetail } from "@/lib/content/types";
 import { siteConfig } from "@/config/site";
 import { useLocale } from "@/i18n/locale-provider";

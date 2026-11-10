@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo } from "react";
-import Link from "next/link";
+import { Link } from "@nav";
 import type { Post, SiteStats } from "@/lib/content/types";
 import { sortPostsByPublishedDate } from "@/lib/content/sort";
 import { Badge } from "@/components/ui/badge";

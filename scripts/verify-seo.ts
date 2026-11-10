@@ -12,7 +12,17 @@ interface ExportedPage {
   imagesWithEmptyAlt: number;
 }
 
-const outputDir = path.join(process.cwd(), "out");
+/**
+ * Static export directory to audit. Defaults to the Next.js output (`out/`);
+ * the Vite / React Router pipeline passes `build/client`:
+ *
+ *   tsx scripts/verify-seo.ts build/client
+ */
+const outputArg = process.argv[2] ?? "out";
+const outputDir = path.isAbsolute(outputArg)
+  ? outputArg
+  : path.join(process.cwd(), outputArg);
+const outputLabel = path.relative(process.cwd(), outputDir) || ".";
 const errors: string[] = [];
 
 function collectHtmlFiles(dir: string): string[] {
@@ -47,7 +57,9 @@ function findDuplicates(pages: ExportedPage[], key: "title" | "description" | "c
 function verifySeoExport(): void {
   const htmlFiles = collectHtmlFiles(outputDir);
   if (htmlFiles.length === 0) {
-    throw new Error("No exported HTML found in out/. Run `pnpm build` first.");
+    throw new Error(
+      `No exported HTML found in ${outputLabel}/. Run the build first.`
+    );
   }
 
   const pages: ExportedPage[] = htmlFiles.map((file) => {
@@ -90,7 +102,7 @@ function verifySeoExport(): void {
 
   const sitemapPath = path.join(outputDir, "sitemap.xml");
   if (!fs.existsSync(sitemapPath)) {
-    errors.push("out/sitemap.xml is missing");
+    errors.push(`${outputLabel}/sitemap.xml is missing`);
   } else {
     const sitemap = fs.readFileSync(sitemapPath, "utf8");
     const sitemapUrls = new Set(

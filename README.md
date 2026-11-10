@@ -96,8 +96,8 @@
 
 ```bash
 pnpm install            # Install dependencies
-pnpm dev                # Start local development server (http://localhost:3000)
-pnpm build              # Build static export (output to out/)
+pnpm dev:vite           # Start Vite dev server (http://localhost:5173)
+pnpm build:vite         # Static prerender for deployment (output to build/client/)
 pnpm lint               # Run ESLint code quality checks
 pnpm verify-content     # Run content pipeline integrity suite (78 checks)
 pnpm new-post -- <slug> # Scaffold a new post directory
@@ -145,7 +145,7 @@ Centralized settings live in [`src/config/site.ts`](./src/config/site.ts) — ma
 
 Automated builds and deployments are handled by `.github/workflows/deploy.yml`:
 - Set repository secrets in GitHub: `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
-- Pushing to the `main` branch automatically triggers static build and deploys via `wrangler deploy` (Workers Static Assets via `wrangler.jsonc`).
+- Pushing to the `main` branch automatically triggers a Vite/React Router prerender and deploys via `wrangler deploy` (Workers Static Assets via `wrangler.jsonc`, directory `build/client/`).
 
 ### 2. (Optional) UPV Analytics Service & D1 Migrations
 

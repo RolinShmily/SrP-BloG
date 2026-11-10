@@ -4,6 +4,10 @@
 dist/
 .next/
 out/
+
+# React Router (Vite runtime) build output and generated route types
+/build/
+/.react-router/
 *.tsbuildinfo
 
 # ---------------------------------------------------------------------------

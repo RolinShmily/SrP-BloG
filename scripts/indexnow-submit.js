@@ -19,7 +19,9 @@ const CONFIG = {
   host: process.env.INDEXNOW_HOST || host,
   apiUrl: process.env.INDEXNOW_API_URL || indexNowConfig?.apiUrl || 'https://api.indexnow.org/indexnow',
   batchSize: indexNowConfig?.batchSize || 10000,
-  outDir: 'out',
+  // Static export directory containing sitemap.xml. Defaults to the Next.js
+  // output for compatibility; CI passes `SITEMAP_DIR=build/client`.
+  outDir: process.env.SITEMAP_DIR || 'out',
   lastUrlsFile: '.last-urls.json',
 };
 
@@ -66,7 +68,7 @@ async function extractUrlsFromSitemap(sitemapPath) {
 }
 
 /**
- * 查找 out 目录下的 sitemap 文件
+ * 查找静态输出目录下的 sitemap 文件
  */
 async function findSitemap() {
   if (!existsSync(CONFIG.outDir)) {

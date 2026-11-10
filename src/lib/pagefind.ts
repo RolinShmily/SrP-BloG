@@ -48,6 +48,12 @@ let pagefindInstance: PagefindInstance | null = null;
 let pagefindInitPromise: Promise<PagefindInstance | null> | null = null;
 
 /**
+ * Runtime URL of the Pagefind bundle generated into the static output.
+ * Kept in a variable so bundlers leave the dynamic import untouched.
+ */
+const PAGEFIND_URL = "/pagefind/pagefind.js";
+
+/**
  * Initializes and caches the Pagefind singleton from `/pagefind/pagefind.js`.
  */
 export async function getPagefind(): Promise<PagefindInstance | null> {
@@ -57,10 +63,9 @@ export async function getPagefind(): Promise<PagefindInstance | null> {
   if (!pagefindInitPromise) {
     pagefindInitPromise = (async () => {
       try {
-        // Dynamically import from browser root.
-        // `webpackIgnore: true` prevents Next.js bundler from trying to resolve this at build time.
-        // @ts-expect-error - dynamic browser import from public/pagefind
-        const pf = (await import(/* webpackIgnore: true */ "/pagefind/pagefind.js")) as PagefindInstance;
+        // Dynamically import from the browser root; both bundled runtimes must
+        // leave this specifier alone (Next: webpackIgnore, Vite: @vite-ignore).
+        const pf = (await import(/* webpackIgnore: true */ /* @vite-ignore */ PAGEFIND_URL)) as PagefindInstance;
         if (pf && typeof pf.init === "function") {
           await pf.init();
           pagefindInstance = pf;

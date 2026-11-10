@@ -18,7 +18,7 @@ import {
   resolveImagePath,
   stripMarkdown,
 } from "./markdown";
-import { siteConfig } from "@/config/site";
+import { siteConfig } from "../../config/site";
 import { comparePostsByPublishedDate } from "./sort";
 
 /** Frontmatter-derived metadata for a post. */

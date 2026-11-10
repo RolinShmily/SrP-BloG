@@ -64,15 +64,16 @@ jobs:
       - name: Verify content
         run: pnpm run verify-content
 
-      # `pnpm build` runs:
+      # `pnpm build:vite` runs:
       #   1. tsx scripts/sync-post-assets.ts          (content/posts/** -> public/posts/**, no-op after the step above)
       #   2. tsx scripts/generate-og-image.ts         (Satori -> social cards for the site and every post)
       #   3. tsx scripts/generate-third-party-licenses.ts
-      #   4. next build                               (output: 'export' -> out/)
-      #   5. tsx scripts/build-pagefind.ts            (Rust-powered full-text search indexing -> out/pagefind)
-      #   6. tsx scripts/verify-seo.ts
+      #   4. react-router build                       (prerender -> build/client/)
+      #   5. tsx scripts/build-pagefind.ts build/client (Rust-powered full-text search indexing)
+      #   6. tsx scripts/finalize-vite-build.ts       (404.html for Cloudflare, drop SPA fallback)
+      #   7. tsx scripts/verify-seo.ts build/client
       - name: Build static export
-        run: pnpm build
+        run: pnpm build:vite
 
       - name: Deploy to Cloudflare Workers
         env:
