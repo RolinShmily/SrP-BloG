@@ -1,12 +1,13 @@
 <h1 align="center">SrP-BloG</h1>
 
-<h4 align="center">基于 Next.js 15 构建、纯静态导出的现代化个人技术博客</h4>
+<h4 align="center">基于 Vite 与 React Router 构建、全站预渲染的现代化个人技术博客</h4>
 
 <div align="center">
 
 [![stars](https://img.shields.io/github/stars/RolinShmily/SrP-BloG.svg?style=flat&color=green)](https://github.com/RolinShmily/SrP-BloG)
 ![license](https://img.shields.io/github/license/RolinShmily/SrP-BloG)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat&logo=vite&logoColor=white)](https://vite.dev/)
+[![React Router](https://img.shields.io/badge/React_Router-7-CA4245?style=flat&logo=reactrouter&logoColor=white)](https://reactrouter.com/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat&logo=cloudflare)](https://workers.cloudflare.com/)
 
 <br>
@@ -57,11 +58,12 @@
 
 ## 🌟 特性
 
-- **纯静态导出**：基于 Next.js 15 App Router (`output: 'export'`)，全站预渲染为 HTML，极速加载，零服务端运行时。
+- **纯静态预渲染**：基于 Vite + React Router（框架模式，`ssr: false`），全站路由预渲染为 HTML，极速加载，零服务端运行时。
 - **单源 Markdown**：`content/posts/<slug>/index.md`，一文一目录，图片等资源同目录就近存放并自动同步。
 - **可视化内容管理 (Sveltia CMS)**：集成原生 Git 存储的无头 CMS，位于 `/admin` (`public/admin/`)，支持文章、友链与赞助的可视化编辑，由独立的静态文件配置驱动。
 - **现代化互动评论 (Waline)**：文章详情页与友链页面无缝嵌入 Waline 评论区，支持微博/Bilibili 表情包、Markdown 语法与深浅双色自适应主题定制，支持 `siteConfig.comment.enabled` 一键启闭。
 - **现代化设计**：基于 shadcn Zinc 风格，内置卡片光标微光（Card Spotlight）、冬梅背景画布 (`ArtPlum`)、平滑转场与自适应暗色模式。
+- **自托管字体**：Inter、Noto Sans SC、JetBrains Mono 与 Instrument Serif 在构建时下载并由本站源站提供，按 unicode-range 切片加载，运行时不再依赖 Google Fonts。
 - **轻量双语**：UI 界面支持中英即时切换，无额外路由前缀与重复构建开销。
 - **全方位 SEO 与统计**：原生集成 Google Analytics 4 (GA4)、Google Search Console 与 Bing Webmaster 的 Meta 标签鉴权，集成 IndexNow 增量实时推送到搜索引擎。
 - **隐私统计 (UPV)**：可选基于 Cloudflare Workers + D1 的独立统计服务，加盐哈希去重，不存明文 IP，未配置时静默降级。
@@ -76,11 +78,11 @@
 ```
 ├── content/              # 内容源：posts/ (文章)、friends/ (友链)、sponsors/ (赞助)
 ├── docs/previews/        # README 中使用的前端预览截图
-├── public/               # 静态资源与自动生成的封面、搜索索引、第三方声明
+├── public/               # 静态资源与自动生成的封面、字体、搜索索引、第三方声明
 ├── scripts/              # 辅助脚本 (资源同步、搜索索引、第三方声明、内容校验等)
 ├── services/cms/         # Sveltia CMS 的独立 GitHub OAuth 认证服务 (Cloudflare Workers)
 ├── services/upv/         # 可选的独立 PV/UV 统计服务 (Cloudflare Workers + D1)
-├── src/                  # 核心源码 (app, components, config, i18n, lib)
+├── src/                  # 核心源码 (router, components, config, i18n, lib)
 ├── CODE_OF_CONDUCT.md    # 行为准则 (Contributor Covenant 2.1)
 ├── CONTRIBUTING.md       # 贡献指南 (友链、勘误、代码、提交前检查)
 ├── SECURITY.md           # 安全政策与漏洞报告渠道
@@ -96,12 +98,16 @@
 
 ```bash
 pnpm install            # 安装依赖
-pnpm dev:vite           # 启动 Vite 开发服务 (http://localhost:5173)
-pnpm build:vite         # 静态预渲染构建 (产物位于 build/client/)
+pnpm dev                # 启动 Vite 开发服务 (http://localhost:5173)
+pnpm build              # 静态预渲染构建 (产物位于 build/client/)
+pnpm typecheck          # 生成路由类型并运行 tsc --noEmit
 pnpm lint               # 代码规范检查
-pnpm verify-content     # 内容管线完整性校验 (78 项检测)
+pnpm verify-content     # 内容管线完整性校验 (85 项检测)
+pnpm fonts              # 刷新自托管字体缓存（dev/build 会自动执行）
 pnpm new-post -- <slug> # 创建新文章模板目录
 ```
+
+> 首次 `pnpm dev` / `pnpm build` 会把自托管字体（约 5 MB）下载到 `public/fonts/`（已 gitignore），后续构建直接复用；需要强制刷新时运行 `pnpm fonts -- --force`。
 
 ---
 
@@ -115,7 +121,7 @@ title: 文章标题
 published: 2026-01-01
 description: 文章简介（用于摘要、搜索与 SEO）
 image: ./cover.png       # 可选：同目录下图片相对路径
-tags: [Next.js, Web]    # 可选：标签
+tags: [Vite, Web]        # 可选：标签
 draft: false            # 为 true 时不发布
 pinned: false           # 为 true 时在首页置顶
 ---

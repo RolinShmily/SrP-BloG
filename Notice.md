@@ -24,10 +24,13 @@ licensed under the MIT License, and the MIT License grants no rights in them:
    purposes only.
 
 2. Web fonts / Web 字体
-   The self-hosted font files under `out/_next/static/media/` — Inter,
-   JetBrains Mono, Noto Sans SC, Instrument Serif and the KaTeX fonts — are
-   licensed under the SIL Open Font License 1.1 (see `licenses/OFL-1.1.txt`).
-   The MIT License does not apply to these font binaries.
+   The self-hosted font files generated under `public/fonts/` — Inter,
+   JetBrains Mono, Noto Sans SC and Instrument Serif — and the KaTeX fonts
+   bundled from `katex/dist` are licensed under the SIL Open Font License 1.1
+   (see `licenses/OFL-1.1.txt`). `scripts/fetch-fonts.ts` downloads the four
+   text families from Google Fonts at build time; the resulting files are
+   served from this site's origin. The MIT License does not apply to these
+   font binaries.
 
 3. Third-party software / 第三方软件
    Every third-party component distributed with this project is licensed by its
@@ -36,7 +39,7 @@ licensed under the MIT License, and the MIT License grants no rights in them:
    texts — is generated at build time into `public/third-party-licenses.txt`
    (served as `/third-party-licenses.txt`); the verbatim texts are kept in
    `licenses/`. This includes embedded search engine runtimes and WebAssembly
-   binaries (such as Pagefind in `out/pagefind/`, licensed under MIT), as well as
+   binaries (such as Pagefind in `build/client/pagefind/`, licensed under MIT), as well as
    social card generation powered by Vercel Satori (licensed under Mozilla
    Public License 2.0, see `licenses/MPL-2.0.txt`). Where a third-party work is
    included in this repository or in the built site, that work's own license

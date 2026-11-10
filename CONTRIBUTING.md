@@ -24,17 +24,20 @@
 
 ```bash
 pnpm install --ignore-scripts   # 一律不执行依赖生命周期脚本（供应链卫生）
-pnpm dev:vite                   # http://localhost:5173
+pnpm dev                        # http://localhost:5173
 ```
 
-`pnpm dev:vite` 会自动完成文章资源同步、OG 卡片生成与第三方许可声明生成，无需手动执行。
+`pnpm dev` 会自动完成字体下载、文章资源同步、OG 卡片生成与第三方许可声明生成，无需手动执行。
+
+首次启动会把自托管字体（约 5 MB）下载到 `public/fonts/`（已 gitignore），之后直接复用；需要强制刷新时运行 `pnpm fonts -- --force`。
 
 ## 提交前必须通过
 
 ```bash
-pnpm lint            # ESLint (next/core-web-vitals)
-pnpm verify-content  # 内容管线完整性校验（78 项）
-pnpm build:vite      # 静态预渲染；改动构建链、配置或依赖时必跑
+pnpm lint            # ESLint (TypeScript + react-hooks)
+pnpm typecheck       # react-router typegen + tsc --noEmit
+pnpm verify-content  # 内容管线完整性校验（85 项）
+pnpm build           # 静态预渲染；改动构建链、配置或依赖时必跑
 ```
 
 CI 执行同样这几步，本地过了基本就能过。

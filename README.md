@@ -1,12 +1,13 @@
 <h1 align="center">SrP-BloG</h1>
 
-<h4 align="center">A modern personal tech blog built with Next.js 15 and exported as a fully static site</h4>
+<h4 align="center">A modern personal tech blog built with Vite and React Router, prerendered as a fully static site</h4>
 
 <div align="center">
 
 [![stars](https://img.shields.io/github/stars/RolinShmily/SrP-BloG.svg?style=flat&color=green)](https://github.com/RolinShmily/SrP-BloG)
 ![license](https://img.shields.io/github/license/RolinShmily/SrP-BloG)
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat&logo=next.js)](https://nextjs.org/)
+[![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=flat&logo=vite&logoColor=white)](https://vite.dev/)
+[![React Router](https://img.shields.io/badge/React_Router-7-CA4245?style=flat&logo=reactrouter&logoColor=white)](https://reactrouter.com/)
 [![Cloudflare](https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat&logo=cloudflare)](https://workers.cloudflare.com/)
 
 <br>
@@ -57,11 +58,12 @@
 
 ## 🌟 Features
 
-- **Pure Static Export**: Built on Next.js 15 App Router (`output: 'export'`), pre-rendered into static HTML for instant loading and zero server runtime.
+- **Pure Static Pre-render**: Vite + React Router (framework mode, `ssr: false`) prerender every route to static HTML for instant loading and zero server runtime.
 - **Single-Source Markdown**: `content/posts/<slug>/index.md` — one directory per post with co-located media assets, automatically synchronized during build.
 - **Visual Headless CMS (Sveltia CMS)**: Integrated Git-based CMS at `/admin` (`public/admin/`) for editing posts, friend links, and sponsors. Self-contained and easily configured via standard static files.
 - **Modern Comments (Waline)**: Embedded comment area with Emoji support, Markdown editing, and theme adaptation across article detail pages and the friends page. Toggled via `siteConfig.comment.enabled`.
 - **Modern Aesthetics**: Editorial shadcn Zinc styling, cursor-tracking spotlight card glow (`Card Spotlight`), procedural winter plum canvas art (`ArtPlum`), smooth page transitions, and adaptive dark mode.
+- **Self-Hosted Typography**: Inter, Noto Sans SC, JetBrains Mono and Instrument Serif are fetched once at build time and served from the site's origin as unicode-range WOFF2 slices — no runtime Google Fonts dependency.
 - **Lightweight Bilingual UI**: Instant Chinese/English UI switching on the client side without route duplication or extra build overhead.
 - **Comprehensive SEO & Analytics**: Integrated Google Analytics 4 (GA4), Search Console & Bing Webmaster HTML meta verification, and automated real-time IndexNow instant indexing.
 - **Privacy-Focused Analytics (UPV)**: Optional standalone Cloudflare Workers + D1 counting service with salted daily hashing and zero IP storage; degrades silently when unconfigured.
@@ -76,11 +78,11 @@
 ```
 ├── content/              # Content source: posts/, friends/, sponsors/
 ├── docs/previews/        # Frontend screenshots used in the READMEs
-├── public/               # Static assets & generated covers, search index, third-party notices
+├── public/               # Static assets & generated covers, fonts, search index, third-party notices
 ├── scripts/              # Utility scripts (asset sync, search index, third-party notices, content verification)
 ├── services/cms/         # Standalone Sveltia CMS GitHub OAuth service (Cloudflare Workers)
 ├── services/upv/         # Optional standalone PV/UV service (Cloudflare Workers + D1)
-├── src/                  # Application source code (app, components, config, i18n, lib)
+├── src/                  # Application source (router, components, config, i18n, lib)
 ├── CODE_OF_CONDUCT.md    # Code of conduct (Contributor Covenant 2.1)
 ├── CONTRIBUTING.md       # Contribution guide (friend links, corrections, code, pre-submit checks)
 ├── SECURITY.md           # Security policy and vulnerability reporting
@@ -96,12 +98,16 @@
 
 ```bash
 pnpm install            # Install dependencies
-pnpm dev:vite           # Start Vite dev server (http://localhost:5173)
-pnpm build:vite         # Static prerender for deployment (output to build/client/)
+pnpm dev                # Start the Vite dev server (http://localhost:5173)
+pnpm build              # Static prerender for deployment (output to build/client/)
+pnpm typecheck          # Generate route types and run tsc --noEmit
 pnpm lint               # Run ESLint code quality checks
-pnpm verify-content     # Run content pipeline integrity suite (78 checks)
+pnpm verify-content     # Run content pipeline integrity suite (85 checks)
+pnpm fonts              # Refresh the self-hosted font cache (done automatically on dev/build)
 pnpm new-post -- <slug> # Scaffold a new post directory
 ```
+
+> The first `pnpm dev` / `pnpm build` downloads the self-hosted font files (~5 MB) into `public/fonts/` (gitignored); later runs reuse them. Run `pnpm fonts -- --force` to refresh the cache.
 
 ---
 
@@ -115,7 +121,7 @@ title: Post Title
 published: 2026-01-01
 description: A short summary for listings, search, and SEO.
 image: ./cover.png       # Optional: relative path to a co-located image
-tags: [Next.js, Web]    # Optional: tags for filtering
+tags: [Vite, Web]        # Optional: tags for filtering
 draft: false            # Set to true to exclude from builds
 pinned: false           # Set to true to pin on the homepage
 ---
