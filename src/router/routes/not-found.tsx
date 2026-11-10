@@ -4,7 +4,7 @@ import { pageMeta } from "../seo";
 import { siteConfig } from "@/config/site";
 
 /**
- * Prerendered at `/404`. `scripts/copy-vite-404.ts` copies the emitted
+ * Prerendered at `/404`. `scripts/finalize-vite-build.ts` copies the emitted
  * `404/index.html` to `404.html`, which is what Cloudflare's
  * `not_found_handling: "404-page"` serves for unknown URLs.
  */
