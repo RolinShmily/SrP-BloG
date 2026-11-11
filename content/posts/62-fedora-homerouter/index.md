@@ -21,15 +21,15 @@ draft: false
 
 # 接口组件清单
 
-| 接口 / 组件    | 职责                          |
-| -------------- | ----------------------------- |
-| `wlo1`         | WAN，上游 Wi-Fi               |
-| `enp1s0`       | LAN 物理接口1                 |
-| `enp3s0`       | LAN 物理接口2                 |
-| `br-lan`       | LAN 网桥，网关 `192.168.22.1` |
-| NetworkManager | 网络连接和网桥管理            |
-| firewalld      | 防火墙、转发和 NAT            |
-| dnsmasq        | DHCP、DNS                     |
+| 接口 / 组件 | 职责 |
+| --- | --- |
+| `wlo1` | WAN，上游 Wi-Fi |
+| `enp1s0` | LAN 物理接口1 |
+| `enp3s0` | LAN 物理接口2 |
+| `br-lan` | LAN 网桥，网关 `192.168.22.1` |
+| NetworkManager | 网络连接和网桥管理 |
+| firewalld | 防火墙、转发和 NAT |
+| dnsmasq | DHCP、DNS |
 
 Fedora-Workstation会预装NetworkManager和Firewalld，一般进入系统后就可以直接用无线网卡联网了，这是非常友好的一点，因此不再需要像上一篇文章那样用命令行来连接初始网络：[在Debian13中用命令行连接网络并配置路由功能](https://blog.srprolin.com/posts/57-debian-network/)
 
@@ -87,6 +87,11 @@ dhcp-option=6,192.168.22.1
 server=223.5.5.5
 server=119.29.29.29
 cache-size=1500
+
+# 开机自启动
+sudo systemctl enable --now dnsmasq
+# 重启服务
+sudo systemctl restart dnsmasq
 ```
 
 ## 静态IP地址
@@ -111,17 +116,17 @@ dhcp-host=00:e0:4c:68:01:23,192.168.22.2,Router,infinite
 
 私以为zone其实就是ufw的默认组策略，只不过ufw只能设置一个默认组，而firewalld可以给不同的网卡分配不同的zone，也就是一些基础的组策略。
 
-| Zone       | 信任级别 | 默认策略与适用场景                                |
-| ---------- | -------- | ------------------------------------------------- |
-| `drop`     | 极低     | 丢弃所有传入数据包，不返回拒绝响应                |
-| `block`    | 极低     | 拒绝所有传入连接，并返回拒绝响应                  |
-| `public`   | 低       | 不信任其他网络，仅允许明确放行的入站服务          |
-| `external` | 低       | 外部网络，通常用于网关外网接口，常配合 masquerade |
-| `dmz`      | 较低     | DMZ 隔离区，允许有限的外部访问                    |
-| `work`     | 中等     | 工作网络，默认信任程度较低                        |
-| `home`     | 较高     | 家庭网络，允许相对更多的服务                      |
-| `internal` | 较高     | 内部网络，通常用于内网接口                        |
-| `trusted`  | 最高     | 信任所有网络流量，默认允许所有连接                |
+| Zone | 信任级别 | 默认策略与适用场景 |
+| --- | --- | --- |
+| `drop` | 极低 | 丢弃所有传入数据包，不返回拒绝响应 |
+| `block` | 极低 | 拒绝所有传入连接，并返回拒绝响应 |
+| `public` | 低 | 不信任其他网络，仅允许明确放行的入站服务 |
+| `external` | 低 | 外部网络，通常用于网关外网接口，常配合 masquerade |
+| `dmz` | 较低 | DMZ 隔离区，允许有限的外部访问 |
+| `work` | 中等 | 工作网络，默认信任程度较低 |
+| `home` | 较高 | 家庭网络，允许相对更多的服务 |
+| `internal` | 较高 | 内部网络，通常用于内网接口 |
+| `trusted` | 最高 | 信任所有网络流量，默认允许所有连接 |
 
 因此WAN网卡wlo1就被默认分配到external，而br-lan我们可以分配到internal：
 
@@ -175,11 +180,11 @@ Fedora默认是启用这么一个兜底的安全策略方式的，它相比于�
 
 这就造成我们正常使用桌面环境的情况下，SELinux在宽容模式下会更友好：
 
-| 模式       | 行为                            |
-| ---------- | ------------------------------- |
-| Enforcing  | 执行安全策略，拒绝违规操作      |
+| 模式 | 行为 |
+| --- | --- |
+| Enforcing | 执行安全策略，拒绝违规操作 |
 | Permissive | 不阻止违规操作，但记录 AVC 日志 |
-| Disabled   | 完全关闭 SELinux                |
+| Disabled | 完全关闭 SELinux |
 
 ```zsh
 # 获取模式
