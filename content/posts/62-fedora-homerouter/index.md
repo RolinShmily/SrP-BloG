@@ -2,7 +2,7 @@
 title: Fedora-Workstation家庭路由服务器全解 | Firewalld | SELinux
 published: 2026-11-11
 updated: 2026-11-11
-pinned: false
+pinned: true
 description: 继上次使用命令行给Debian苦哈哈地实现路由功能后，我又发现一个好用的Linux发行版——Fedora，默认带Gnome图形化界面，给操作上带来了很大便捷，但一些默认组件的改动也是值得注意的，比如firewalld、默认开启的SELinux，随后便是各种家庭服务器场景了，ssh、smb、frp等等。
 image: ''
 tags:
@@ -322,4 +322,3 @@ sudo headscale nodes approve-routes --identifier 1 --routes 192.168.22.0/24
 # Frp内网穿透
 
 关于frpc和frps的安装部署可以看这篇：[Frp 内网穿透搭建教程：VPS 服务端与客户端配置]（https://blog.srprolin.com/posts/13-frp-1/） 此处不再赘述。
-
