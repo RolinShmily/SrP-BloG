@@ -100,7 +100,7 @@ sudo systemctl restart dnsmasq
 
 ```zsh
 # 查看当前租约表，找到路由器的MAC地址
-cat /var/lib/misc/dnsmasq.leases
+cat /var/lib/dnsmasq/dnsmasq.leases
 # 1718900000 00:e0:4c:68:01:23 192.168.22.105 XiaoQiang 01:00:e0:4c:68:01:23
 # 这里的 00:e0:4c:68:01:23 就是MAC地址
  
