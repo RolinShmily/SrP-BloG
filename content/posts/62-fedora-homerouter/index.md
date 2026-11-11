@@ -132,8 +132,8 @@ dhcp-host=00:e0:4c:68:01:23,192.168.22.2,Router,infinite
 
 ```zsh
 # 使用cli给网卡添加zone
-sudo firewalld-cmd --permanent --zone=external --changeinterface=wlo1
-sudo firewalld-cmd --permanent --zone=internal --changeinterface=br-lan
+sudo firewall-cmd --permanent --zone=external --add-interface=wlo1
+sudo firewall-cmd --permanent --zone=internal --add-interface=br-lan
 ```
 
 然后是开启内核IPv4转发：
@@ -147,13 +147,13 @@ sudo sysctl --system
 开启网络地址转换NAT：
 
 ```zsh
-sudo firewalld-cmd --permanent --zone=external --add-masquerade
+sudo firewall-cmd --permanent --zone=external --add-masquerade
 ```
 
 下一步需要创建policy，允许流量的跨域转发，也即LAN-to-WAN：
 
 ```zsh
-sudo firewalld-cmd --permanent --new-policy=lan-to-wan
+sudo firewall-cmd --permanent --new-policy=lan-to-wan
 sudo firewall-cmd --permanent --policy=lan-to-wan --add-ingress-zone=internal
 sudo firewall-cmd --permanent --policy=lan-to-wan --add-egress-zone=external
 sudo firewall-cmd --permanent --policy=lan-to-wan --set-target=ACCEPT
