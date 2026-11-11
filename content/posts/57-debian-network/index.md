@@ -1,15 +1,14 @@
 ---
-title: 在Debian13、Fedora45中用命令行连接网络并配置路由功能
+title: 在Debian13中用命令行连接网络并配置路由功能
 published: 2026-10-21
-updated: 2026-11-08
+updated: 2026-11-11
 pinned: false
-description: 由于OpenWrt的功能过于丰富，我发现其实我并不需要，因此选择以Debian13作为单系统来承载路由转发，通过network-manager、dnsmasq、nftables（firewalld）搭建一套基于wifi-WAN口，双物理网口bridge-lan的路由系统。
+description: 由于OpenWrt的功能过于丰富，我发现其实我并不需要，因此选择以Debian13作为单系统来承载路由转发，通过network-manager、dnsmasq、ufw(nftables)搭建一套基于wifi-WAN口，双物理网口bridge-lan的路由系统。
 image: ''
 tags:
   - Network
   - Debian
   - Linux
-  - Fedora
 draft: false
 ---
 
@@ -57,11 +56,7 @@ ip -br link
 
 # 准备安装软件包
 apt update
-apt install -y network-manager wpasupplicant dnsmasq nftables firmware-iwlwifi rfkill curl git
-```
-## Fedora安装包
-```zsh
-sudo dnf install -y NetworkManager-wifi wpa_supplicant dnsmasq rfkill curl git
+apt install -y network-manager wpasupplicant dnsmasq nftables ufw firmware-iwlwifi rfkill curl git
 ```
 
 # WAN端连接wifi网络
@@ -160,13 +155,74 @@ sudo nano /etc/dnsmasq.conf
 dhcp-host=00:e0:4c:68:01:23,192.168.22.2,Router,infinite
 ```
 
-# 防火墙与NAT转换、IP转发(精简nftables)
+# 防火墙与NAT转换、IP转发
 
 ```zsh
 # 开启内核IP转发
 echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/99-router.conf
 sysctl --system
+```
 
+## UFW方式
+```zsh
+# ufw配置
+# 默认拒绝中转、外部访问
+ufw default deny incoming
+ufw default allow outgoing
+ufw default deny routed
+
+# 开放br-lan网卡的访问与中转
+ufw allow in on br-lan
+ufw route allow in on br-lan out on wlo1
+```
+```zsh
+# 修改前置规则
+nano /etc/ufw/before.rules
+
+# 在*filter之前添加如下字段，详见下方的文件内容演示
+# NAT configuration
+*nat
+:POSTROUTING ACCEPT [0:0]
+# LAN to WAN masquerade
+-A POSTROUTING -s 192.168.22.0/24 -o wlo1 -j MASQUERADE
+COMMIT
+
+# 随后启动防火墙ufw即可
+ufw enable
+systemctl enable ufw
+ufw reload
+ufw status verbose
+```
+```zsh
+    #
+    # rules.before
+    #
+    # Rules that should be run before the ufw command line added rules. Custom
+    # rules should be added to one of these chains:
+    #   ufw-before-input
+    #   ufw-before-output
+    #   ufw-before-forward
+    #
+
+++ # NAT configuration
+++ *nat
+++ :POSTROUTING ACCEPT [0:0]
+++ # LAN to WAN masquerade
+++ -A POSTROUTING -s 192.168.22.0/24 -o wlo1 -j MASQUERADE
+++ COMMIT
+
+    # Don't delete these required lines, otherwise there will be errors
+    *filter
+    :ufw-before-input - [0:0]
+    :ufw-before-output - [0:0]
+    :ufw-before-forward - [0:0]
+    :ufw-not-local - [0:0]
+    # End required lines
+...
+```
+
+## （备选）精简nftables配置
+```zsh
 # 备份原始设置
 mv /etc/nftables.conf /etc/nftables.conf.bak 2>/dev/null
 # 写入精简版配置
@@ -206,26 +262,6 @@ systemctl restart nftables
 
 随后可以用PC打开校园网认证页面，进行账密传输，完成认证。
 
-## Fedora原生firewalld配置
-```zsh
-# 开启内核IP转发
-echo "net.ipv4.ip_forward = 1" > /etc/sysctl.d/99-router.conf
-sudo sysctl --system
-
-# 配置zone
-sudo firewall-cmd --permanent --zone=external --change-interface=wlo1
-sudo firewall-cmd --permanent --zone=trusted --change-interface=br-lan
-
-# 开启WAN NAT
-sudo firewall-cmd --permanent --zone=external --add-masquerade
-
-# 允许DNS与LAN DHCP
-sudo firewall-cmd --permanent --zone=trusted --add-service=dhcp
-sudo firewall-cmd --permanent --zone=trusted --add-service=dns
-
-# 应用配置
-sudo firewall-cmd --reload
-```
 # Debian本机DNS
 
 ```zsh
