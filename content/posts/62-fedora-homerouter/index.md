@@ -1,5 +1,5 @@
 ---
-title: Fedora-Workstation家庭路由服务器全解 | Firewalld | SELinux
+title: Fedora-Workstation家庭路由服务器全解 | Firewalld | SELinux | Cockpit
 published: 2026-11-11
 updated: 2026-11-11
 pinned: true
@@ -16,6 +16,7 @@ tags:
   - Frp
   - Cloudflared
   - SELinux
+  - Cockpit
 draft: false
 ---
 
@@ -159,7 +160,7 @@ sudo firewall-cmd --permanent --policy=lan-to-wan --add-egress-zone=external
 sudo firewall-cmd --permanent --policy=lan-to-wan --set-target=ACCEPT
 ```
 
-然后我们还需要将dhcp与dns服务进程（由dnsmasq提供）加入白名单：
+然后我们还需要将dhcp与dns网络服务（此为firewalld服务，而非systemd进程）加入白名单：
 
 ```zsh
 sudo firewall-cmd --permanent --zone=internal --add-service=dhcp
@@ -170,6 +171,23 @@ sudo firewall-cmd --permanent --zone=internal --add-service=dns
 
 ```zsh
 sudo firewall-cmd --reload
+```
+
+# Cockpit
+
+- [Cockpit is a web-based graphical interface for servers\]([https://cockpit-project.org/running.html](https://cockpit-project.org/running.html))
+
+简单来说cockpit是fedora官方维护的用于管理nmcli和firewalld的web面板，安装之后就可以通过webui来操作nmcli以及firewalld了：
+
+```zsh
+# install
+sudo dnf install cockpit
+
+# enable
+sudo systemctl enable --now cockpit.socket
+
+# open firewall
+sudo firewall-cmd --permanent --zone=internal --add-service=cockpit
 ```
 
 # SELinux
@@ -198,6 +216,9 @@ sudo setenforce 1
 sudo nano /etc/selinux/config
 # 内容如下
 SELINUX=permissive
+
+# 随后需要重启Fedora以生效
+sudo reboot
 ```
 
 # SSH
@@ -327,3 +348,26 @@ sudo headscale nodes approve-routes --identifier 1 --routes 192.168.22.0/24
 # Frp内网穿透
 
 关于frpc和frps的安装部署可以看这篇：[Frp 内网穿透搭建教程：VPS 服务端与客户端配置]（https://blog.srprolin.com/posts/13-frp-1/） 此处不再赘述。
+
+这里由于Frp是自建类型的服务（包括自建systemd），firewalld默认是没有frpc.xml来定义网络服务的，需要自行创建：
+
+```zsh
+# 创建frpc.xml
+sudo nano /etc/firewalld/services/frpc.xml
+# 内容如下，也就是放行7400/tcp端口
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>FRP Client</short>
+  <description>FRP Client Web Dashboard</description>
+  <port protocol="tcp" port="7400"/>
+</service>
+# 保存应用
+sudo firewall-cmd --reload
+# 随后加入internal
+sudo firewall-cmd --permanent --zone=internal --add-service=frpc
+sudo firewall-cmd --reload
+
+# 当然如果是临时测试环境，完全可以只开通端口（这里不用permanent参数是临时开放）
+sudo firewall-cmd --zone=internal --add-port=7400/tcp
+sudo firewall-cmd --reload
+```
