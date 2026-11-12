@@ -34,7 +34,7 @@ nano docker-compose.yml
 ```yaml
 services:
   waline:
-    image: lizheming/waline:latest
+    image: lizheming/waline:1.43.6
     container_name: waline
     restart: unless-stopped
     ports:
