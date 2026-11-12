@@ -26,7 +26,7 @@ headscale就相当于一个自建的 tailscale面板，并内置了一个derp节
 
 需要预先在VPS防火墙中开放41641/udp（wireguard直连端口（tailscale底层））以及3478/udp。
 
-## headscale安装配置
+## headscale服务端安装
 
 首先到headscale官方仓库release：https://github.com/juanfont/headscale/releases/latest
 
@@ -144,7 +144,7 @@ sudo headscale users list
 sudo headscale preauthkeys create --user 1 --reusable --expiration 24h
 ```
 
-## tailscale设备端接入
+## tailscale客户端接入
 
 通过tailscale官网，下载各个OS的客户端，然后使用命令登录：
 
@@ -158,7 +158,50 @@ sudo tailscale up --login-server=https://hs.example.com --authkey=<密钥>
 sudo headscale auth register --auth-id <id> --user home 
 ```
 
-## headscale+tailscale基础命令
+# SubRouter功能
+简单来说这是为软路由设备提供的很方便的子网互通，你可以使用tailscale网络访问某一个node路由下的子网设备，具体可以看这篇：[Fedora-Workstation家庭路由服务器全解 | Firewalld | SELinux | Cockpit](https://blog.srprolin.com/posts/62-fedora-homerouter#tailscale)
+
+```zsh
+# 在路由设备上框定子网网段
+sudo tailscale set --advertise-routes=192.168.22.0/24
+
+# 在Headscale中批准
+# 列出路由转发清单
+sudo headscale nodes list-routes
+# 批准ID为1的转发请求
+sudo headscale nodes approve-routes --identifier 1 --routes 192.168.22.0/24
+```
+
+# ExitNode功能
+tailscale支持为某一个node选择在同一zone下的另一node作为网络流量出口，但需要exit-node配置相应的条件：
+```zsh
+# 以Debian为例，作为exit-node机器
+# 开启内核IP转发
+echo "net.ipv4.ip_forward = 1" | sudo tee /etc/sysctl.d/99-tailscale.conf 
+# 应用配置
+sudo sysctl --system
+# 设置为exit-node出口节点
+sudo tailscale set --advertise-exit-node
+# 检查出口网卡设备，入口自然是tailscale0
+ip route get 1.1.1.1
+# 如下例子，其中出口网卡就是ens3
+1.1.1.1 via 192.0.2.1 dev ens3 src 192.0.2.10
+# 开通防火墙
+sudo ufw route allow in on tailscale0 out on ens3
+# 检查
+sudo ufw status numbered
+
+# Headscale管理，批准路由(假设ID为2)
+sudo headscale nodes list-routes
+sudo headscale nodes approve-routes --identifier 2 --routes 0.0.0.0/0
+
+# tailscale客户端默认出口节点
+sudo tailscale set --exit-node=
+# 设置为debian设备出口（选择其IP即可），这里同时保持局域网的访问
+sudo tailscale set --exit-node=100.x.x.x --exit-node-allow-lan-access=true
+```
+
+# headscale+tailscale基础命令
 
 ```zsh
 # 查看当前headscale下的节点
