@@ -1,5 +1,5 @@
 ---
-title: Fedora-Workstation家庭路由服务器全解 | Firewalld | SELinux | Cockpit
+title: Fedora-Workstation家庭路由服务器全解 | Firewalld | SELinux | Cockpit | Pi-Hole
 published: 2026-11-11
 updated: 2026-11-11
 pinned: true
@@ -17,6 +17,7 @@ tags:
   - Cloudflared
   - SELinux
   - Cockpit
+  - Pi-Hole
 draft: false
 ---
 
@@ -195,15 +196,19 @@ sudo firewall-cmd --permanent --zone=internal --add-service=cockpit
 
 这是一个提供DNS/DHCP服务的WebUI面板，可以替代dnsmasq的功能：
 ```zsh
+# 备份dnsmasq配置（如果有的话）
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak2
+
 # 安装pi-hole
 curl -sSL https://install.pi-hole.net | bash
+# 安装过程中需要选择interface为“br-lan”
 # 设置面板密码
 sudo pihole setpassword
 
-# 备份dnsmasq配置
-sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak2
 # 关闭dnsmasq（如果有的话）
 sudo systemctl disable --now dnsmasq
+# 重启pi-hole-ftl
+sudo systemctl restart pihole-FTL
 
 # 放行防火墙的dns、dhcp、http
 sudo firewall-cmd --permanent --zone=internal --add-service=dns
@@ -211,6 +216,7 @@ sudo firewall-cmd --permanent --zone=internal --add-service=dhcp
 sudo firewall-cmd --permanent --zone=internal --add-service=http
 sudo firewall-cmd --reload
 ```
+随后进入`http://192.168.22.1/admin`进入面板，访问`setting->dhcp`然后填写上文dnsmasq配置文件的内容，最后应用即可。
 # SELinux
 
 Fedora默认是启用这么一个兜底的安全策略方式的，它相比于过去chmod赋予文件、用户(组)权限的方式，解决了进程被攻破接管后，利用进程身份进行破坏的安全漏洞。
