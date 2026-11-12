@@ -71,7 +71,7 @@ nmcli connection up br-lan-port2
 在此之后两个网口就都被确认成LAN口了，而nmcli看到的只是聚合后的虚拟网桥br-lan，方便管理。
 
 # DNSmasq进行dhcp与dns配置
-
+> 如果需要webui面板可以看后面的pi-hole，而不用安装dnsmasq
 ```zsh
 # 将默认配置备份
 sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak
@@ -175,7 +175,7 @@ sudo firewall-cmd --reload
 
 # Cockpit
 
-- [Cockpit is a web-based graphical interface for servers\]([https://cockpit-project.org/running.html](https://cockpit-project.org/running.html))
+- [Cockpit is a web-based graphical interface for servers](https://cockpit-project.org/running.html)
 
 简单来说cockpit是fedora官方维护的用于管理nmcli和firewalld的web面板，安装之后就可以通过webui来操作nmcli以及firewalld了：
 
@@ -190,6 +190,27 @@ sudo systemctl enable --now cockpit.socket
 sudo firewall-cmd --permanent --zone=internal --add-service=cockpit
 ```
 
+# Pi-Hole
+- [Pi-Hole——Network-wide Ad Blocking](https://pi-hole.net/)
+
+这是一个提供DNS/DHCP服务的WebUI面板，可以替代dnsmasq的功能：
+```zsh
+# 安装pi-hole
+curl -sSL https://install.pi-hole.net | bash
+# 设置面板密码
+sudo pihole setpassword
+
+# 备份dnsmasq配置
+sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.bak2
+# 关闭dnsmasq（如果有的话）
+sudo systemctl disable --now dnsmasq
+
+# 放行防火墙的dns、dhcp、http
+sudo firewall-cmd --permanent --zone=internal --add-service=dns
+sudo firewall-cmd --permanent --zone=internal --add-service=dhcp
+sudo firewall-cmd --permanent --zone=internal --add-service=http
+sudo firewall-cmd --reload
+```
 # SELinux
 
 Fedora默认是启用这么一个兜底的安全策略方式的，它相比于过去chmod赋予文件、用户(组)权限的方式，解决了进程被攻破接管后，利用进程身份进行破坏的安全漏洞。
