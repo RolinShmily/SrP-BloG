@@ -398,3 +398,17 @@ sudo firewall-cmd --reload
 sudo firewall-cmd --zone=internal --add-port=7400/tcp
 sudo firewall-cmd --reload
 ```
+
+# 电源管理、禁用挂起、睡眠、休眠
+由于我们这台Fedora是准备做家庭路由服务器的，一般来说24h持续运行，所以需要在电源管理中关闭所有的自动休眠类选项；
+
+需要区分在未登录界面时所停留的是GDM界面，以及登录Gnome后的桌面环境，是两套不同的电源管理;
+
+但通过systemd直接屏蔽电源服务，可以非常快速屏蔽掉GDM和Gnome的默认定时发起的自动休眠请求：
+```zsh
+# 屏蔽电源管理请求
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+
+# 解除屏蔽
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
