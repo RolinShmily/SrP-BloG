@@ -25,7 +25,7 @@ draft: true
 - XTLS
 - Vless
 - Reality
-- Hysteria 2
+- Hysteria2
 
 # Website
 
@@ -37,7 +37,7 @@ draft: true
 
 > Vless+XTLS-Vision+Reality (+) Hysteria2 (+) Vless+WebSocket+TLS
 >
-> via 443 tcp/udp and 8443 tcp 
+> via 443 tcp, 8443 tcp and 27015 udp.
 >
 > on Debian13 with the kernel of sing-box
 
@@ -62,7 +62,7 @@ sudo apt install ufw
 sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 8443/tcp
-sudo ufw allow 443/udp
+sudo ufw allow 27015/udp
 ```
 
 ```zsh
@@ -157,10 +157,10 @@ sing-box generate uuid
 sing-box generate rand --hex 8
 
 mkdir ~/singbox-server
-curl -fsSLO https://gh-proxy.org/https://raw.githubusercontent.com/RolinShmily/sub-rule/refs/heads/main/.custom/singbox-dual443/server/server_v4only.json
-curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/singbox-dual443/Update-SingboxDual443.py
-vim Update-SingboxDual443.py
-uv run Update-SingboxDual443.py
+curl -fsSLO https://gh-proxy.org/https://raw.githubusercontent.com/RolinShmily/sub-rule/refs/heads/main/.custom/server/server_v4only.json
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/config.py
+vim config.py
+uv run config.py
 sudo cp server_v4only.json /etc/sing-box/config.json
 
 sing-box check -c /etc/sing-box/config.json
@@ -175,10 +175,10 @@ curl -LO https://github.com/MetaCubeX/mihomo/releases/download/v1.19.33/mihomo-l
 sudo apt install ./mihomo-linux-amd64-v3-*.deb
 
 mkdir ~/mihomo-client
-curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/singbox-dual443/client/mihomo-clash-v4only.yaml
-curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/singbox-dual443/Update-SingboxDual443.py
-vim Update-SingboxDual443.py
-uv run Update-SingboxDual443.py
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/client/mihomo-clash-v4only.yaml
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/config.py
+vim config.py
+uv run config.py
 sudo cp mihomo-clash-v4only.yaml /etc/mihomo/config.yaml
 
 sudo mihomo -t -d /etc/mihomo
