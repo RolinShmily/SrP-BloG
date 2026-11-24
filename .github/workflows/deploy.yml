@@ -80,11 +80,10 @@ jobs:
       #   1. tsx scripts/fetch-fonts.ts               (self-hosted WOFF2 -> public/fonts/)
       #   2. tsx scripts/sync-post-assets.ts          (content/posts/** -> public/posts/**, no-op after the step above)
       #   3. tsx scripts/generate-og-image.ts         (Satori -> social cards for the site and every post)
-      #   4. tsx scripts/generate-third-party-licenses.ts
-      #   5. react-router build                       (prerender -> build/client/)
-      #   6. tsx scripts/build-pagefind.ts            (Rust-powered full-text search indexing)
-      #   7. tsx scripts/finalize-vite-build.ts       (404.html for Cloudflare, drop SPA fallback)
-      #   8. tsx scripts/verify-seo.ts
+      #   4. react-router build                       (prerender -> build/client/)
+      #   5. tsx scripts/build-pagefind.ts            (Rust-powered full-text search indexing)
+      #   6. tsx scripts/finalize-vite-build.ts       (404.html for Cloudflare, drop SPA fallback)
+      #   7. tsx scripts/verify-seo.ts
       - name: Build static export
         run: pnpm build
 

@@ -8,14 +8,13 @@
     "pnpm": ">=11"
   },
   "scripts": {
-    "dev": "tsx scripts/fetch-fonts.ts && tsx scripts/sync-post-assets.ts && tsx scripts/generate-og-image.ts --dev && tsx scripts/generate-third-party-licenses.ts && vite",
-    "build": "tsx scripts/fetch-fonts.ts && tsx scripts/sync-post-assets.ts && tsx scripts/generate-og-image.ts && tsx scripts/generate-third-party-licenses.ts && react-router build && tsx scripts/build-pagefind.ts && tsx scripts/finalize-vite-build.ts && tsx scripts/verify-seo.ts",
+    "dev": "tsx scripts/fetch-fonts.ts && tsx scripts/sync-post-assets.ts && tsx scripts/generate-og-image.ts --dev && vite",
+    "build": "tsx scripts/fetch-fonts.ts && tsx scripts/sync-post-assets.ts && tsx scripts/generate-og-image.ts && react-router build && tsx scripts/build-pagefind.ts && tsx scripts/finalize-vite-build.ts && tsx scripts/verify-seo.ts",
     "typecheck": "react-router typegen && tsc --noEmit",
     "lint": "eslint --ext .ts,.tsx --max-warnings 0 .",
     "fonts": "tsx scripts/fetch-fonts.ts",
     "sync-assets": "tsx scripts/sync-post-assets.ts",
     "pagefind": "tsx scripts/build-pagefind.ts",
-    "generate-licenses": "tsx scripts/generate-third-party-licenses.ts",
     "generate-og-image": "tsx scripts/generate-og-image.ts",
     "new-post": "node scripts/new-post.js",
     "verify-content": "tsx scripts/verify-content.ts",

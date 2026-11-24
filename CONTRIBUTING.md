@@ -1,8 +1,6 @@
 # 贡献指南
 
-感谢你有兴趣为 SrP-BloG 做出贡献。本文件约定贡献方式与验收标准；项目的架构、设计、开发与配置规范见 [docs/README.md](./docs/README.md)。
-
-> 参与本项目即表示你同意遵守 **[行为准则](./CODE_OF_CONDUCT.md)**（Contributor Covenant 2.1）：友善待人，尊重不同观点，不对他人进行人身攻击。
+感谢你有兴趣为 SrP-BloG 做出贡献。本文件约定贡献方式与验收标准；项目的架构、设计、开发与配置规范见 [开发规范](./docs/development.md) 与 [架构规范](./docs/architecture.md)。
 
 ## 可以贡献什么
 
@@ -27,7 +25,7 @@ pnpm install --ignore-scripts   # 一律不执行依赖生命周期脚本（供�
 pnpm dev                        # http://localhost:5173
 ```
 
-`pnpm dev` 会自动完成字体下载、文章资源同步、OG 卡片生成与第三方许可声明生成，无需手动执行。
+`pnpm dev` 会自动完成字体下载、文章资源同步与 OG 卡片生成，无需手动执行。
 
 首次启动会把自托管字体（约 5 MB）下载到 `public/fonts/`（已 gitignore），之后直接复用；需要强制刷新时运行 `pnpm fonts -- --force`。
 
@@ -56,9 +54,7 @@ CI 执行同样这几步，本地过了基本就能过。
 
 ## 许可
 
-本项目**分发的许可声明是构建期生成的**（见 README 的「第三方组件」一节），因此：
-
 - 你提交的**代码**以 [MIT](./LICENSE) 许可并入本项目。
 - 你提交的**文章与原创配图**以 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可并入本项目。
 - 提交即表示你有权以上述许可提供这些内容。**请勿提交你无权再许可的第三方素材**（他人截图、图片、字体、大段引文）。
-- **新增依赖前请先开 issue**：依赖会进入分发的许可声明与 `licenses/`，需要一并确认其许可族与版权行；若出现 `licenses/` 未收录的许可族，构建会直接失败。
+- **引入搬运源码或随站点分发的字体/运行时资产时**，请同步更新 [THIRD_PARTY_NOTICES](./THIRD_PARTY_NOTICES)。

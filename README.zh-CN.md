@@ -12,7 +12,7 @@
 
 <br>
 
-[English](README.md) | [简体中文](README_zh.md)
+[English](README.md) | [简体中文](README.zh-CN.md)
 
 </div>
 
@@ -77,10 +77,10 @@
 
 文档按关注点划分：
 
-- [架构规范](docs/architecture/README.md) — 渲染模型、构建管线、数据流与部署拓扑。
-- [设计规范](docs/design/README.md) — 视觉语言、字体、布局、动效与可访问性。
-- [开发规范](docs/development/README.md) — 环境、编码约定、内容流程与提交前检查。
-- [参考规范](docs/reference/README.md) — 命令、环境变量、站点配置与内容 schema。
+- [架构规范](docs/architecture.md) — 渲染模型、构建管线、数据流与部署拓扑。
+- [设计规范](docs/design.md) — 视觉语言、字体、布局、动效与可访问性。
+- [开发规范](docs/development.md) — 环境、编码约定、内容流程与提交前检查。
+- [参考规范](docs/reference.md) — 命令、环境变量、站点配置与内容 schema。
 - [截图目录](docs/screenshot/) — README 使用的界面截图。
 
 ---
@@ -89,18 +89,15 @@
 
 ```
 ├── content/              # 内容源：posts/ (文章)、friends/ (友链)、sponsors/ (赞助)
-├── docs/                 # 文档体系（架构/设计/开发/参考）与 README 截图
-├── public/               # 静态资源与自动生成的封面、字体、搜索索引、第三方声明
-├── scripts/              # 辅助脚本 (资源同步、搜索索引、第三方声明、内容校验等)
+├── docs/                 # 项目文档（架构/设计/开发/参考）与 README 截图
+├── public/               # 静态资源与自动生成的封面、字体、搜索索引
+├── scripts/              # 构建脚本 (资源同步、字体、OG 卡片、搜索索引、校验等)
 ├── services/cms/         # Sveltia CMS 的独立 GitHub OAuth 认证服务 (Cloudflare Workers)
 ├── services/upv/         # 可选的独立 PV/UV 统计服务 (Cloudflare Workers + D1)
 ├── src/                  # 核心源码 (router, components, config, i18n, lib)
-├── CODE_OF_CONDUCT.md    # 行为准则 (Contributor Covenant 2.1)
 ├── CONTRIBUTING.md       # 贡献指南 (友链、勘误、代码、提交前检查)
-├── SECURITY.md           # 安全政策与漏洞报告渠道
-├── LICENSE               # MIT 源码许可（保持原文，便于 GitHub 识别）
-├── licenses/             # 第三方许可证原文 (MIT/Apache-2.0/ISC/BSD/OFL-1.1/CC-BY-4.0)
-├── Notice.md             # 授权范围说明 (文章/字体/第三方不在 MIT 内)
+├── LICENSE               # MIT 源码许可
+├── THIRD_PARTY_NOTICES   # 第三方声明 (搬运源码、Web 字体、Pagefind 运行时)
 └── .github/workflows/    # CI/CD 自动化 (部署、IndexNow、友链校验)
 ```
 
@@ -217,30 +214,13 @@ npm run db:migrate:list             # 查看迁移状态
 }
 ```
 
-更多贡献方式（文章勘误、代码与界面改进）与提交前必须通过的检查见 **[CONTRIBUTING.md](./CONTRIBUTING.md)**；安全问题的报告渠道见 **[SECURITY.md](./SECURITY.md)**。
+更多贡献方式（文章勘误、代码与界面改进）与提交前必须通过的检查见 **[CONTRIBUTING.md](./CONTRIBUTING.md)**。
 
 ---
 
 ## 📄 开源协议与致谢
 
-- 博客源码基于 **[MIT License](./LICENSE)** 开源；授权范围见 **[授权范围说明](./Notice.md)** —— 文章内容、Web 字体与第三方组件不在 MIT 范围内。
-- 博客原创文章与内容采用 **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)** 许可。
-- 参考并致谢（界面设计参考，未搬运源码）：[cworld1/astro-theme-pure](https://github.com/cworld1/astro-theme-pure)（Apache-2.0）、[Dancncn/DansBlog](https://github.com/Dancncn/DansBlog)（MIT）、[antfu/antfu.me](https://github.com/antfu/antfu.me)（MIT）。
-
-### 第三方组件
-
-随站点分发的第三方代码由 [`scripts/generate-third-party-licenses.ts`](./scripts/generate-third-party-licenses.ts) 在构建期生成声明到 `public/third-party-licenses.txt`（即 [`/third-party-licenses.txt`](/third-party-licenses.txt)），逐包携带上游版权行与全部许可原文；原文另存于 [`licenses/`](./licenses/)。仅构建期出现、不随产物分发的组件（`devDependencies`、`sharp`/libvips 等平台二进制、`caniuse-lite` 这类构建期数据）不触发分发义务，不在声明之列。
-
-### Web 字体（OFL-1.1，随产物分发）
-
-字体是本站唯一以二进制形式分发的第三方作品，OFL-1.1 第 2 条要求每一份副本都包含版权声明与本许可证，故必须署名：
-
-| 字体 | 用途 | 版权行 |
-| --- | --- | --- |
-| [Inter](https://rsms.me/inter/) | 英文正文 | Copyright (c) 2016-2023 The Inter Project Authors |
-| [JetBrains Mono](https://www.jetbrains.com/lp/mono/) | 代码块与 UI 界面的西文/数字 | Copyright (c) 2020 The JetBrains Mono Authors |
-| [Noto Sans SC 思源黑体](https://fonts.google.com/noto/specimen/Noto+Sans+SC) | 全站中文（Google 与 Adobe 联合出品） | Copyright (c) 2014-2025 Adobe, Google, and the Noto Project Authors |
-| [Instrument Serif](https://fonts.google.com/specimen/Instrument+Serif) | 品牌展示衬线 | Copyright (c) 2022 The Instrument Serif Project Authors |
-| **KaTeX 字体**（20 款 × `ttf`/`woff`/`woff2` = 60 个文件） | 数学公式渲染，随 `katex/dist/katex.min.css` 分发 | Copyright (c) 2009-2010, Design Science, Inc. (www.mathjax.org)；Copyright (c) 2014 Khan Academy — **with Reserved Font Name `KaTeX_Main`** 等 |
-
-KaTeX 字体随 `katex` 包发布（该包声明 MIT），但字体二进制依自身元数据以 OFL-1.1 授权（上游确认：[KaTeX/KaTeX#339](https://github.com/KaTeX/KaTeX/issues/339)），故在此显式登记。
+- **源代码**（`src/`、`scripts/`、`services/upv/`、构建与部署配置及文档）：**[MIT License](./LICENSE)**。
+- **原创文章与媒体**（`content/**` 及 `public/` 下的原创素材）：**[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)**；站点名称、域名、头像与品牌标识不在 MIT 授权范围内。
+- **第三方代码与分发资产**（改写的 `sveltia-cms-auth`、OFL-1.1 Web 字体与 Pagefind 运行时）：见 **[THIRD_PARTY_NOTICES](./THIRD_PARTY_NOTICES)**。
+- **界面参考与致谢**（仅设计参考，未搬运源码）：[cworld1/astro-theme-pure](https://github.com/cworld1/astro-theme-pure)（Apache-2.0）、[Dancncn/DansBlog](https://github.com/Dancncn/DansBlog)（MIT）、[antfu/antfu.me](https://github.com/antfu/antfu.me)（MIT）。

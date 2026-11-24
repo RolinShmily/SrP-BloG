@@ -1,0 +1,27 @@
+name: Feature
+description: Propose a new feature, UI improvement, or workflow enhancement
+title: "[feat] "
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        SrP-BloG is a fully static site (`ssr: false`, no server runtime) — see
+        [architecture.md](https://github.com/RolinShmily/SrP-BloG/blob/main/docs/architecture.md)
+        for project boundaries.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem & proposal
+      description: What problem are you solving, and how should it work?
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Affected area / dependencies (optional)
+      description: Relevant pages, build scripts, services (`cms` / `upv`), or external packages.
+    validations:
+      required: false

@@ -6,8 +6,8 @@
 
 | 命令 | 实际脚本 | 说明 |
 | --- | --- | --- |
-| `pnpm dev` | `fetch-fonts` → `sync-assets` → `generate-og-image --dev` → `generate-licenses` → `vite` | 开发服务器，默认 `http://localhost:5173` |
-| `pnpm build` | `fetch-fonts` → `sync-assets` → `generate-og-image` → `generate-licenses` → `react-router build` → `build-pagefind` → `finalize-vite-build` → `verify-seo` | 完整静态构建，输出 `build/client/` |
+| `pnpm dev` | `fetch-fonts` → `sync-assets` → `generate-og-image --dev` → `vite` | 开发服务器，默认 `http://localhost:5173` |
+| `pnpm build` | `fetch-fonts` → `sync-assets` → `generate-og-image` → `react-router build` → `build-pagefind` → `finalize-vite-build` → `verify-seo` | 完整静态构建，输出 `build/client/` |
 | `pnpm typecheck` | `react-router typegen && tsc --noEmit` | 先补全路由类型再检查 |
 | `pnpm lint` | `eslint --ext .ts,.tsx --max-warnings 0 .` | 零警告 |
 | `pnpm verify-content` | `tsx scripts/verify-content.ts` | 内容/排序/i18n/SEO helper 等 85 项校验 |
@@ -17,7 +17,6 @@
 | `pnpm sync-assets` | `tsx scripts/sync-post-assets.ts` | 同步文章资源与缩略图 |
 | `pnpm pagefind` | `tsx scripts/build-pagefind.ts` | 重建搜索索引 |
 | `pnpm generate-og-image` | `tsx scripts/generate-og-image.ts` | 生成站点/文章社交卡片 |
-| `pnpm generate-licenses` | `tsx scripts/generate-third-party-licenses.ts` | 生成第三方许可声明 |
 | `pnpm new-post -- <slug>` | `node scripts/new-post.js <slug>` | 创建草稿文章目录 |
 
 脚本可接受目录参数的情况：
@@ -48,7 +47,7 @@ tsx scripts/verify-seo.ts build/client
 
 ### 2.3 站长平台与 IndexNow
 
-在 [`src/config/site.ts`](../../src/config/site.ts) 的 `siteConfig.seo` 中配置：
+在 [`src/config/site.ts`](../src/config/site.ts) 的 `siteConfig.seo` 中配置：
 
 | 字段 | 作用 |
 | --- | --- |
@@ -129,7 +128,7 @@ IndexNow key 是公开验证值，不是密钥；对应文件必须随站点发�
 
 ## 4. 站点配置
 
-[`src/config/site.ts`](../../src/config/site.ts) 是唯一站点配置入口，按注释分为以下区段：
+[`src/config/site.ts`](../src/config/site.ts) 是唯一站点配置入口，按注释分为以下区段：
 
 | 区段 | 关键字段 | 说明 |
 | --- | --- | --- |
@@ -158,7 +157,6 @@ IndexNow key 是公开验证值，不是密钥；对应文件必须随站点发�
 | `public/og/og.png` | `/og/og.png` | `generate-og-image.ts` | 是 |
 | `public/fonts/**` | `/fonts/**` | `fetch-fonts.ts` | 否 |
 | `public/pagefind/**` | `/pagefind/**` | `build-pagefind.ts` | 否 |
-| `public/third-party-licenses.txt` | `/third-party-licenses.txt` | `generate-third-party-licenses.ts` | 否 |
 | `public/admin/**` | `/admin/**` | 手工维护 | 是 |
 | `public/<indexnow-key>.txt` | `/<key>.txt` | 手工维护 | 是 |
 
@@ -168,21 +166,21 @@ IndexNow key 是公开验证值，不是密钥；对应文件必须随站点发�
 
 | 主题 | 文件 |
 | --- | --- |
-| 路由表 | [`src/router/routes.ts`](../../src/router/routes.ts) |
-| 预渲染配置 | [`react-router.config.ts`](../../react-router.config.ts) |
-| 根文档 / 全局注入 | [`src/router/root.tsx`](../../src/router/root.tsx) |
-| SEO helper | [`src/router/seo.ts`](../../src/router/seo.ts) |
-| 站点配置 | [`src/config/site.ts`](../../src/config/site.ts) |
-| 内容类型 | [`src/lib/content/types.ts`](../../src/lib/content/types.ts) |
-| 内容提供者 | [`src/lib/content/provider.ts`](../../src/lib/content/provider.ts) |
-| Markdown 管线 | [`src/lib/content/markdown.ts`](../../src/lib/content/markdown.ts) |
-| 导航适配层 | [`src/lib/navigation/react-router.tsx`](../../src/lib/navigation/react-router.tsx) |
-| 搜索客户端 | [`src/lib/pagefind.ts`](../../src/lib/pagefind.ts) |
-| 设计令牌 | [`src/styles/globals.css`](../../src/styles/globals.css) |
-| 字体变量 | [`src/styles/fonts.css`](../../src/styles/fonts.css) |
-| 构建脚本 | [`scripts/`](../../scripts/) |
-| 部署配置 | [`wrangler.jsonc`](../../wrangler.jsonc) |
-| CI | [`.github/workflows/`](../../.github/workflows/) |
+| 路由表 | [`src/router/routes.ts`](../src/router/routes.ts) |
+| 预渲染配置 | [`react-router.config.ts`](../react-router.config.ts) |
+| 根文档 / 全局注入 | [`src/router/root.tsx`](../src/router/root.tsx) |
+| SEO helper | [`src/router/seo.ts`](../src/router/seo.ts) |
+| 站点配置 | [`src/config/site.ts`](../src/config/site.ts) |
+| 内容类型 | [`src/lib/content/types.ts`](../src/lib/content/types.ts) |
+| 内容提供者 | [`src/lib/content/provider.ts`](../src/lib/content/provider.ts) |
+| Markdown 管线 | [`src/lib/content/markdown.ts`](../src/lib/content/markdown.ts) |
+| 导航适配层 | [`src/lib/navigation/react-router.tsx`](../src/lib/navigation/react-router.tsx) |
+| 搜索客户端 | [`src/lib/pagefind.ts`](../src/lib/pagefind.ts) |
+| 设计令牌 | [`src/styles/globals.css`](../src/styles/globals.css) |
+| 字体变量 | [`src/styles/fonts.css`](../src/styles/fonts.css) |
+| 构建脚本 | [`scripts/`](../scripts/) |
+| 部署配置 | [`wrangler.jsonc`](../wrangler.jsonc) |
+| CI | [`.github/workflows/`](../.github/workflows/) |
 
 ## 7. 外部参考
 

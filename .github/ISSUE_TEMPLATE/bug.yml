@@ -1,0 +1,33 @@
+name: Bug
+description: Report broken behaviour, layout issues, or build regressions
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Never paste real Cloudflare tokens, OAuth secrets, or `.env` values.
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Page URL, user action, or `pnpm` command (`pnpm dev` / `pnpm build` / `pnpm verify-content`).
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Expected vs actual behaviour
+      description: Include screenshots, browser console errors, or terminal output if available.
+    validations:
+      required: true
+
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: Browser & OS (for UI issues), or OS, Node.js, and pnpm versions (for build/dev issues).
+    validations:
+      required: true

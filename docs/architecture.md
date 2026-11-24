@@ -44,7 +44,7 @@ SrP-BloG 是一个**完全静态预渲染**的个人技术博客，没有服务�
 
 ### 3.1 路由表
 
-路由在 [`src/router/routes.ts`](../../src/router/routes.ts) 中显式声明，`appDirectory` 为 `src/router`（见 [`react-router.config.ts`](../../react-router.config.ts)）。
+路由在 [`src/router/routes.ts`](../src/router/routes.ts) 中显式声明，`appDirectory` 为 `src/router`（见 [`react-router.config.ts`](../react-router.config.ts)）。
 
 | 路径 | 模块 | 说明 |
 | --- | --- | --- |
@@ -64,7 +64,7 @@ SrP-BloG 是一个**完全静态预渲染**的个人技术博客，没有服务�
 
 ### 3.2 预渲染
 
-[`react-router.config.ts`](../../react-router.config.ts) 中：
+[`react-router.config.ts`](../react-router.config.ts) 中：
 
 - `ssr: false`：不启动生产服务器，所有页面由预渲染产生。
 - `prerender({ getStaticPaths })`：返回 `getStaticPaths()` 的静态路径，再追加：
@@ -82,8 +82,8 @@ SrP-BloG 是一个**完全静态预渲染**的个人技术博客，没有服务�
 
 只有 `.server.ts` 后缀的模块会被 React Router 从浏览器包中剥离：
 
-- [`src/router/content.server.ts`](../../src/router/content.server.ts) — 文章、标签、站点统计；
-- [`src/router/friends.server.ts`](../../src/router/friends.server.ts) — 友链与赞助。
+- [`src/router/content.server.ts`](../src/router/content.server.ts) — 文章、标签、站点统计；
+- [`src/router/friends.server.ts`](../src/router/friends.server.ts) — 友链与赞助。
 
 这些模块底层使用 `node:fs`，只能在 loader / 构建期调用。**不要把 `node:*`、文件系统、Markdown 渲染链引入客户端组件。** 客户端需要的纯数据应通过 loader 返回值传递。
 
@@ -108,7 +108,7 @@ content/
 
 ### 4.2 解析与排序
 
-[`src/lib/content/provider.ts`](../../src/lib/content/provider.ts) 负责：
+[`src/lib/content/provider.ts`](../src/lib/content/provider.ts) 负责：
 
 1. 递归扫描 `content/posts/**/index.{md,mdx}`；
 2. 用 `gray-matter` 拆分 frontmatter 与正文；
@@ -121,7 +121,7 @@ content/
 
 ### 4.3 Markdown 渲染
 
-[`src/lib/content/markdown.ts`](../../src/lib/content/markdown.ts) 的管线顺序：
+[`src/lib/content/markdown.ts`](../src/lib/content/markdown.ts) 的管线顺序：
 
 ```text
 remark-parse → remark-gfm → remark-math
@@ -144,7 +144,7 @@ remark-parse → remark-gfm → remark-math
 
 ### 4.4 文章资源同步
 
-[`scripts/sync-post-assets.ts`](../../scripts/sync-post-assets.ts) 在 `pnpm dev` / `pnpm build` 开头运行：
+[`scripts/sync-post-assets.ts`](../scripts/sync-post-assets.ts) 在 `pnpm dev` / `pnpm build` 开头运行：
 
 - 复制 `content/posts/**` 下除 Markdown、隐藏文件外的所有资源到 `public/posts/**`；
 - 对 `.png/.jpg/.jpeg/.webp` 生成同目录 `<name>.thumb.webp`（768px，`sharp`），用于列表卡片；
@@ -161,7 +161,6 @@ remark-parse → remark-gfm → remark-math
 | `public/og/og.png` | `generate-og-image.ts` | 是（站点默认卡片） |
 | `public/fonts/**` | `fetch-fonts.ts` | 否 |
 | `public/pagefind/**` | `build-pagefind.ts` | 否 |
-| `public/third-party-licenses.txt` | `generate-third-party-licenses.ts` | 否 |
 | `build/client/**` | `react-router build` + 后处理 | 否 |
 
 `public/` 采用**denylist**：只有上面这些派生目录被忽略，其余路径（favicon、赞助图、搜索引擎验证文件、`admin/`）都是源文件，路径本身即 URL。
@@ -175,17 +174,16 @@ remark-parse → remark-gfm → remark-math
 | 1 | `scripts/fetch-fonts.ts` | 下载/复用四套字体到 `public/fonts/`，生成 `font-faces.css` 与 `manifest.json` |
 | 2 | `scripts/sync-post-assets.ts` | 文章资源镜像与卡片缩略图 |
 | 3 | `scripts/generate-og-image.ts` | 站点与每篇文章的 1200×630 社交卡片 |
-| 4 | `scripts/generate-third-party-licenses.ts` | `public/third-party-licenses.txt` |
-| 5 | `react-router build` | 预渲染到 `build/client/` |
-| 6 | `scripts/build-pagefind.ts` | 索引 `build/client/`，复制搜索包到 `public/pagefind/` 供本地 dev |
-| 7 | `scripts/finalize-vite-build.ts` | 生成 `404.html`，删除 `__spa-fallback.html` |
-| 8 | `scripts/verify-seo.ts` | 审计导出的 HTML、canonical、sitemap、JSON-LD 与图片 alt |
+| 4 | `react-router build` | 预渲染到 `build/client/` |
+| 5 | `scripts/build-pagefind.ts` | 索引 `build/client/`，复制搜索包到 `public/pagefind/` 供本地 dev |
+| 6 | `scripts/finalize-vite-build.ts` | 生成 `404.html`，删除 `__spa-fallback.html` |
+| 7 | `scripts/verify-seo.ts` | 审计导出的 HTML、canonical、sitemap、JSON-LD 与图片 alt |
 
-`pnpm dev` 只执行 1、2、3（`--dev`）、4，然后启动 Vite；Pagefind 不在 dev 中重建，Vite 中间件会在 `public/pagefind/pagefind.js` 存在时直接提供它。**首次本地搜索需要先跑过一次 `pnpm build`。**
+`pnpm dev` 只执行 1、2、3（`--dev`），然后启动 Vite；Pagefind 不在 dev 中重建，Vite 中间件会在 `public/pagefind/pagefind.js` 存在时直接提供它。**首次本地搜索需要先跑过一次 `pnpm build`。**
 
 ## 6. 客户端运行时
 
-根文档 [`src/router/root.tsx`](../../src/router/root.tsx) 负责：
+根文档 [`src/router/root.tsx`](../src/router/root.tsx) 负责：
 
 - `<head>`：meta、字体 CSS、全局样式、RSS alternate、站长验证 meta、语言预置脚本；
 - `<body>`：主题、语言、环境艺术、进度条、导航、页面过渡、页脚、回到顶部、图片预览、搜索对话框；
@@ -208,7 +206,7 @@ remark-parse → remark-gfm → remark-math
 
 React Router 的 meta 语义是**最深匹配路由的 `meta` 覆盖父级**，因此每个页面模块必须返回完整描述符，不能依赖根路由补齐。统一入口：
 
-- [`src/router/seo.ts`](../../src/router/seo.ts)：`pageMeta()`、`postMeta()`、`articleJsonLd()`；
+- [`src/router/seo.ts`](../src/router/seo.ts)：`pageMeta()`、`postMeta()`、`articleJsonLd()`；
 - 根路由只服务无独立 `meta` 的错误边界等场景。
 
 约定：
@@ -224,25 +222,25 @@ RSS、Sitemap、robots 都是资源路由：loader 返回 `Response`，预渲染
 
 ## 8. 搜索
 
-- [`scripts/build-pagefind.ts`](../../scripts/build-pagefind.ts) 在 `react-router build` 之后对 `build/client/` 建索引；
+- [`scripts/build-pagefind.ts`](../scripts/build-pagefind.ts) 在 `react-router build` 之后对 `build/client/` 建索引；
 - 索引产物同时复制到 `public/pagefind/`，让 Vite dev 能提供同一份搜索包；
-- [`src/lib/pagefind.ts`](../../src/lib/pagefind.ts) 在浏览器中动态 `import("/pagefind/pagefind.js")`，用 `@vite-ignore` 避免打包器把 public 文件纳入依赖图；
+- [`src/lib/pagefind.ts`](../src/lib/pagefind.ts) 在浏览器中动态 `import("/pagefind/pagefind.js")`，用 `@vite-ignore` 避免打包器把 public 文件纳入依赖图；
 - 文章正文容器标记 `data-pagefind-body`，确保只索引正文而不是导航/页脚；
 - 索引重建后若 dev server 仍在运行，Vite 对 public 目录的文件清单可能已过期，**重启 dev server** 即可。
 
 ## 9. 字体
 
-- [`scripts/fetch-fonts.ts`](../../scripts/fetch-fonts.ts) 使用 Chrome UA 请求 Google Fonts CSS，解析所有 `@font-face`，下载 WOFF2 切片并生成：
+- [`scripts/fetch-fonts.ts`](../scripts/fetch-fonts.ts) 使用 Chrome UA 请求 Google Fonts CSS，解析所有 `@font-face`，下载 WOFF2 切片并生成：
   - `public/fonts/font-faces.css`（同源 URL + `unicode-range` + `font-display: swap`）；
   - `public/fonts/manifest.json`（来源列表、文件数、字节数）。
 - 文件名带内容哈希；整批下载先写入临时目录，成功后原子替换旧目录。
 - 缓存完整时完全跳过网络；`pnpm fonts -- --force` 强制刷新。
 - 根文档先加载 `font-faces.css`，再加载 `globals.css`，最后加载 `fonts.css` 提供的字体变量。
-- 四个家族：Inter（拉丁正文）、Noto Sans SC（中文）、JetBrains Mono（代码/元信息）、Instrument Serif（品牌展示）。字体二进制随站点分发，OFL-1.1 署名见 [Notice](../../Notice.md) 与构建期 `third-party-licenses.txt`。
+- 四个家族：Inter（拉丁正文）、Noto Sans SC（中文）、JetBrains Mono（代码/元信息）、Instrument Serif（品牌展示）。字体二进制随站点分发，OFL-1.1 署名见 [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES)。
 
 ## 10. 部署拓扑
 
-[`wrangler.jsonc`](../../wrangler.jsonc)：
+[`wrangler.jsonc`](../wrangler.jsonc)：
 
 - `assets.directory = "./build/client"`；
 - `not_found_handling = "404-page"`；
@@ -271,7 +269,7 @@ CI（`.github/workflows/`）：
 5. **生成物不提交**：`public/` 下派生目录由构建重建；新增生成目录必须同步 `.gitignore`。
 6. **字体同源**：运行时不请求 `fonts.googleapis.com` / `fonts.gstatic.com`。
 7. **双语键一致**：`src/i18n/zh.ts` 与 `en.ts` 结构一致，由 `verify-content` 断言。
-8. **依赖许可可声明**：新增生产依赖前确认许可族已被 `licenses/` 覆盖，否则构建失败。
+8. **第三方声明同步**：新增搬运源码或随站点分发的字体/运行时资产时，同步更新 [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES)。
 9. **静态输出布局固定**：`build/client/`、`404.html`、无 SPA fallback。
 
 ## 12. 扩展路径
@@ -281,7 +279,7 @@ CI（`.github/workflows/`）：
 | 新增静态页面 | 在 `src/router/routes/` 新建模块 → 在 `routes.ts` 注册 → 导出 `loader`/`meta`（用 `pageMeta`）→ 静态路径自动进入 `getStaticPaths()` |
 | 新增文章 | `pnpm new-post -- <slug>` → 编辑 `content/posts/<slug>/index.md` → 同目录放图片 → `pnpm verify-content` |
 | 新增构建产物 | 新脚本 → 接入 `package.json` 的 `dev`/`build` → 加 `.gitignore` → 更新本文与参考文档 |
-| 新增字体 | 在 `fetch-fonts.ts` 的 `REQUESTS` 增加家族 → 在 `fonts.css` 增加变量 → 更新 `Notice.md` 与许可脚本的 `WEB_FONTS` |
+| 新增字体 | 在 `fetch-fonts.ts` 的 `REQUESTS` 增加家族 → 在 `fonts.css` 增加变量 → 更新 [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES) |
 | 新增可选服务 | 在 `src/config/site.ts` 增加开关与配置 → 组件内按开关渲染 → 保证未配置时静默降级 |
 
-相关实现：[React Router 路由配置](../../react-router.config.ts)、[构建脚本目录](../../scripts/)、[CI 工作流](../../.github/workflows/)。
+相关实现：[React Router 路由配置](../react-router.config.ts)、[构建脚本目录](../scripts/)、[CI 工作流](../.github/workflows/)。

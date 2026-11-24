@@ -30,9 +30,6 @@ dist/
 # scripts/sync-post-assets.ts — mirror of the co-located assets in content/posts/**
 public/posts/
 
-# scripts/generate-third-party-licenses.ts — third-party notices shipped with the site
-public/third-party-licenses.txt
-
 # scripts/build-pagefind.ts — client-side full-text search indexes
 public/pagefind/
 

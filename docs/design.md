@@ -82,7 +82,7 @@
 
 `--font-sans` 的顺序是 `Inter → Noto Sans SC → 系统回退`，实现逐字形回退：拉丁字符走 Inter，汉字走 Noto Sans SC。`--font-mono` 同理，汉字回退到 Noto Sans SC，再回退到系统等宽字体。
 
-字体全部由本站同源提供（构建期生成 `public/fonts/`），**不得在运行时引入 Google Fonts 外链**。新增字体家族需要同时更新抓取脚本、变量、许可声明与 Notice，见 [架构规范 · 字体](../architecture/README.md#9-字体)。
+字体全部由本站同源提供（构建期生成 `public/fonts/`），**不得在运行时引入 Google Fonts 外链**。新增字体家族需要同时更新抓取脚本、变量与 [THIRD_PARTY_NOTICES](../THIRD_PARTY_NOTICES)，见 [架构规范 · 字体](./architecture.md#9-字体)。
 
 ### 3.2 排版规则
 
@@ -219,7 +219,7 @@
 
 ## 10. 视觉基线
 
-[`screenshot/`](../screenshot/) 保存当前界面基线，README 与设计评审都以这些图为准：
+[`screenshot/`](./screenshot/) 保存当前界面基线，README 与设计评审都以这些图为准：
 
 | 文件 | 页面 / 状态 | 重点检查 |
 | --- | --- | --- |
@@ -232,7 +232,7 @@
 | `search.webp` | 搜索 | 高亮、结果密度 |
 | `home-mobile.webp` | 首页，手机 | 单列卡片、导航收合 |
 
-替换截图时保留同名文件，并确认 README 与本文引用无需改动。
+更新截图约定：统一使用 WebP，桌面建议 1280px 级、手机建议 360–390px 级，替换时保留同名文件（避免 README 与本文链接失效），且不要截入个人隐私或本地路径。
 
 ## 11. 新增 UI 检查清单
 
