@@ -67,7 +67,8 @@ apt install ufw
 ```zsh
 # 放行22、2222/tcp端口
 ufw allow 22/tcp
-ufw allow 2222/tcp
+# 添加注释
+ufw allow 2222/tcp comment "自定义ssh端口"
 # 默认拒绝入站，允许出站
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
