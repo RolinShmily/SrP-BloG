@@ -372,6 +372,22 @@ sudo headscale nodes approve-routes --identifier 1 --routes 192.168.22.0/24
 
 更多关于Headscale与tailscale可以看这篇：[tailscale与headscale协同组网并启用derp中继](https://blog.srprolin.com/posts/56-tail-headscale/)
 
+# Mihomo
+
+在Pi-Hole中可以把DNS改成本地Mihomo代理的DNS服务器，例如**127.0.0.1#2053**，然后取消掉最开始加的那个路由规则：
+```zsh
+# 关闭最开始的路由规则
+sudo nmcli connection modify br-lan -ipv4.routing-rules "priority 100 iif br-lan table 254"
+# 放行Mihomo-Tun模式的Meta网卡
+sudo firewall-cmd --permanent --zone=internal --add-interface=Meta
+# 允许转发
+sudo firewall-cmd --permanent --policy=lan-to-wan --add-egress-zone=internal
+# 重载网卡
+sudo nmcli connection up br-lan
+# 重载防火墙
+sudo firewall-cmd --reload
+```
+
 # Frp内网穿透
 
 关于frpc和frps的安装部署可以看这篇：[Frp 内网穿透搭建教程：VPS 服务端与客户端配置]（https://blog.srprolin.com/posts/13-frp-1/） 此处不再赘述。
