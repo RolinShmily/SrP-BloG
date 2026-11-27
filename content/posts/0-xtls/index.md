@@ -185,7 +185,7 @@ sudo mihomo -t -d /etc/mihomo
 sudo systemctl enable --now mihomo
 
 # API
-curl -i -H "Authorization: Bearer <Secret>" http://127.0.0.1:9090/version
+curl -i -H "Authorization: Bearer <Secret>" http://127.0.0.1:9091/version
 # UI
-curl -s -D - -o /dev/null http://127.0.0.1:9090/ui/
+curl -s -D - -o /dev/null http://127.0.0.1:9091/ui/
 ```
