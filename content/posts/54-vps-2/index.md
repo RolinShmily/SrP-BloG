@@ -70,7 +70,7 @@ ufw allow 22/tcp
 ufw allow 2222/tcp
 # 默认拒绝入站，允许出站
 sudo ufw default deny incoming
-sudo ufw default allow outcoming
+sudo ufw default allow outgoing
 # 启动ufw
 ufw enable
 # 查看状态
