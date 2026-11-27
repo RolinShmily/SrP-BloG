@@ -157,11 +157,11 @@ sing-box generate uuid
 sing-box generate rand --hex 8
 
 mkdir ~/singbox-server
-curl -fsSLO https://gh-proxy.org/https://raw.githubusercontent.com/RolinShmily/sub-rule/refs/heads/main/.custom/server/server_v4only.json
-curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/config.py
-vim config.py
-uv run config.py
-sudo cp server_v4only.json /etc/sing-box/config.json
+curl -fsSLO https://gh-proxy.org/https://raw.githubusercontent.com/RolinShmily/tunnel/refs/heads/main/server/sing-box.json
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/tunnel/raw/refs/heads/main/scripts/config-batch.py
+vim config-batch.py
+python3 config-batch.py -t sing-box.json
+sudo cp sing-box.json /etc/sing-box/config.json
 
 sing-box check -c /etc/sing-box/config.json
 sudo systemctl enable --now sing-box
@@ -175,11 +175,11 @@ curl -LO https://github.com/MetaCubeX/mihomo/releases/download/v1.19.33/mihomo-l
 sudo apt install ./mihomo-linux-amd64-v3-*.deb
 
 mkdir ~/mihomo-client
-curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/client/mihomo-clash-v4only.yaml
-curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/.custom/config.py
-vim config.py
-uv run config.py
-sudo cp mihomo-clash-v4only.yaml /etc/mihomo/config.yaml
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/tunnel/raw/refs/heads/main/client/mihomo-clash.yaml
+curl -fsSLO https://gh-proxy.org/https://github.com/RolinShmily/sub-rule/raw/refs/heads/main/scripts/config-batch.py
+vim config-batch.py
+python3 config-batch.py -t mihomo-clash.yaml
+sudo cp mihomo-clash.yaml /etc/mihomo/config.yaml
 
 sudo mihomo -t -d /etc/mihomo
 sudo systemctl enable --now mihomo
